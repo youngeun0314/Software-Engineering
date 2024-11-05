@@ -26,6 +26,8 @@ public class OrderEntity {
 
     private LocalTime pickUp;
 
+    private boolean payment = false;
+
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderMenuEntity> orderMenuOptions;
 
