@@ -22,6 +22,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "b4b321ae-1f38-42a3-80ec-b9b7f7ff5852"
+      }
+    },
+    "owner": "psbiny"
   }
 }
