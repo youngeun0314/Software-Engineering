@@ -18,7 +18,7 @@ import java.util.Map;
 public class PayService {
 
     public PayReadyResponse payReady(String name, int totalPrice){
-        Map<String, String> parameters = getParameters(name, totalPrice);
+        Map<String, String> parameters = getParamsForReady(name, totalPrice);
 
         HttpEntity<Map<String, String>> requestEntity = new HttpEntity<>(parameters, this.getHeaders());
 
@@ -30,14 +30,7 @@ public class PayService {
     }
 
     public PayApproveResponse payApprove(String tid, String pgToken){
-        Map<String, String> parameters = new HashMap<>();
-        parameters.put("cid", "TC0ONETIME");              // 가맹점 코드(테스트용)
-        parameters.put("tid", tid);                       // 결제 고유번호
-        parameters.put("partner_order_id", "1234567890"); // 주문번호
-        parameters.put("partner_user_id", "roommake");    // 회원 아이디
-        parameters.put("pg_token", pgToken);              // 결제승인 요청을 인증하는 토큰
-
-        HttpEntity<Map<String, String>> requestEntity = new HttpEntity<>(parameters, this.getHeaders());
+        HttpEntity<Map<String, String>> requestEntity = getParamsForApprove(tid, pgToken);
 
         RestTemplate template = new RestTemplate();
         String url = "https://open-api.kakaopay.com/online/v1/payment/ready";
@@ -47,7 +40,18 @@ public class PayService {
         return approveResponse;
     }
 
-    private Map<String, String> getParameters(String name, int totalPrice){
+    private HttpEntity<Map<String, String>> getParamsForApprove(String tid, String pgToken) {
+        Map<String, String> parameters = new HashMap<>();
+        parameters.put("cid", "TC0ONETIME");              // 가맹점 코드(테스트용)
+        parameters.put("tid", tid);                       // 결제 고유번호
+        parameters.put("partner_order_id", "1234567890"); // 주문번호
+        parameters.put("partner_user_id", "roommake");    // 회원 아이디
+        parameters.put("pg_token", pgToken);              // 결제승인 요청을 인증하는 토큰
+
+        return new HttpEntity<>(parameters, this.getHeaders());
+    }
+
+    private Map<String, String> getParamsForReady(String name, int totalPrice){
         Map<String, String> parameters = new HashMap<>();
         parameters.put("cid", "TC0ONETIME");                                    // 가맹점 코드(테스트용)
         parameters.put("partner_order_id", "1234567890");                       // 주문번호
