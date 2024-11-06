@@ -1,6 +1,5 @@
 package Irumping.IrumOrder.Service;
 
-import Irumping.IrumOrder.Dto.LoginDto;
 import Irumping.IrumOrder.Entity.UserEntity;
 import Irumping.IrumOrder.Repository.MockLoginRepository;
 
@@ -28,52 +27,44 @@ class AuthServiceTest {
     @Test
     void signUp() {
         // given
-        UserEntity user = new UserEntity("testId", "testPwd", "testEmail");
-
-        System.out.println(authService);
-
         // when
-        authService.signUp(user);
+        authService.signUp("testId", "testPwd", "testEmail");
         // then
-        assertThat(authService.login(new LoginDto("testId", "testPwd"))).isTrue();
+        assertThat(authService.login("testId", "testPwd")).isTrue();
     }
 
     @Test
-    void login_success() {
+    void loginSuccess() {
         // given
-        LoginDto loginDto = new LoginDto("testId", "testPwd");
-        authService.signUp(new UserEntity("testId", "testPwd", "testEmail"));
+        authService.signUp("testId", "testPwd", "testEmail");
 
         // when
-        boolean check = authService.login(loginDto);
+        boolean check = authService.login("testId", "testPwd");
 
         // then
         assertThat(check).isTrue();
     }
 
     @Test
-    void login_fail_wrong_password() {
+    void loginFailNoId() {
         // given
-        LoginDto loginDto = new LoginDto("testId", "testPwd");
-        authService.signUp(new UserEntity("testId", "testPwd", "testEmail"));
 
         // when
-        boolean check = authService.login(new LoginDto("testId", "wrongPwd"));
+        boolean check = authService.login("testId", "wrongPwd");
 
         // then
         assertThat(check).isFalse();
     }
 
-//    @Test
-//    void login_fail_wrong_id() {
-//        // given
-//        LoginDto loginDto = new LoginDto("testId", "testPwd");
-//        authService.signUp(new UserEntity("testId", "testPwd", "testEmail", "testName"));
-//
-//        // when
-//        boolean check = authService.login(new LoginDto("wrongId", "testPwd"));
-//
-//        // then
-//        assertThat(check).isFalse();
-//    }
+    @Test
+    void loginFailWrongPwd() {
+        // given
+        authService.signUp("testId", "testPwd", "testEmail");
+
+        // when
+        boolean check = authService.login("testId", "wrongPwd");
+
+        // then
+        assertThat(check).isFalse();
+    }
 }
