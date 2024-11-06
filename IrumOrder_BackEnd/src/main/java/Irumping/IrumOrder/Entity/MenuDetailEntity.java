@@ -5,6 +5,9 @@ import lombok.Getter;
 import lombok.Setter;
 import java.util.Objects;
 
+
+/*  데이터베이스에서 order_menu 테이블에서 참조하는 menudetails 테이블을 이용함    */
+
 @Getter
 @Setter
 @Entity
@@ -27,7 +30,6 @@ public class MenuDetailEntity {
     private MenuEntity menu;
 
     // Constructors
-    public MenuDetailEntity() {}
 
     public MenuDetailEntity(String useCup, boolean addShot, boolean addVanila, boolean addHazelnut, boolean light) {
         this.useCup = useCup;

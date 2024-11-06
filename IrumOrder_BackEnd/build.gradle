@@ -28,8 +28,6 @@ dependencies {
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
 	// lombok
-	compileOnly 'org.projectlombok:lombok'
-	annotationProcessor 'org.projectlombok:lombok'
 	compileOnly 'org.projectlombok:lombok:1.18.26' // 최신 버전으로 변경 가능
 	annotationProcessor 'org.projectlombok:lombok:1.18.26'
 	testCompileOnly 'org.projectlombok:lombok'

@@ -31,5 +31,16 @@ public class OrderEntity {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderMenuEntity> orderMenuOptions;
 
-    public OrderEntity(){}
+
+    public OrderEntity() {}
+
+    public OrderEntity(int userId, int totalPrice, String orderStatus, LocalTime pickUp) {
+        this.userId = userId;
+        this.totalPrice = totalPrice;
+        this.orderStatus = orderStatus;
+        this.pickUp = pickUp;
+//        this.payment = payment;
+        // totalPrice는 초기화하지 않음
+    }
+
 }

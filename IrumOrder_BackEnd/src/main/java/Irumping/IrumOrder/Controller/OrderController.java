@@ -5,6 +5,7 @@ import Irumping.IrumOrder.Dto.OrderRequestDto;
 import Irumping.IrumOrder.Dto.OrderResponseDto;
 import Irumping.IrumOrder.Entity.OrderEntity;
 import Irumping.IrumOrder.Service.OrderService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
+@Tag(name = "order")
 @RestController
 @RequestMapping("/orders")
 public class OrderController {
@@ -20,8 +23,8 @@ public class OrderController {
     private OrderService orderService;
 
     // 주문 생성
-    @PostMapping
-    public ResponseEntity<OrderResponseDto> create(@RequestBody OrderRequestDto orderRequestDto) {
+    @PostMapping("/{id}")
+    public @ResponseBody ResponseEntity<OrderResponseDto> create(@RequestBody OrderRequestDto orderRequestDto) {
         OrderEntity createdOrder = orderService.createOrder(orderRequestDto);
         if (createdOrder == null) {
             return ResponseEntity.badRequest().build();
