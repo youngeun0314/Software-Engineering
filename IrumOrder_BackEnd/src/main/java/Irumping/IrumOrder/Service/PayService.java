@@ -40,17 +40,6 @@ public class PayService {
         return approveResponse;
     }
 
-    private HttpEntity<Map<String, String>> getParamsForApprove(String tid, String pgToken, String user_id) {
-        Map<String, String> parameters = new HashMap<>();
-        parameters.put("cid", "TC0ONETIME");              // 가맹점 코드(테스트용)
-        parameters.put("tid", tid);                       // 결제 고유번호
-        parameters.put("partner_order_id", "1234567890"); // 주문번호
-        parameters.put("partner_user_id", user_id);    // 회원 아이디
-        parameters.put("pg_token", pgToken);              // 결제승인 요청을 인증하는 토큰
-
-        return new HttpEntity<>(parameters, this.getHeaders());
-    }
-
     private Map<String, String> getParamsForReady(String name, int totalPrice, String user_id){
         //TODO:하드코딩된부분 변수명 받아서->그걸 입력하는 형식으로 변경하기
         Map<String, String> parameters = new HashMap<>();
@@ -66,6 +55,17 @@ public class PayService {
         parameters.put("fail_url", "http://localhost:8080/order/pay/fail/");          // 결제 실패 시 URL
 
         return parameters;
+    }
+
+    private HttpEntity<Map<String, String>> getParamsForApprove(String tid, String pgToken, String user_id) {
+        Map<String, String> parameters = new HashMap<>();
+        parameters.put("cid", "TC0ONETIME");              // 가맹점 코드(테스트용)
+        parameters.put("tid", tid);                       // 결제 고유번호
+        parameters.put("partner_order_id", "1234567890"); // 주문번호
+        parameters.put("partner_user_id", user_id);    // 회원 아이디
+        parameters.put("pg_token", pgToken);              // 결제승인 요청을 인증하는 토큰
+
+        return new HttpEntity<>(parameters, this.getHeaders());
     }
 
     private HttpHeaders getHeaders(){
