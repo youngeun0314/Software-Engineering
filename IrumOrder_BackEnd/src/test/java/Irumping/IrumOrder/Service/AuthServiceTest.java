@@ -28,7 +28,7 @@ class AuthServiceTest {
     @Test
     void signUp() {
         // given
-        UserEntity user = new UserEntity("testId", "testPwd", "testEmail", "testName");
+        UserEntity user = new UserEntity("testId", "testPwd", "testEmail");
 
         System.out.println(authService);
 
@@ -42,7 +42,7 @@ class AuthServiceTest {
     void login_success() {
         // given
         LoginDto loginDto = new LoginDto("testId", "testPwd");
-        authService.signUp(new UserEntity("testId", "testPwd", "testEmail", "testName"));
+        authService.signUp(new UserEntity("testId", "testPwd", "testEmail"));
 
         // when
         boolean check = authService.login(loginDto);
@@ -55,7 +55,7 @@ class AuthServiceTest {
     void login_fail_wrong_password() {
         // given
         LoginDto loginDto = new LoginDto("testId", "testPwd");
-        authService.signUp(new UserEntity("testId", "testPwd", "testEmail", "testName"));
+        authService.signUp(new UserEntity("testId", "testPwd", "testEmail"));
 
         // when
         boolean check = authService.login(new LoginDto("testId", "wrongPwd"));

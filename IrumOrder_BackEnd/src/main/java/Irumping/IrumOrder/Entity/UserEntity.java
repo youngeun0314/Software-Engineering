@@ -10,12 +10,10 @@ public class UserEntity {
     private String id;
     private String password;
     private String email;
-    private String name;
 
-    public UserEntity(String id, String password, String email, String name) {
+    public UserEntity(String id, String password, String email) {
         this.id = id;
         this.password = password;
         this.email = email;
-        this.name = name;
     }
 }
