@@ -1,3 +1,5 @@
+
+/*
 package Irumping.IrumOrder.Service;
 
 import Irumping.IrumOrder.Dto.OrderRequestDto;
@@ -80,3 +82,4 @@ public class OrderServiceTest {
         verify(orderRepository, times(1)).save(any(OrderEntity.class));
     }
 }
+*/

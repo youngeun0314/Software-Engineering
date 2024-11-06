@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 public class MenuDetailDto {
 
-    private Boolean useCup;         // 컵 사용 여부
+    private String useCup;         // 컵 사용 여부
     private Boolean addShot;        // 샷 추가 여부
     private Boolean addVanilla;     // 바닐라 추가 여부
     private Boolean addHazelnut;    // 헤이즐넛 추가 여부

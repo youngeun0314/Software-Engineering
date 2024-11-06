@@ -7,7 +7,6 @@ import lombok.Setter;
 import java.util.Objects;
 
 @Getter
-@Setter
 @Entity
 public class MenuEntity {
 
@@ -26,11 +25,7 @@ public class MenuEntity {
     @OneToOne(mappedBy = "menu", cascade = CascadeType.ALL, orphanRemoval = true)
     private MenuDetailEntity menuDetail;
 
-    public MenuEntity(String name, int price, String category) {
-        this.name = name;
-        this.price = price;
-        this.category = category;
-    }
+    public MenuEntity() {}
 
     @Override
     public boolean equals(Object o) {
