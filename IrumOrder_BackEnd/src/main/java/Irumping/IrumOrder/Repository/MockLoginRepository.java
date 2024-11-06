@@ -17,7 +17,10 @@ public class MockLoginRepository implements UserRepository {
     }
 
     @Override
-    public String Password(String id) {
+    public String getPassword(String id) {
+        if (!mockDB.containsKey(id)) {
+            return null;
+        }
         return mockDB.get(id).getPassword();
     }
 
