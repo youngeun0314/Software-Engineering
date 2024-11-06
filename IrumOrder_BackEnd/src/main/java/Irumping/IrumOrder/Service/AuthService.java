@@ -14,7 +14,7 @@ public class AuthService {
 
     public void signUp(UserEntity user) {
         // valid 판단
-        repository.save(user.getId(), user.getPassword(), user.getEmail(), user.getName());
+        repository.save(user.getId(), user.getPassword(), user.getEmail());
     }
 
     public boolean login(LoginDto loginDto) {

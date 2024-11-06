@@ -7,5 +7,5 @@ public interface UserRepository {
 
     public String Password(String id);
 
-    public void save(String id, String password, String email, String name);
+    public void save(String id, String password, String email);
 }

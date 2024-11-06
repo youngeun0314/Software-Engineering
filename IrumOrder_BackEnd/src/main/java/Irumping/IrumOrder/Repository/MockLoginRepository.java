@@ -12,8 +12,8 @@ public class MockLoginRepository implements UserRepository {
     private Map<String, UserEntity> mockDB = new HashMap<>();
 
     @Override
-    public void save(String id, String password, String email, String name) {
-        mockDB.put(id, new UserEntity(id, password, email, name));
+    public void save(String id, String password, String email) {
+        mockDB.put(id, new UserEntity(id, password, email));
     }
 
     @Override

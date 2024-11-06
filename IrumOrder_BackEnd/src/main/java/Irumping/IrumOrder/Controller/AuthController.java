@@ -14,10 +14,10 @@ public class AuthController {
 
     private final AuthService authService;
 
-    public void signUp(String id, String password, String email, String name) {
-        UserEntity user = new UserEntity(id, password, email, name);
+    public void signUp(String id, String password, String email) {
+        UserEntity user = new UserEntity(id, password, email);
         authService.signUp(user);
-        log.info("{}님 회원가입 완료", name);
+        log.info("{}님 회원가입 완료", id);
     }
 
     public void login(String id, String password) {
