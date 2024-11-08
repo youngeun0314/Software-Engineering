@@ -1,18 +1,18 @@
 package Irumping.IrumOrder.validator;
 
-import Irumping.IrumOrder.Controller.SignUpRequest;
+import Irumping.IrumOrder.controller.SignUpRequest;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 public class UserValidator implements Validator {
 
     @Override
-    public boolean supports(Class<?> clazz) {
+    public boolean supports(Class<?> clazz) {   // 어떤 클래스를 검증할 것인지
         return SignUpRequest.class.equals(clazz);
     }
 
     @Override
-    public void validate(Object target, Errors errors) {
+    public void validate(Object target, Errors errors) {    // 검증 로직
         SignUpRequest request = (SignUpRequest) target;
 
         // id validation

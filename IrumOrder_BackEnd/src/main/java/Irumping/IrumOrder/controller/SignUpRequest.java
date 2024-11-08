@@ -1,4 +1,4 @@
-package Irumping.IrumOrder.Controller;
+package Irumping.IrumOrder.controller;
 
 public class SignUpRequest {
 

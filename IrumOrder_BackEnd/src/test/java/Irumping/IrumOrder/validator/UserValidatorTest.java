@@ -1,7 +1,6 @@
 package Irumping.IrumOrder.validator;
 
-import Irumping.IrumOrder.Controller.SignUpRequest;
-import Irumping.IrumOrder.validator.UserValidator;
+import Irumping.IrumOrder.controller.SignUpRequest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
