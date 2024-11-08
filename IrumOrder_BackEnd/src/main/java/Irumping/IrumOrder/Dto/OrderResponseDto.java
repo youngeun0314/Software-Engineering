@@ -14,5 +14,6 @@ public class OrderResponseDto {
     private int totalPrice; // 주문 총 가격
     private String orderStatus; // 주문 상태
     private LocalTime pickUp; // 픽업 시간
+    private boolean payment;
     private List<OrderMenuDto> orderMenuOptions; // 주문 내 메뉴와 옵션 목록
 }

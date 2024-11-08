@@ -11,6 +11,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @Entity
+@Table(name = "menuDetails")
 public class MenuDetailEntity {
 
     @Id

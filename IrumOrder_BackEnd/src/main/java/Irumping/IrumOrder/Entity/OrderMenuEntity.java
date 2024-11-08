@@ -10,7 +10,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @Entity
-@Table(name = "order_menu")
+@Table(name = "orderMenu")
 public class OrderMenuEntity {
 
     @EmbeddedId

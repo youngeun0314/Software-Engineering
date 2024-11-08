@@ -8,6 +8,7 @@ import java.util.Objects;
 
 @Getter
 @Entity
+@Table(name = "menu")
 public class MenuEntity {
 
     @Id
