@@ -1,4 +1,4 @@
-package Irumping.IrumOrder.Repository;
+package Irumping.IrumOrder.repository;
 
 public interface UserRepository {
 

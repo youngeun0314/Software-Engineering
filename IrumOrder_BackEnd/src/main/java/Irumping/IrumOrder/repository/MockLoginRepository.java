@@ -1,6 +1,6 @@
-package Irumping.IrumOrder.Repository;
+package Irumping.IrumOrder.repository;
 
-import Irumping.IrumOrder.Entity.UserEntity;
+import Irumping.IrumOrder.entity.UserEntity;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;

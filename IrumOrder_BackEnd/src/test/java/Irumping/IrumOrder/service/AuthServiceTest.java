@@ -1,7 +1,6 @@
-package Irumping.IrumOrder.Service;
+package Irumping.IrumOrder.service;
 
-import Irumping.IrumOrder.Entity.UserEntity;
-import Irumping.IrumOrder.Repository.MockLoginRepository;
+import Irumping.IrumOrder.repository.MockLoginRepository;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
