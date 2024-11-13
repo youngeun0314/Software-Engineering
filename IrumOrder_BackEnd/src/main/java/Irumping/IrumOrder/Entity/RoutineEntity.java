@@ -1,18 +1,44 @@
 package Irumping.IrumOrder.Entity;
 
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import nonapi.io.github.classgraph.json.Id;
+import jakarta.persistence.Id;
 
+
+import java.time.LocalTime;
+
+@Entity
+@Table(name = "routine")
+@Getter
+@Setter
 public class RoutineEntity {
 
-    private String userID;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int routineID;
-    private String routineDay;
-    //private - time;
-    private boolean offAlarm;
-    private String menu;
-    //private String option;
+    @Column(name = "routine_id")
+    private Integer routineId; // 기본 키 설정
+
+    @Column(name = "user_id", nullable = false)
+    private Integer userId;
+
+    @Column(name = "menu_id", nullable = false)
+    private Integer menuId;
+
+    @Column(name = "menuDetail_id")
+    private Integer menuDetailId;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "routine_day", nullable = false)
+    private RoutineDay routineDay;
+
+    @Column(name = "routine_time", nullable = false)
+    private LocalTime routineTime;
+
+    @Column(name = "price")
+    private Integer price;
 }
