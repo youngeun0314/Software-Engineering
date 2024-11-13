@@ -34,9 +34,18 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("회원가입 실패: " + bindingResult.getAllErrors().get(0).getDefaultMessage());
         }
 
-        authService.signUp(signUpRequest.getId(), signUpRequest.getPassword(), signUpRequest.getEmail());
-        log.info("{}님 회원가입 완료", signUpRequest.getId());
-        return ResponseEntity.status(HttpStatus.CREATED).body("회원가입 완료");
+        try {
+            authService.signUp(signUpRequest.getId(), signUpRequest.getPassword(), signUpRequest.getEmail());
+            log.info("{}님 회원가입 완료", signUpRequest.getId());
+            return ResponseEntity.status(HttpStatus.CREATED).body("회원가입 완료");
+        } catch (IllegalArgumentException e) {
+            log.info("회원가입 실패: {}", e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("회원가입 실패: " + e.getMessage());
+        }
+
+//        authService.signUp(signUpRequest.getId(), signUpRequest.getPassword(), signUpRequest.getEmail());
+//        log.info("{}님 회원가입 완료", signUpRequest.getId());
+//        return ResponseEntity.status(HttpStatus.CREATED).body("회원가입 완료");
     }
 
     @PostMapping("/login")

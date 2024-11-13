@@ -21,6 +21,11 @@ public class AuthService {
     private final UserRepository repository;
 
     public void signUp(String id, String password, String email) {
+
+        if (repository.existsById(id)) {
+            throw new IllegalArgumentException("이미 사용 중인 아이디입니다.");
+        }
+
         try {
             String hashedPassword = hashPassword(password);
             UserEntity user = new UserEntity(id, hashedPassword, email);
@@ -64,6 +69,11 @@ public class AuthService {
             log.error("비밀번호 검증 중 오류 발생: {}", e.getMessage());
             return false;
         }
+    }
+
+    // 아이디 중복 체크
+    public boolean isDuplicatedId(String id) {
+        return repository.isDuplicatedId(id);
     }
 
     private String hashPassword(String password) throws NoSuchAlgorithmException, InvalidKeySpecException {
