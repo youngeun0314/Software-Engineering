@@ -7,4 +7,6 @@ public interface UserRepository {
     public void save(String id, String password, String email);
 
     boolean existsById(String id);
+
+    boolean isDuplicatedId(String id);
 }

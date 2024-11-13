@@ -22,6 +22,11 @@ public class MockLoginRepository implements UserRepository {
     }
 
     @Override
+    public boolean isDuplicatedId(String id) {
+        return false;
+    }
+
+    @Override
     public String getPassword(String id) {
         if (!mockDB.containsKey(id)) {
             return null;
