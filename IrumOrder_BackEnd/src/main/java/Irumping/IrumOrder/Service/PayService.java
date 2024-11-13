@@ -1,6 +1,7 @@
 package Irumping.IrumOrder.Service;
 
 import Irumping.IrumOrder.Dto.PayApproveResponse;
+import Irumping.IrumOrder.Dto.PayOrderForm;
 import Irumping.IrumOrder.Dto.PayReadyResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpEntity;
@@ -16,9 +17,9 @@ import java.util.Map;
 @Slf4j
 @Service
 public class PayService {
-
-    public PayReadyResponse payReady(String name, int totalPrice, String user_id){
-        Map<String, String> parameters = getParamsForReady(name, totalPrice, user_id);
+    private int heel;
+    public PayReadyResponse payReady(PayOrderForm payOrderForm){
+        Map<String, String> parameters = getParamsForReady(payOrderForm);
 
         HttpEntity<Map<String, String>> requestEntity = new HttpEntity<>(parameters, this.getHeaders());
 
@@ -40,16 +41,16 @@ public class PayService {
         return approveResponse;
     }
 
-    private Map<String, String> getParamsForReady(String name, int totalPrice, String user_id){
+    private Map<String, String> getParamsForReady(PayOrderForm payOrderForm){
         //TODO:하드코딩된부분 변수명 받아서->그걸 입력하는 형식으로 변경하기
         Map<String, String> parameters = new HashMap<>();
-        parameters.put("cid", "TC0ONETIME");                                    // 가맹점 코드(테스트용)
-        parameters.put("partner_order_id", "1234567890");                       // 주문번호
-        parameters.put("partner_user_id", user_id);                          // 회원 아이디
-        parameters.put("item_name", name);                                      // 상품명
-        parameters.put("quantity", "1");                                        // 상품 수량
-        parameters.put("total_amount", String.valueOf(totalPrice));             // 상품 총액
-        parameters.put("tax_free_amount", "0");                                 // 상품 비과세 금액
+        parameters.put("cid", payOrderForm.getCid() );                                    // 가맹점 코드(테스트용)
+        parameters.put("partner_order_id", payOrderForm.getOrder_id());                       // 주문번호
+        parameters.put("partner_user_id", payOrderForm.getUser_id());                          // 회원 아이디
+        parameters.put("item_name", payOrderForm.getItem_name());                                      // 상품명
+        parameters.put("quantity", String.valueOf(payOrderForm.getQuantity()));                                        // 상품 수량
+        parameters.put("total_amount", String.valueOf(payOrderForm.getTotalPrice()));             // 상품 총액
+        parameters.put("tax_free_amount", String.valueOf(payOrderForm.getTax_free_amount()));                                 // 상품 비과세 금액
         parameters.put("approval_url", "http://localhost:8080/order/pay/approval/"); // 결제 성공 시 URL
         parameters.put("cancel_url", "http://localhost:8080/order/pay/cancel/");      // 결제 취소 시 URL
         parameters.put("fail_url", "http://localhost:8080/order/pay/fail/");          // 결제 실패 시 URL

@@ -32,7 +32,7 @@ public class PayController {
             , description = "결제 요청에 필요한 tid를 얻는다.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "결제 준비 완료"),
-//            @ApiResponse(responseCode = "500", description = "value 입력 필요")
+            @ApiResponse(responseCode = "500", description = "value 입력 필요")
             })
     @PostMapping("/ready")
     public @ResponseBody PayReadyResponse payReady(@RequestBody PayOrderForm payOrderForm){
@@ -40,14 +40,14 @@ public class PayController {
             throw new IllegalArgumentException("유효하지 않은 주문 데이터입니다.");
         }
 
-        String menuName = payOrderForm.getMenuName();
-        int totalPrice = payOrderForm.getTotalPrice();
-        String user_id = payOrderForm.getUser_id();
+//        String menuName = payOrderForm.getMenuName();
+//        int totalPrice = payOrderForm.getTotalPrice();
+//        String user_id = payOrderForm.getUser_id();
 
-        log.info("주문 상품 이름: " + menuName);
-        log.info("주문 금액: " + totalPrice);
+        log.info("주문 상품 이름: " + payOrderForm.getItem_name());
+        log.info("주문 금액: " + payOrderForm.getTotalPrice());
 
-        PayReadyResponse payReadyResponse = payService.payReady(menuName, totalPrice, user_id);
+        PayReadyResponse payReadyResponse = payService.payReady(payOrderForm);
 
         PaySessionUtils.addAttribute("tid", payReadyResponse.getTid());
         log.info("결제 고유번호 : " +payReadyResponse.getTid());
@@ -58,7 +58,6 @@ public class PayController {
     }
 
 
-    //TODO : 앱은 토큰 어떻게 받아오는지 알아보고 처리
     @GetMapping("/approval")
     public @ResponseBody PayApproveResponse payCompleted(@RequestParam("pg_token") String pgToken, @RequestParam("user_id") String user_id){
         String tid = PaySessionUtils.getStringAttributeValue("tid");

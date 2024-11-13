@@ -11,18 +11,15 @@ import lombok.ToString;
 @Setter
 @ToString
 public class PayOrderForm {
-
-    String menuName;
+    String cid;
+    String order_id;
+    String user_id;
+    String item_name;
+    int quantity;
     @Positive
     @NotNull
     @Schema(minimum = "1")
     int totalPrice;
-    @NotNull
-    String user_id;
+    int tax_free_amount;
 
-    public PayOrderForm(String menuName, int totalPrice, String user_id){
-        this.menuName=menuName;
-        this.totalPrice=totalPrice;
-        this.user_id = user_id;
-    }
 }
