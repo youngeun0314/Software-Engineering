@@ -1,4 +1,4 @@
-package Irumping.IrumOrder.Entity;
+package Irumping.IrumOrder.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -39,6 +39,7 @@ public class RoutineEntity {
     @Column(name = "routine_time", nullable = false)
     private LocalTime routineTime;
 
-    @Column(name = "price")
-    private Integer price;
+
+    @Column(name = "is_activated", nullable = false)
+    private Boolean alarmEnabled = true;
 }
