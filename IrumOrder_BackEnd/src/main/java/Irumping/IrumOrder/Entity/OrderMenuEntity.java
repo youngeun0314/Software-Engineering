@@ -4,65 +4,40 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.io.Serializable;
-import java.util.Objects;
-
 @Getter
 @Setter
 @Entity
-@Table(name = "orderMenu")
+@Table(name = "order_menu")
 public class OrderMenuEntity {
 
     @EmbeddedId
-    private OrderMenuId id;
+    private OrderMenuId id = new OrderMenuId();
 
     @ManyToOne
-    @MapsId("orderId")
+    @MapsId("orderId") // Mapping to composite key
     @JoinColumn(name = "order_id", nullable = false)
     private OrderEntity order;
 
     @ManyToOne
-    @MapsId("menuId")
+    @MapsId("menuId") // Mapping to composite key
     @JoinColumn(name = "menu_id", nullable = false)
     private MenuEntity menu;
 
-    @ManyToOne
-    @MapsId("menuDetailId")
-    @JoinColumn(name = "menuDetail_id")
+    @ManyToOne(optional = false)
+    @MapsId("menu_detail_id") // Mapping to composite key, adjusted to match schema
+    @JoinColumn(name = "menu_detail_id", nullable = false)
     private MenuDetailEntity menuDetail;
 
+    @Column(name = "quantity", nullable = false)
     private int quantity = 1;
 
     public OrderMenuEntity() {}
 
-    @Embeddable
-    public static class OrderMenuId implements Serializable {
-
-        private int orderId;
-        private int menuId;
-        private int menuDetailId;
-
-        // 기본 생성자
-        public OrderMenuId() {}
-
-        public OrderMenuId(int orderId, int menuId, int menuDetailId) {
-            this.orderId = orderId;
-            this.menuId = menuId;
-            this.menuDetailId = menuDetailId;
-        }
-
-        // equals 및 hashCode 메서드
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            OrderMenuId that = (OrderMenuId) o;
-            return orderId == that.orderId && menuId == that.menuId && menuDetailId == that.menuDetailId;
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(orderId, menuId, menuDetailId);
-        }
+    public OrderMenuEntity(OrderEntity order, MenuEntity menu, MenuDetailEntity menuDetail, int quantity) {
+        this.order = order;
+        this.menu = menu;
+        this.menuDetail = menuDetail;
+        this.quantity = quantity;
+        this.id = new OrderMenuId(order.getOrderId(), menu.getMenuId(), menuDetail.getMenuDetailId());
     }
 }

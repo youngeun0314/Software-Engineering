@@ -1,11 +1,11 @@
 package Irumping.IrumOrder.Entity;
 
-
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -16,32 +16,34 @@ public class OrderEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "order_id", nullable = false)
     private int orderId;
 
+    @Column(name = "user_id", nullable = false)
     private int userId;
 
+    @Column(name = "total_price", nullable = false)
     private int totalPrice;
 
-    @Column(length = 20, nullable = false)
-    private String orderStatus = "예약대기"; //(예약대기,주분접수,상품준비완료,완료)
+    @Enumerated(EnumType.STRING)
+    @Column(name = "order_status", nullable = false)
+    private OrderStatus orderStatus;
 
+    @Column(name = "pickUp")
     private LocalTime pickUp;
 
+    @Column(name = "payment")
     private boolean payment = false;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<OrderMenuEntity> orderMenuOptions;
-
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private List<OrderMenuEntity> orderMenuOptions = new ArrayList<>();
 
     public OrderEntity() {}
 
-    public OrderEntity(int userId, int totalPrice, String orderStatus, LocalTime pickUp) {
+    public OrderEntity(int userId, int totalPrice, OrderStatus orderStatus, LocalTime pickUp) {
         this.userId = userId;
         this.totalPrice = totalPrice;
         this.orderStatus = orderStatus;
         this.pickUp = pickUp;
-//        this.payment = payment;
-        // totalPrice는 초기화하지 않음
     }
-
 }

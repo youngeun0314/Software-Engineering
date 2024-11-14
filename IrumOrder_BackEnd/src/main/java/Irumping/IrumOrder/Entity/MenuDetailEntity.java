@@ -3,39 +3,43 @@ package Irumping.IrumOrder.Entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
 import java.util.Objects;
-
-
-/*  데이터베이스에서 order_menu 테이블에서 참조하는 menudetails 테이블을 이용함    */
 
 @Getter
 @Setter
 @Entity
-@Table(name = "menuDetails")
+@Table(name = "menudetails")
 public class MenuDetailEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int menuDetailId;
+    @Column(name = "menu_detail_id", nullable = false)
+    private Integer menuDetailId;
 
-    @Column(nullable = false, length = 50)
+    @Column(name = "use_cup", nullable = false)
     private String useCup;
 
-    private boolean addShot = false;
-    private boolean addVanila = false;
-    private boolean addHazelnut = false;
-    private boolean light = false;
+    @Column(name = "add_shot", nullable = false)
+    private boolean addShot;
 
-    @OneToOne
-    @JoinColumn(name = "menu_id", referencedColumnName = "menuId")
-    private MenuEntity menu;
+    @Column(name = "add_vanilla", nullable = false)
+    private boolean addVanilla;
+
+    @Column(name = "add_hazelnut", nullable = false)
+    private boolean addHazelnut;
+
+    @Column(name = "light", nullable = false)
+    private boolean light;
 
     // Constructors
+    public MenuDetailEntity() {
+    }
 
-    public MenuDetailEntity(String useCup, boolean addShot, boolean addVanila, boolean addHazelnut, boolean light) {
+    public MenuDetailEntity(String useCup, boolean addShot, boolean addVanilla, boolean addHazelnut, boolean light) {
         this.useCup = useCup;
         this.addShot = addShot;
-        this.addVanila = addVanila;
+        this.addVanilla = addVanilla;
         this.addHazelnut = addHazelnut;
         this.light = light;
     }
@@ -46,7 +50,7 @@ public class MenuDetailEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MenuDetailEntity that = (MenuDetailEntity) o;
-        return menuDetailId == that.menuDetailId;
+        return Objects.equals(menuDetailId, that.menuDetailId);
     }
 
     @Override

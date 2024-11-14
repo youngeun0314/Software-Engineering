@@ -13,18 +13,17 @@ public class MenuEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "menu_id", nullable = false)
     private int menuId;
 
-    @Column(nullable = false, unique = true, length = 50)
+    @Column(name = "name", nullable = false)
     private String name;
 
+    @Column(name = "price", nullable = false)
     private int price;
 
-    @Column(length = 20)
-    private String category;
-
-    @OneToOne(mappedBy = "menu", cascade = CascadeType.ALL, orphanRemoval = true)
-    private MenuDetailEntity menuDetail;
+    @JoinColumn (name = "category_id", nullable = false)
+    private int categoryId;
 
     public MenuEntity() {}
 
