@@ -7,6 +7,7 @@ function Signup() {
     const [pw, setPw] = useState('');
     const [pwConfirm, setPwConfirm] = useState('');
     const [isIdValid, setIsIdValid] = useState(false);
+    const [isPwValid, setPwValid] = useState(false);
     const navigate = useNavigate();
 
     const handleIdChange = (e) => {
@@ -28,7 +29,7 @@ function Signup() {
             const data = await response.json();
             if (data.available) {
                 setIsIdValid(true);
-                alert('아이디 사용 가능');
+                alert("아이디 사용 가능")
             } else {
                 setIsIdValid(false);
                 alert('아이디가 이미 존재합니다.');
@@ -42,8 +43,12 @@ function Signup() {
         event.preventDefault();
 
         if (pw !== pwConfirm) {
+            setPwValid(false);
             alert('비밀번호가 일치하지 않습니다.');
             return;
+        } else{
+          alert('비밀번호 일치');
+          setPwValid(true);
         }
 
         // POST request to register the new user
@@ -58,6 +63,7 @@ function Signup() {
                     pw,
                 }),
             });
+
 
             if (response.ok) {
                 alert('회원가입이 완료되었습니다.');
@@ -79,7 +85,9 @@ function Signup() {
     return (
         <div className='signup-container'>
             <header className='signup-header'>
-                <button onClick={handleBackClick} className='back-button'>{'<-'}</button>
+                <button onClick={handleBackClick} className='back-button'>
+                  {'ᐊ'}
+                  </button>
             </header>
             <div className='signup-content'>
                 <h2 className='signup-guide'>먼저 아이디와 비밀번호를 입력해주세요</h2>
@@ -92,7 +100,7 @@ function Signup() {
                         value={id}
                         onChange={handleIdChange}
                     />
-                    <button type="button" onClick={checkIdAvailability} className='id-check-button'>아이디 중복 확인</button>
+                    <button type="button" onClick={checkIdAvailability} className='id-check-button'>중복 확인</button>
 
                     <label htmlFor="pw">비밀번호</label>
                     <input
@@ -112,7 +120,13 @@ function Signup() {
                         onChange={handlePwConfirmChange}
                     />
 
-                    <button type="submit" className='signup-button'>완료</button>
+                    <button 
+                      type="submit" 
+                      className='signup-button'
+                      disabled={!isIdValid | !isPwValid}
+                      >
+                        완료
+                        </button>
                 </form>
             </div>
         </div>
