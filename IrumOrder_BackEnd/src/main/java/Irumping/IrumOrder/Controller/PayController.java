@@ -59,12 +59,12 @@ public class PayController {
 
 
     @GetMapping("/approval")
-    public @ResponseBody PayApproveResponse payCompleted(@RequestParam("pg_token") String pgToken, @RequestParam("user_id") String user_id){
+    public @ResponseBody PayApproveResponse payCompleted(@RequestParam("pg_token") String pgToken, @RequestParam("user_id") String userId, @RequestParam("order_id") String orderId){
         String tid = PaySessionUtils.getStringAttributeValue("tid");
         log.info("결제승인 요청을 인증하는 토큰: " + pgToken);
         log.info("결제 고유번호: " + tid);
 
-        PayApproveResponse payApproveResponse = payService.payApprove(tid, pgToken, user_id);
+        PayApproveResponse payApproveResponse = payService.payApprove(tid, pgToken, userId, orderId);
 
         log.info("결제 완료, response : "+payApproveResponse);
 

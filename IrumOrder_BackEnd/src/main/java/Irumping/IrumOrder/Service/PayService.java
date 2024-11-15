@@ -3,15 +3,21 @@ package Irumping.IrumOrder.Service;
 import Irumping.IrumOrder.Dto.PayApproveResponse;
 import Irumping.IrumOrder.Dto.PayOrderForm;
 import Irumping.IrumOrder.Dto.PayReadyResponse;
+import Irumping.IrumOrder.Entity.OrderEntity;
+import Irumping.IrumOrder.Repository.PayRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,6 +26,9 @@ import java.util.Map;
 public class PayService {
     @Value("${kakao.pay.secret-key}")
     private String secretKey;
+
+    @Autowired
+    private PayRepository payRepository;
 
     public PayReadyResponse payReady(PayOrderForm payOrderForm){
         Map<String, String> parameters = getParamsForReady(payOrderForm);
@@ -33,15 +42,39 @@ public class PayService {
         return responseEntity.getBody();
     }
 
-    public PayApproveResponse payApprove(String tid, String pgToken, String user_id){
-        HttpEntity<Map<String, String>> requestEntity = getParamsForApprove(tid, pgToken, user_id);
+    public PayApproveResponse payApprove(String tid, String pgToken, String userId, String orderId){
+        try {
+            HttpEntity<Map<String, String>> requestEntity = getParamsForApprove(tid, pgToken, userId, orderId);
 
-        RestTemplate template = new RestTemplate();
-        String url = "https://open-api.kakaopay.com/online/v1/payment/approve";
-        PayApproveResponse approveResponse = template.postForObject(url, requestEntity, PayApproveResponse.class);
-        log.info("결제승인 응답객체: " + approveResponse);
+            RestTemplate template = new RestTemplate();
+            String url = "https://open-api.kakaopay.com/online/v1/payment/approve";
+            PayApproveResponse approveResponse = template.postForObject(url, requestEntity, PayApproveResponse.class);
+            log.info("결제승인 응답객체: " + approveResponse);
 
-        return approveResponse;
+            assert approveResponse != null;
+            OrderEntity order = payRepository.findByOrderIdAndUserId(Integer.parseInt(approveResponse.getPartner_order_id()), Integer.parseInt(approveResponse.getPartner_user_id()));
+            order.setPayDatetime(LocalDateTime.parse(approveResponse.getApproved_at()));
+            payRepository.save(order);
+            return approveResponse;
+        } catch(RestClientException ex){
+            log.error("결제 승인 실패: " + ex.getMessage());
+
+            return getPayFailedResponse(tid, userId, ex);
+        }
+    }
+
+    private static PayApproveResponse getPayFailedResponse(String tid, String userId, RestClientException ex) {
+        PayApproveResponse failedResponse = new PayApproveResponse();
+        failedResponse.setAid(null);
+        failedResponse.setTid(tid);
+        failedResponse.setPartner_order_id(null);
+        failedResponse.setPartner_user_id(userId);
+        failedResponse.setPayment_method_type("ERROR");
+        failedResponse.setItem_name(null);
+        failedResponse.setCreated_at(null);
+        failedResponse.setApproved_at(null);
+        failedResponse.setPayload("결제 승인 실패: " + ex.getMessage());
+        return failedResponse;
     }
 
     private Map<String, String> getParamsForReady(PayOrderForm payOrderForm){
@@ -61,11 +94,11 @@ public class PayService {
         return parameters;
     }
 
-    private HttpEntity<Map<String, String>> getParamsForApprove(String tid, String pgToken, String user_id) {
+    private HttpEntity<Map<String, String>> getParamsForApprove(String tid, String pgToken, String user_id, String order_id) {
         Map<String, String> parameters = new HashMap<>();
         parameters.put("cid", "TC0ONETIME");              // 가맹점 코드(테스트용)
         parameters.put("tid", tid);                       // 결제 고유번호
-        parameters.put("partner_order_id", "1234567890"); // 주문번호
+        parameters.put("partner_order_id", order_id); // 주문번호
         parameters.put("partner_user_id", user_id);    // 회원 아이디
         parameters.put("pg_token", pgToken);              // 결제승인 요청을 인증하는 토큰
 
@@ -78,7 +111,7 @@ public class PayService {
         if (secretKey == null || secretKey.isEmpty()) {
             throw new IllegalStateException("KAKAO_PAY_SECRET_KEY가 설정되지 않았습니다.");
         }
-        headers.set("Authorization", "Bearer " + secretKey);
+        headers.set("Authorization", "SECRET_KEY " + secretKey);
         headers.setContentType(MediaType.APPLICATION_JSON);
         return headers;
     }
