@@ -62,8 +62,9 @@ function Login() {
                     value={pw}
                     onChange={(e) => setPw(e.target.value)}
                     />
-
+                    <Link to={'/main'}>
                     <button type="submit" className='login-button'>로그인</button>
+                    </Link>
                 </form>
                 <div className='singup-prompt'>
                     아직 회원이 아니신가요? <Link to={'/signup'} className='signup-link'>가입하기 &gt;</Link>

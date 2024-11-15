@@ -63,6 +63,7 @@
   }
   
   .login-button {
+    width: 300px;
     background-color: #aaa;
     color: #fff;
     border: none;
