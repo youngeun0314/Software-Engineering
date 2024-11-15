@@ -1,20 +1,67 @@
-.about__container {
-    box-shadow: 0 13px 27px -5px rgba(50, 50, 93, 0.25), 0 8px 16px -8px rgba(0, 0, 0, 0.3),
-      0 -6px 16px -6px rgba(0, 0, 0, 0.025);
+.home-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background-color: #fff8e1;
     padding: 20px;
+}
+
+.logo .logo-image {
+    width: 100px;
+    float: left;
+    margin-bottom: 20px;
+}
+
+.banner .banner-image {
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.welcome-box {
+    border: 2px solid #ccc;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    background-color: #ffffff
+}
+
+.profile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.profile .profile-image {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.profile .welcome-message {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.main-options {
+    display: flex;
+    justify-content: space-around;
+}
+
+.main-button {
+    padding: 10px 20px;
+    margin: 5px;
+    border: 1px solid #ccc;
     border-radius: 5px;
-    background-color: white;
-    margin: 0 auto;
-    margin-top: 100px;
-    width: 100%;
-    max-width: 400px;
-    font-weight: 300;
-  }
-   
-  .about__container span:first-child {
-    font-size: 20px;
-  }
-  .about__container span:last-child {
-    display: block;
-    margin-top: 10px;
-  }
+    background-color: #ffffff;
+    color: white;
+    cursor: pointer;
+}
+
+.main-image {
+    width: 65px;
+    height: 65px;
+    object-fit: cover;
+}
