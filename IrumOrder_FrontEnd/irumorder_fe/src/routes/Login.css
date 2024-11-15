@@ -1,0 +1,99 @@
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: #f4f4f8;
+  }
+  
+  .login-header {
+    width: 100%;
+    text-align: right;
+    margin-bottom: 10px;
+  }
+  
+  .register-link {
+    color: #f39c12;
+    font-size: 0.9rem;
+    text-decoration: none;
+  }
+  
+  .login-content {
+    background: linear-gradient(135deg, #fffbe6, #ffd966);
+    padding: 30px;
+    border-radius: 10px;
+    width: 300px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .app-title {
+    font-size: 1rem;
+    color: #333;
+  }
+  
+  .logo {
+    font-size: 2rem;
+    color: #f39c12;
+    margin-bottom: 20px;
+    font-weight: bold;
+  }
+  
+  .login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  label {
+    font-size: 0.9rem;
+    color: #333;
+    text-align: left;
+  }
+  
+  input {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 0.9rem;
+  }
+  
+  input::placeholder {
+    color: #aaa;
+  }
+  
+  .login-button {
+    background-color: #aaa;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  
+  .login-button:hover {
+    background-color: #888;
+  }
+  
+  .signup-prompt {
+    font-size: 0.8rem;
+    margin-top: 10px;
+  }
+  
+  .signup-link {
+    font-size: 0.8rem;
+    color: #3498db;
+    text-decoration: none;
+  }
+  
+  .signup-link:hover {
+    text-decoration: underline;
+  }
+  
+  .login-irum img {
+    margin-top: 20px;
+    width: 250px;
+    height: auto;
+  }
+  

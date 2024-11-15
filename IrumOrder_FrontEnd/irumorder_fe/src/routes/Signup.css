@@ -1,0 +1,125 @@
+.signup-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: #fef8d9; /* Light yellow background */
+  min-height: 100vh;
+}
+
+.signup-header {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  padding: 10px 20px;
+}
+
+.back-button {
+  font-size: 24px;
+  background: none;
+  border: none;
+  color: #ffcc00; /* Yellow for back button */
+  cursor: pointer;
+}
+
+.signup-content {
+  width: 100%;
+  max-width: 400px;
+  background-color: #ffffff; /* Light yellow for the form background */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.signup-guide {
+  text-align: center;
+  font-size: 18px;
+  color: #ffcc00; /* Yellow for the guide text */
+  margin-bottom: 20px;
+}
+
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.signup-form label {
+  font-size: 14px;
+  color: #333;
+  font-weight: bold;
+}
+
+.signup-form input {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ffcc00; /* Yellow border for input fields */
+  border-radius: 5px;
+  margin-bottom: 10px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.signup-form input:focus {
+  border-color: #ff9900; /* Darker yellow when focused */
+}
+
+.id-check-button {
+  background-color: #ffcc00; /* Yellow background for the button */
+  color: white;
+  border: none;
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 10px;
+  transition: background-color 0.3s;
+}
+
+.id-check-button:hover {
+  background-color: #ff9900; /* Darker yellow on hover */
+}
+
+.signup-button {
+  background-color: #ffcc00; /* Yellow background for submit button */
+  color: white;
+  border: none;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 20px;
+}
+
+.signup-button:hover {
+  background-color: #ff9900; /* Darker yellow on hover */
+}
+
+.signup-button:disabled {
+  background-color: #ffcc80; /* Lighter yellow when disabled */
+  cursor: not-allowed;
+}
+
+@media (max-width: 600px) {
+  .signup-container {
+      padding: 10px;
+  }
+
+  .signup-content {
+      padding: 15px;
+  }
+
+  .signup-guide {
+      font-size: 16px;
+  }
+
+  .signup-form input,
+  .signup-form label {
+      font-size: 14px;
+  }
+
+  .signup-button {
+      font-size: 14px;
+  }
+}
