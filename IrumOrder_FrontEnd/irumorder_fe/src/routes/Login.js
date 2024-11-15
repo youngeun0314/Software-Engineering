@@ -39,11 +39,13 @@ function Login() {
     return (
         <div className='login-container'>
             <header className='login-header'>
-                <a href='/register-store' className='register-link'>{"매장 등록 신청하러 가기 >"}</a>
+                <a href='/register-store' className='register-link'>매장 등록 신청하러 가기 &gt;</a>
             </header>
             <div className='login-content'>
                 <h1 className='app-title'>내 손 안의 작은 시립대 카페</h1>
-                <h2 className='logo'>이룸오더</h2>
+                <div className='logo'>
+                  <img src="irum_title.png" alt="Irum_title"/>
+                </div>
                 <form onSubmit={handleLogin} className='login-form'>
                     <label htmlFor="id">아이디</label>
                     <input
@@ -66,10 +68,10 @@ function Login() {
                     <button type="submit" className='login-button'>로그인</button>
                 </form>
                 <div className='singup-prompt'>
-                    아직 회원이 아니신가요? <Link to={'/signup'} className='signup-link'>가입하기 &gt;</Link>
+                    <label htmlFor='signup'>아직 회원이 아니신가요?</label> <Link to={'/signup'} className='signup-link' id='signup'>가입하기 &gt;</Link>
                 </div>
                 <div className='login-irum'>
-                    <img src="Login.png" alt="Irum"/>
+                    <img src="Login.png" alt="Irumae"/>
                 </div>
             </div>
         </div>

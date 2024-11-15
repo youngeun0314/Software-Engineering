@@ -3,13 +3,13 @@
   flex-direction: column;
   align-items: center;
   padding: 20px;
-  background-color: #fef8d9; /* Light yellow background */
-  min-height: 100vh;
+  background-color: #ffffff;
 }
 
 .signup-header {
   width: 100%;
   display: flex;
+  margin-top: 20px;
   justify-content: flex-start;
   padding: 10px 20px;
 }
@@ -25,7 +25,7 @@
 .signup-content {
   width: 100%;
   max-width: 400px;
-  background-color: #ffffff; /* Light yellow for the form background */
+  background-color: #fff8e1; /* Light yellow for the form background */
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
