@@ -4,6 +4,7 @@ import Irumping.IrumOrder.Dto.PayApproveResponse;
 import Irumping.IrumOrder.Dto.PayOrderForm;
 import Irumping.IrumOrder.Dto.PayReadyResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -17,7 +18,9 @@ import java.util.Map;
 @Slf4j
 @Service
 public class PayService {
-    private int heel;
+    @Value("${kakao.pay.secret-key}")
+    private String secretKey;
+
     public PayReadyResponse payReady(PayOrderForm payOrderForm){
         Map<String, String> parameters = getParamsForReady(payOrderForm);
 
@@ -72,7 +75,10 @@ public class PayService {
     private HttpHeaders getHeaders(){
         //TODO:Authorization 키: API 호출을 위해 헤더에 포함된 인증 키가 제대로 설정되어 있는지 확인하세요. 실제로 SECRET_KEY 부분은 보안상의 이유로 절대 노출되어서는 안 되며, .env 파일이나 외부 구성에서 가져와야 합니다.
         HttpHeaders headers = new HttpHeaders();
-        headers.set("Authorization", "SECRET_KEY DEVEBD88BF4BD9F5D072AAC257CC4B7D70CA7FB4");
+        if (secretKey == null || secretKey.isEmpty()) {
+            throw new IllegalStateException("KAKAO_PAY_SECRET_KEY가 설정되지 않았습니다.");
+        }
+        headers.set("Authorization", "Bearer " + secretKey);
         headers.setContentType(MediaType.APPLICATION_JSON);
         return headers;
     }
