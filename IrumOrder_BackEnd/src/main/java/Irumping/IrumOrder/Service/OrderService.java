@@ -83,6 +83,7 @@ public class OrderService {
     private void saveOrderWithRetry(OrderEntity order) {
         try {
             orderRepository.save(order);
+            orderRepository.flush(); // 저장 후 즉시 flush
             logger.info("OrderEntity saved with ID: {}", order.getOrderId());
         } catch (Exception e) {
             logger.error("Failed to save OrderEntity", e);
@@ -98,6 +99,7 @@ public class OrderService {
             if (!orderMenuRepository.existsById(orderMenuEntity.getId())) {
                 try {
                     orderMenuRepository.save(orderMenuEntity);
+                    orderMenuRepository.flush(); // 저장 후 즉시 flush
                     logger.debug("OrderMenuEntity saved: {}", orderMenuEntity);
                 } catch (Exception e) {
                     logger.error("Failed to save OrderMenuEntity with ID: {}", orderMenuEntity.getId(), e);
@@ -155,6 +157,7 @@ public class OrderService {
     private void saveMenuDetailEntityWithRetry(MenuDetailEntity menuDetailEntity) {
         try {
             menuDetailRepository.save(menuDetailEntity);
+            menuDetailRepository.flush(); // 저장 후 즉시 flush
             logger.info("MenuDetailEntity saved with ID: {}", menuDetailEntity.getMenuDetailId());
         } catch (Exception e) {
             logger.error("Failed to save MenuDetailEntity", e);
