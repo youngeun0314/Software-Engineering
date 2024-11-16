@@ -1,16 +1,17 @@
 package Irumping.IrumOrder.service;
 
-import Irumping.IrumOrder.entity.UserEntity;
 import Irumping.IrumOrder.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
+import java.util.Arrays;
 import java.util.Base64;
 
 @Slf4j
@@ -20,24 +21,16 @@ public class AuthService {
 
     private final UserRepository repository;
 
-    public void signUp(String id, String password, String email) {
-
-        if (repository.existsById(id)) {
+    @Transactional
+    public void signUp(String userId, String password, String email) {
+        if (repository.isExist(userId)) {
             throw new IllegalArgumentException("이미 사용 중인 아이디입니다.");
         }
-
-        try {
-            String hashedPassword = hashPassword(password);
-            UserEntity user = new UserEntity(id, hashedPassword, email);
-            repository.save(user.getId(), user.getPassword(), user.getEmail());
-        } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
-            log.error("비밀번호 해싱 중 오류 발생: {}", e.getMessage());
-            throw new RuntimeException("회원 가입 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.", e);
-        }
+        repository.save(userId, hashPassword(password), email);
     }
 
-    public boolean login(String id, String password) {
-        String dbPassword = repository.getPassword(id);
+    public boolean login(String userId, String password) {
+        String dbPassword = repository.getPassword(userId);
 
         // token 발급
         // sessionRepository에 token 저장
@@ -57,32 +50,26 @@ public class AuthService {
             // 아이디가 없음
             return false;
         }
-        try {
-            if (verifyPassword(password, dbPassword)) {
-                // 로그인 성공
-                return true;
-            } else {
-                // 로그인 실패
-                return false;
-            }
-        } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
-            log.error("비밀번호 검증 중 오류 발생: {}", e.getMessage());
-            return false;
-        }
+        return verifyPassword(password, dbPassword);
     }
 
     // 아이디 중복 체크
-    public boolean isDuplicatedId(String id) {
-        return repository.isDuplicatedId(id);
+    public boolean isExist(String userId) {
+        return repository.isExist(userId);
     }
 
-    private String hashPassword(String password) throws NoSuchAlgorithmException, InvalidKeySpecException {
-        int iterations = 10000;
-        byte[] salt = getSalt();
-        PBEKeySpec spec = new PBEKeySpec(password.toCharArray(), salt, iterations, 512);
-        SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA512");    // PBKDF2 알고리즘 사용 : 해시함수를 여러번 적용하여 해시값을 만들어내는 방식
-        byte[] hash = skf.generateSecret(spec).getEncoded();
-        return Base64.getEncoder().encodeToString(salt) + ":" + Base64.getEncoder().encodeToString(hash);   // salt와 hash를 구분자로 구분
+    private String hashPassword(String password) {
+        try {
+            int iterations = 10000;
+            byte[] salt = getSalt();
+            PBEKeySpec spec = new PBEKeySpec(password.toCharArray(), salt, iterations, 512);
+            SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA512");    // PBKDF2 알고리즘 사용 : 해시함수를 여러번 적용하여 해시값을 만들어내는 방식
+            byte[] hash = skf.generateSecret(spec).getEncoded();
+            return Base64.getEncoder().encodeToString(salt) + ":" + Base64.getEncoder().encodeToString(hash);   // salt와 hash를 구분자로 구분
+        } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
+            log.error("비밀번호 해싱 중 오류 발생: {}", e.getMessage());
+            throw new RuntimeException("비밀번호 해싱 중 오류 발생", e);
+        }
     }
 
     // salt는 해시값을 만들 때 사용하는 임의의 바이트 배열  // 무작위 salt 생성
@@ -93,15 +80,27 @@ public class AuthService {
         return salt;
     }
 
-    private boolean verifyPassword(String password, String storedHash) throws NoSuchAlgorithmException, InvalidKeySpecException {
-        String[] parts = storedHash.split(":");
-        byte[] salt = Base64.getDecoder().decode(parts[0]);
-        byte[] hash = Base64.getDecoder().decode(parts[1]);
+    private boolean verifyPassword(String password, String storedHash) {
+        try {
+            // 저장된 salt와 hash 분리
+            String[] parts = storedHash.split(":");
+            if (parts.length != 2) {
+                throw new IllegalArgumentException("유효하지 않은 저장된 해시값입니다.");
+            }
+            byte[] salt = Base64.getDecoder().decode(parts[0]);
+            byte[] originalHash = Base64.getDecoder().decode(parts[1]);
 
-        PBEKeySpec spec = new PBEKeySpec(password.toCharArray(), salt, 10000, 512);
-        SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA512");
-        byte[] testHash = skf.generateSecret(spec).getEncoded();
+            // 입력된 비밀번호를 동일한 salt로 해싱
+            int iterations = 10000;
+            PBEKeySpec spec = new PBEKeySpec(password.toCharArray(), salt, iterations, 512);
+            SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA512");
+            byte[] computedHash = skf.generateSecret(spec).getEncoded();
 
-        return java.util.Arrays.equals(hash, testHash);
+            // 원래 해시와 비교
+            return Arrays.equals(originalHash, computedHash);
+        } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
+            log.error("비밀번호 검증 중 오류 발생: {}", e.getMessage());
+            throw new RuntimeException("비밀번호 검증 중 오류 발생", e);
+        }
     }
 }

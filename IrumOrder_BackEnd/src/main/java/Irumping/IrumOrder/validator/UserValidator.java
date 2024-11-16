@@ -20,14 +20,14 @@ public class UserValidator implements Validator {
         // 2. id 길이가 최대 20자 이하
         // 3. id 길이가 최소 4자 이상
         // 4. id는 영어 소문자, 대문자, 숫자만 가능
-        if (request.getId() == null) {
-            errors.rejectValue("id", "null", "id가 null입니다.");
-        } else if (request.getId().length() > 20) {
-            errors.rejectValue("id", "length", "id 길이가 20자를 초과합니다.");
-        } else if (request.getId().length() < 4) {
-            errors.rejectValue("id", "length", "id 길이가 4자 미만입니다.");
-        } else if (!request.getId().matches("^[a-zA-Z0-9]*$")) {
-            errors.rejectValue("id", "pattern", "id는 영어 소문자, 대문자, 숫자만 가능합니다.");
+        if (request.getUserId() == null) {
+            errors.rejectValue("userId", "null", "id가 null입니다.");
+        } else if (request.getUserId().length() > 20) {
+            errors.rejectValue("userId", "length", "id 길이가 20자를 초과합니다.");
+        } else if (request.getUserId().length() < 4) {
+            errors.rejectValue("userId", "length", "id 길이가 4자 미만입니다.");
+        } else if (!request.getUserId().matches("^[a-zA-Z0-9]*$")) {
+            errors.rejectValue("userId", "pattern", "id는 영어 소문자, 대문자, 숫자만 가능합니다.");
         }
 
         // password validation
