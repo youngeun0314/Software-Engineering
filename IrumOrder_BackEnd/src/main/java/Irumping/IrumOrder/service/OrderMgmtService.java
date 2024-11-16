@@ -2,20 +2,20 @@ package Irumping.IrumOrder.Service;
 
 import Irumping.IrumOrder.Entity.OrderEntity;
 import Irumping.IrumOrder.Entity.OrderStatus;
-import Irumping.IrumOrder.Repository.MockOrderRepository;
+import Irumping.IrumOrder.Repository.JpaOrderRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 //import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Service
 public class OrderMgmtService {
 
-    private final MockOrderRepository repository;
+    private final JpaOrderRepository repository;
 
     // 주문 상태 업데이트
+    @Transactional
     public String updateOrderStatus(int orderId, OrderStatus status) {
         OrderEntity orderEntity = repository.findById(orderId);
         if (orderEntity == null) {

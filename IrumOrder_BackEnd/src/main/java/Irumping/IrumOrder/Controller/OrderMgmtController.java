@@ -7,11 +7,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
 @RestController
+@RequestMapping("/orderMgmt")
 public class OrderMgmtController {
 
     // - 직원은 주문 관리 시스템을 통해 회원이 주문한 음료를 확인하고 직원은 주문 상태를 조리 정도에 따라 업데이트한다.
@@ -39,23 +41,4 @@ public class OrderMgmtController {
         }
         return ResponseEntity.ok(orderEntity);
     }
-
-//
-//    private final OrderMgmtService orderMgmtService;
-//
-//    // 클릭하면
-//    @PostMapping("/orderStatus")
-//    public String updateOrderStatus(int orderId, OrderStatus status) {
-//        // 주문 상태 업데이트
-//        orderMgmtService.updateOrderStatus(orderId, status);
-//        return "success";
-//    }
-//
-//    // 회원이 주문한 음료 확인 로직
-//    @PostMapping("/checkOrder")
-//    public String checkOrder(int orderId) {
-//        // 주문 엔티티 조회
-//        orderMgmtService.checkOrder(orderId);
-//        return "success";
-//    }
 }
