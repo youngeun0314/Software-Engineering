@@ -2,11 +2,9 @@ package Irumping.IrumOrder.repository;
 
 public interface UserRepository {
 
-    public String getPassword(String id);
+    public String getPassword(String userId);
 
-    public void save(String id, String password, String email);
+    public void save(String userId, String password, String email);
 
-    boolean existsById(String id);
-
-    boolean isDuplicatedId(String id);
+    boolean isExist(String userId);
 }

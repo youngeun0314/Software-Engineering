@@ -1,28 +1,21 @@
 package Irumping.IrumOrder.service;
 
-import Irumping.IrumOrder.repository.MockLoginRepository;
-
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.*;
 
+@SpringBootTest
+@Transactional
 class AuthServiceTest {
 
+    @Autowired
     private static AuthService authService;
 
-
-    @BeforeEach
-    public void beforeEach() {
-        authService = new AuthService(new MockLoginRepository());
-    }
-
-    @AfterEach
-    public void afterEach() {
-        authService = null;
-    }
-
+    @DisplayName("Test SignUp")
     @Test
     void signUp() {
         // given
