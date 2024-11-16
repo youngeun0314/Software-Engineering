@@ -3,9 +3,7 @@ package Irumping.IrumOrder.Controller;
 import Irumping.IrumOrder.Service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
@@ -14,29 +12,25 @@ public class CategoryController {
 
     private final CategoryService categoryService;
 
-    @GetMapping("/addCategory")
-    public ResponseEntity<String> addCategory(String category) {
-//        categoryService.addCategory(category);
+    @PostMapping("/createCategory")
+    public ResponseEntity<String> createCategory(String category) {
+        categoryService.createCategory(category);
         return ResponseEntity.ok("카테고리 추가 완료");
     }
 
-    @GetMapping("/deleteCategory")
-    public ResponseEntity<String> deleteCategory(String category) {
-//        categoryService.deleteCategory(category);
+    @DeleteMapping("/deleteCategory")
+    public ResponseEntity<String> deleteCategory(Long categoryId) {
+        categoryService.deleteCategory(categoryId);
         return ResponseEntity.ok("카테고리 삭제 완료");
     }
 
-    @GetMapping("/updateCategory")
-    public ResponseEntity<String> updateCategory(String category) {
-//        categoryService.updateCategory(category);
-        return ResponseEntity.ok("카테고리 수정 완료");
+    @GetMapping("/getAllCategory")
+    public ResponseEntity<String> getAllCategory() {
+        return ResponseEntity.ok(categoryService.findAll().toString());
     }
 
     @GetMapping("/getCategory")
-    public ResponseEntity<String> getCategory(String category) {
-//        categoryService.getCategory(category);
-        return ResponseEntity.ok("카테고리 조회 완료");
+    public ResponseEntity<String> getCategory(Long category) {
+        return ResponseEntity.ok(categoryService.findCategoryById(category).toString());
     }
-
-    // 메뉴 등록 추가 삭제 구현하기
 }
