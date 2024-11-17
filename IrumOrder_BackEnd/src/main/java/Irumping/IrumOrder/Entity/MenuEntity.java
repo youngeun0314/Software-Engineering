@@ -25,17 +25,17 @@ public class MenuEntity {
     @ManyToOne(fetch = LAZY)
     private CategoryEntity category;
 
-    @OneToOne(mappedBy = "menu", cascade = CascadeType.ALL, orphanRemoval = true)
-    private MenuDetailEntity menuDetail;
+//    @OneToOne(mappedBy = "menu", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private MenuDetailEntity menuDetail;
 
     public MenuEntity() {
     }
 
-    public MenuEntity(String name, Long price, CategoryEntity category, MenuDetailEntity menuDetail) {
+    public MenuEntity(String name, Long price, CategoryEntity category) {
         this.name = name;
         this.price = price;
         this.category = category;
-        this.menuDetail = menuDetail;
+//        this.menuDetail = menuDetail;
     }
 
     @Override

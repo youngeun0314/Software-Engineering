@@ -18,21 +18,21 @@ public class MenuDetailEntity {
     private String useCup;
 
     private boolean addShot = false;
-    private boolean addVanila = false;
+    private boolean addVanilla = false;
     private boolean addHazelnut = false;
     private boolean light = false;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "menu_id", referencedColumnName = "menuId")
     private MenuEntity menu;
 
     // Constructors
     public MenuDetailEntity() {}
 
-    public MenuDetailEntity(String useCup, boolean addShot, boolean addVanila, boolean addHazelnut, boolean light) {
+    public MenuDetailEntity(String useCup, boolean addShot, boolean addVanilla, boolean addHazelnut, boolean light) {
         this.useCup = useCup;
         this.addShot = addShot;
-        this.addVanila = addVanila;
+        this.addVanilla = addVanilla;
         this.addHazelnut = addHazelnut;
         this.light = light;
     }
