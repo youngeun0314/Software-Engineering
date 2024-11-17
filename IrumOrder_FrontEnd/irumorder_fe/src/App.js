@@ -4,7 +4,7 @@ import Signup from './routes/Signup';
 import Login from './routes/Login';
 import Main from './routes/Main';
 import Order from './routes/Order';
-import RoutineList from './routes/Routine';
+import RoutineList from './routes/RoutineList';
 import PastOrder from './routes/PastOrder';
  
  
