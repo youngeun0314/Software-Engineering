@@ -1,0 +1,32 @@
+.routine-list {
+    padding: 20px;
+  }
+  
+  .routine-item {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+  }
+  
+  .routine-info h2 {
+    margin: 0;
+  }
+  
+  .routine-controls button {
+    margin-left: 10px;
+  }
+  
+  .add-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 24px;
+    border: none;
+    border-radius: 50%;
+    background-color: #ff9900;
+    color: white;
+    cursor: pointer;
+  }
+  

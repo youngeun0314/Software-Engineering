@@ -71,7 +71,7 @@ function Main() {
                             <img src="main_order.png" alt="main_order" className="main-image"/>
                         </button>
                     </Link>
-                    <Link to={'/routine'}>
+                    <Link to={'/routinelist'}>
                         <button type="main_routine" className="main-button">
                         <img src="main_routine.png" alt="main_routine" className="main-image"/>
                         </button>
