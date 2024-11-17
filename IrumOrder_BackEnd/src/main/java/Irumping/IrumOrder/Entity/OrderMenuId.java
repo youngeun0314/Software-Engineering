@@ -16,6 +16,7 @@ public class OrderMenuId implements Serializable {
     private Integer orderId;
     private Integer menuId;
     private Integer menu_detail_id; // Updated to match database column name
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -25,6 +26,7 @@ public class OrderMenuId implements Serializable {
                 Objects.equals(menuId, that.menuId) &&
                 Objects.equals(menu_detail_id, that.menu_detail_id);
     }
+
     @Override
     public int hashCode() {
         return Objects.hash(orderId, menuId, menu_detail_id);

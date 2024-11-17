@@ -9,10 +9,10 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class JpaOrderRepository implements OrderRepository{
 
-    private EntityManager em;
+    private final EntityManager em;
 
     @Override
-    public OrderEntity findById(int orderId) {
+    public OrderEntity findByOrderId(int orderId) {
         return em.find(OrderEntity.class, orderId);
     }
 }

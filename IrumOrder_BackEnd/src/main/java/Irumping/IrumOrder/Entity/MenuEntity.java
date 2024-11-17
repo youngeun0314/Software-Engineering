@@ -6,34 +6,35 @@ import lombok.Setter;
 
 import java.util.Objects;
 
-import static jakarta.persistence.FetchType.LAZY;
-
 @Getter
-@Setter
 @Entity
+@Table(name = "menu")
 public class MenuEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long menuId;
-    @Column(nullable = false, unique = true, length = 50)
+    @Column(name = "menu_id", nullable = false)
+    private int menuId;
+
+    @Column(name = "name", nullable = false)
     private String name;
-    private Long price;
-    @ManyToOne(fetch = LAZY)
-    private CategoryEntity category;
-    public MenuEntity() {
-    }
-    public MenuEntity(String name, Long price, CategoryEntity category) {
-        this.name = name;
-        this.price = price;
-        this.category = category;
-    }
+
+    @Column(name = "price", nullable = false)
+    private int price;
+
+    @JoinColumn (name = "category_id", nullable = false)
+    private int categoryId;
+
+    public MenuEntity() {}
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MenuEntity that = (MenuEntity) o;
-        return Objects.equals(menuId, that.menuId);
+        return menuId == that.menuId;
     }
+
     @Override
     public int hashCode() {
         return Objects.hash(menuId);

@@ -17,7 +17,7 @@ public class OrderMgmtService {
     // 주문 상태 업데이트
     @Transactional
     public String updateOrderStatus(int orderId, OrderStatus status) {
-        OrderEntity orderEntity = repository.findById(orderId);
+        OrderEntity orderEntity = repository.findByOrderId(orderId);
         if (orderEntity == null) {
             return "fail: 주문이 존재하지 않습니다.";
         }
@@ -27,7 +27,7 @@ public class OrderMgmtService {
 
     // 주문 확인
     public OrderEntity checkOrder(int orderId) {
-        return repository.findById(orderId);
+        return repository.findByOrderId(orderId);
     }
 
 //    // 주문 상태 업데이트
