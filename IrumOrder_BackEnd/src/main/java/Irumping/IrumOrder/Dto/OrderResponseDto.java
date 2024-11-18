@@ -3,6 +3,8 @@ package Irumping.IrumOrder.Dto;
 import Irumping.IrumOrder.Entity.OrderStatus;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -15,6 +17,6 @@ public class OrderResponseDto {
     private int totalPrice; // 주문 총 가격
     private OrderStatus orderStatus; // 주문 상태
     private String pickUp; //픽업시간
-    private boolean payment;
+    private LocalDateTime payment = null;
     private List<OrderMenuDto> orderMenuOptions; // 주문 내 메뉴와 옵션 목록
 }

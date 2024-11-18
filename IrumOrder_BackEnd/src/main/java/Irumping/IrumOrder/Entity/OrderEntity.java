@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +34,7 @@ public class OrderEntity {
     private LocalTime pickUp;
 
     @Column(name = "payment")
-    private boolean payment = false;
+    private LocalDateTime payment = null;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<OrderMenuEntity> orderMenuOptions = new ArrayList<>();

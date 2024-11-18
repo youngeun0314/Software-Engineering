@@ -175,7 +175,7 @@ public class OrderService {
         responseDto.setUserId(orderEntity.getUserId());
         responseDto.setTotalPrice(orderEntity.getTotalPrice());
         responseDto.setOrderStatus(OrderStatus.valueOf(orderEntity.getOrderStatus().toString()));
-        responseDto.setPayment(orderEntity.isPayment());
+        responseDto.setPayment(orderEntity.getPayment());
 
         // LocalTime을 문자열로 변환하여 설정
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
