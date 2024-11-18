@@ -1,21 +1,33 @@
-package Irumping.IrumOrder.Entity;
+package Irumping.IrumOrder.entity;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.Getter;
+import lombok.Setter;
 
+@Setter
 @Getter
+@Entity
 public class UserEntity {
 
-    // 대리 키(surrogate key) 사용 고려 해볼 것
-    // https://quiet-jun.tistory.com/45
-    private String id;
-    private String password;
-    private String email;
-    private String name;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    public UserEntity(String id, String password, String email, String name) {
-        this.id = id;
+    private String userId;
+
+    private String password;
+
+    private String email;
+
+    public UserEntity() {
+    }
+
+    public UserEntity(String userId, String password, String email) {
+        this.userId = userId;
         this.password = password;
         this.email = email;
-        this.name = name;
     }
 }
