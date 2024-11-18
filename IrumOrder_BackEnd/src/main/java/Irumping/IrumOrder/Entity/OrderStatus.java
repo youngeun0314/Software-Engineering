@@ -6,6 +6,6 @@ public enum OrderStatus {
     NEW_ORDER, WAITING, ACCEPTED_ORDER, READY_FOR_PICKUP, COMPLETED,
 
     // 직원 상세 view : 승인, 조리시작, 조리완료, 픽업완료
-    ACCEPTED, COOKING_START, COOKING_END, PICKUP_END,
+    ACCEPTED, COOKING_START, COOKING_END, PICKUP_END;
 
 }
