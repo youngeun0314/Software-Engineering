@@ -1,19 +1,19 @@
-package Irumping.IrumOrder.Service;
+package Irumping.IrumOrder.service;
 
-import Irumping.IrumOrder.Dto.OrderRequestDto;
-import Irumping.IrumOrder.Dto.OrderResponseDto;
-import Irumping.IrumOrder.Dto.OrderMenuDto;
-import Irumping.IrumOrder.Dto.MenuDetailDto;
-import Irumping.IrumOrder.Entity.OrderEntity;
-import Irumping.IrumOrder.Entity.OrderMenuId;
-import Irumping.IrumOrder.Entity.OrderMenuEntity;
-import Irumping.IrumOrder.Entity.MenuDetailEntity;
-import Irumping.IrumOrder.Entity.MenuEntity;
-import Irumping.IrumOrder.Entity.OrderStatus;
-import Irumping.IrumOrder.Repository.OrderRepository;
-import Irumping.IrumOrder.Repository.MenuRepository;
-import Irumping.IrumOrder.Repository.MenuDetailRepository;
-import Irumping.IrumOrder.Repository.OrderMenuRepository;
+import Irumping.IrumOrder.dto.OrderRequestDto;
+import Irumping.IrumOrder.dto.OrderResponseDto;
+import Irumping.IrumOrder.dto.OrderMenuDto;
+import Irumping.IrumOrder.dto.MenuDetailDto;
+import Irumping.IrumOrder.entity.OrderEntity;
+import Irumping.IrumOrder.entity.OrderMenuId;
+import Irumping.IrumOrder.entity.OrderMenuEntity;
+import Irumping.IrumOrder.entity.MenuDetailEntity;
+import Irumping.IrumOrder.entity.MenuEntity;
+import Irumping.IrumOrder.entity.OrderStatus;
+import Irumping.IrumOrder.repository.OrderRepository;
+import Irumping.IrumOrder.repository.MenuRepository;
+import Irumping.IrumOrder.repository.MenuDetailRepository;
+import Irumping.IrumOrder.repository.OrderMenuRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -60,55 +60,16 @@ public class OrderService {
                 pickUpTime
         );
         logger.debug("Saving OrderEntity: {}", order);
+        orderRepository.save(order);
 
-        // OrderEntity 저장
-        saveOrderWithRetry(order);
-
-        // 2. 각 MenuDetailEntity를 생성하여 저장하고, OrderMenuEntity에 매핑
-        List<OrderMenuEntity> orderMenuOptions = orderRequestDto.getOrderMenuOptions().stream().map(orderMenuDto -> {
-            OrderMenuEntity orderMenuEntity = createOrderMenuEntity(order, orderMenuDto);
-            return orderMenuEntity;
-        }).toList();
-
-        // 3. 중복 방지 로직: 존재하지 않을 때만 저장
-        saveOrderMenuEntitiesWithRetry(orderMenuOptions);
+        // 2. 각 OrderMenuEntity 저장
+        List<OrderMenuEntity> orderMenuOptions = orderRequestDto.getOrderMenuOptions().stream()
+                .map(orderMenuDto -> createOrderMenuEntity(order, orderMenuDto))
+                .collect(Collectors.toList());
+        orderMenuRepository.saveAll(orderMenuOptions);
 
         // OrderEntity를 OrderResponseDto로 변환하여 반환
         return convertToResponseDto(order);
-    }
-
-    /**
-     * OrderEntity를 데이터베이스에 저장하고 재시도 로직 추가
-     */
-    private void saveOrderWithRetry(OrderEntity order) {
-        try {
-            orderRepository.save(order);
-            orderRepository.flush(); // 저장 후 즉시 flush
-            logger.info("OrderEntity saved with ID: {}", order.getOrderId());
-        } catch (Exception e) {
-            logger.error("Failed to save OrderEntity", e);
-            throw new RuntimeException("Order 저장 실패");
-        }
-    }
-
-    /**
-     * 각 OrderMenuEntity를 데이터베이스에 저장하고 중복 방지 및 재시도 로직 추가
-     */
-    private void saveOrderMenuEntitiesWithRetry(List<OrderMenuEntity> orderMenuEntities) {
-        for (OrderMenuEntity orderMenuEntity : orderMenuEntities) {
-            if (!orderMenuRepository.existsById(orderMenuEntity.getId())) {
-                try {
-                    orderMenuRepository.save(orderMenuEntity);
-                    orderMenuRepository.flush(); // 저장 후 즉시 flush
-                    logger.debug("OrderMenuEntity saved: {}", orderMenuEntity);
-                } catch (Exception e) {
-                    logger.error("Failed to save OrderMenuEntity with ID: {}", orderMenuEntity.getId(), e);
-                    throw new RuntimeException("OrderMenu 저장 실패");
-                }
-            } else {
-                logger.warn("OrderMenuEntity with ID {} already exists and will not be duplicated.", orderMenuEntity.getId());
-            }
-        }
     }
 
     /**
@@ -122,7 +83,6 @@ public class OrderService {
         MenuEntity menu = menuRepository.findById(orderMenuDto.getMenuId())
                 .orElseThrow(() -> new IllegalArgumentException("Menu ID가 잘못되었습니다: " + orderMenuDto.getMenuId()));
         orderMenuEntity.setMenu(menu);
-        logger.debug("MenuEntity set for OrderMenuEntity: {}", menu);
 
         // MenuDetailEntity 생성 및 저장
         MenuDetailDto menuOptions = orderMenuDto.getMenuOptions();
@@ -133,9 +93,7 @@ public class OrderService {
                 menuOptions.getAddHazelnut(),
                 menuOptions.getLight()
         );
-
-        // MenuDetailEntity 저장
-        saveMenuDetailEntityWithRetry(menuDetailEntity);
+        menuDetailRepository.save(menuDetailEntity);
         orderMenuEntity.setMenuDetail(menuDetailEntity);
         orderMenuEntity.setQuantity(orderMenuDto.getQuantity());
 
@@ -146,23 +104,8 @@ public class OrderService {
                 menuDetailEntity.getMenuDetailId()
         );
         orderMenuEntity.setId(orderMenuId);
-        logger.debug("OrderMenuEntity configured with ID: {}", orderMenuId);
 
         return orderMenuEntity;
-    }
-
-    /**
-     * MenuDetailEntity 저장과 재시도 로직 추가
-     */
-    private void saveMenuDetailEntityWithRetry(MenuDetailEntity menuDetailEntity) {
-        try {
-            menuDetailRepository.save(menuDetailEntity);
-            menuDetailRepository.flush(); // 저장 후 즉시 flush
-            logger.info("MenuDetailEntity saved with ID: {}", menuDetailEntity.getMenuDetailId());
-        } catch (Exception e) {
-            logger.error("Failed to save MenuDetailEntity", e);
-            throw new RuntimeException("MenuDetail 저장 실패");
-        }
     }
 
     /**
@@ -186,13 +129,9 @@ public class OrderService {
                 .map(this::convertToOrderMenuDto)
                 .collect(Collectors.toList()));
 
-        logger.debug("Converted OrderEntity to OrderResponseDto: {}", responseDto);
         return responseDto;
     }
 
-    /**
-     * OrderMenuEntity를 OrderMenuDto로 변환하는 메서드
-     */
     private OrderMenuDto convertToOrderMenuDto(OrderMenuEntity orderMenuEntity) {
         OrderMenuDto orderMenuDto = new OrderMenuDto();
         orderMenuDto.setMenuId(orderMenuEntity.getMenu().getMenuId());
@@ -207,7 +146,6 @@ public class OrderService {
         menuDetailDto.setLight(orderMenuEntity.getMenuDetail().isLight());
         orderMenuDto.setMenuOptions(menuDetailDto);
 
-        logger.debug("Converted OrderMenuEntity to OrderMenuDto: {}", orderMenuDto);
         return orderMenuDto;
     }
 }

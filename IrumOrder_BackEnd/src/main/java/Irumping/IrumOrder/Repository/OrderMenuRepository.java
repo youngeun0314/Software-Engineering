@@ -1,7 +1,7 @@
-package Irumping.IrumOrder.Repository;
+package Irumping.IrumOrder.repository;
 
-import Irumping.IrumOrder.Entity.OrderMenuEntity;
-import Irumping.IrumOrder.Entity.OrderMenuId;
+import Irumping.IrumOrder.entity.OrderMenuEntity;
+import Irumping.IrumOrder.entity.OrderMenuId;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

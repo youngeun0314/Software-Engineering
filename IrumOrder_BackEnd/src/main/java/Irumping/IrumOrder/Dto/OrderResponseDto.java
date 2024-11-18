@@ -1,6 +1,6 @@
-package Irumping.IrumOrder.Dto;
+package Irumping.IrumOrder.dto;
 
-import Irumping.IrumOrder.Entity.OrderStatus;
+import Irumping.IrumOrder.entity.OrderStatus;
 import lombok.Getter;
 import lombok.Setter;
 
