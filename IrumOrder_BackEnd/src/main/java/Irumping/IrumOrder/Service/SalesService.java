@@ -16,7 +16,7 @@ public class SalesService {
 
     public int getYesterdayTotalSales() {
         // 어제의 시작과 끝 시각 계산
-        LocalDate yesterday = LocalDate.now().minusDays(0);
+        LocalDate yesterday = LocalDate.now().minusDays(1);
         LocalDateTime startOfDay = yesterday.atStartOfDay();
         LocalDateTime endOfDay = yesterday.atTime(LocalTime.MAX);
 
