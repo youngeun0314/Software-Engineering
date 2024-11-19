@@ -1,10 +1,10 @@
-package Irumping.IrumOrder.Service;
+package Irumping.IrumOrder.service;
 
-import Irumping.IrumOrder.Dto.PayApproveResponse;
-import Irumping.IrumOrder.Dto.PayOrderForm;
-import Irumping.IrumOrder.Dto.PayReadyResponse;
-import Irumping.IrumOrder.Entity.OrderEntity;
-import Irumping.IrumOrder.Repository.PayRepository;
+import Irumping.IrumOrder.dto.PayApproveResponse;
+import Irumping.IrumOrder.dto.PayOrderForm;
+import Irumping.IrumOrder.dto.PayReadyResponse;
+import Irumping.IrumOrder.entity.OrderEntity;
+import Irumping.IrumOrder.repository.PayRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,7 +17,6 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.Map;
 

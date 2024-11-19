@@ -1,4 +1,4 @@
-package Irumping.IrumOrder.Repository;
+package Irumping.IrumOrder.repository;
 
 import org.springframework.stereotype.Repository;
 

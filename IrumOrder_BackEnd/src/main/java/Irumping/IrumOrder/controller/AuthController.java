@@ -1,8 +1,8 @@
-package Irumping.IrumOrder.Controller;
+package Irumping.IrumOrder.controller;
 
-import Irumping.IrumOrder.Dto.LoginDto;
-import Irumping.IrumOrder.Entity.UserEntity;
-import Irumping.IrumOrder.Service.AuthService;
+import Irumping.IrumOrder.dto.LoginDto;
+import Irumping.IrumOrder.entity.UserEntity;
+import Irumping.IrumOrder.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;

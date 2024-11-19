@@ -1,4 +1,4 @@
-package Irumping.IrumOrder.Dto;
+package Irumping.IrumOrder.dto;
 
 public class PayReadyRequset {
 

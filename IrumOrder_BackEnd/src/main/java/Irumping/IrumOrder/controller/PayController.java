@@ -1,8 +1,8 @@
-package Irumping.IrumOrder.Controller;
+package Irumping.IrumOrder.controller;
 
 
-import Irumping.IrumOrder.Dto.*;
-import Irumping.IrumOrder.Service.PayService;
+import Irumping.IrumOrder.dto.*;
+import Irumping.IrumOrder.service.PayService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -13,7 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 
-//TODO : DB에 결제 완료로 상태 변경하는 로직 추가
 //TODO : 보안기능 추가(결제정보 일치 여부 확인 등)
 
 @Tag(name = "payment")

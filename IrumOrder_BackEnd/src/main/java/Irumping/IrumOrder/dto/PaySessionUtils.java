@@ -1,4 +1,4 @@
-package Irumping.IrumOrder.Dto;
+package Irumping.IrumOrder.dto;
 
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;

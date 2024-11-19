@@ -1,5 +1,5 @@
 
-package Irumping.IrumOrder.Entity;
+package Irumping.IrumOrder.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
