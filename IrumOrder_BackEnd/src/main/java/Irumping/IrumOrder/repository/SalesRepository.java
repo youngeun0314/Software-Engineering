@@ -1,6 +1,6 @@
-package Irumping.IrumOrder.Repository;
+package Irumping.IrumOrder.repository;
 
-import Irumping.IrumOrder.Entity.OrderEntity;
+import Irumping.IrumOrder.entity.OrderEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

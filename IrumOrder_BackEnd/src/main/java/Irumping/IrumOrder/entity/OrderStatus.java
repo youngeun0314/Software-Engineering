@@ -1,4 +1,4 @@
-package Irumping.IrumOrder.Entity;
+package Irumping.IrumOrder.entity;
 
 public enum OrderStatus {
     // 예약대기, 주문접수, 상품준비완료, 완료
