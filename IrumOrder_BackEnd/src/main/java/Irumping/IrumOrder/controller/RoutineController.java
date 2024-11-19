@@ -24,13 +24,12 @@ public class RoutineController {
     }
 
     @PostMapping
-    public ResponseEntity<RoutineEntity> createRoutine(@RequestParam Integer userId,
+    public RoutineEntity createRoutine(@RequestParam Integer userId,
                                                  @RequestParam Integer menuId,
                                                  @RequestParam(required = false) Integer menuDetailId,
                                                  @RequestParam RoutineDay routineDay,
                                                  @RequestParam LocalTime routineTime) {
-        RoutineEntity routine = routineService.addRoutine(userId, menuId, menuDetailId, routineDay, routineTime);
-        return ResponseEntity.ok(routine);
+        return routineService.addRoutine(userId, menuId, menuDetailId, routineDay, routineTime);
     }
 
     // 루틴 수정 메서드
