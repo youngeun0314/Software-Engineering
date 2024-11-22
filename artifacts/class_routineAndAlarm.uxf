@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.1">
+  <zoom_level>5</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>800</x>
+      <y>310</y>
+      <w>175</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>AlarmService
+--
++sendPushNotification(String, String,String)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>745</x>
+      <y>90</y>
+      <w>290</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>FirebaseMessaging
+--
++ send(message: Message): String
++ sendAsync(message: Message): ApiFuture&lt;String&gt;
++ subscribeToTopic(tokens: List&lt;String&gt;, topic: String): TopicManagementResponse
++ unsubscribeFromTopic(tokens: List&lt;String&gt;, topic: String): TopicManagementResponse</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>750</x>
+      <y>195</y>
+      <w>290</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>FCM Service
+--
++ sendNotificationToDevice(token: String, title: String, body: String): void
++ sendNotificationToTopic(topic: String, title: String, body: String): void
++ subscribeDevicesToTopic(tokens: List&lt;String&gt;, topic: String): void
++ unsubscribeDevicesFromTopic(tokens: List&lt;String&gt;, topic: String): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>875</x>
+      <y>135</y>
+      <w>25</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+use</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;120.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>875</x>
+      <y>240</y>
+      <w>25</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+use</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;140.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>520</x>
+      <y>315</y>
+      <w>175</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>RoutineAlarmScheduler
+--
++checkRoutineAlarms()
+-mapDayOfWeekToRoutinDay(DayOfWeek)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>535</x>
+      <y>60</y>
+      <w>140</w>
+      <h>75</h>
+    </coordinates>
+    <panel_attributes>RoutineEntity
+--
+-routineId: Integer
+-userId: Integer
+-menuId: Integer
+-menuDetailId: Integer
+-routineDay: RoutineDay
+-routineTime: LocalTime
+-alarmEnabled = true: Boolean</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>495</x>
+      <y>215</y>
+      <w>210</w>
+      <h>25</h>
+    </coordinates>
+    <panel_attributes>RoutineRepository
+--
+findByRoutineDayAndAlarmEnable(RoutineDay, alarmEnabled)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>325</x>
+      <y>170</y>
+      <w>130</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+:JpaRepository
+--
+save(entity): entity
+saveAll(entities): List&lt;entity&gt;
+findById(id): Optional&lt;entity&gt;
+existsById(id): boolean
+findAll(): List&lt;entity&gt;
+findAllById(ids): List&lt;entity&gt;
+count(): long
+deleteById(id): void
+delete(entity): void
+deleteAllById(ids): void
+deleteAll(entities): void
+deleteAll(): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>450</x>
+      <y>225</y>
+      <w>55</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+use</panel_attributes>
+    <additional_attributes>90.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>690</x>
+      <y>335</y>
+      <w>120</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+use</panel_attributes>
+    <additional_attributes>220.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>590</x>
+      <y>130</y>
+      <w>25</w>
+      <h>95</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+use</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;170.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>590</x>
+      <y>235</y>
+      <w>35</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;use&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;160.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>380</x>
+      <y>605</y>
+      <w>485</w>
+      <h>65</h>
+    </coordinates>
+    <panel_attributes>:RoutineController
+--
+-routineService: RoutineService
+--
++RoutineController(RoutineService routineService): ctor
++createRoutine(Integer userId, Integer menuId,Integer menuDetailId, RoutineDay routineDay, LocalTime routineTime): ResponseEntity&lt;RoutineEntity&gt;
++updateRoutine(Integer routineId, RoutineDto routineDto): ResponseEntity&lt;RoutineEntity&gt;
++deleteRoutine(Integer routineId): ResponseEntity&lt;Void&gt;
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>715</x>
+      <y>390</y>
+      <w>125</w>
+      <h>65</h>
+    </coordinates>
+    <panel_attributes>:RoutineDto
+--
+-menuId: Integer
+-menuDetailId: Integer
+-routineDay: RoutineDay
+-routineTime: LocalTime
+-alarmEnabled: Boolean
+--
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>560</x>
+      <y>375</y>
+      <w>140</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>:RoutineEntity
+--
+routineId: Integer
+-userId: Integer
+-menuId: Integer
+-menuDetailId: Integer
+-routineDay: RoutineDay
+-routineTime: LocalTime
+-alarmEnabled = true: Boolean
+--
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>815</x>
+      <y>515</y>
+      <w>290</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>:GlobalExceptionHandler
+--
+--
++handleIllegalArgumentException(IllegalArgumentException ex): ResponseEntity&lt;String&gt;
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>370</x>
+      <y>490</y>
+      <w>420</w>
+      <h>65</h>
+    </coordinates>
+    <panel_attributes>:RoutineService
+--
+-routineRepository: RoutineRepository
+--
++RoutineService(RoutineRepository routineRepository): ctor
++addRoutine(Integer userId, Integer menuId, Integer menuDetailId, RoutineDay routineDay, LocalTime routineTime): RoutineEntity
++updateRoutine(Integer routineId, RoutineDto routineDto): RoutineEntity
++deleteRoutine(Integer routineId): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>430</x>
+      <y>235</y>
+      <w>185</w>
+      <h>265</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=1
+m2=1 routineRepository</panel_attributes>
+    <additional_attributes>10.0;510.0;10.0;130.0;230.0;130.0;230.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>635</x>
+      <y>460</y>
+      <w>45</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;creates&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>595</x>
+      <y>550</y>
+      <w>65</w>
+      <h>65</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m1=1 
+
+m2=1 routineService</panel_attributes>
+    <additional_attributes>10.0;110.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>800</x>
+      <y>450</y>
+      <w>25</w>
+      <h>165</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+use</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;310.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>750</x>
+      <y>450</y>
+      <w>25</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+use</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
+  </element>
+</diagram>

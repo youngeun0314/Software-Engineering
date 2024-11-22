@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.0.0">
+  <zoom_level>5</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>275</x>
+      <y>115</y>
+      <w>410</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>Irumping.IrumOrder.entity::MenuDetailEntity
+--
+-menuDetailId: int
+-useCup: String
+-addShot = false: boolean
+-addVanilla = false: boolean
+-addHazelnut = false: boolean
+-light = false: boolean
+-menu: MenuEntity
+--
++MenuDetailEntity(): ctor
++MenuDetailEntity(String useCup, boolean addShot, boolean addVanilla, boolean addHazelnut, boolean light): ctor
++equals(Object o): boolean
++hashCode(): int
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>345</x>
+      <y>335</y>
+      <w>255</w>
+      <h>95</h>
+    </coordinates>
+    <panel_attributes>Irumping.IrumOrder.entity::MenuEntity
+--
+-menuId: Long
+-name: String
+-price: Long
+-category: CategoryEntity
+--
++MenuEntity(): ctor
++MenuEntity(String name, Long price, CategoryEntity category): ctor
++equals(Object o): boolean
++hashCode(): int
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>865</x>
+      <y>115</y>
+      <w>175</w>
+      <h>95</h>
+    </coordinates>
+    <panel_attributes>Irumping.IrumOrder.controller::MenuRequest
+--
+-name: String
+-price: Long
+-categoryId: Long
+-useCup: String
+-addShot: boolean
+-addVanilla: boolean
+-addHazelnut: boolean
+-light: boolean
+--
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>850</x>
+      <y>485</y>
+      <w>195</w>
+      <h>85</h>
+    </coordinates>
+    <panel_attributes>Irumping.IrumOrder.repository::JpaMenuRepository
+--
+-em: EntityManager
+--
++JpaMenuRepository(EntityManager em): ctor
++findMenuById(Long menuId): MenuEntity
++findByName(String name): Optional&lt;MenuEntity&gt;
++findByCategory(Long categoryId): List&lt;MenuEntity&gt;
++saveMenu(MenuEntity menu): void
++deleteMenu(Long menuId): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>90</x>
+      <y>490</y>
+      <w>210</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>Irumping.IrumOrder.repository::JpaCategoryRepository
+--
+-em: EntityManager
+--
++JpaCategoryRepository(EntityManager em): ctor
++findAll(): List&lt;CategoryEntity&gt;
++findCategoryById(Long categoryId): CategoryEntity
++saveCategory(CategoryEntity category): void
++deleteCategory(Long categoryId): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>620</x>
+      <y>250</y>
+      <w>185</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+Irumping.IrumOrder.repository::MenuRepository
+--
+--
+~findMenuById(Long menuId): MenuEntity
+~findByName(String name): Optional&lt;MenuEntity&gt;
+~findByCategory(Long categoryId): List&lt;MenuEntity&gt;
++saveMenu(MenuEntity menu): void
++deleteMenu(Long menuId): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>555</x>
+      <y>460</y>
+      <w>255</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>Irumping.IrumOrder.service::MenuService
+--
+-menuRepository: MenuRepository
+-menuDetailRepository: MenuDetailRepository
+-categoryRepository: CategoryRepository
+--
++createMenu(MenuEntity menu, MenuDetailEntity menuDetail): Long
++deleteMenu(Long menuId): Long
++findMenuByCategory(Long categoryId): MenuEntity
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>90</x>
+      <y>350</y>
+      <w>200</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+Irumping.IrumOrder.repository::CategoryRepository
+--
+--
++findAll(): List&lt;CategoryEntity&gt;
+~findCategoryById(Long categoryId): CategoryEntity
++saveCategory(CategoryEntity category): void
++deleteCategory(Long categoryId): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>555</x>
+      <y>690</y>
+      <w>245</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>Irumping.IrumOrder.controller::MenuController
+--
+-menuService: MenuService
+-categoryService: CategoryService
+--
++addMenu(MenuRequest menuRequest): ResponseEntity&lt;String&gt;
++deleteMenu(Long menuId): ResponseEntity&lt;String&gt;
++getMenu(Long categoryId): ResponseEntity&lt;String&gt;
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>200</x>
+      <y>680</y>
+      <w>220</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>Irumping.IrumOrder.controller::CategoryController
+--
+-categoryService: CategoryService
+--
++createCategory(String category): ResponseEntity&lt;String&gt;
++deleteCategory(Long categoryId): ResponseEntity&lt;String&gt;
++getAllCategory(): ResponseEntity&lt;String&gt;
++getCategory(Long category): ResponseEntity&lt;String&gt;
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>330</x>
+      <y>495</y>
+      <w>195</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>Irumping.IrumOrder.service::CategoryService
+--
+-repository: CategoryRepository
+--
++createCategory(String categoryName): Long
++findCategoryById(Long categoryId): CategoryEntity
++deleteCategory(Long categoryId): Long
++findAll(): List&lt;CategoryEntity&gt;
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>80</x>
+      <y>180</y>
+      <w>165</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>Irumping.IrumOrder.entity::CategoryEntity
+--
+-id: Long
+-name: String
+--
++CategoryEntity(): ctor
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>845</x>
+      <y>325</y>
+      <w>205</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+Irumping.IrumOrder.repository::MenuDetailRepository
+--
+--
++save(MenuDetailEntity menuDetail): MenuDetailEntity
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>200</x>
+      <y>230</y>
+      <w>280</w>
+      <h>115</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-&gt;&gt;&gt;&gt;&gt;
+m1=1 category
+m2=1</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;60.0;530.0;60.0;530.0;210.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>505</x>
+      <y>230</y>
+      <w>40</w>
+      <h>115</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;&gt;&gt;&gt;&gt;
+m1=1
+m2=1 menu</panel_attributes>
+    <additional_attributes>10.0;210.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>730</x>
+      <y>365</y>
+      <w>310</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-&gt;&gt;&gt;&gt;&gt;
+m1=1 menuDetailRepository
+m2=1</panel_attributes>
+    <additional_attributes>440.0;10.0;440.0;150.0;10.0;150.0;10.0;190.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>650</x>
+      <y>325</y>
+      <w>75</w>
+      <h>145</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-&gt;&gt;&gt;&gt;&gt;
+m1=1 menuRepository
+m2=1</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;270.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>730</x>
+      <y>325</y>
+      <w>210</w>
+      <h>170</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;190.0;400.0;190.0;400.0;320.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>130</x>
+      <y>230</y>
+      <w>380</w>
+      <h>275</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;210.0;380.0;210.0;380.0;430.0;740.0;430.0;740.0;530.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>130</x>
+      <y>415</y>
+      <w>15</w>
+      <h>85</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;150.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>245</x>
+      <y>415</y>
+      <w>195</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-&gt;&gt;&gt;&gt;&gt;
+m1=1
+m2=1
+repository</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;100.0;360.0;100.0;360.0;160.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>660</x>
+      <y>440</y>
+      <w>170</w>
+      <h>260</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-&gt;
+m1=1
+m2=1menuService</panel_attributes>
+    <additional_attributes>40.0;500.0;40.0;460.0;320.0;460.0;320.0;10.0;10.0;10.0;10.0;40.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>315</x>
+      <y>470</y>
+      <w>115</w>
+      <h>220</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-&gt;
+m1=1 categoryService
+m2=1</panel_attributes>
+    <additional_attributes>10.0;420.0;10.0;10.0;200.0;10.0;200.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>540</x>
+      <y>230</y>
+      <w>135</w>
+      <h>470</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;create&gt;&gt;</panel_attributes>
+    <additional_attributes>30.0;10.0;30.0;190.0;140.0;190.0;140.0;440.0;10.0;440.0;10.0;650.0;250.0;650.0;250.0;920.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>530</x>
+      <y>425</y>
+      <w>115</w>
+      <h>275</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;create&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;460.0;210.0;460.0;210.0;530.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>455</x>
+      <y>560</y>
+      <w>150</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-&gt;&gt;&gt;&gt;&gt;
+m1=1
+m2=1
+categoryService</panel_attributes>
+    <additional_attributes>20.0;10.0;20.0;220.0;270.0;220.0;270.0;260.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>260</x>
+      <y>415</y>
+      <w>380</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-&gt;&gt;&gt;&gt;&gt;
+m1=1 categoryRepository</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;50.0;740.0;50.0;740.0;90.0</additional_attributes>
+  </element>
+</diagram>
