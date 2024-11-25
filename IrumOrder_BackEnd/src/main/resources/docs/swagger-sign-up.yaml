@@ -1,0 +1,74 @@
+---
+openapi: 3.0.1
+info:
+  title: API - 이룸오더
+  description: API Description
+  version: v1.0.0
+servers:
+  - url: http://localhost:8080
+    description: Generated server url
+paths:
+  "/auth/signUp":
+    post:
+      tags:
+        - auth-controller
+      operationId: signUp
+      parameters:
+        - name: signUpRequest
+          in: query
+          required: true
+          schema:
+            "$ref": "#/components/schemas/SignUpRequest"
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: string
+  "/auth/login":
+    post:
+      tags:
+        - auth-controller
+      operationId: login
+      parameters:
+        - name: userId
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: password
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: string
+  "/docs/swagger.yaml":
+    get:
+      tags:
+        - open-api-controller
+      operationId: getSwaggerYaml
+      responses:
+        '200':
+          description: OK
+          content:
+            application/yaml:
+              schema:
+                type: string
+components:
+  schemas:
+    SignUpRequest:
+      type: object
+      properties:
+        userId:
+          type: string
+        password:
+          type: string
+        email:
+          type: string
