@@ -13,7 +13,7 @@ import java.time.LocalTime;
 
 
 @RestController
-@RequestMapping("/api/routines")
+@RequestMapping("/routines")
 public class RoutineController {
 
     private final RoutineService routineService;
@@ -23,13 +23,11 @@ public class RoutineController {
         this.routineService = routineService;
     }
 
-    @PostMapping
-    public RoutineEntity createRoutine(@RequestParam Integer userId,
-                                                 @RequestParam Integer menuId,
-                                                 @RequestParam(required = false) Integer menuDetailId,
-                                                 @RequestParam RoutineDay routineDay,
-                                                 @RequestParam LocalTime routineTime) {
-        return routineService.addRoutine(userId, menuId, menuDetailId, routineDay, routineTime);
+
+
+    @PostMapping("/add")
+    public RoutineEntity createRoutine(@RequestBody RoutineDto routineDto) {
+        return routineService.addRoutine(routineDto);
     }
 
     // 루틴 수정 메서드

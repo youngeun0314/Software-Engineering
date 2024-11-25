@@ -22,13 +22,14 @@ public class RoutineService {
     }
 
     @Transactional
-    public RoutineEntity addRoutine(Integer userId, Integer menuId, Integer menuDetailId, RoutineDay routineDay, LocalTime routineTime) {
+    public RoutineEntity addRoutine(RoutineDto routineDto) {
         RoutineEntity routine = new RoutineEntity();
-        routine.setUserId(userId);
-        routine.setMenuId(menuId);
-        routine.setMenuDetailId(menuDetailId);
-        routine.setRoutineDay(routineDay);
-        routine.setRoutineTime(routineTime);
+        routine.setUserId(routineDto.getUserId());
+        routine.setMenuId(routineDto.getMenuId());
+        routine.setMenuDetailId(routineDto.getMenuDetailId());
+        routine.setRoutineDay(routineDto.getRoutineDay());
+        routine.setRoutineTime(routineDto.getRoutineTime());
+        routine.setAlarmEnabled(routineDto.getIsActivated());
 
         return routineRepository.save(routine);
     }
@@ -54,8 +55,8 @@ public class RoutineService {
             routine.setRoutineTime(routineDto.getRoutineTime());
         }
 
-        if (routineDto.getAlarmEnabled() != null) {
-            routine.setAlarmEnabled(routineDto.getAlarmEnabled());
+        if (routineDto.getIsActivated() != null) {
+            routine.setAlarmEnabled(routineDto.getIsActivated());
         }
 
         return routineRepository.save(routine);
