@@ -49,15 +49,12 @@ public class OrderService {
     public OrderResponseDto createOrder(OrderRequestDto orderRequestDto) {
         logger.info("Start creating order...");
 
-        // 주문 픽업 시간을 LocalTime 형식으로 변환
-        LocalTime pickUpTime = LocalTime.parse(orderRequestDto.getPickUp(), DateTimeFormatter.ofPattern("HH:mm:ss"));
-
         // 1. OrderEntity 저장
         OrderEntity order = new OrderEntity(
                 orderRequestDto.getUserId(),
                 orderRequestDto.getTotalPrice(),
                 OrderStatus.WAITING,  // 기본 주문 상태 설정
-                pickUpTime
+                orderRequestDto.getPickUp()
         );
         logger.debug("Saving OrderEntity: {}", order);
         orderRepository.save(order);
@@ -119,10 +116,6 @@ public class OrderService {
         responseDto.setTotalPrice(orderEntity.getTotalPrice());
         responseDto.setOrderStatus(OrderStatus.valueOf(orderEntity.getOrderStatus().toString()));
         responseDto.setPayment(orderEntity.getPayment());
-
-        // LocalTime을 문자열로 변환하여 설정
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-        responseDto.setPickUp(orderEntity.getPickUp() != null ? orderEntity.getPickUp().format(formatter) : null);
 
         // OrderMenuDto 리스트로 변환
         responseDto.setOrderMenuOptions(orderEntity.getOrderMenuOptions().stream()

@@ -16,7 +16,7 @@ public class OrderResponseDto {
     private int userId; // 주문한 유저의 ID
     private int totalPrice; // 주문 총 가격
     private OrderStatus orderStatus; // 주문 상태
-    private String pickUp; //픽업시간
+    private LocalTime pickUp; //픽업시간
     private LocalDateTime payment = null;
     private List<OrderMenuDto> orderMenuOptions; // 주문 내 메뉴와 옵션 목록
 }

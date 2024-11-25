@@ -33,6 +33,21 @@ paths:
                 "$ref": "#/components/schemas/OrderResponseDto"
 components:
   schemas:
+    LocalTime:
+      type: object
+      properties:
+        hour:
+          type: integer
+          format: int32
+        minute:
+          type: integer
+          format: int32
+        second:
+          type: integer
+          format: int32
+        nano:
+          type: integer
+          format: int32
     MenuDetailDto:
       type: object
       properties:
@@ -67,7 +82,7 @@ components:
           type: integer
           format: int32
         pickUp:
-          type: string
+          "$ref": "#/components/schemas/LocalTime"
         orderMenuOptions:
           type: array
           items:
@@ -97,7 +112,7 @@ components:
             - COOKING_END
             - PICKUP_END
         pickUp:
-          type: string
+          "$ref": "#/components/schemas/LocalTime"
         payment:
           type: string
           format: date-time
