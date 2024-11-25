@@ -1,8 +1,8 @@
-package Irumping.IrumOrder.Service;
+package Irumping.IrumOrder.service;
 
-import Irumping.IrumOrder.Entity.OrderEntity;
-import Irumping.IrumOrder.Entity.OrderStatus;
-import Irumping.IrumOrder.Repository.JpaOrderRepository;
+import Irumping.IrumOrder.entity.OrderEntity;
+import Irumping.IrumOrder.entity.OrderStatus;
+import Irumping.IrumOrder.repository.JpaOrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

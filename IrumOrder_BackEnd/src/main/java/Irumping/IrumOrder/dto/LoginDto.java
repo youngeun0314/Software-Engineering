@@ -1,4 +1,4 @@
-package Irumping.IrumOrder.Dto;
+package Irumping.IrumOrder.dto;
 
 import lombok.Getter;
 

@@ -1,6 +1,6 @@
-package Irumping.IrumOrder.Repository;
+package Irumping.IrumOrder.repository;
 
-import Irumping.IrumOrder.Entity.OrderEntity;
+import Irumping.IrumOrder.entity.OrderEntity;
 
 public interface OrderRepository {
 

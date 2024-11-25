@@ -1,4 +1,4 @@
-package Irumping.IrumOrder.Entity;
+package Irumping.IrumOrder.entity;
 
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;

@@ -1,8 +1,8 @@
-package Irumping.IrumOrder.Controller;
+package Irumping.IrumOrder.controller;
 
-import Irumping.IrumOrder.Entity.OrderEntity;
-import Irumping.IrumOrder.Entity.OrderStatus;
-import Irumping.IrumOrder.Service.OrderMgmtService;
+import Irumping.IrumOrder.entity.OrderEntity;
+import Irumping.IrumOrder.entity.OrderStatus;
+import Irumping.IrumOrder.service.OrderMgmtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
