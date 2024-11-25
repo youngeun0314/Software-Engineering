@@ -48,11 +48,13 @@ components:
         nano:
           type: integer
           format: int32
+      example: '01:20'
     MenuDetailDto:
       type: object
       properties:
         useCup:
           type: string
+          example: TakeOut
         addShot:
           type: boolean
         addVanilla:
