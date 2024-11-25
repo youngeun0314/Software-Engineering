@@ -1,32 +1,56 @@
 .routine-list {
-    padding: 20px;
-  }
-  
-  .routine-item {
-    display: flex;
-    justify-content: space-between;
-    margin: 10px 0;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-  }
-  
-  .routine-info h2 {
-    margin: 0;
-  }
-  
-  .routine-controls button {
-    margin-left: 10px;
-  }
-  
-  .add-button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    font-size: 24px;
-    border: none;
-    border-radius: 50%;
-    background-color: #ff9900;
-    color: white;
-    cursor: pointer;
-  }
-  
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+}
+
+.routine-list h1 {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+.routine-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: white;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+.routine-info h2 {
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.routine-info p {
+  font-size: 0.9rem;
+  color: gray;
+}
+
+.routine-controls button {
+  background: #ff7a00;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  margin-left: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.add-button {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #ff7a00;
+  color: white;
+  font-size: 1.5rem;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+}

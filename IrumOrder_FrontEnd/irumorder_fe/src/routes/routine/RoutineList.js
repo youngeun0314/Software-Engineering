@@ -1,52 +1,40 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import RoutineContext from "../context/RoutineContext";
 import "./RoutineList.css";
 
 const RoutineList = () => {
+  const { routines } = useContext(RoutineContext);
   const navigate = useNavigate();
-  const routines = [
-    {
-      id: 1,
-      time: "10:00",
-      menu: "아메리카노",
-      days: ["월", "수", "금"],
-      store: "스타벅스",
-      active: true,
-    },
-  ];
 
-  const toggleActive = (id) => {
-    // API Call: Update routine active state
-    console.log(`Toggled routine ${id}`);
-  };
-
-  const deleteRoutine = (id) => {
-    // API Call: Delete routine
-    console.log(`Deleted routine ${id}`);
+  const handleBackClick = () => {
+    navigate(-1);  // 이전 페이지로 이동
   };
 
   return (
     <div className="routine-list">
+      <header className='signup-header'>
+        <button onClick={handleBackClick} className='back-button'>
+          {'ᐊ'}
+        </button>
+      </header>
       <h1>나의 루틴</h1>
-      {routines.map((routine) => (
-        <div key={routine.id} className="routine-item">
-          <div className="routine-info">
-            <h2>{routine.time}</h2>
+      <div className="routine-items">
+        {routines.map((routine) => (
+          <div
+            key={routine.id}
+            className="routine-item"
+            onClick={() => navigate(`/routine/${routine.id}`)}
+          >
             <p>
-              {routine.menu} | {routine.days.join(", ")} | {routine.store}
+              시간: {routine.time} ({routine.days.join(", ")})
             </p>
+            <p>메뉴: {routine.menu?.name || "없음"}</p>
+            <p>매장: {routine.store}</p>
           </div>
-          <div className="routine-controls">
-            <button onClick={() => toggleActive(routine.id)}>
-              {routine.active ? "ON" : "OFF"}
-            </button>
-            <button onClick={() => deleteRoutine(routine.id)}>X</button>
-          </div>
-        </div>
-      ))}
-      <button onClick={() => navigate("/routine-add")} className="add-button">
-        +
-      </button>
+        ))}
+      </div>
+      <button onClick={() => navigate("/routine/new")}>새 루틴 추가</button>
     </div>
   );
 };
