@@ -1,11 +1,11 @@
 import React from 'react';
 import {HashRouter,Route, Routes} from 'react-router-dom';
-import Signup from './routes/Signup';
-import Login from './routes/Login';
+import Signup from './routes/user registration/Signup';
+import Login from './routes/user management/Login';
 import Main from './routes/Main';
-import Order from './routes/Order';
-import RoutineList from './routes/RoutineList';
-import PastOrder from './routes/PastOrder';
+import Order from './routes/order received/Order';
+import RoutineList from './routes/routine/RoutineList';
+import PastOrder from './routes/order received/PastOrder';
  
  
 function App(){
