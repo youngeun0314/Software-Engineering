@@ -1,10 +1,10 @@
-package Irumping.IrumOrder.Service;
+package Irumping.IrumOrder.service;
 
-import Irumping.IrumOrder.Entity.MenuDetailEntity;
-import Irumping.IrumOrder.Entity.MenuEntity;
-import Irumping.IrumOrder.Repository.CategoryRepository;
-import Irumping.IrumOrder.Repository.MenuDetailRepository;
-import Irumping.IrumOrder.Repository.MenuRepository;
+import Irumping.IrumOrder.entity.MenuDetailEntity;
+import Irumping.IrumOrder.entity.MenuEntity;
+import Irumping.IrumOrder.repository.CategoryRepository;
+import Irumping.IrumOrder.repository.MenuDetailRepository;
+import Irumping.IrumOrder.repository.MenuRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

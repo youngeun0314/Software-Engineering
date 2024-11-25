@@ -1,9 +1,9 @@
-package Irumping.IrumOrder.Controller;
+package Irumping.IrumOrder.controller;
 
-import Irumping.IrumOrder.Entity.MenuDetailEntity;
-import Irumping.IrumOrder.Entity.MenuEntity;
-import Irumping.IrumOrder.Service.CategoryService;
-import Irumping.IrumOrder.Service.MenuService;
+import Irumping.IrumOrder.entity.MenuDetailEntity;
+import Irumping.IrumOrder.entity.MenuEntity;
+import Irumping.IrumOrder.service.CategoryService;
+import Irumping.IrumOrder.service.MenuService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

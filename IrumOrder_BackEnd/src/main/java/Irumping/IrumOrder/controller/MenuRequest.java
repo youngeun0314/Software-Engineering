@@ -1,4 +1,4 @@
-package Irumping.IrumOrder.Controller;
+package Irumping.IrumOrder.controller;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

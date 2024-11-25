@@ -1,6 +1,6 @@
-package Irumping.IrumOrder.Repository;
+package Irumping.IrumOrder.repository;
 
-import Irumping.IrumOrder.Entity.MenuEntity;
+import Irumping.IrumOrder.entity.MenuEntity;
 
 import java.util.List;
 import java.util.Optional;

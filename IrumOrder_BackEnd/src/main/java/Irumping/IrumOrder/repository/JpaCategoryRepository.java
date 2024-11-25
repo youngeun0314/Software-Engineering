@@ -1,12 +1,10 @@
-package Irumping.IrumOrder.Repository;
+package Irumping.IrumOrder.repository;
 
-import Irumping.IrumOrder.Entity.CategoryEntity;
-import Irumping.IrumOrder.Entity.MenuEntity;
+import Irumping.IrumOrder.entity.CategoryEntity;
 import jakarta.persistence.EntityManager;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public class JpaCategoryRepository implements CategoryRepository {

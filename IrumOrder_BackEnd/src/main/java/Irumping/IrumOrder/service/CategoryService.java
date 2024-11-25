@@ -1,7 +1,7 @@
-package Irumping.IrumOrder.Service;
+package Irumping.IrumOrder.service;
 
-import Irumping.IrumOrder.Entity.CategoryEntity;
-import Irumping.IrumOrder.Repository.CategoryRepository;
+import Irumping.IrumOrder.entity.CategoryEntity;
+import Irumping.IrumOrder.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

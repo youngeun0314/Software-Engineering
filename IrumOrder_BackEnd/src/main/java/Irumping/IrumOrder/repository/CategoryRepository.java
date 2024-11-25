@@ -1,6 +1,6 @@
-package Irumping.IrumOrder.Repository;
+package Irumping.IrumOrder.repository;
 
-import Irumping.IrumOrder.Entity.CategoryEntity;
+import Irumping.IrumOrder.entity.CategoryEntity;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
-package Irumping.IrumOrder.Repository;
+package Irumping.IrumOrder.repository;
 
-import Irumping.IrumOrder.Entity.MenuEntity;
+import Irumping.IrumOrder.entity.MenuEntity;
 import jakarta.persistence.EntityManager;
 import org.springframework.stereotype.Repository;
 
