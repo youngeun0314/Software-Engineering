@@ -1,24 +1,30 @@
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import RoutineContext from "../context/RoutineContext";
+import { Link } from 'react-router-dom';
+import RoutineContext from "../../context/RoutineContext";
 import "./RoutineList.css";
 
 const RoutineList = () => {
   const { routines } = useContext(RoutineContext);
   const navigate = useNavigate();
 
-  const handleBackClick = () => {
-    navigate(-1);  // 이전 페이지로 이동
-  };
-
   return (
     <div className="routine-list">
       <header className='signup-header'>
-        <button onClick={handleBackClick} className='back-button'>
-          {'ᐊ'}
-        </button>
+        <Link to={'/main'}>
+          <button>{'ᐊ'}</button>
+        </Link>
       </header>
       <h1>나의 루틴</h1>
+      {routines.length > 0 ? (
+        <ul>
+          {routines.map((routine) => (
+            <li key={routine.routineId}>{routine.routineDay} - {routine.routineTime.hour}:{routine.routineTime.minute}</li>
+          ))}
+        </ul>
+      ) : (
+        <p>데이터를 불러오는 중입니다...</p>
+      )}
       <div className="routine-items">
         {routines.map((routine) => (
           <div

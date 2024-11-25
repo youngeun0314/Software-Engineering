@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import RoutineContext from "../context/RoutineContext";
+import RoutineContext from "../../context/RoutineContext";
 import "./RoutineDetail.css";
 
 const RoutineDetail = () => {

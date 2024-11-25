@@ -8,7 +8,7 @@ import RoutineList from "./routes/routine/RoutineList";
 import PastOrder from "./routes/order received/PastOrder";
 import RoutineDetail from "./routes/routine/RoutineDetail";
 import MenuSelect from "./routes/menu/MenuSelect";
-import { RoutineProvider } from "./routes/context/RoutineContext";
+import { RoutineProvider } from "./context/RoutineContext";
 
 function App() {
   return (

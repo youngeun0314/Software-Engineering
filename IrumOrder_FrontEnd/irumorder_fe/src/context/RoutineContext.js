@@ -11,7 +11,8 @@ export const RoutineProvider = ({ children }) => {
     // API 호출로 루틴 데이터를 가져옵니다.
     const fetchRoutines = async () => {
       try {
-        const response = await fetch("/api/routines");
+        // API 경로 수정: http://localhost:8080/routines
+        const response = await fetch("http://localhost:8080/routines");
         const data = await response.json();
         setRoutines(data);
       } catch (error) {
