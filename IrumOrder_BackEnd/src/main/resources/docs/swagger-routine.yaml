@@ -1,0 +1,216 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "API - 이룸오더",
+    "description": "API Description",
+    "version": "v1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080",
+      "description": "Generated server url"
+    }
+  ],
+  "paths": {
+    "/routines/{routineId}": {
+      "put": {
+        "tags": [
+          "routine-controller"
+        ],
+        "operationId": "updateRoutine",
+        "parameters": [
+          {
+            "name": "routineId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RoutineDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoutineEntity"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "routine-controller"
+        ],
+        "operationId": "deleteRoutine",
+        "parameters": [
+          {
+            "name": "routineId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/routines/add": {
+      "post": {
+        "tags": [
+          "routine-controller"
+        ],
+        "operationId": "createRoutine",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RoutineDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoutineEntity"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "LocalTime": {
+        "type": "object",
+        "properties": {
+          "hour": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "minute": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "second": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nano": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "example": "09:00"
+      },
+      "RoutineDto": {
+        "required": [
+          "isActivated",
+          "menuId",
+          "routineDay",
+          "routineTime",
+          "userId"
+        ],
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "menuId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "menuDetailId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "routineDay": {
+            "type": "string",
+            "enum": [
+              "Mon",
+              "Tue",
+              "Wed",
+              "Thu",
+              "Fri",
+              "Sat",
+              "Sun"
+            ]
+          },
+          "routineTime": {
+            "$ref": "#/components/schemas/LocalTime"
+          },
+          "isActivated": {
+            "type": "boolean"
+          }
+        }
+      },
+      "RoutineEntity": {
+        "type": "object",
+        "properties": {
+          "routineId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "userId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "menuId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "menuDetailId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "routineDay": {
+            "type": "string",
+            "enum": [
+              "Mon",
+              "Tue",
+              "Wed",
+              "Thu",
+              "Fri",
+              "Sat",
+              "Sun"
+            ]
+          },
+          "routineTime": {
+            "$ref": "#/components/schemas/LocalTime"
+          },
+          "alarmEnabled": {
+            "type": "boolean"
+          }
+        }
+      }
+    }
+  }
+}
