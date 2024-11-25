@@ -11,6 +11,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class PayOrderForm {
+    @Schema(example="TC0ONETIME")
     String cid;
     String order_id;
     String user_id;
