@@ -1,0 +1,203 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "API - 이룸오더",
+    "description": "API Description",
+    "version": "v1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080",
+      "description": "Generated server url"
+    }
+  ],
+  "paths": {
+    "/order/pay/ready": {
+      "post": {
+        "tags": [
+          "payment"
+        ],
+        "summary": "결제 요청 준비",
+        "description": "결제 요청에 필요한 tid를 얻는다.",
+        "operationId": "payReady",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PayOrderForm"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "500": {
+            "description": "value 입력 필요",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/PayReadyResponse"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "결제 준비 완료",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/PayReadyResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/order/pay/approval": {
+      "get": {
+        "tags": [
+          "payment"
+        ],
+        "operationId": "payCompleted",
+        "parameters": [
+          {
+            "name": "pg_token",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "order_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/PayApproveResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "PayOrderForm": {
+        "required": [
+          "totalPrice"
+        ],
+        "type": "object",
+        "properties": {
+          "cid": {
+            "type": "string",
+            "example": "TC0ONETIME"
+          },
+          "order_id": {
+            "type": "string"
+          },
+          "user_id": {
+            "type": "string"
+          },
+          "item_name": {
+            "type": "string"
+          },
+          "quantity": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalPrice": {
+            "minimum": 1,
+            "type": "integer",
+            "format": "int32"
+          },
+          "tax_free_amount": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "PayReadyResponse": {
+        "type": "object",
+        "properties": {
+          "tid": {
+            "type": "string"
+          },
+          "next_redirect_pc_url": {
+            "type": "string"
+          },
+          "next_redirect_mobile_url": {
+            "type": "string"
+          },
+          "android_app_scheme": {
+            "type": "string"
+          },
+          "ios_app_scheme": {
+            "type": "string"
+          }
+        }
+      },
+      "PayApproveResponse": {
+        "type": "object",
+        "properties": {
+          "aid": {
+            "type": "string"
+          },
+          "tid": {
+            "type": "string"
+          },
+          "cid": {
+            "type": "string"
+          },
+          "partner_order_id": {
+            "type": "string"
+          },
+          "partner_user_id": {
+            "type": "string"
+          },
+          "payment_method_type": {
+            "type": "string"
+          },
+          "item_name": {
+            "type": "string"
+          },
+          "item_code": {
+            "type": "string"
+          },
+          "quantity": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "string"
+          },
+          "approved_at": {
+            "type": "string"
+          },
+          "payload": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
