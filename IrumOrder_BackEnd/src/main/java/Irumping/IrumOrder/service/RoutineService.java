@@ -3,12 +3,14 @@ package Irumping.IrumOrder.service;
 import Irumping.IrumOrder.dto.RoutineDto;
 import Irumping.IrumOrder.entity.RoutineDay;
 import Irumping.IrumOrder.entity.RoutineEntity;
+import Irumping.IrumOrder.exeption.UserIdMismatchException;
 import Irumping.IrumOrder.repository.RoutineRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalTime;
+import java.util.List;
 
 
 @Service
@@ -21,10 +23,17 @@ public class RoutineService {
         this.routineRepository = routineRepository;
     }
 
+    public List<RoutineEntity> getRoutinesByUserId(int userId) {
+        return routineRepository.findByUserId(userId);
+    }
+
     @Transactional
-    public RoutineEntity addRoutine(RoutineDto routineDto) {
+    public RoutineEntity addRoutine(RoutineDto routineDto, int userId) {
+        if (userId!=(routineDto.getUserId())) {
+            throw new UserIdMismatchException("User ID in request does not match the authenticated user ID.");
+        }
         RoutineEntity routine = new RoutineEntity();
-        routine.setUserId(routineDto.getUserId());
+        routine.setUserId(userId);
         routine.setMenuId(routineDto.getMenuId());
         routine.setMenuDetailId(routineDto.getMenuDetailId());
         routine.setRoutineDay(routineDto.getRoutineDay());
