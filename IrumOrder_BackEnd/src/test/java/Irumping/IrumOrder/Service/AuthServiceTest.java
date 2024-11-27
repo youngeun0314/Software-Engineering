@@ -1,6 +1,6 @@
 package Irumping.IrumOrder.Service;
 
-import Irumping.IrumOrder.Entity.UserEntity;
+import Irumping.IrumOrder.entity.UserEntity;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
