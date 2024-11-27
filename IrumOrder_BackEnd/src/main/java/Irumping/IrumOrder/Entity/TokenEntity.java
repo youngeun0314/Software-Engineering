@@ -2,23 +2,28 @@ package Irumping.IrumOrder.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @Entity
+@Table(name = "token")
 public class TokenEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "token_id", nullable = false)
+    private Long tokenId;
 
-    private Integer userId;
+    @JoinColumn(name = "user_id", nullable = false)
+    private UserEntity user;
 
-
+    @Column(name = "fcmToken", nullable = false)
     private String fcmToken;
 
-    public TokenEntity(Integer userId, String fcmToken){
-        this.userId = userId;
+    public TokenEntity(UserEntity user, String fcmToken) {
+        this.user = user;
         this.fcmToken = fcmToken;
     }
 }
