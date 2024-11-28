@@ -12,26 +12,26 @@ public class JpaUserRepository implements UserRepository {
     private final EntityManager em;
 
     @Override
-    public void save(String userId, String password, String email) {
-        UserEntity user = new UserEntity(userId, password, email);
+    public void save(String id, String password, String email) {
+        UserEntity user = new UserEntity(id, password, email);
         em.persist(user);
     }
 
     @Override
-    public boolean isExist(String userId) {
+    public boolean isExist(String id) {
         // jpql
-        return em.createQuery("select count(u) from UserEntity u where u.userId = :userId", Long.class)
-                .setParameter("userId", userId)
-                .getSingleResult() > 0;
+        return em.createQuery("select count(u) > 0 from UserEntity u where u.id = :id", Boolean.class)
+                .setParameter("id", id)
+                .getSingleResult();
     }
 
     @Override
-    public String getPassword(String userId) {
-        if (!isExist(userId)) {
+    public String getPassword(String id) {
+        if (!isExist(id)) {
             return null;
         }
-        return em.createQuery("select u.password from UserEntity u where u.userId = :userId", String.class)
-                .setParameter("userId", userId)
+        return em.createQuery("select u.password from UserEntity u where u.id = :id", String.class)
+                .setParameter("id", id)
                 .getSingleResult();
     }
 }

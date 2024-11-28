@@ -22,15 +22,12 @@ public class AuthService {
     private final UserRepository repository;
 
     @Transactional
-    public void signUp(String userId, String password, String email) {
-        if (repository.isExist(userId)) {
-            throw new IllegalArgumentException("이미 사용 중인 아이디입니다.");
-        }
-        repository.save(userId, hashPassword(password), email);
+    public void signUp(String id, String password, String email) {
+        repository.save(id, hashPassword(password), email);
     }
 
-    public boolean login(String userId, String password) {
-        String dbPassword = repository.getPassword(userId);
+    public boolean login(String id, String password) {
+        String dbPassword = repository.getPassword(id);
 
         // token 발급
         // sessionRepository에 token 저장
@@ -54,8 +51,8 @@ public class AuthService {
     }
 
     // 아이디 중복 체크
-    public boolean isExist(String userId) {
-        return repository.isExist(userId);
+    public boolean isExist(String id) {
+        return repository.isExist(id);
     }
 
     private String hashPassword(String password) {
