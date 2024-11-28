@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.0.0">
+  <zoom_level>7</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>238</x>
+      <y>371</y>
+      <w>308</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>Irumping.IrumOrder.service::AuthService
+--
+-repository: UserRepository
+--
++signUp(String userId, String password, String email): void
++login(String userId, String password): boolean
++isExist(String userId): boolean
+-hashPassword(String password): String
+-getSalt(): byte[]
+-verifyPassword(String password, String storedHash): boolean
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>273</x>
+      <y>84</y>
+      <w>308</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>Irumping.IrumOrder.entity::UserEntity
+--
+-id: Long
+-userId: String
+-password: String
+-email: String
+--
++UserEntity(): ctor
++UserEntity(String userId, String password, String email): ctor
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>595</x>
+      <y>504</y>
+      <w>280</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>Irumping.IrumOrder.repository::JpaUserRepository
+--
+-em: EntityManager
+--
++save(String userId, String password, String email): void
++isExist(String userId): boolean
++getPassword(String userId): String
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>77</x>
+      <y>231</y>
+      <w>280</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+Irumping.IrumOrder.repository::UserRepository
+--
+--
++getPassword(String userId): String
++save(String userId, String password, String email): void
+~isExist(String userId): boolean
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>448</x>
+      <y>231</y>
+      <w>329</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>Irumping.IrumOrder.controller::SignUpRequest
+--
+-userId: String
+-password: String
+-email: String
+--
++SignUpRequest(String userId, String password, String email): ctor
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>84</x>
+      <y>637</y>
+      <w>525</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>Irumping.IrumOrder.controller::AuthController
+--
+-authService: AuthService
+--
++initBinder(WebDataBinder dataBinder): void
++signUp(@Validated SignUpRequest signUpRequest, BindingResult bindingResult): ResponseEntity&lt;String&gt;
++login(String userId, String password): ResponseEntity&lt;String&gt;
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>84</x>
+      <y>525</y>
+      <w>224</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>Irumping.IrumOrder.validator::UserValidator
+--
+--
++supports(Class&lt;?&gt; clazz): boolean
++validate(Object target, Errors errors): void
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>196</x>
+      <y>581</y>
+      <w>98</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;create&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;50.0;120.0;50.0;120.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>483</x>
+      <y>343</y>
+      <w>112</w>
+      <h>308</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-&gt;&gt;&gt;&gt;&gt;
+m1=1 authService
+m2=1</panel_attributes>
+    <additional_attributes>10.0;40.0;10.0;10.0;130.0;10.0;130.0;420.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>259</x>
+      <y>308</y>
+      <w>77</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-&gt;&gt;&gt;&gt;&gt;
+m1=1 repository
+m2=1</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>336</x>
+      <y>308</y>
+      <w>385</w>
+      <h>210</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;40.0;530.0;40.0;530.0;280.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>420</x>
+      <y>189</y>
+      <w>336</w>
+      <h>329</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;create&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;200.0;460.0;200.0;460.0;450.0</additional_attributes>
+  </element>
+</diagram>

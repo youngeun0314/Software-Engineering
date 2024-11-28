@@ -28,6 +28,7 @@ CREATE TABLE `orders` (
   `total_price` int DEFAULT NULL,
   `order_status` varchar(20) DEFAULT '예약대기',
   `pickUp` time DEFAULT NULL,
+  `payment` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`order_id`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
@@ -52,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-11-05  1:12:33
+-- Dump completed on 2024-11-05 22:14:37
