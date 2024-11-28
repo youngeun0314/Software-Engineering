@@ -1,0 +1,50 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    overflow: hidden; /* 화면을 고정하여 스크롤되지 않도록 설정 */
+  }
+  
+  .store-selection-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; /* 화면 전체 높이에 맞춤 */
+    background-color: #f8f8f8;
+    position: relative;
+  }
+  
+  .store-selection-prompt {
+    margin-top: 50px; /* 헤더와 툴바 사이의 적절한 여백 확보 */
+    margin-bottom: 40px;
+    font-size: 1.2rem;
+    color: #333;
+    text-align: center;
+  }
+  
+  .store-button-container {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+  }
+  
+  .store-button {
+    width: 140px;
+    height: 140px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .store-button:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .store-button:active {
+    background-color: #e0e0e0;
+  }
+  

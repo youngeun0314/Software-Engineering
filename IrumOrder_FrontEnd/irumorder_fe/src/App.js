@@ -1,25 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import StoreSelection from './components/StoreSelection/StoreSelection';
+import MenuView from './components/MenuView/MenuView';
 
-function App() {
+const App = () => {
+  const [selectedStore, setSelectedStore] = useState('');
+
+  const handleStoreSelect = (store) => {
+    setSelectedStore(store);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      {!selectedStore ? (
+        <StoreSelection onStoreSelect={handleStoreSelect} />
+      ) : (
+        <MenuView selectedStore={selectedStore} />
+      )}
     </div>
   );
-}
+};
 
 export default App;
