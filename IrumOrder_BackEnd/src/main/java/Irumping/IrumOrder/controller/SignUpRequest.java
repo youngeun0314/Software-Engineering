@@ -7,12 +7,12 @@ import lombok.Setter;
 @Setter
 public class SignUpRequest {
 
-    private String userId;
+    private String id;
     private String password;
     private String email;
 
-    public SignUpRequest(String userId, String password, String email) {
-        this.userId = userId;
+    public SignUpRequest(String id, String password, String email) {
+        this.id = id;
         this.password = password;
         this.email = email;
     }

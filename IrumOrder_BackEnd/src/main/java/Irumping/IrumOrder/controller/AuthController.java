@@ -27,6 +27,19 @@ public class AuthController {
         dataBinder.setValidator(new UserValidator());
     }
 
+    // 아이디 중복 확인
+    @PostMapping("/checkId")
+    public ResponseEntity<String> checkId(String id) {
+        if (authService.isExist(id)) {
+            log.info("id is exist");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("이미 사용중인 아이디입니다.");
+
+        } else {
+            log.info("id is not exist");
+            return ResponseEntity.ok("사용 가능한 아이디입니다.");
+        }
+    }
+
     @PostMapping("/signUp")
     public ResponseEntity<String> signUp(@Validated SignUpRequest signUpRequest, BindingResult bindingResult) {
 
@@ -37,8 +50,8 @@ public class AuthController {
         }
 
         try {
-            authService.signUp(signUpRequest.getUserId(), signUpRequest.getPassword(), signUpRequest.getEmail());
-            log.info("{}님 회원가입 완료", signUpRequest.getUserId());
+            authService.signUp(signUpRequest.getId(), signUpRequest.getPassword(), signUpRequest.getEmail());
+            log.info("{}님 회원가입 완료", signUpRequest.getId());
             return ResponseEntity.status(HttpStatus.CREATED).body("회원가입 완료");
         } catch (IllegalArgumentException e) {
             log.info("회원가입 실패: {}", e.getMessage());
@@ -48,9 +61,9 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(String userId, String password) {
-        if (authService.login(userId, password)) {
-            log.info("{}님 로그인 성공", userId);
+    public ResponseEntity<String> login(String id, String password) {
+        if (authService.login(id, password)) {
+            log.info("{}님 로그인 성공", id);
             return ResponseEntity.ok("로그인 성공");
         } else {
             log.info("로그인 실패");
