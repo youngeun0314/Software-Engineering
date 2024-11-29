@@ -100,4 +100,19 @@ public class AuthService {
             throw new RuntimeException("비밀번호 검증 중 오류 발생", e);
         }
     }
+
+    public String generateVerificationCode() {
+        // 4자리 숫자로 이루어진 인증 코드 생성
+//        return String.valueOf((int) (Math.random() * 9000) + 1000);
+        return "1234";
+    }
+
+    public void sendVerificationEmail(String email, String code) {
+        // 이메일 전송
+    }
+
+    public boolean verifyEmailCode(String email, String code) {
+        // 이메일 인증 코드 검증
+        return code.equals("1234");
+    }
 }
