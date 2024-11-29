@@ -9,10 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -58,6 +55,22 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("회원가입 실패: " + e.getMessage());
         }
 
+    }
+
+    @PostMapping("/sendEmailVerification")
+    public ResponseEntity<String> sendEmailVerification(@RequestParam String email) {
+        String code = authService.generateVerificationCode();
+        authService.sendVerificationEmail(email, code);
+        return ResponseEntity.ok("인증 번호가 이메일로 전송되었습니다.");
+    }
+
+    @PostMapping("/verifyEmail")
+    public ResponseEntity<String> verifyEmail(@RequestParam String email, @RequestParam String code) {
+        if (authService.verifyEmailCode(email, code)) {
+            return ResponseEntity.ok("이메일 인증이 완료되었습니다.");
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("인증 번호가 올바르지 않습니다.");
+        }
     }
 
     @PostMapping("/login")
