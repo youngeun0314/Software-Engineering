@@ -40,7 +40,7 @@
 .order-info {
   padding: 20px;
   margin-top: 0px;
-  margin-bottom: 20px;
+  margin-bottom: 0px;
 }
 
 .order-title {
@@ -65,6 +65,17 @@
   margin-bottom:20px;
 }
 
+.pickup-place-title{
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.pickup-place{
+  margin: 5px 0;
+  color: #777777;
+  margin-bottom:0px;
+}
+
 .payment-summary {
   display: flex;
   justify-content: space-between;
@@ -87,6 +98,7 @@
   border: 1px solid #C6C6C6;
   line-height: "0.1em";
   margin: "10px 0 20px";
+  margin-top: 10px;
   background-color: #e8e8e8;
 }
 

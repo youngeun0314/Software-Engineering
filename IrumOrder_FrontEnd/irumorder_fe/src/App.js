@@ -21,6 +21,8 @@ const PaymentScreen = () => {
         <p className="order-detail">(ICE) 아메리카노 1건</p>
         <p className="pickup-time-title">픽업 시간</p>
         <p className="pickup-time">바로 주문</p>
+        <p className="pickup-place-title">픽업 장소</p>
+        <p className="pickup-place">학생회관</p>
       </div>
       <div className="divider"></div>
       <div className="payment-summary">
