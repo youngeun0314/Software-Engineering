@@ -5,8 +5,8 @@ import lombok.Getter;
 @Getter
 public class SalesResponse {
     private final int totalSales;
-    public SalesResponse(int yesterdayTotalSales) {
-        this.totalSales = yesterdayTotalSales;
+    public SalesResponse(int TotalSales) {
+        this.totalSales = TotalSales;
     }
 
 }
