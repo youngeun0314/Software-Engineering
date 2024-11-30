@@ -5,6 +5,7 @@ import Irumping.IrumOrder.dto.RoutineDto;
 import Irumping.IrumOrder.entity.RoutineEntity;
 import Irumping.IrumOrder.service.RoutineService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,7 +13,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/users/{userId}/routines")
+@RequestMapping("/api/users/{userId}/routines")
 public class RoutineController {
 
     private final RoutineService routineService;
@@ -25,14 +26,15 @@ public class RoutineController {
     @GetMapping
     public ResponseEntity<List<RoutineEntity>> getAllRoutinesByUserId(@PathVariable int userId) {
         List<RoutineEntity> routines = routineService.getRoutinesByUserId(userId);
-        return ResponseEntity.ok(routines);
+        return ResponseEntity.status(HttpStatus.OK).body(routines);
     }
 
     @PostMapping("/add")
-    public RoutineEntity createRoutine(
+    public ResponseEntity<RoutineEntity> createRoutine(
             @RequestBody RoutineDto routineDto,
             @PathVariable long userId) {
-        return routineService.addRoutine(routineDto, userId);
+        RoutineEntity createdRoutine = routineService.addRoutine(routineDto, userId);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdRoutine);
     }
 
 
@@ -43,7 +45,7 @@ public class RoutineController {
             @RequestBody RoutineDto routineDto) {
 
         RoutineEntity updatedRoutine = routineService.updateRoutine(routineId, routineDto);
-        return ResponseEntity.ok(updatedRoutine);
+        return ResponseEntity.status(HttpStatus.OK).body(updatedRoutine);
     }
 
     //루틴 삭제 메서드

@@ -12,11 +12,6 @@ import java.sql.SQLNonTransientConnectionException;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<String> handleIllegalArgumentException(IllegalArgumentException ex) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
-    }
-
     @ExceptionHandler(UserIdMismatchException.class)
     public ResponseEntity<String> handleUserIdMismatchException(UserIdMismatchException ex) {
         return ResponseEntity
