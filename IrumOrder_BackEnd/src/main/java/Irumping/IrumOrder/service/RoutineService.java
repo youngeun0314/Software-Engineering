@@ -3,7 +3,7 @@ package Irumping.IrumOrder.service;
 import Irumping.IrumOrder.dto.RoutineDto;
 import Irumping.IrumOrder.entity.RoutineEntity;
 import Irumping.IrumOrder.exception.CustomExceptions.InvalidInputException;
-import Irumping.IrumOrder.exception.InvalidRoutineExceiption;
+import Irumping.IrumOrder.exception.CustomExceptions.InvalidRoutineException;
 import Irumping.IrumOrder.exception.CustomExceptions.UserIdMismatchException;
 import Irumping.IrumOrder.repository.RoutineRepository;
 import jakarta.transaction.Transactional;
@@ -59,7 +59,7 @@ public class RoutineService {
     @Transactional
     public RoutineEntity updateRoutine(Integer routineId, RoutineDto routineDto) {
         RoutineEntity routine = routineRepository.findById(routineId)
-                .orElseThrow(() -> new InvalidRoutineExceiption("Routine not found with ID: " + routineId));
+                .orElseThrow(() -> new InvalidRoutineException("Routine not found with ID: " + routineId));
 
         if (routine.getUserId() != routineDto.getUserId()) {
             throw new UserIdMismatchException("User ID in request does not match the authenticated user ID.");
@@ -79,7 +79,7 @@ public class RoutineService {
     public void deleteRoutine(Integer routineId, long userId) {
         // 루틴 존재 여부 확인 후 삭제
         RoutineEntity routine = routineRepository.findById(routineId)
-                .orElseThrow(() -> new InvalidRoutineExceiption("Routine not found with ID: " + routineId));
+                .orElseThrow(() -> new InvalidRoutineException("Routine not found with ID: " + routineId));
         if(routine.getUserId() != userId){
             throw new UserIdMismatchException("User ID in request does not match the authenticated user ID.");
         }
