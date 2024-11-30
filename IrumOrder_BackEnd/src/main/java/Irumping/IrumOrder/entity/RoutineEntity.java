@@ -23,7 +23,7 @@ public class RoutineEntity {
     @Column(name = "routine_id")
     private int routineId; // 기본 키 설정
 
-    @Column(name = "user_id", nullable = false)
+    @Column(name = "user_id")
     private long userId;
 
     @Column(name = "menu_id", nullable = false)

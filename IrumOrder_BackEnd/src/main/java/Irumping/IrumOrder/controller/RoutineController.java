@@ -2,6 +2,7 @@ package Irumping.IrumOrder.controller;
 
 
 import Irumping.IrumOrder.dto.RoutineDto;
+import Irumping.IrumOrder.dto.RoutineResponseDto;
 import Irumping.IrumOrder.entity.RoutineEntity;
 import Irumping.IrumOrder.service.RoutineService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @RestController
@@ -24,28 +26,30 @@ public class RoutineController {
     }
 
     @GetMapping
-    public ResponseEntity<List<RoutineEntity>> getAllRoutinesByUserId(@PathVariable int userId) {
+    public ResponseEntity<List<RoutineResponseDto>> getAllRoutinesByUserId(@PathVariable int userId) {
         List<RoutineEntity> routines = routineService.getRoutinesByUserId(userId);
-        return ResponseEntity.status(HttpStatus.OK).body(routines);
+        List<RoutineResponseDto> responseDtos = routines.stream()
+                .map(RoutineResponseDto::new)
+                .collect(Collectors.toList());
+        return ResponseEntity.status(HttpStatus.OK).body(responseDtos);
     }
 
     @PostMapping("/add")
-    public ResponseEntity<RoutineEntity> createRoutine(
-            @RequestBody RoutineDto routineDto,
-            @PathVariable long userId) {
-        RoutineEntity createdRoutine = routineService.addRoutine(routineDto, userId);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdRoutine);
+    public ResponseEntity<RoutineResponseDto> createRoutine(
+            @RequestBody RoutineDto routineDto) {
+        RoutineEntity createdRoutine = routineService.addRoutine(routineDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(new RoutineResponseDto(createdRoutine));
     }
 
 
     // 루틴 수정 메서드
     @PutMapping("/{routineId}")
-    public ResponseEntity<RoutineEntity> updateRoutine(
+    public ResponseEntity<RoutineResponseDto> updateRoutine(
             @PathVariable Integer routineId,
             @RequestBody RoutineDto routineDto) {
 
         RoutineEntity updatedRoutine = routineService.updateRoutine(routineId, routineDto);
-        return ResponseEntity.status(HttpStatus.OK).body(updatedRoutine);
+        return ResponseEntity.status(HttpStatus.OK).body(new RoutineResponseDto(updatedRoutine));
     }
 
     //루틴 삭제 메서드

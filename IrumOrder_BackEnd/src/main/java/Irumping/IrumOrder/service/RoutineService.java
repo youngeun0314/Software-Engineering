@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -28,12 +29,9 @@ public class RoutineService {
     }
 
     @Transactional
-    public RoutineEntity addRoutine(RoutineDto routineDto, long userId) {
-        if (userId!=(routineDto.getUserId())) {
-            throw new UserIdMismatchException("User ID in request does not match the authenticated user ID.");
-        }
+    public RoutineEntity addRoutine(RoutineDto routineDto) {
         RoutineEntity routine = new RoutineEntity();
-        routine.setUserId(userId);
+        routine.setUserId(routineDto.getUserId());
         if(routineDto.getMenuDetailId() == null){
             throw new InvalidInputException("Menu detail id is required.");
         }
@@ -41,7 +39,7 @@ public class RoutineService {
             throw new InvalidInputException("Menu id is required.");
         }
         if(routineDto.getRoutineDay() == null){
-            throw new InvalidInputException("Routine Day  is required.");
+            throw new InvalidInputException("Routine Day is required.");
         }
         if(routineDto.getRoutineTime() == null){
             throw new InvalidInputException("Routine Time is required.");
@@ -62,28 +60,16 @@ public class RoutineService {
     public RoutineEntity updateRoutine(Integer routineId, RoutineDto routineDto) {
         RoutineEntity routine = routineRepository.findById(routineId)
                 .orElseThrow(() -> new InvalidRoutineExceiption("Routine not found with ID: " + routineId));
-        if(routine.getUserId() != routineDto.getUserId()){
+
+        if (routine.getUserId() != routineDto.getUserId()) {
             throw new UserIdMismatchException("User ID in request does not match the authenticated user ID.");
         }
-        if (routineDto.getMenuId() != null) {
-            routine.setMenuId(routineDto.getMenuId());
-        }
 
-        if (routineDto.getMenuDetailId() != null) {
-            routine.setMenuDetailId(routineDto.getMenuDetailId());
-        }
-
-        if (routineDto.getRoutineDay() != null) {
-            routine.setRoutineDay(routineDto.getRoutineDay());
-        }
-
-        if (routineDto.getRoutineTime() != null) {
-            routine.setRoutineTime(routineDto.getRoutineTime());
-        }
-
-        if (routineDto.getIsActivated() != null) {
-            routine.setAlarmEnabled(routineDto.getIsActivated());
-        }
+        Optional.ofNullable(routineDto.getMenuId()).ifPresent(routine::setMenuId);
+        Optional.ofNullable(routineDto.getMenuDetailId()).ifPresent(routine::setMenuDetailId);
+        Optional.ofNullable(routineDto.getRoutineDay()).ifPresent(routine::setRoutineDay);
+        Optional.ofNullable(routineDto.getRoutineTime()).ifPresent(routine::setRoutineTime);
+        Optional.ofNullable(routineDto.getIsActivated()).ifPresent(routine::setAlarmEnabled);
 
         return routineRepository.save(routine);
     }
