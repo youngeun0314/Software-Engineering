@@ -1,15 +1,13 @@
 package Irumping.IrumOrder.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 @Setter
 @Getter
 @Entity
+@Table(name = "user")
 public class UserEntity {
 
     @Id
@@ -22,6 +20,8 @@ public class UserEntity {
 
     private String email;
 
+    private String mode;
+
     public UserEntity() {
     }
 
@@ -29,5 +29,6 @@ public class UserEntity {
         this.id = id;
         this.password = password;
         this.email = email;
+        this.mode = "일반";
     }
 }
