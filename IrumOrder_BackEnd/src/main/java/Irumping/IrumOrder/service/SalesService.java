@@ -2,7 +2,6 @@ package Irumping.IrumOrder.service;
 
 import Irumping.IrumOrder.repository.JpaUserRepository;
 import Irumping.IrumOrder.repository.SalesRepository;
-import Irumping.IrumOrder.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
