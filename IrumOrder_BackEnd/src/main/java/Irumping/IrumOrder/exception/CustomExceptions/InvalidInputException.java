@@ -1,4 +1,4 @@
-package Irumping.IrumOrder.exeption;
+package Irumping.IrumOrder.exception.CustomExceptions;
 
 public class InvalidInputException extends RuntimeException {
     public InvalidInputException(String message) {

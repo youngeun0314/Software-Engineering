@@ -2,9 +2,9 @@ package Irumping.IrumOrder.service;
 
 import Irumping.IrumOrder.dto.RoutineDto;
 import Irumping.IrumOrder.entity.RoutineEntity;
-import Irumping.IrumOrder.exeption.InvalidInputException;
-import Irumping.IrumOrder.exeption.InvalidRoutineExceiption;
-import Irumping.IrumOrder.exeption.UserIdMismatchException;
+import Irumping.IrumOrder.exception.CustomExceptions.InvalidInputException;
+import Irumping.IrumOrder.exception.InvalidRoutineExceiption;
+import Irumping.IrumOrder.exception.CustomExceptions.UserIdMismatchException;
 import Irumping.IrumOrder.repository.RoutineRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
