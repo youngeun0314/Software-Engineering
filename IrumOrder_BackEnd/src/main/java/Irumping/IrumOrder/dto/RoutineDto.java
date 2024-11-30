@@ -2,7 +2,6 @@ package Irumping.IrumOrder.dto;
 
 import Irumping.IrumOrder.entity.RoutineDay;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

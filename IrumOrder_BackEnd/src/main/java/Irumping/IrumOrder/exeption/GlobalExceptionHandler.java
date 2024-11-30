@@ -39,7 +39,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler({CannotCreateTransactionException.class, DataAccessException.class, SQLNonTransientConnectionException.class})
     public ResponseEntity<String> handleDatabaseConnectionException(Exception ex) {
         return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE)
-                .body("DB connection failed.");
+                .body(ex.getMessage() + "DB connection failed.");
     }
 
     @ExceptionHandler(Exception.class) // 다른 모든 예외 처리
