@@ -21,16 +21,16 @@ public class RoutineEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "routine_id")
-    private Integer routineId; // 기본 키 설정
+    private int routineId; // 기본 키 설정
 
     @Column(name = "user_id", nullable = false)
-    private Integer userId;
+    private long userId;
 
     @Column(name = "menu_id", nullable = false)
-    private Integer menuId;
+    private int menuId;
 
-    @Column(name = "menu_detail_id")
-    private Integer menuDetailId;
+    @Column(name = "menu_detail_id", nullable = false)
+    private int menuDetailId;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "routine_day", nullable = false)

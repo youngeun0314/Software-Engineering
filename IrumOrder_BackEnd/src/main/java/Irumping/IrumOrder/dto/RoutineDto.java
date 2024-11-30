@@ -17,7 +17,7 @@ import java.time.LocalTime;
 @ToString
 public class RoutineDto {
     @NotNull
-    private Integer userId;
+    private long userId;
 
     @NotNull
     private Integer menuId;

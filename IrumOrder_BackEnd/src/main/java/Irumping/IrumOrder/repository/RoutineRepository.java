@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface RoutineRepository extends JpaRepository<RoutineEntity, Integer> {
-    List<RoutineEntity> findByUserId(int userId);
+    List<RoutineEntity> findByUserId(long userId);
 }

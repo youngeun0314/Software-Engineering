@@ -31,7 +31,7 @@ public class RoutineController {
     @PostMapping("/add")
     public RoutineEntity createRoutine(
             @RequestBody RoutineDto routineDto,
-            @PathVariable int userId) {
+            @PathVariable long userId) {
         return routineService.addRoutine(routineDto, userId);
     }
 
@@ -40,7 +40,6 @@ public class RoutineController {
     @PutMapping("/{routineId}")
     public ResponseEntity<RoutineEntity> updateRoutine(
             @PathVariable Integer routineId,
-            @PathVariable int userId,
             @RequestBody RoutineDto routineDto) {
 
         RoutineEntity updatedRoutine = routineService.updateRoutine(routineId, routineDto);
@@ -51,8 +50,8 @@ public class RoutineController {
     @DeleteMapping("/{routineId}")
     public ResponseEntity<Void> deleteRoutine(
             @PathVariable Integer routineId,
-            @PathVariable int userId) {
-        routineService.deleteRoutine(routineId);
+            @PathVariable long userId) {
+        routineService.deleteRoutine(routineId, userId);
         return ResponseEntity.noContent().build(); // 204 No Content 응답
     }
 
