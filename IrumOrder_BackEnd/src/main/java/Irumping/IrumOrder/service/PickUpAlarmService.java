@@ -24,7 +24,7 @@ public class PickUpAlarmService {
 
     public String sendPushNotification(Long userId, String title, String body) {
 
-        UserEntity user = userRepository.findById(userId)
+        UserEntity user = userRepository.findByUserId(userId)
                 .orElseThrow(() -> {
                     log.warn("유저 ID {}를 찾을 수 없습니다.", userId);
                     return new IllegalArgumentException("유저를 찾을 수 없습니다.");

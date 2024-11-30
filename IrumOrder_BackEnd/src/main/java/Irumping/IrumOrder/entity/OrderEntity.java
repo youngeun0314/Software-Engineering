@@ -30,7 +30,7 @@ public class OrderEntity {
     @Column(name = "order_status", nullable = false)
     private OrderStatus orderStatus;
 
-    @Column(name = "pickUp")
+    @Column(name = "pick_up")
     private LocalTime pickUp;
 
     @Column(name = "payment")
