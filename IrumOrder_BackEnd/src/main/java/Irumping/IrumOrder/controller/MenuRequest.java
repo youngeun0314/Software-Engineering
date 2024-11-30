@@ -14,10 +14,4 @@ public class MenuRequest {
     private Long price;
     private Long categoryId;
 
-    private String useCup;
-    private boolean addShot;
-    private boolean addVanilla;
-    private boolean addHazelnut;
-    private boolean light;
-
 }

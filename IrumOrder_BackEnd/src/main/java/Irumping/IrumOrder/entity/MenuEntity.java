@@ -6,36 +6,34 @@ import lombok.Setter;
 
 import java.util.Objects;
 
-import static jakarta.persistence.FetchType.*;
-
-@Getter
 @Setter
+@Getter
 @Entity
+@Table(name = "menu")
 public class MenuEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "menu_id", nullable = false)
     private Long menuId;
 
-    @Column(nullable = false, unique = true, length = 50)
+    @Column(name = "name", nullable = false)
     private String name;
 
+    @Column(name = "price", nullable = false)
     private Long price;
 
-    @ManyToOne(fetch = LAZY)
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "category_id", referencedColumnName = "category_id")
     private CategoryEntity category;
 
-//    @OneToOne(mappedBy = "menu", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private MenuDetailEntity menuDetail;
-
-    public MenuEntity() {
-    }
+    public MenuEntity() {}
 
     public MenuEntity(String name, Long price, CategoryEntity category) {
         this.name = name;
         this.price = price;
         this.category = category;
-//        this.menuDetail = menuDetail;
     }
 
     @Override

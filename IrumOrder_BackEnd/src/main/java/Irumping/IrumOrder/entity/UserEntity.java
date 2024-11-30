@@ -11,11 +11,13 @@ public class UserEntity {
     private String password;
     private String email;
     private String name;
+    private String mode;
 
     public UserEntity(String id, String password, String email, String name) {
         this.id = id;
         this.password = password;
         this.email = email;
         this.name = name;
+        this.mode = "매장관리자";
     }
 }
