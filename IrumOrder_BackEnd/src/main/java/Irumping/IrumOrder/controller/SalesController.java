@@ -15,15 +15,8 @@ public class SalesController {
     @Autowired
     private SalesService salesService;
 
-//    @ApiResponse(
-//            description = "Sales response",
-//            content = @Content(
-//                    mediaType = "application/json",
-//                    examples = @ExampleObject(value = "{ \"totalSales\": 1000 }")
-//            )
-//    )
     @GetMapping("/api/sales?date=yesterday")
-    public SalesResponse getYesterdaySales() {
+    public SalesResponse getYesterdaySales(long userId) {
         int totalSales = salesService.getYesterdayTotalSales();
         return new SalesResponse(totalSales);
     }
