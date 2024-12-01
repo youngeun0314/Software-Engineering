@@ -1,4 +1,3 @@
-/*
 package Irumping.IrumOrder.scheduler;
 
 import Irumping.IrumOrder.entity.RoutineDay;
@@ -23,12 +22,7 @@ public class RoutineAlarmScheduler {
     @Autowired
     private AlarmService alarmService;
 
-    @Scheduled(cron = "0 */
-
-import Irumping.IrumOrder.entity.RoutineDay;
-import Irumping.IrumOrder.entity.RoutineEntity;
-
-import java.time.LocalTime;10 * * * *") // 매 10분마다 실행
+    @Scheduled(cron = "0 0/10 * * * *") // 매 10분마다 실행
     public void checkRoutineAlarms() {
         LocalTime currentTime = LocalTime.now();
         LocalTime twoHoursLater = currentTime.plusHours(2);
@@ -46,7 +40,11 @@ import java.time.LocalTime;10 * * * *") // 매 10분마다 실행
                 String body = "Time to plan your meal! Reserve your order now.";
                 String userToken = getUserFirebaseToken(routine.getUserId());
 
-                alarmService.sendPushNotification(title, body, userToken);
+                if (userToken != null && !userToken.isEmpty()) {
+                    alarmService.sendPushNotification(title, body, userToken);
+                } else {
+                    System.err.println("User token not found for userId: " + routine.getUserId());
+                }
             }
         }
     }
@@ -65,8 +63,9 @@ import java.time.LocalTime;10 * * * *") // 매 10분마다 실행
     }
 
     private String getUserFirebaseToken(Integer userId) {
-        // 사용자 토큰 조회 로직 구현 (예: DB에서 가져오기)
-        return "mock_firebase_token"; // 임시 토큰 반환
+        // 사용자 토큰 조회 로직 구현
+        // 예: DB나 캐시에서 Firebase 토큰 가져오기
+        // 예시: return tokenRepository.findByUserId(userId).getFirebaseToken();
+        return "mock_firebase_token"; // 임시 토큰 반환 (DB 로직으로 대체해야 함)
     }
 }
-*/
