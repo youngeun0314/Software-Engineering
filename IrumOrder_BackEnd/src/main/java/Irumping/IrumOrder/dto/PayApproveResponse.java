@@ -1,23 +1,49 @@
 package Irumping.IrumOrder.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+@Schema(description = "Response object for payment approval")
 @Getter
 @Setter
 @ToString
 public class PayApproveResponse {
-    private String aid;                 // 요청 고유 번호
-    private String tid;                 // 결제 고유 번호
-    private String cid;                 // 가맹점 코드
-    private String partner_order_id;    // 가맹점 주문번호
-    private String partner_user_id;     // 가맹점 회원 id
-    private String payment_method_type; // 결제 수단, CARD 또는 MONEY 중 하나
-    private String item_name;           // 상품 이름
-    private String item_code;           // 상품 코드
-    private String quantity;               // 상품 수량
-    private String created_at;          // 결제 준비 요청 시각
-    private String approved_at;         // 결제 승인 시각
-    private String payload;             // 결제 승인 요청에 대해 저장한 값, 요청 시 전달된 내용
+    @Schema(description = "Request unique ID", example = "AID123456789")
+    private String aid;
+
+    @Schema(description = "Transaction ID", example = "TID123456789")
+    private String tid;
+
+    @Schema(description = "Merchant Code", example = "TC0ONETIME")
+    private String cid;
+
+    @Schema(description = "Merchant Order ID", example = "1001")
+    private String partner_order_id;
+
+    @Schema(description = "Merchant User ID", example = "12345")
+    private String partner_user_id;
+
+    @Schema(description = "Payment method type", example = "CARD")
+    private String payment_method_type;
+
+    @Schema(description = "Product name", example = "Product Name")
+    private String item_name;
+
+    @Schema(description = "Product code", example = "P001")
+    private String item_code;
+
+    @Schema(description = "Quantity of the product", example = "2")
+    private String quantity;
+
+    @Schema(description = "Request creation timestamp", example = "2023-12-01T12:00:00")
+    private String created_at;
+
+    @Schema(description = "Payment approval timestamp", example = "2023-12-01T12:10:00")
+    private String approved_at;
+
+    @Schema(description = "Payload associated with the approval", example = "Additional info")
+    private String payload;
 }
+

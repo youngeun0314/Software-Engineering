@@ -1,16 +1,22 @@
 package Irumping.IrumOrder.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+@Schema(description = "Response object for payment preparation")
 @Getter
 @Setter
 @ToString
 public class PayReadyResponse {
+    @Schema(description = "Transaction ID", example = "TID123456789")
     private String tid;
-    private String next_redirect_pc_url; //pc 웹일경우 주소
-    private String next_redirect_mobile_url; //모바일 웹일경우 주소
-    private String android_app_scheme; //카카오페이 결제 화면으로 이동하는 Android 앱 스킴(Scheme) - 내부 서비스용
-    private String ios_app_scheme; //카카오페이 결제 화면으로 이동하는 iOS 앱 스킴 - 내부 서비스용
+
+    @Schema(description = "Redirect URL for PC", example = "https://pay.kakao.com/redirect")
+    private String next_redirect_pc_url;
+
+    @Schema(description = "Redirect URL for Mobile", example = "https://m.pay.kakao.com/redirect")
+    private String next_redirect_mobile_url;
 }
+
