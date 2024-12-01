@@ -40,11 +40,4 @@ public class OrderEntity {
     private List<OrderMenuEntity> orderMenuOptions = new ArrayList<>();
 
     public OrderEntity() {}
-
-    public OrderEntity(int userId, int totalPrice, OrderStatus orderStatus, LocalTime pickUp) {
-        this.userId = userId;
-        this.totalPrice = totalPrice;
-        this.orderStatus = orderStatus;
-        this.pickUp = pickUp;
-    }
 }
