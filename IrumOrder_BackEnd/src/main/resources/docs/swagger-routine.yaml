@@ -12,30 +12,25 @@
     }
   ],
   "paths": {
-    "/users/{userId}/routines/{routineId}": {
+    "/api/users/{userId}/routines/{routineId}": {
       "put": {
         "tags": [
           "routine-controller"
         ],
+        "summary": "Update an existing routine",
+        "description": "Updates the details of an existing routine by routine ID.",
         "operationId": "updateRoutine",
         "parameters": [
           {
             "name": "routineId",
             "in": "path",
+            "description": "ID of the routine to be updated",
             "required": true,
             "schema": {
               "type": "integer",
               "format": "int32"
-            }
-          },
-          {
-            "name": "userId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
+            },
+            "example": 1
           }
         ],
         "requestBody": {
@@ -50,11 +45,31 @@
         },
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "Routine successfully updated",
             "content": {
               "*/*": {
                 "schema": {
-                  "$ref": "#/components/schemas/RoutineEntity"
+                  "$ref": "#/components/schemas/RoutineResponseDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Routine not found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoutineResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoutineResponseDto"
                 }
               }
             }
@@ -65,51 +80,54 @@
         "tags": [
           "routine-controller"
         ],
+        "summary": "Delete a routine",
+        "description": "Deletes a routine by its ID for a specific user.",
         "operationId": "deleteRoutine",
         "parameters": [
           {
             "name": "routineId",
             "in": "path",
+            "description": "ID of the routine to be deleted",
             "required": true,
             "schema": {
               "type": "integer",
               "format": "int32"
-            }
+            },
+            "example": 1
           },
           {
             "name": "userId",
             "in": "path",
+            "description": "ID of the user who owns the routine",
             "required": true,
             "schema": {
               "type": "integer",
-              "format": "int32"
-            }
+              "format": "int64"
+            },
+            "example": 123
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
+          "204": {
+            "description": "Routine successfully deleted"
+          },
+          "404": {
+            "description": "Routine not found"
+          },
+          "403": {
+            "description": "User not authorized to delete this routine"
           }
         }
       }
     },
-    "/users/{userId}/routines/add": {
+    "/api/users/{userId}/routines/add": {
       "post": {
         "tags": [
           "routine-controller"
         ],
+        "summary": "Create a new routine",
+        "description": "Adds a new routine for the user.",
         "operationId": "createRoutine",
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -121,12 +139,22 @@
           "required": true
         },
         "responses": {
-          "200": {
-            "description": "OK",
+          "201": {
+            "description": "Routine successfully created",
             "content": {
               "*/*": {
                 "schema": {
-                  "$ref": "#/components/schemas/RoutineEntity"
+                  "$ref": "#/components/schemas/RoutineResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoutineResponseDto"
                 }
               }
             }
@@ -134,32 +162,49 @@
         }
       }
     },
-    "/users/{userId}/routines": {
+    "/api/users/{userId}/routines": {
       "get": {
         "tags": [
           "routine-controller"
         ],
+        "summary": "Get all routines by user ID",
+        "description": "Fetches all routines associated with a specific user ID.",
         "operationId": "getAllRoutinesByUserId",
         "parameters": [
           {
             "name": "userId",
             "in": "path",
+            "description": "ID of the user whose routines are to be fetched, long",
             "required": true,
             "schema": {
               "type": "integer",
               "format": "int32"
-            }
+            },
+            "example": 123
           }
         ],
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "Successfully fetched routines",
             "content": {
               "*/*": {
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/RoutineEntity"
+                    "$ref": "#/components/schemas/RoutineResponseDto"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User or routines not found",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/RoutineResponseDto"
                   }
                 }
               }
@@ -191,6 +236,7 @@
             "format": "int32"
           }
         },
+        "description": "루틴이 실행될 시간",
         "example": "09:00"
       },
       "RoutineDto": {
@@ -205,18 +251,26 @@
         "properties": {
           "userId": {
             "type": "integer",
-            "format": "int32"
+            "description": "사용자 ID, long",
+            "format": "int64",
+            "example": 12345
           },
           "menuId": {
             "type": "integer",
-            "format": "int32"
+            "description": "메뉴 ID",
+            "format": "int32",
+            "example": 10
           },
           "menuDetailId": {
             "type": "integer",
-            "format": "int32"
+            "description": "메뉴 세부 정보 ID",
+            "format": "int32",
+            "example": 5
           },
           "routineDay": {
             "type": "string",
+            "description": "루틴이 실행될 요일",
+            "example": "MONDAY",
             "enum": [
               "Mon",
               "Tue",
@@ -231,31 +285,44 @@
             "$ref": "#/components/schemas/LocalTime"
           },
           "isActivated": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "알람 활성화 여부",
+            "example": true
           }
-        }
+        },
+        "description": "Details of the routine to be created"
       },
-      "RoutineEntity": {
+      "RoutineResponseDto": {
         "type": "object",
         "properties": {
           "routineId": {
             "type": "integer",
-            "format": "int32"
+            "description": "루틴 ID",
+            "format": "int32",
+            "example": 1
           },
           "userId": {
             "type": "integer",
-            "format": "int32"
+            "description": "사용자 ID",
+            "format": "int64",
+            "example": 12345
           },
           "menuId": {
             "type": "integer",
-            "format": "int32"
+            "description": "메뉴 ID",
+            "format": "int32",
+            "example": 10
           },
           "menuDetailId": {
             "type": "integer",
-            "format": "int32"
+            "description": "메뉴 세부 정보 ID",
+            "format": "int32",
+            "example": 5
           },
           "routineDay": {
             "type": "string",
+            "description": "루틴이 실행될 요일",
+            "example": "MONDAY",
             "enum": [
               "Mon",
               "Tue",
@@ -269,7 +336,7 @@
           "routineTime": {
             "$ref": "#/components/schemas/LocalTime"
           },
-          "alarmEnabled": {
+          "activated": {
             "type": "boolean"
           }
         }
