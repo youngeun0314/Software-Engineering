@@ -11,11 +11,17 @@
       "description": "Generated server url"
     }
   ],
+  "tags": [
+    {
+      "name": "Payment API",
+      "description": "Payment processing APIs for managing payment operations"
+    }
+  ],
   "paths": {
     "/order/pay/ready": {
       "post": {
         "tags": [
-          "payment"
+          "Payment API"
         ],
         "summary": "결제 요청 준비",
         "description": "결제 요청에 필요한 tid를 얻는다.",
@@ -31,8 +37,8 @@
           "required": true
         },
         "responses": {
-          "500": {
-            "description": "value 입력 필요",
+          "400": {
+            "description": "User ID mismatch",
             "content": {
               "*/*": {
                 "schema": {
@@ -50,45 +56,61 @@
                 }
               }
             }
+          },
+          "500": {
+            "description": "서버 에러",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/PayReadyResponse"
+                }
+              }
+            }
           }
         }
       }
     },
     "/order/pay/approval": {
-      "get": {
+      "post": {
         "tags": [
-          "payment"
+          "Payment API"
         ],
+        "summary": "Complete Payment",
+        "description": "Approves a payment after user authorization.",
         "operationId": "payCompleted",
-        "parameters": [
-          {
-            "name": "pg_token",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PayApproveRequest"
+              }
             }
           },
-          {
-            "name": "user_id",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "order_id",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
+          "required": true
+        },
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "Payment approval successful",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/PayApproveResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input provided",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/PayApproveResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
             "content": {
               "*/*": {
                 "schema": {
@@ -111,92 +133,161 @@
         "properties": {
           "cid": {
             "type": "string",
+            "description": "Merchant Code (Test)",
             "example": "TC0ONETIME"
           },
           "order_id": {
-            "type": "string"
+            "type": "integer",
+            "description": "Order ID",
+            "format": "int32",
+            "example": 1001
           },
           "user_id": {
-            "type": "string"
+            "type": "integer",
+            "description": "User ID",
+            "format": "int64",
+            "example": 12345
           },
           "item_name": {
-            "type": "string"
+            "type": "string",
+            "description": "Name of the product",
+            "example": "Product Name"
           },
           "quantity": {
             "type": "integer",
-            "format": "int32"
+            "description": "Quantity of the product",
+            "format": "int32",
+            "example": 2
           },
           "totalPrice": {
-            "minimum": 1,
             "type": "integer",
-            "format": "int32"
+            "description": "Total price of the product",
+            "format": "int32",
+            "example": 20000
           },
           "tax_free_amount": {
             "type": "integer",
-            "format": "int32"
+            "description": "Tax-free amount",
+            "format": "int32",
+            "example": 0
           }
-        }
+        },
+        "description": "Request object for preparing a payment"
       },
       "PayReadyResponse": {
         "type": "object",
         "properties": {
           "tid": {
-            "type": "string"
+            "type": "string",
+            "description": "Transaction ID",
+            "example": "TID123456789"
           },
           "next_redirect_pc_url": {
-            "type": "string"
+            "type": "string",
+            "description": "Redirect URL for PC",
+            "example": "https://pay.kakao.com/redirect"
           },
           "next_redirect_mobile_url": {
-            "type": "string"
-          },
-          "android_app_scheme": {
-            "type": "string"
-          },
-          "ios_app_scheme": {
-            "type": "string"
+            "type": "string",
+            "description": "Redirect URL for Mobile",
+            "example": "https://m.pay.kakao.com/redirect"
           }
-        }
+        },
+        "description": "Response object for payment preparation"
+      },
+      "PayApproveRequest": {
+        "type": "object",
+        "properties": {
+          "pg_token": {
+            "type": "string",
+            "description": "PG token for authorization, you can check it in form of ?pg_token=~~ in url",
+            "example": "abcdef123456"
+          },
+          "userId": {
+            "type": "integer",
+            "description": "User ID",
+            "format": "int64",
+            "example": 12345
+          },
+          "orderId": {
+            "type": "integer",
+            "description": "Order ID",
+            "format": "int32",
+            "example": 1001
+          },
+          "cid": {
+            "type": "string",
+            "description": "Merchant Code (Test)",
+            "example": "TC0ONETIME"
+          }
+        },
+        "description": "Request object for payment approval"
       },
       "PayApproveResponse": {
         "type": "object",
         "properties": {
           "aid": {
-            "type": "string"
+            "type": "string",
+            "description": "Request unique ID",
+            "example": "AID123456789"
           },
           "tid": {
-            "type": "string"
+            "type": "string",
+            "description": "Transaction ID",
+            "example": "TID123456789"
           },
           "cid": {
-            "type": "string"
+            "type": "string",
+            "description": "Merchant Code",
+            "example": "TC0ONETIME"
           },
           "partner_order_id": {
-            "type": "string"
+            "type": "string",
+            "description": "Merchant Order ID",
+            "example": "1001"
           },
           "partner_user_id": {
-            "type": "string"
+            "type": "string",
+            "description": "Merchant User ID",
+            "example": "12345"
           },
           "payment_method_type": {
-            "type": "string"
+            "type": "string",
+            "description": "Payment method type",
+            "example": "CARD"
           },
           "item_name": {
-            "type": "string"
+            "type": "string",
+            "description": "Product name",
+            "example": "Product Name"
           },
           "item_code": {
-            "type": "string"
+            "type": "string",
+            "description": "Product code",
+            "example": "P001"
           },
           "quantity": {
-            "type": "string"
+            "type": "string",
+            "description": "Quantity of the product",
+            "example": "2"
           },
           "created_at": {
-            "type": "string"
+            "type": "string",
+            "description": "Request creation timestamp",
+            "example": "2023-12-01T12:00:00"
           },
           "approved_at": {
-            "type": "string"
+            "type": "string",
+            "description": "Payment approval timestamp",
+            "example": "2023-12-01T12:10:00"
           },
           "payload": {
-            "type": "string"
+            "type": "string",
+            "description": "Payload associated with the approval",
+            "example": "Additional info"
           }
-        }
+        },
+        "description": "Response object for payment approval"
       }
     }
   }
