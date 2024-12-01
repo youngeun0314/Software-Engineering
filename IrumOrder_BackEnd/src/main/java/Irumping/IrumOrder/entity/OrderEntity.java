@@ -21,7 +21,7 @@ public class OrderEntity {
     private int orderId;
 
     @Column(name = "user_id", nullable = false)
-    private int userId;
+    private long userId;
 
     @Column(name = "total_price", nullable = false)
     private int totalPrice;

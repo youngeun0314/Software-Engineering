@@ -41,7 +41,7 @@ public class JpaUserRepository implements UserRepository {
     public Optional<String> getUserMode(Long userId) {
         try {
             return Optional.ofNullable(
-                    em.createQuery("select u.mode from UserEntity u where u.id = :userId", String.class)
+                    em.createQuery("select u.mode from UserEntity u where u.user_id = :userId", String.class)
                             .setParameter("userId", userId)
                             .getSingleResult()
             );
