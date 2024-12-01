@@ -40,15 +40,9 @@ public class OrderEntity {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<OrderMenuEntity> orderMenuOptions = new ArrayList<>();
 
-    @Column(name = "tid", nullable = true)
+    @Column(name = "tid")
     private String tid;
 
     public OrderEntity() {}
 
-    public OrderEntity(long userId, int totalPrice, OrderStatus orderStatus, LocalTime pickUp) {
-        this.userId = userId;
-        this.totalPrice = totalPrice;
-        this.orderStatus = orderStatus;
-        this.pickUp = pickUp;
-    }
 }

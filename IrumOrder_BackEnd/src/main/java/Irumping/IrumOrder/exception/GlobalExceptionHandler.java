@@ -2,7 +2,6 @@ package Irumping.IrumOrder.exception;
 
 import Irumping.IrumOrder.exception.CustomExceptions.InvalidInputException;
 import Irumping.IrumOrder.exception.CustomExceptions.InvalidRoutineException;
-import Irumping.IrumOrder.exception.CustomExceptions.PayErrorException;
 import Irumping.IrumOrder.exception.CustomExceptions.UserIdMismatchException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
