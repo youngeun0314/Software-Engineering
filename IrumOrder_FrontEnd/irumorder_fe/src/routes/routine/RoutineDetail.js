@@ -16,7 +16,7 @@ const RoutineDetail = () => {
 
   useEffect(() => {
     if (id && routines) {
-      const existingRoutine = routines.find((routine) => routine.id === parseInt(id));
+      const existingRoutine = routines.find((routine) => routine.routineId === parseInt(id));
       if (existingRoutine) {
         setRoutine(existingRoutine);
       }
@@ -36,18 +36,46 @@ const RoutineDetail = () => {
     }));
   };
 
-  const handleSave = () => {
-    if (id) {
-      // 기존 루틴 업데이트
+  const saveRoutineToServer = async (routineData) => {
+    try {
+      const method = id ? "PUT" : "POST";
+      const endpoint = id
+        ? `http://localhost:8080/api/users/${routineData.userId}/routines/${id}`
+        : `http://localhost:8080/api/users/${routineData.userId}/routines/add`;
+
+      const response = await fetch(endpoint, {
+        method,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(routineData),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP 오류: ${response.status}`);
+      }
+
+      const updatedRoutine = await response.json();
+
       setRoutines((prev) =>
-        prev.map((r) => (r.id === parseInt(id) ? { ...routine } : r))
+        method === "PUT"
+          ? prev.map((r) => (r.routineId === updatedRoutine.routineId ? updatedRoutine : r))
+          : [...prev, updatedRoutine]
       );
-    } else {
-      // 새 루틴 추가
-      const newRoutine = { ...routine, id: routines.length + 1 };
-      setRoutines((prev) => [...prev, newRoutine]);
+
+      navigate("/routinelist");
+    } catch (error) {
+      console.error("루틴 저장 중 오류 발생:", error);
     }
-    navigate("/routinelist");
+  };
+
+  const handleSave = () => {
+    const userId = routines?.[0]?.userId || 1;
+    const routineData = {
+      ...routine,
+      userId,
+      routineTime: routine.time,
+      routineDay: routine.days,
+    };
+    saveRoutineToServer(routineData);
   };
 
   const handleCancel = () => {
@@ -71,7 +99,7 @@ const RoutineDetail = () => {
         />
       </div>
       <div className="days-container">
-        {["월", "화", "수", "목", "금", "토", "일"].map((day) => (
+        {["월", "화", "수", "목", "금"].map((day) => (
           <button
             key={day}
             className={`day-button ${routine.days.includes(day) ? "active" : ""}`}

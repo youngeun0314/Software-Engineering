@@ -4,15 +4,23 @@ import React, { createContext, useState, useEffect } from "react";
 const RoutineContext = createContext();
 
 // RoutineProvider 컴포넌트
-export const RoutineProvider = ({ children }) => {
+export const RoutineProvider = ({ children, userId }) => {
   const [routines, setRoutines] = useState([]);
 
   useEffect(() => {
+    if (!userId) {
+      console.error("userId가 제공되지 않았습니다.");
+      return;
+    }
+
     // API 호출로 루틴 데이터를 가져옵니다.
     const fetchRoutines = async () => {
       try {
-        // API 경로 수정: http://localhost:8080/routines
-        const response = await fetch("http://localhost:8080/routines");
+        // 사용자별 루틴 데이터 가져오기
+        const response = await fetch(`http://localhost:8080/api/users/${userId}/routines`);
+        if (!response.ok) {
+          throw new Error(`HTTP 오류: ${response.status}`);
+        }
         const data = await response.json();
         setRoutines(data);
       } catch (error) {
@@ -21,7 +29,7 @@ export const RoutineProvider = ({ children }) => {
     };
 
     fetchRoutines();
-  }, []);
+  }, [userId]);
 
   return (
     <RoutineContext.Provider value={{ routines, setRoutines }}>

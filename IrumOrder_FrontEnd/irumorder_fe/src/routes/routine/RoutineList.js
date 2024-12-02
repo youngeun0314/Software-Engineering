@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from 'react-router-dom';
-import RoutineContext from "../../context/RoutineContext";
+import RoutineContext, { RoutineProvider } from "../../context/RoutineContext";
 import "./RoutineList.css";
 
-const RoutineList = () => {
+const RoutineList = ({ userId }) => {
   const { routines } = useContext(RoutineContext);
   const navigate = useNavigate();
 
@@ -19,16 +19,18 @@ const RoutineList = () => {
       {routines.length > 0 ? (
         <ul>
           {routines.map((routine) => (
-            <li key={routine.routineId}>{routine.routineDay} - {routine.routineTime.hour}:{routine.routineTime.minute}</li>
+            <li key={routine.routineId}>
+              {routine.routineDay} - {routine.routineTime}
+            </li>
           ))}
         </ul>
       ) : (
         <p>데이터를 불러오는 중입니다...</p>
       )}
       <div className="routine-items">
-        {routines.map((routine) => (
+        {routines.map((routine, index) => (
           <div
-            key={routine.id}
+            key={routine.id || index}
             className="routine-item"
             onClick={() => navigate(`/routine/${routine.id}`)}
           >
@@ -45,4 +47,10 @@ const RoutineList = () => {
   );
 };
 
-export default RoutineList;
+const RoutineListWrapper = ({ userId }) => (
+  <RoutineProvider userId={userId}>
+    <RoutineList userId={userId} />
+  </RoutineProvider>
+);
+
+export default RoutineListWrapper;
