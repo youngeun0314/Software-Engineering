@@ -52,12 +52,9 @@ public class RoutineController {
             }
     )
     @GetMapping
-    public ResponseEntity<List<RoutineResponseDto>> getAllRoutinesByUserId(@Parameter(description = "ID of the user whose routines are to be fetched, long", example = "123")
-                                                                               @PathVariable int userId) {
-        List<RoutineEntity> routines = routineService.getRoutinesByUserId(userId);
-        List<RoutineResponseDto> responseDtos = routines.stream()
-                .map(RoutineResponseDto::new)
-                .collect(Collectors.toList());
+    public ResponseEntity<List<RoutineResponseDto>> getAllRoutinesByUserId(@Parameter(description = "ID of the user whose routines are to be fetched", example = "123")
+                                                                               @PathVariable Integer userId) {
+        List<RoutineResponseDto> responseDtos = routineService.getRoutinesByUserId(userId);
         return ResponseEntity.status(HttpStatus.OK).body(responseDtos);
     }
 
@@ -78,8 +75,8 @@ public class RoutineController {
     @PostMapping("/add")
     public ResponseEntity<RoutineResponseDto> createRoutine(
             @Parameter(description = "Details of the routine to be created") @RequestBody RoutineDto routineDto) {
-        RoutineEntity createdRoutine = routineService.addRoutine(routineDto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(new RoutineResponseDto(createdRoutine));
+        RoutineResponseDto createdRoutine = routineService.addRoutine(routineDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdRoutine);
     }
 
 
@@ -108,8 +105,8 @@ public class RoutineController {
             @Parameter(description = "Updated details of the routine")
             @RequestBody RoutineDto routineDto) {
 
-        RoutineEntity updatedRoutine = routineService.updateRoutine(routineId, routineDto);
-        return ResponseEntity.status(HttpStatus.OK).body(new RoutineResponseDto(updatedRoutine));
+        RoutineResponseDto updatedRoutine = routineService.updateRoutine(routineId, routineDto);
+        return ResponseEntity.status(HttpStatus.OK).body(updatedRoutine);
     }
 
     /**
@@ -135,7 +132,7 @@ public class RoutineController {
             @PathVariable Integer routineId,
 
             @Parameter(description = "ID of the user who owns the routine", example = "123")
-            @PathVariable long userId) {
+            @PathVariable Integer userId) {
         routineService.deleteRoutine(routineId, userId);
         return ResponseEntity.noContent().build(); // 204 No Content 응답
     }

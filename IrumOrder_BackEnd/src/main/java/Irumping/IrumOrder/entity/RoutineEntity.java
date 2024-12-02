@@ -29,19 +29,19 @@ public class RoutineEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "routine_id")
-    private int routineId; // 기본 키 설정
+    private Integer routineId; // 기본 키 설정
 
     //사용자 ID: 루틴을 소유한 사용자 식별자.
     @Column(name = "user_id")
-    private long userId;
+    private Integer userId;
 
     //메뉴 ID: 루틴에 연관된 기본 메뉴 식별자.
     @Column(name = "menu_id", nullable = false)
-    private int menuId;
+    private Integer menuId;
 
     //메뉴 세부 정보 ID: 루틴에 연관된 메뉴의 세부 정보 식별자.
     @Column(name = "menu_detail_id", nullable = false)
-    private int menuDetailId;
+    private Integer menuDetailId;
 
     //루틴 실행 요일: 루틴이 실행되는 요일.
     @Enumerated(EnumType.STRING)

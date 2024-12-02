@@ -21,16 +21,19 @@ import java.time.LocalTime;
 @AllArgsConstructor
 public class RoutineResponseDto {
     @Schema(description = "루틴 ID", example = "1")
-    private int routineId;
+    private Integer routineId;
 
     @Schema(description = "사용자 ID", example = "12345")
-    private long userId;
+    private Integer userId;
 
     @Schema(description = "메뉴 ID", example = "10")
-    private int menuId;
+    private Integer menuId;
+
+    @Schema(description = "메뉴명", example = "아이스 아메리카노")
+    private String menuName;
 
     @Schema(description = "메뉴 세부 정보 ID", example = "5")
-    private int menuDetailId;
+    private Integer menuDetailId;
 
     @Schema(description = "루틴이 실행될 요일", example = "MONDAY")
     private RoutineDay routineDay;
@@ -46,10 +49,11 @@ public class RoutineResponseDto {
      *
      * @param entity 루틴 엔터티
      */
-    public RoutineResponseDto(RoutineEntity entity) {
+    public RoutineResponseDto(RoutineEntity entity, String menu) {
         this.routineId = entity.getRoutineId();
         this.userId = entity.getUserId();
         this.menuId = entity.getMenuId();
+        this.menuName = menu;
         this.menuDetailId = entity.getMenuDetailId();
         this.routineDay = entity.getRoutineDay();
         this.routineTime = entity.getRoutineTime();

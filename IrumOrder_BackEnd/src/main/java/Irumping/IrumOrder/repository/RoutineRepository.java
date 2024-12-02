@@ -23,7 +23,7 @@ public interface RoutineRepository{
      * @return List<RoutineEntity> 해당 사용자의 모든 루틴 리스트
      */
 
-    List<RoutineEntity> findByUserId(long userId);
+    List<RoutineEntity> findByUserId(Integer userId);
 
     void save(RoutineEntity routine);
 

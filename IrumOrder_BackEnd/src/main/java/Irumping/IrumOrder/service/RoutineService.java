@@ -1,17 +1,22 @@
 package Irumping.IrumOrder.service;
 
 import Irumping.IrumOrder.dto.RoutineDto;
+import Irumping.IrumOrder.dto.RoutineResponseDto;
+import Irumping.IrumOrder.entity.MenuEntity;
 import Irumping.IrumOrder.entity.RoutineEntity;
 import Irumping.IrumOrder.exception.CustomExceptions.InvalidInputException;
 import Irumping.IrumOrder.exception.CustomExceptions.InvalidRoutineException;
 import Irumping.IrumOrder.exception.CustomExceptions.UserIdMismatchException;
+import Irumping.IrumOrder.repository.MenuRepository;
 import Irumping.IrumOrder.repository.RoutineRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 /**
@@ -25,10 +30,12 @@ import java.util.Optional;
 public class RoutineService {
 
     private final RoutineRepository routineRepository;
+    private final MenuRepository menuRepository;
 
     @Autowired
-    public RoutineService(RoutineRepository routineRepository) {
+    public RoutineService(RoutineRepository routineRepository, MenuRepository menuRepository) {
         this.routineRepository = routineRepository;
+        this.menuRepository = menuRepository;
     }
 
     /**
@@ -37,8 +44,12 @@ public class RoutineService {
      * @param userId 사용자 ID
      * @return List<RoutineEntity> 해당 사용자의 루틴 리스트
      */
-    public List<RoutineEntity> getRoutinesByUserId(long userId) {
-        return routineRepository.findByUserId(userId);
+    public List<RoutineResponseDto> getRoutinesByUserId(Integer userId) {
+        List<RoutineEntity> routines =  routineRepository.findByUserId(userId);
+        return routines.stream().map(routine -> {
+            MenuEntity menu = menuRepository.findMenuById((int) routine.getMenuId());
+            return new RoutineResponseDto(routine, menu.getName());
+        }).collect(Collectors.toList());
     }
 
 
@@ -50,7 +61,7 @@ public class RoutineService {
      * @throws InvalidInputException 요청 데이터가 유효하지 않을 경우 발생
      */
     @Transactional
-    public RoutineEntity addRoutine(RoutineDto routineDto) {
+    public RoutineResponseDto addRoutine(RoutineDto routineDto) {
         RoutineEntity routine = new RoutineEntity();
         routine.setUserId(routineDto.getUserId());
         if(routineDto.getMenuDetailId() == null){
@@ -75,7 +86,8 @@ public class RoutineService {
         routine.setAlarmEnabled(routineDto.getIsActivated());
 
         routineRepository.save(routine);
-        return routine;
+
+        return new RoutineResponseDto(routine, menuRepository.findMenuById(routine.getMenuId()).getName());
     }
 
     /**
@@ -88,11 +100,11 @@ public class RoutineService {
      * @throws UserIdMismatchException 요청 사용자 ID와 루틴 소유자의 ID가 다를 경우 발생
      */
     @Transactional
-    public RoutineEntity updateRoutine(Integer routineId, RoutineDto routineDto) {
+    public RoutineResponseDto updateRoutine(Integer routineId, RoutineDto routineDto) {
         RoutineEntity routine = routineRepository.findById(routineId)
                 .orElseThrow(() -> new InvalidRoutineException("Routine not found with ID: " + routineId));
 
-        if (routine.getUserId() != routineDto.getUserId()) {
+        if (!Objects.equals(routine.getUserId(), routineDto.getUserId())) {
             throw new UserIdMismatchException("User ID in request does not match the authenticated user ID.");
         }
 
@@ -103,7 +115,7 @@ public class RoutineService {
         Optional.ofNullable(routineDto.getIsActivated()).ifPresent(routine::setAlarmEnabled);
 
         routineRepository.save(routine);
-        return routine;
+        return new RoutineResponseDto(routine, menuRepository.findMenuById(routine.getMenuId()).getName());
     }
 
 
@@ -116,11 +128,11 @@ public class RoutineService {
      * @throws UserIdMismatchException 요청 사용자 ID와 루틴 소유자의 ID가 다를 경우 발생
      */
     @Transactional
-    public void deleteRoutine(Integer routineId, long userId) {
+    public void deleteRoutine(Integer routineId, Integer userId) {
         // 루틴 존재 여부 확인 후 삭제
         RoutineEntity routine = routineRepository.findById(routineId)
                 .orElseThrow(() -> new InvalidRoutineException("Routine not found with ID: " + routineId));
-        if(routine.getUserId() != userId){
+        if(!Objects.equals(routine.getUserId(), userId)){
             throw new UserIdMismatchException("User ID in request does not match the authenticated user ID.");
         }
         routineRepository.delete(routine);

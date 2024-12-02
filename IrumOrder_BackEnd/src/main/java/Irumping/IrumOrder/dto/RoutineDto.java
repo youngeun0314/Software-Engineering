@@ -24,7 +24,7 @@ import java.time.LocalTime;
 public class RoutineDto {
     @NotNull
     @Schema(description = "사용자 ID, long", example = "12345")
-    private long userId;
+    private Integer userId;
 
     @NotNull
     @Schema(description = "메뉴 ID", example = "10")
@@ -34,7 +34,7 @@ public class RoutineDto {
     private Integer menuDetailId;
 
     @NotNull
-    @Schema(description = "루틴이 실행될 요일", example = "MONDAY")
+    @Schema(description = "루틴이 실행될 요일", example = "Mon")
     private RoutineDay routineDay;
 
     @NotNull
