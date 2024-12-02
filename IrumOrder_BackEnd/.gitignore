@@ -35,4 +35,7 @@ out/
 
 ### VS Code ###
 .vscode/
+<<<<<<< HEAD
 src/main/resources/firebase/serviceAccount.json
+=======
+>>>>>>> 7f7bb4bb8ba8586161cc4e94df55a95add8ad11c

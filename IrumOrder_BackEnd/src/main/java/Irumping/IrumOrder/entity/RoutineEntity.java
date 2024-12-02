@@ -29,7 +29,11 @@ public class RoutineEntity {
     @Column(name = "menu_id", nullable = false)
     private Integer menuId;
 
+<<<<<<< HEAD
     @Column(name = "menu_detail_id")
+=======
+    @Column(name = "menuDetail_id")
+>>>>>>> 7f7bb4bb8ba8586161cc4e94df55a95add8ad11c
     private Integer menuDetailId;
 
     @Enumerated(EnumType.STRING)
@@ -39,6 +43,10 @@ public class RoutineEntity {
     @Column(name = "routine_time", nullable = false)
     private LocalTime routineTime;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7f7bb4bb8ba8586161cc4e94df55a95add8ad11c
     @Column(name = "is_activated", nullable = false)
     private Boolean alarmEnabled = true;
 }

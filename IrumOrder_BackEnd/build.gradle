@@ -34,10 +34,13 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
+<<<<<<< HEAD
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.mockito:mockito-core'
 	testImplementation 'org.assertj:assertj-core'
 
+=======
+>>>>>>> 7f7bb4bb8ba8586161cc4e94df55a95add8ad11c
 	// lombok
 	compileOnly 'org.projectlombok:lombok:1.18.26' // 최신 버전으로 변경 가능
 	annotationProcessor 'org.projectlombok:lombok:1.18.26'
