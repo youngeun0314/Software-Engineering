@@ -21,7 +21,7 @@ public class PickUpAlarmEventListener {
 
         // READY_FOR_PICKUP 상태일 때 알림 전송
         if (newStatus == OrderStatus.READY_FOR_PICKUP) {
-            String title = "[ "+ event.getOrderEntity().getOrderId() +" 번] 조리완료";
+            String title = "["+ event.getOrderEntity().getOrderId() +" 번] 조리완료";
             String body = "조리가 완료되었습니다. 주문을 픽업해주세요.";
 
             pickUpAlarmService.sendPushNotification(event.getOrderEntity().getUserId(), title, body);
