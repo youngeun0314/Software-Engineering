@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 @Getter
 @Entity
-@Table(name = "`user`")
+@Table(name = "user")
 public class UserEntity {
 
     @Id
@@ -15,25 +15,21 @@ public class UserEntity {
     @Column(name = "user_id", nullable = false)
     private Long userId;
 
-    @Column(name = "id", nullable = false)
     private String id;
 
-    @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "email", nullable = false)
     private String email;
 
-    @Column(name = "mode", nullable = false)
     private String mode;
 
     public UserEntity() {
     }
 
-    public UserEntity(String id, String password, String email, String mode) {
+    public UserEntity(String id, String password, String email) {
         this.id = id;
         this.password = password;
         this.email = email;
-        this.mode = mode;
+        this.mode = "일반";
     }
 }
