@@ -12,6 +12,14 @@ function Cart() {
       option: "일회용컵 사용, 연하게",
       image: `${process.env.PUBLIC_URL}/아메리카노.png`, // 메뉴 이미지
     },
+    {
+      id: 2,
+      name: "(ICE) 아메리카노",
+      price: 1600,
+      quantity: 1,
+      option: "일회용컵 사용, 연하게",
+      image: `${process.env.PUBLIC_URL}/아메리카노.png`, // 메뉴 이미지
+    },
   ]);
 
   // 수량 증가

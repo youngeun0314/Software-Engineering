@@ -7,12 +7,14 @@ function Payment() {
   return (
     <div className="payment-container">
       <header className="payment-header">
-        <button className="back-button">
-          <img
-          src={`${process.env.PUBLIC_URL}/ep_back.png`}
-          alt="go to back"
-          className="back-image"
-        /></button>
+        <Link to={'/cart'}>
+          <button className="back-button">
+            <img
+            src={`${process.env.PUBLIC_URL}/ep_back.png`}
+            alt="go to back"
+            className="back-image"
+          /></button>
+        </Link>
         <div className="payment-text">
           <p>결제</p>
         </div>
