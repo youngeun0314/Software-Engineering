@@ -1,0 +1,65 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.signup-start-container {
+  display: center;;
+  font-family: Inter;
+  margin-top: 10px;
+  background-color: #ffffff;
+  min-height: 100vh; /* 화면 전체 높이 */
+}
+
+.signup-start-header {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.signup-start-text {
+  font-size: 16px;
+  margin: 0 auto;
+  margin-left:35%;
+  margin-right:33%;
+}
+
+.x-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-top: 10px;
+  margin-left: 0px;
+}
+
+.content-container{
+  margin-top:30%;
+  margin-left:5%;
+  
+}
+
+.image-container{
+  margin-bottom:100%;
+}
+
+.complete-button-container{
+  text-align: center;
+  margin-top: 30%;
+}
+
+.complete-button {
+  margin-right: 10px;
+  font-size: 20px;
+  outline: none; /* 포커스 시 나타나는 외곽선 제거 */
+  box-shadow: none;
+  border: 0;
+  background-color: transparent;
+}
+
+.complete-image {
+  width: 100%; /* 필요한 크기에 맞게 변경 */
+  max-width: 400px; /* 최대 크기 제한 */
+  cursor: pointer;
+}

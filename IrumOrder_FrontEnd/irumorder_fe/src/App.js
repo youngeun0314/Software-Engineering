@@ -1,6 +1,8 @@
 import React from "react";
 import { HashRouter, Route, Routes } from "react-router-dom";
 import Signup from "./routes/user registration/Signup";
+import SignupStart from "./routes/user registration/SignupStart";
+import SignupComplete from "./routes/user registration/SignupComplete";
 import Login from "./routes/user management/Login";
 import Main from "./routes/Main";
 import Order from "./routes/order received/Order";
@@ -15,7 +17,9 @@ function App() {
       <HashRouter>
         <Routes>
           <Route path="/" element={<Login />} />
+          <Route path="/signupstart" element={<SignupStart />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/signupcomplete" element={<SignupComplete />} />
           <Route path="/main" element={<Main />} />
           <Route path="/order" element={<Order />} />
           <Route path="/routinelist" element={<RoutineListWrapper userId={123} />} />

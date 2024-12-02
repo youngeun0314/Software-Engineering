@@ -67,7 +67,7 @@ function Login() {
                     </Link>
                 </form>
                 <div className='singup-prompt'>
-                    <label htmlFor='signup'>아직 회원이 아니신가요?</label> <Link to={'/signup'} className='signup-link' id='signup'>가입하기 &gt;</Link>
+                    <label htmlFor='signupstart'>아직 회원이 아니신가요?</label> <Link to={'/signupstart'} className='signup-link' id='signup'>가입하기 &gt;</Link>
                 </div>
                 <div className='login-irum'>
                     <img src="Login.png" alt="Irumae"/>

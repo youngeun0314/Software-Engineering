@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Signup.css';
+import { Link } from 'react-router-dom';
 
 function Signup() {
     const [id, setId] = useState('');
@@ -85,18 +86,40 @@ function Signup() {
     return (
         <div className='signup-container'>
             <header className='signup-header'>
-                <button onClick={handleBackClick} className='back-button'>
-                  {'ᐊ'}
-                  </button>
+                <Link to={'/signupstart'}>
+                    <button className="back-button">
+                        <img
+                        src={`${process.env.PUBLIC_URL}/백버튼.png`}
+                        alt="back"
+                        className="back-image"
+                    /></button>
+                </Link>
+                <div className="signup-text">
+                    <p>회원가입</p>
+                </div>
+                <Link to={'/'}>
+                <button className="x-button">
+                    <img
+                    src={`${process.env.PUBLIC_URL}/x버튼.png`}
+                    alt="x"
+                    className="x-image"
+                /></button>
+                </Link>
             </header>
             <div className='signup-content'>
-                <h2 className='signup-guide'>먼저 아이디와 비밀번호를 입력해주세요</h2>
+                <div className='signup-guide'>
+                    <img
+                        src={`${process.env.PUBLIC_URL}/guide.png`}
+                        alt="이룸오더는 간단하게 가입할 수 있어요."
+                        className="guide-image"
+                    />
+                </div>
                 <form onSubmit={handleSubmit} className='signup-form'>
                     <label htmlFor="id">아이디</label>
                     <input
                         type="text"
                         id="id"
-                        placeholder="아이디를 입력하세요."
+                        placeholder="4자 이상 20자 이하 영문, 숫자 조합"
                         value={id}
                         onChange={handleIdChange}
                     />
@@ -106,7 +129,7 @@ function Signup() {
                     <input
                         type="password"
                         id="pw"
-                        placeholder="비밀번호를 입력하세요."
+                        placeholder="4자 이상 20자 이하 영문, 숫자, 특수문자 조합"
                         value={pw}
                         onChange={handlePwChange}
                     />
@@ -115,18 +138,26 @@ function Signup() {
                     <input
                         type="password"
                         id="pwConfirm"
-                        placeholder="비밀번호를 다시 입력하세요."
+                        placeholder="비밀번호를 한 번 더 입력해주세요."
                         value={pwConfirm}
                         onChange={handlePwConfirmChange}
                     />
-
-                    <button 
-                      type="submit" 
-                      className='signup-button'
-                      disabled={!isIdValid | !isPwValid}
-                      >
+                    <Link to={'/signupcomplete'}>
+                        {/* <button 
+                        type="submit" 
+                        className='signup-button'
+                        // disabled={!isIdValid | !isPwValid}
+                        >
                         완료
-                        </button>
+                        </button> */}
+                        <button className="next-button">
+                        <img
+                        src={`${process.env.PUBLIC_URL}/계속하기.png`}
+                        alt="next"
+                        className="next-image"
+                    /></button>
+                    </Link>
+
                 </form>
             </div>
         </div>
