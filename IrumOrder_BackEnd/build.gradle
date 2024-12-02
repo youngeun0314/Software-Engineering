@@ -15,9 +15,12 @@ java {
 
 repositories {
 	mavenCentral()
-//	google()	// 추가 (Firebase Admin SDK)
+	google()	// 추가 (Firebase Admin SDK)
 }
 
+//configurations.all {
+//	exclude group: 'commons-logging', module: 'commons-logging'
+//}
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
@@ -42,11 +45,6 @@ dependencies {
 	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
 	implementation 'io.jsonwebtoken:jjwt-impl:0.11.5'
 	implementation 'io.jsonwebtoken:jjwt-jackson:0.11.5'
-
-	// Firebase Admin SDK
-//	implementation platform('com.google.firebase:firebase-bom:32.3.0')
-//	implementation 'com.google.firebase:firebase-admin:9.1.1'
-//	implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '4.2.2'
 
 	// lombok
 	compileOnly 'org.projectlombok:lombok'
