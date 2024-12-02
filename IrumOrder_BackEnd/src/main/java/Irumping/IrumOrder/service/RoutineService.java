@@ -74,7 +74,8 @@ public class RoutineService {
         routine.setRoutineTime(routineDto.getRoutineTime());
         routine.setAlarmEnabled(routineDto.getIsActivated());
 
-        return routineRepository.save(routine);
+        routineRepository.save(routine);
+        return routine;
     }
 
     /**
@@ -101,7 +102,8 @@ public class RoutineService {
         Optional.ofNullable(routineDto.getRoutineTime()).ifPresent(routine::setRoutineTime);
         Optional.ofNullable(routineDto.getIsActivated()).ifPresent(routine::setAlarmEnabled);
 
-        return routineRepository.save(routine);
+        routineRepository.save(routine);
+        return routine;
     }
 
 
