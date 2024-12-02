@@ -12,7 +12,10 @@ import java.util.List;
 @Setter
 public class OrderRequestDto {
 
+    @Schema(example="1")
     private int userId;
+
+    @Schema(example="3200")
     private int totalPrice;
 
     @Schema(example="01:20")
