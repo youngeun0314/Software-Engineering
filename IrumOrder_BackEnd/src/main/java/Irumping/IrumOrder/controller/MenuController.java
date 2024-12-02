@@ -83,7 +83,7 @@ public class MenuController {
     }
 
 
-        // mock data
+    // mock data
 //        List<MenuEntity> menus = List.of(
 //                new MenuEntity(1L, "menu1", 1000L, new CategoryEntity(1L, "category1")),
 //                new MenuEntity(2L, "menu2", 2000L, new CategoryEntity(1L, "category1"))
@@ -93,4 +93,3 @@ public class MenuController {
 
 
 }
-
