@@ -38,7 +38,6 @@ function Login() {
     return (
         <div className='login-container'>
             <header className='login-header'>
-                <a href='/register-store' className='register-link'>매장 등록 신청하러 가기 &gt;</a>
             </header>
             <div className='login-content'>
                 <h1 className='app-title'>내 손 안의 작은 시립대 카페</h1>

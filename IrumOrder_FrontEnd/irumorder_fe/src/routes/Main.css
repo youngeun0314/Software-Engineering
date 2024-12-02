@@ -1,36 +1,51 @@
-.home-container {
+.main-container {
+    font-family: Inter;
+    margin-top: 10px;
+    background-color: #fff8e1;
+    min-height: 100vh; /* 화면 전체 높이 */
     display: flex;
     flex-direction: column;
-    align-items: center;
+}
+
+.logo-header {
+    padding-top: 10px;
+    display: flex;
+    justify-content: flex-start;
+    background-color: rgb(255, 255, 255);
+}
+
+.logo {
+    margin-top: 10px;
+}
+
+.logo-image {
+    width: 100%; /* 필요한 크기에 맞게 변경 */
+    max-width: 150px;
+}
+
+.banner-image-container {
     text-align: center;
-    background-color: #fff8e1;
-    padding: 20px;
+    margin-bottom: 40px;
 }
 
-.logo .logo-image {
-    width: 100px;
-    float: left;
-    margin-bottom: 20px;
-}
-
-.banner .banner-image {
-    justify-content: center;
-    margin-bottom: 20px;
+.banner-image {
+    width: 100%; /* 필요한 크기에 맞게 변경 */
+    max-width: 500px; /* 최대 크기 제한 */
 }
 
 .welcome-box {
     border: 2px solid #ccc;
-    padding: 20px;
     border-radius: 10px;
-    margin-bottom: 20px;
-    background-color: #ffffff
+    margin: 20px;
+    background-color: #ffffff;
+    padding-bottom: 20px;
 }
 
 .profile {
+    padding: 20px;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    margin-bottom: 20px;
 }
 
 .profile .profile-image {
@@ -47,11 +62,12 @@
 
 .main-options {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
+    padding: 10px 0;
 }
 
 .main-button {
-    padding: 10px 20px;
+    padding: 5px 10px;
     margin: 5px;
     border: 1px solid #ccc;
     border-radius: 5px;

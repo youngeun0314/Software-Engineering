@@ -2,7 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import './Main.css';
 import { Link } from 'react-router-dom';
- 
+
 function Main() {
     const [nickname, setNickname] = useState('');
 
@@ -51,15 +51,23 @@ function Main() {
     */
 
     return (
-        <div className="home-container">
-            <div className="logo">
-                <img src="irum_title_black.png" alt="irum_title_black" className="logo-image"/>
-            </div>
-            <br/>
-            <div className="banner">
+        <div className="main-container">
+            <header className="logo-header">
+                <div className="logo">
+                    <img
+                    src={`irum_title_black.png`}
+                    alt="irum_title_black"
+                    className="logo-image"
+                    /></div>
+            </header>
+            {/* <div className='logo-header'>
+                <div className="logo">
+                    <img src="irum_title_black.png" alt="irum_title_black" className="logo-image"/>
+                </div>
+            </div> */}
+            <div className="banner-image-container">
                 <img src="banner.png" alt="banner" className="banner-image"/>
             </div>
-
             <div className="welcome-box">
                 <div className="profile">
                     <img src="profile.png" alt="profile" className="profile-image"/>
@@ -86,5 +94,5 @@ function Main() {
         </div>
     );
 }
- 
+
 export default Main;
