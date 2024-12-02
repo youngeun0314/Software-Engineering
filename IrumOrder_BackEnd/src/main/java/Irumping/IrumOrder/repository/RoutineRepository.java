@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * 인터페이스 설명: 루틴 데이터를 관리하는 JPA 리포지토리 인터페이스.
@@ -14,7 +15,7 @@ import java.util.List;
  * 마지막 수정일: 2024-12-02
  */
 @Repository
-public interface RoutineRepository extends JpaRepository<RoutineEntity, Integer> {
+public interface RoutineRepository{
     /**
      * 사용자 ID를 기반으로 루틴 리스트를 조회하는 메서드.
      *
@@ -23,4 +24,10 @@ public interface RoutineRepository extends JpaRepository<RoutineEntity, Integer>
      */
 
     List<RoutineEntity> findByUserId(long userId);
+
+    void save(RoutineEntity routine);
+
+    Optional<RoutineEntity> findById(Integer routineId);
+
+    void delete(RoutineEntity routine);
 }
