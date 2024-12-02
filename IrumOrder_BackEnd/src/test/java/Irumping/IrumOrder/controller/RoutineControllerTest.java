@@ -77,7 +77,7 @@ class RoutineControllerTest {
         }
         """;
 
-        mockMvc.perform(put("/api/users/1/routines/17")
+        mockMvc.perform(put("/api/users/1/routines/22")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(updatedRoutineJson))
                 .andExpect(status().isOk())
@@ -88,17 +88,17 @@ class RoutineControllerTest {
     @Test
     void testDeleteRoutineSuccess() throws Exception {
         // Test for T09-4: Delete routine
-        mockMvc.perform(delete("/api/users/1/routines/17"))
+        mockMvc.perform(delete("/api/users/1/routines/22"))
                 .andExpect(status().isNoContent());
     }
 
-    //DB 연결 실패 테스트
-    //DB 연결 해제 후 테스트 필요
-    @Test
-    void testDbConnectionFailure() throws Exception {
-        // Test for T09-6: Handle DB failure scenario
-        mockMvc.perform(get("/api/users/12345/routines"))
-                .andExpect(status().isInternalServerError())
-                .andExpect(content().string("DB connect fail"));
-    }
+//    //DB 연결 실패 테스트
+//    //DB 연결 해제 후 테스트 필요
+//    @Test
+//    void testDbConnectionFailure() throws Exception {
+//        // Test for T09-6: Handle DB failure scenario
+//        mockMvc.perform(get("/api/users/12345/routines"))
+//                .andExpect(status().isInternalServerError())
+//                .andExpect(content().string("DB connect fail"));
+//    }
 }
