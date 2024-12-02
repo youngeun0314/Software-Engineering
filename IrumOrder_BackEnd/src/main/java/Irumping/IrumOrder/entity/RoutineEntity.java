@@ -29,7 +29,7 @@ public class RoutineEntity {
     @Column(name = "menu_id", nullable = false)
     private Integer menuId;
 
-    @Column(name = "menuDetail_id")
+    @Column(name = "menu_detail_id")
     private Integer menuDetailId;
 
     @Enumerated(EnumType.STRING)
@@ -38,7 +38,6 @@ public class RoutineEntity {
 
     @Column(name = "routine_time", nullable = false)
     private LocalTime routineTime;
-
 
     @Column(name = "is_activated", nullable = false)
     private Boolean alarmEnabled = true;
