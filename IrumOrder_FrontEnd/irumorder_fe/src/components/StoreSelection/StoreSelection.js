@@ -1,6 +1,6 @@
 import React from 'react';
 import './StoreSelection.css';
-import Toolbar from '../Toolbar/Toolbar';
+import Toolbar from './Toolbar';
 
 const StoreSelection = ({ onStoreSelect }) => {
   // handleCancel 함수 정의
@@ -10,14 +10,14 @@ const StoreSelection = ({ onStoreSelect }) => {
   };
 
   return (
-    <div className="store-selection-container">
+    <div className="StoreSelection">
       <Toolbar title="주문" onClose={handleCancel} />
-      <h2 className="store-selection-prompt">주문할 카페를 선택하세요</h2>
-      <div className="store-button-container">
-        <button className="store-button" onClick={() => onStoreSelect('전농관')}>
+      <h2 className="prompt">주문할 카페를 선택하세요</h2>
+      <div className="button_container">
+        <button className="store_button" onClick={() => onStoreSelect('전농관')}>
           전농관
         </button>
-        <button className="store-button" onClick={() => onStoreSelect('학생회관')}>
+        <button className="store_button" onClick={() => onStoreSelect('학생회관')}>
           학생회관
         </button>
       </div>
