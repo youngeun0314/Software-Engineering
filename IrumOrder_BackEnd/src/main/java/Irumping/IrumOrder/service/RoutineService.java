@@ -47,7 +47,7 @@ public class RoutineService {
     public List<RoutineResponseDto> getRoutinesByUserId(Integer userId) {
         List<RoutineEntity> routines =  routineRepository.findByUserId(userId);
         return routines.stream().map(routine -> {
-            MenuEntity menu = menuRepository.findMenuById((int) routine.getMenuId());
+            MenuEntity menu = menuRepository.findMenuById(routine.getMenuId());
             return new RoutineResponseDto(routine, menu.getName());
         }).collect(Collectors.toList());
     }

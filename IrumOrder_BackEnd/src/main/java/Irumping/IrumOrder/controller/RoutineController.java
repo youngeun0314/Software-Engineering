@@ -3,7 +3,6 @@ package Irumping.IrumOrder.controller;
 
 import Irumping.IrumOrder.dto.RoutineDto;
 import Irumping.IrumOrder.dto.RoutineResponseDto;
-import Irumping.IrumOrder.entity.RoutineEntity;
 import Irumping.IrumOrder.service.RoutineService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -12,10 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * 클래스 설명: 사용자 루틴을 관리하는 컨트롤러.
