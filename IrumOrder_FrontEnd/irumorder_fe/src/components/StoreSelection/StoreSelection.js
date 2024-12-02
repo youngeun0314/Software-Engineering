@@ -2,7 +2,7 @@ import React from 'react';
 import './StoreSelection.css';
 import Toolbar from './Toolbar';
 
-const StoreSelection = ({ onStoreSelect }) => {
+const StoreSelection = ({ onStartMenu }) => {
   // handleCancel 함수 정의
   const handleCancel = () => {
     // 메인 페이지로 이동하는 기능
@@ -14,10 +14,10 @@ const StoreSelection = ({ onStoreSelect }) => {
       <Toolbar title="주문" onClose={handleCancel} />
       <h2 className="prompt">주문할 카페를 선택하세요</h2>
       <div className="button_container">
-        <button className="store_button" onClick={() => onStoreSelect('전농관')}>
+        <button className="store_button" onClick={() => onStartMenu('전농관')}>
           전농관
         </button>
-        <button className="store_button" onClick={() => onStoreSelect('학생회관')}>
+        <button className="store_button" onClick={() => onStartMenu('학생회관')}>
           학생회관
         </button>
       </div>

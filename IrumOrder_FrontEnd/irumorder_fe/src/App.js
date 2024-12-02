@@ -1,21 +1,13 @@
-import React, { useState } from 'react';
-import StoreSelection from './components/StoreSelection/StoreSelection';
-import MenuView from './components/MenuView/MenuView';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import AppContent from './AppContent';
 
 const App = () => {
-  const [selectedStore, setSelectedStore] = useState('');
-
-  const handleStoreSelect = (store) => {
-    setSelectedStore(store);
-  };
-
   return (
     <div>
-      {!selectedStore ? (
-        <StoreSelection onStoreSelect={handleStoreSelect} />
-      ) : (
-        <MenuView selectedStore={selectedStore} />
-      )}
+      <Router>
+        <AppContent />
+      </Router>
     </div>
   );
 };
