@@ -8,9 +8,6 @@ const Toolbar = ({ title, onBack, onCart }) => {
                 &#x25c0;
             </button>
             <span className="title">{title}</span>
-            <button className="cart" onClick={onCart}>
-                <img src="/images/cart.png" alt="장바구니" className="cart_icon" />
-            </button>
         </div>
     );
 };

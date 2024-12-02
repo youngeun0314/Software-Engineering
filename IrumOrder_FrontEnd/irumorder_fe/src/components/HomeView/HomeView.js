@@ -1,8 +1,8 @@
-const Home = () => {
+const Home = ({onStartStore}) => {
     return (
         <div>
         <h1>Home</h1>
-        <button>Start</button>
+        <button onClick = {onStartStore}>Start</button>
         </div>
     );
 }

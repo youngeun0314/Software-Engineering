@@ -1,0 +1,21 @@
+.Category {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    overflow-x: auto; /* 수평 스크롤 가능 */
+    border-bottom: 3px solid #ddd;
+}
+
+.button {
+    background: none;
+    border: none;
+    margin-right: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease; /* hover 시 부드럽게 변화 */
+}
+
+.button:focus {
+    border-bottom: 5px solid orange; /* 선택된 카테고리 강조 표시 */
+}

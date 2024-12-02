@@ -1,0 +1,26 @@
+.header {
+    display: flex;
+    align-items: center;
+    margin-top: 60px;
+    padding: 20px;
+    justify-content: space-between;
+    padding: 10px 20px;
+    border-bottom: 1px solid #ddd;
+}
+
+.store {
+    display: flex;
+    align-items: center;
+}
+
+.location-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+}
+
+.header > h2 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: bold;
+}
