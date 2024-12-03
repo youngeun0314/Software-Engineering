@@ -176,7 +176,7 @@ public class PayService {
      * @param tid, user_id, order_id
      * @throws IllegalArgumentException 존재하지 않는 주문일 경우 발생하는 오류
      */
-    public void saveTransaction(int orderId, long userId, String tid){
+    public void saveTransaction(int orderId, Integer userId, String tid){
         Optional<OrderEntity> optionalOrder = Optional.ofNullable(
                 payRepository.findByOrderIdAndUserId(orderId, userId)
         );
@@ -194,7 +194,7 @@ public class PayService {
      *
      * @param userId, orderId
      */
-    public String getTransactionTid(long userId, int orderId) {
+    public String getTransactionTid(Integer userId, int orderId) {
         OrderEntity order = payRepository.findByOrderIdAndUserId(orderId,userId);
         return order.getTid();
     }

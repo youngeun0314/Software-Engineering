@@ -18,8 +18,8 @@ public class PayOrderForm {
     @Schema(example = "1001", description = "Order ID")
     private Integer order_id;
 
-    @Schema(example = "12345", description = "User ID")
-    private Long user_id;
+    @Schema(example = "1", description = "User ID")
+    private Integer user_id;
 
     @Schema(example = "Product Name", description = "Name of the product")
     private String item_name;

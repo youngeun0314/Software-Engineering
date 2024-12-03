@@ -13,8 +13,8 @@ public class PayApproveRequest {
     @Schema(description = "PG token for authorization, you can check it in form of ?pg_token=~~ in url", example = "abcdef123456")
     private String pg_token;
 
-    @Schema(description = "User ID", example = "12345")
-    private long userId;
+    @Schema(description = "User ID", example = "1")
+    private Integer userId;
 
     @Schema(description = "Order ID", example = "1001")
     private int orderId;
