@@ -99,7 +99,7 @@ public class PayService {
 
             assert approveResponse != null;
             OrderEntity order = payRepository.findByOrderIdAndUserId(Integer.parseInt(approveResponse.getPartner_order_id()), Long.parseLong(approveResponse.getPartner_user_id()));
-            order.setPayDatetime(LocalDateTime.parse(approveResponse.getApproved_at()));
+            order.setPayment(LocalDateTime.parse(approveResponse.getApproved_at()));
             payRepository.save(order);
             return approveResponse;
         }  catch (RestClientException ex) {
