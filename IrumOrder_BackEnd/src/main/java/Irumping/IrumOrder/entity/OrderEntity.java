@@ -9,7 +9,6 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
-
 @Getter
 @Setter
 @Entity
@@ -19,23 +18,23 @@ public class OrderEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_id", nullable = false)
-    private Integer orderId;
+    private int orderId;
 
     @Column(name = "user_id", nullable = false)
-    private Long userId;
+    private int userId;
 
     @Column(name = "total_price", nullable = false)
-    private Integer totalPrice;
+    private int totalPrice;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "order_status", nullable = false)
     private OrderStatus orderStatus;
 
-    @Column(name = "pick_up")
+    @Column(name = "pickUp")
     private LocalTime pickUp;
 
-    @Column(name = "pay_time")
-    private LocalDateTime payDatetime = null;
+    @Column(name = "payment")
+    private LocalDateTime payment = null;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<OrderMenuEntity> orderMenuOptions = new ArrayList<>();
@@ -45,4 +44,10 @@ public class OrderEntity {
 
     public OrderEntity() {}
 
+    public OrderEntity(int userId, int totalPrice, OrderStatus orderStatus, LocalTime pickUp) {
+        this.userId = userId;
+        this.totalPrice = totalPrice;
+        this.orderStatus = orderStatus;
+        this.pickUp = pickUp;
+    }
 }

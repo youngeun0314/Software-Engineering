@@ -1,4 +1,3 @@
-
 package Irumping.IrumOrder.entity;
 
 import jakarta.persistence.*;
@@ -28,7 +27,6 @@ public class OrderMenuEntity {
     @MapsId("menu_detail_id") // Mapping to composite key, adjusted to match schema
     @JoinColumn(name = "menu_detail_id", nullable = false)
     private MenuDetailEntity menuDetail;
-
 
     @Column(name = "quantity", nullable = false)
     private int quantity = 1;
