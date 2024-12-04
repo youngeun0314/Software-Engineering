@@ -1,66 +1,70 @@
 import React, { useEffect, useState } from 'react';
-import './MenuGrid.css';
 import axios from 'axios'; // HTTP 요청을 위해 axios 사용
+import './MenuGrid.css';
 
 const MenuGrid = ({ category }) => {
 const [menuItems, setMenuItems] = useState([]);
-const [loading, setLoading] = useState(true);
+const [loading, setLoading] = useState(false);
 const [error, setError] = useState(null);
 
-// 메뉴 데이터 가져오기
 useEffect(() => {
+    if (category) {
     const fetchMenuItems = async () => {
-    try {
-        // API 호출: category는 categoryId를 전달받는 것으로 가정
-        const response = await axios.get(`http://localhost:8080/menu/getMenu`, {
-        params: { categoryId: category },
+        setLoading(true);
+        setError(null);
+
+        try {
+        // 백엔드 API 호출
+        const response = await axios.get('http://localhost:8080/menu/getMenu', {
+            params: { categoryId: category }, // 카테고리 ID를 쿼리 파라미터로 전달
         });
 
         // 서버 응답 데이터를 상태에 저장
         setMenuItems(response.data);
-    } catch (err) {
-        console.error('메뉴 데이터를 가져오는 중 오류가 발생했습니다.', err);
+        } catch (err) {
+        console.error('Error fetching menu items:', err);
         setError('메뉴 데이터를 가져오는 중 오류가 발생했습니다.');
-    } finally {
-        setLoading(false); // 로딩 상태 업데이트
-    }
+        } finally {
+        setLoading(false); // 로딩 완료
+        }
     };
 
-    if (category) {
-    fetchMenuItems(); // category가 있을 때만 호출
+    fetchMenuItems();
     }
-}, [category]);
+}, [category]); // category가 변경될 때마다 데이터 갱신
 
 if (loading) {
-    return <div className="menu-grid">로딩 중...</div>; // 로딩 중 메시지
+    return <div className="menu-loading"></div>; // 로딩 상태 표시
 }
 
 if (error) {
-    return <div className="menu-grid error">{error}</div>; // 오류 메시지
+    return <div className="menu-error">{error}</div>; // 에러 메시지 표시
 }
 
 return (
-    <div className="menu-grid">
+    <>
     {menuItems.length > 0 ? (
-        menuItems.map((item) => (
-        <button key={item.id} className="menu-item">
+        <div className="menu-grid">
+        {menuItems.map((item) => (
+            <div key={item.id} className="menu-item">
             <div className="menu-image">
-            {item.image ? (
+                {item.image ? (
                 <img src={item.image} alt={item.name} />
-            ) : (
-                <div className="placeholder">이미지 없음</div> // 이미지가 없을 때 대체 UI
-            )}
+                ) : (
+                <div className="placeholder">이미지 없음</div> // 이미지 없는 경우
+                )}
             </div>
             <div className="menu-info">
-            <span>{item.name}</span>
-            <strong>{item.price.toLocaleString()}원</strong> {/* 가격 표시 */}
+                <span>{item.name}</span>
+                <strong>{item.price.toLocaleString()}원</strong> {/* 가격 포맷팅 */}
             </div>
-        </button>
-        ))
+            </div>
+        ))}
+        </div>
     ) : (
         <div className="no-menu-items">해당 카테고리에 메뉴가 없습니다.</div>
     )}
-    </div>
+    </>
 );
 };
 

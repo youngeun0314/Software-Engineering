@@ -2,7 +2,7 @@ import axios from 'axios'; // axios로 API 호출
 import React, { useEffect, useState } from 'react';
 import './Category.css';
 
-const Category = () => {
+const Category = ({onCategorySelect}) => {
 const [categories, setCategories] = useState([]);
 const [loading, setLoading] = useState(true);
 const [error, setError] = useState(null);
@@ -27,7 +27,7 @@ useEffect(() => {
 }, []);
 
 if (loading) {
-    return <div className="Category">로딩 중...</div>; // 로딩 상태 표시
+    return <div className="Category">Loading...</div>; // 로딩 상태 표시
 }
 
 if (error) {
@@ -36,12 +36,16 @@ if (error) {
 
 return (
     <div className="Category">
-    {categories.map((category, index) => (
-    <button key={index} className="button">
-      {category.name} {/* 객체의 name 필드를 렌더링 */}
-    </button>
-))}
-</div>
+    {categories.map((category) => (
+        <button
+        key={category.id}
+        className="button"
+        onClick={() => onCategorySelect(category.id)} // 선택한 카테고리를 부모로 전달
+        >
+        {category.name}
+        </button>
+    ))}
+    </div>
 );
 };
 
