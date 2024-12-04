@@ -4,6 +4,13 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * 클래스 설명: 사용자 정보를 담는 엔티티
+ * 사용자의 아이디, 비밀번호, 이메일 정보를 담고 있음
+ *
+ * 작성자: 주영은
+ * 마지막 수정일: 2024-12-04
+ */
 @Setter
 @Getter
 @Entity
@@ -13,7 +20,7 @@ public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id", nullable = false)
-    private Long userId;
+    private Integer userId;
 
     private String id;
 

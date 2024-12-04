@@ -14,6 +14,13 @@ import java.security.spec.InvalidKeySpecException;
 import java.util.Arrays;
 import java.util.Base64;
 
+/**
+ * 클래스 설명: 사용자 인증 관련 기능을 제공하는 클래스
+ * 사용자 등록, 로그인, 이메일 인증 등의 기능을 제공
+ *
+ * 작성자: 주영은
+ * 마지막 수정일: 2024-12-04
+ */
 @Slf4j
 @RequiredArgsConstructor
 @Service
@@ -21,27 +28,27 @@ public class AuthService {
 
     private final UserRepository repository;
 
+    /**
+     * 사용자 등록
+     *
+     * @param id 사용자 아이디
+     * @param password 사용자 비밀번호
+     * @param email 사용자 이메일
+     */
     @Transactional
     public void signUp(String id, String password, String email) {
         repository.save(id, hashPassword(password), email);
     }
 
+    /**
+     * 사용자 로그인
+     *
+     * @param id 사용자 아이디
+     * @param password 사용자 비밀번호
+     * @return 로그인 성공 시 true, 실패 시 false
+     */
     public boolean login(String id, String password) {
         String dbPassword = repository.getPassword(id);
-
-        // token 발급
-        // sessionRepository에 token 저장
-        // token 저장 저장소 필요하겠죠
-
-
-        // filter/interceptor에서 token 검증 -> 인증된 사용자인지 구분
-        // 이에 따라, 접근 권한 부여
-        // 말그대로, sign_up or login만 접근 가능한 사용자인지,
-        // 혹은 로그인해서 다 접근 되는 사용자인지 구분하는 로직
-
-
-        // token이 만료/갱신되는 정책 이런것도 설정
-        // 음 앱 사용자면 만료가 필요가없나...몰라
 
         if (dbPassword == null) {
             // 아이디가 없음
@@ -50,11 +57,22 @@ public class AuthService {
         return verifyPassword(password, dbPassword);
     }
 
-    // 아이디 중복 체크
+    /**
+     * 아이디 중복 체크
+     *
+     * @param id 사용자 아이디
+     * @return 아이디가 이미 존재하면 true, 존재하지 않으면 false
+     */
     public boolean isExist(String id) {
         return repository.isExist(id);
     }
 
+    /**
+     * 비밀번호 해싱
+     *
+     * @param password 사용자 비밀번호
+     * @return 해싱된 비밀번호
+     */
     private String hashPassword(String password) {
         try {
             int iterations = 10000;
@@ -69,7 +87,13 @@ public class AuthService {
         }
     }
 
-    // salt는 해시값을 만들 때 사용하는 임의의 바이트 배열  // 무작위 salt 생성
+    /**
+     * 무작위 salt 생성
+     * 해싱에 사용할 salt를 생성
+     *
+     * @return salt
+     * @throws NoSuchAlgorithmException
+     */
     private byte[] getSalt() throws NoSuchAlgorithmException {
         SecureRandom sr = SecureRandom.getInstanceStrong();
         byte[] salt = new byte[16];
@@ -77,6 +101,14 @@ public class AuthService {
         return salt;
     }
 
+    /**
+     * 비밀번호 검증
+     * 사용자가 입력한 비밀번호와 DB에 저장된 해시값을 비교하여 일치 여부 확인
+     *
+     * @param password 사용자가 입력한 비밀번호
+     * @param storedHash DB에 저장된 해시값
+     * @return 비밀번호 일치 시 true, 불일치 시 false
+     */
     private boolean verifyPassword(String password, String storedHash) {
         try {
             // 저장된 salt와 hash 분리
@@ -101,16 +133,35 @@ public class AuthService {
         }
     }
 
+    /**
+     * 이메일 인증 코드 생성
+     *
+     * @return "1234"로 고정된 인증 코드
+     */
     public String generateVerificationCode() {
         // 4자리 숫자로 이루어진 인증 코드 생성
 //        return String.valueOf((int) (Math.random() * 9000) + 1000);
         return "1234";
     }
 
+    /**
+     * 이메일 인증 코드 전송
+     *
+     * @param email 사용자 이메일
+     * @param code 인증 코드
+     */
     public void sendVerificationEmail(String email, String code) {
         // 이메일 전송
     }
 
+    /**
+     * 이메일 인증 코드 검증
+     * (인증 코드가 "1234"인 경우에만 인증 성공)
+     *
+     * @param email 사용자 이메일
+     * @param code 사용자가 입력한 인증 코드
+     * @return 인증 코드가 일치하면 true, 불일치하면 false
+     */
     public boolean verifyEmailCode(String email, String code) {
         // 이메일 인증 코드 검증
         return code.equals("1234");

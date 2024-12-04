@@ -5,18 +5,39 @@ import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+/**
+ * 클래스 설명: 사용자 정보를 DB에 저장하고 조회하는 클래스
+ * 사용자 정보를 DB에 저장하고 조회하는 기능을 제공
+ *
+ * 작성자: 주영은
+ * 마지막 수정일: 2024-12-04
+ */
 @RequiredArgsConstructor
 @Repository
 public class JpaUserRepository implements UserRepository {
 
     private final EntityManager em;
 
+    /**
+     * 사용자 정보를 DB에 저장하는 메소드
+     * 사용자의 아이디, 비밀번호, 이메일 정보를 DB에 저장
+     *
+     * @param id 사용자 아이디
+     * @param password 사용자 비밀번호
+     * @param email 사용자 이메일
+     */
     @Override
     public void save(String id, String password, String email) {
         UserEntity user = new UserEntity(id, password, email);
         em.persist(user);
     }
 
+    /**
+     * 사용자 아이디가 DB에 이미 존재하는지 확인하는 메소드
+     *
+     * @param id 사용자 아이디
+     * @return 사용자 아이디가 이미 존재하면 true, 존재하지 않으면 false
+     */
     @Override
     public boolean isExist(String id) {
         // jpql
@@ -25,6 +46,12 @@ public class JpaUserRepository implements UserRepository {
                 .getSingleResult();
     }
 
+    /**
+     * 사용자 비밀번호를 DB에서 조회하는 메소드
+     *
+     * @param id 사용자 아이디
+     * @return 사용자 비밀번호
+     */
     @Override
     public String getPassword(String id) {
         if (!isExist(id)) {

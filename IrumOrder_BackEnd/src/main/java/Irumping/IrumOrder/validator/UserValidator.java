@@ -4,13 +4,32 @@ import Irumping.IrumOrder.controller.SignUpRequest;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
+/**
+ * 클래스 설명: 사용자 등록 정보를 검증하는 클래스
+ * 사용자가 입력한 아이디, 비밀번호, 이메일 정보를 검증
+ *
+ * 작성자: 주영은
+ * 마지막 수정일: 2024-12-04
+ */
 public class UserValidator implements Validator {
 
+    /**
+     * 검증할 클래스를 지정하는 메소드
+     *
+     * @param clazz 검증할 클래스
+     * @return 검증할 클래스가 SignUpRequest 클래스와 같으면 true, 아니면 false
+     */
     @Override
-    public boolean supports(Class<?> clazz) {   // 어떤 클래스를 검증할 것인지
+    public boolean supports(Class<?> clazz) {
         return SignUpRequest.class.equals(clazz);
     }
 
+    /**
+     * 사용자 등록 정보를 검증하는 메소드
+     *
+     * @param target 검증할 객체
+     * @param errors 검증 결과 에러를 담는 객체
+     */
     @Override
     public void validate(Object target, Errors errors) {    // 검증 로직
         SignUpRequest request = (SignUpRequest) target;
