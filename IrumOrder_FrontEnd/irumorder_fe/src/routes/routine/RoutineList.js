@@ -45,7 +45,10 @@ const RoutineList = ({ userId }) => {
                   <p>시간: {routine.routineTime}</p>
                 </div>
                 <div className="routine-item-others">
-                  <p>요일: {routine.routineDay} 메뉴: {routine.menuName || "없음"}</p>
+                <p>
+                  요일: {routine.routineDays.map((day, index) => <span key={index}>{day+" "}</span>)}    
+                  || 메뉴: {routine.menuName}
+                </p>
                 </div>
               </div>
               <div className="routine-item-delete">
