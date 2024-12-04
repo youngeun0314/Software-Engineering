@@ -17,7 +17,7 @@ export const RoutineProvider = ({ children, userId }) => {
     const fetchRoutines = async () => {
       try {
         // 사용자별 루틴 데이터 가져오기
-        const response = await fetch(`http://localhost:8080/api/users/${userId}/routines`);
+        const response = await fetch(`http://localhost:8080/api/users/1/routines`); //${userId}
         if (!response.ok) {
           throw new Error(`HTTP 오류: ${response.status}`);
         }

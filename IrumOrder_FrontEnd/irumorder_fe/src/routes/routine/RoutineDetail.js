@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import RoutineContext from "../../context/RoutineContext";
 import "./RoutineDetail.css";
 
@@ -8,10 +9,12 @@ const RoutineDetail = () => {
   const { routines, setRoutines } = useContext(RoutineContext);
   const navigate = useNavigate();
   const [routine, setRoutine] = useState({
-    time: "",
-    days: [],
-    menu: "",
-    store: "",
+    userId: 1,
+    menuId: 10,
+    menuDetailId: 1001,
+    routineDay: [],
+    routineTime: "",
+    isActivated: true,
   });
 
   useEffect(() => {
@@ -30,9 +33,16 @@ const RoutineDetail = () => {
   const handleDayToggle = (day) => {
     setRoutine((prev) => ({
       ...prev,
-      days: prev.days.includes(day)
-        ? prev.days.filter((d) => d !== day)
-        : [...prev.days, day],
+      routineDay: prev.routineDay.includes(day)
+        ? prev.routineDay.filter((d) => d !== day)
+        : [...prev.routineDay, day],
+    }));
+  };
+
+  const handleStoreChange = (store) => {
+    setRoutine((prev) => ({
+      ...prev,
+      store: store,
     }));
   };
 
@@ -40,8 +50,8 @@ const RoutineDetail = () => {
     try {
       const method = id ? "PUT" : "POST";
       const endpoint = id
-        ? `http://localhost:8080/api/users/${routineData.userId}/routines/${id}`
-        : `http://localhost:8080/api/users/${routineData.userId}/routines/add`;
+        ? `http://localhost:8080/api/users/1/routines/10`
+        : `http://localhost:8080/api/users/1/routines/add`;
 
       const response = await fetch(endpoint, {
         method,
@@ -72,8 +82,8 @@ const RoutineDetail = () => {
     const routineData = {
       ...routine,
       userId,
-      routineTime: routine.time,
-      routineDay: routine.days,
+      routineTime: routine.routineTime,
+      routineDay: routine.routineDay,
     };
     saveRoutineToServer(routineData);
   };
@@ -94,15 +104,15 @@ const RoutineDetail = () => {
         <input
           id="time"
           type="time"
-          value={routine.time}
-          onChange={(e) => handleChange("time", e.target.value)}
+          value={routine.routineTime}
+          onChange={(e) => handleChange("routineTime", e.target.value)}
         />
       </div>
       <div className="days-container">
-        {["월", "화", "수", "목", "금"].map((day) => (
+        {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map((day) => (
           <button
             key={day}
-            className={`day-button ${routine.days.includes(day) ? "active" : ""}`}
+            className={`day-button ${routine.routineDay.includes(day) ? "active" : ""}`}
             onClick={() => handleDayToggle(day)}
           >
             {day}
@@ -114,11 +124,18 @@ const RoutineDetail = () => {
           <button
             key={store}
             className={`store-button ${routine.store === store ? "active" : ""}`}
-            onClick={() => handleChange("store", store)}
+            onClick={() => handleStoreChange(store)}
           >
             {store}
           </button>
         ))}
+      </div>
+      <div className="menu-button-container">
+        <Link to="/order">
+        <button className={`menu-select-button`}>
+            메뉴
+        </button>
+        </Link>
       </div>
       <div className="action-buttons">
         <button className="cancel-button" onClick={handleCancel}>

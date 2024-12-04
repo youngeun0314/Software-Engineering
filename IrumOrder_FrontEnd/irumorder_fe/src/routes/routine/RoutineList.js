@@ -1,56 +1,77 @@
-import React, { useContext } from "react";
+import React, { useContext} from "react";
 import { useNavigate } from "react-router-dom";
-import { Link } from 'react-router-dom';
 import RoutineContext, { RoutineProvider } from "../../context/RoutineContext";
 import "./RoutineList.css";
 
 const RoutineList = ({ userId }) => {
-  const { routines } = useContext(RoutineContext);
+  const { routines, setRoutines } = useContext(RoutineContext);
   const navigate = useNavigate();
+
+  const deleteRoutineToServer = async (routine) => {
+    try {
+      const method = "DELETE";
+      const endpoint = `http://localhost:8080/api/users/1/routines/${routine.routineId}`;
+
+      const response = await fetch(endpoint, {
+        method,
+        headers: { "Content-Type": "application/json" },
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP 오류: ${response.status}`);
+      }
+
+      setRoutines((prev) => prev.filter((r) => r.routineId !== routine.routineId)); 
+
+      navigate("/routinelist");
+    } catch (error) {
+      console.error("루틴 삭제 중 오류 발생:", error);
+    }
+  };
 
   return (
     <div className="routine-list">
-      <header className='signup-header'>
-        <Link to={'/main'}>
-          <button>{'ᐊ'}</button>
-        </Link>
+      <header>
+        <h1>나의 루틴</h1>
+        <p onClick={() => navigate(`/main`)}>{"X"}</p>
       </header>
-      <h1>나의 루틴</h1>
+
       {routines.length > 0 ? (
-        <ul>
+        <div className="routine-items">
           {routines.map((routine) => (
-            <li key={routine.routineId}>
-              {routine.routineDay} - {routine.routineTime}
-            </li>
+            <div className="routine-item" key={routine.routineId}>
+              <div onClick={() => navigate(`/routine/${routine.routineId}`)}>
+                <div className="routine-items-time">
+                  <p>시간: {routine.routineTime}</p>
+                </div>
+                <div className="routine-item-others">
+                  <p>요일: {routine.routineDay} 메뉴: {routine.menuName || "없음"}</p>
+                </div>
+              </div>
+              <div className="routine-item-delete">
+                <p onClick={() => deleteRoutineToServer(routine)}>{"X"}</p>  
+              </div>
+            </div>
           ))}
-        </ul>
+        </div>
       ) : (
         <p>데이터를 불러오는 중입니다...</p>
       )}
-      <div className="routine-items">
-        {routines.map((routine, index) => (
-          <div
-            key={routine.id || index}
-            className="routine-item"
-            onClick={() => navigate(`/routine/${routine.id}`)}
-          >
-            <p>
-              시간: {routine.time} ({routine.days.join(", ")})
-            </p>
-            <p>메뉴: {routine.menu?.name || "없음"}</p>
-            <p>매장: {routine.store}</p>
-          </div>
-        ))}
-      </div>
-      <button onClick={() => navigate("/routine/new")}>새 루틴 추가</button>
+
+      <button className="item-add-button" onClick={() => navigate("/routine/new")}>
+        +
+      </button>
     </div>
   );
 };
 
-const RoutineListWrapper = ({ userId }) => (
-  <RoutineProvider userId={userId}>
-    <RoutineList userId={userId} />
-  </RoutineProvider>
-);
+// RoutineContext를 제공하는 래퍼 컴포넌트
+const RoutineListWrapper = ({ userId }) => {
+  return (
+    <RoutineProvider userId={userId}>
+      <RoutineList userId={userId} />
+    </RoutineProvider>
+  );
+};
 
 export default RoutineListWrapper;
