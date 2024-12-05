@@ -10,9 +10,15 @@ import com.google.firebase.messaging.Message;
 import com.google.firebase.messaging.Notification;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.catalina.User;
 import org.springframework.stereotype.Service;
 
+/**
+ * 클래스 설명: PickUpAlarmService는 특정 사용자에게 Firebase Cloud Messaging(FCM)을 통해
+ *             푸시 알림을 전송하는 기능을 제공합니다.
+ *
+ * 작성자: 김은지
+ * 마지막 수정일: 2024-12-06
+ */
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -22,15 +28,24 @@ public class PickUpAlarmService {
     private final FirebaseMessaging firebaseMessaging;
     private final TokenRepository tokenRepository;
 
+    /**
+     * 특정 사용자에게 푸시 알림을 전송합니다.
+     *
+     * @param userId 알림을 받을 사용자의 ID
+     * @param title  알림 제목
+     * @param body   알림 내용
+     * @return 알림 전송 성공 또는 실패 메시지
+     */
     public String sendPushNotification(Long userId, String title, String body) {
 
+        // 사용자 정보 조회
         UserEntity user = userRepository.findByUserId(userId)
                 .orElseThrow(() -> {
                     log.warn("유저 ID {}를 찾을 수 없습니다.", userId);
                     return new IllegalArgumentException("유저를 찾을 수 없습니다.");
                 });
 
-        // 유저의 FCM 토큰 조회
+        // 사용자의 FCM 토큰 조회
         TokenEntity tokenEntity = tokenRepository.findByUser(user);
 
         if (tokenEntity == null || tokenEntity.getFcmToken() == null || tokenEntity.getFcmToken().isEmpty()) {
@@ -53,6 +68,7 @@ public class PickUpAlarmService {
                 .build();
 
         try {
+            // FCM을 통해 메시지 전송
             firebaseMessaging.send(message);
             log.info("유저 ID {}에게 알림 전송 성공", userId);
             return "알림을 성공적으로 전송했습니다.";
