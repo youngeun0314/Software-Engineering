@@ -1,8 +1,12 @@
 package Irumping.IrumOrder.repository;
 
 import Irumping.IrumOrder.entity.OrderEntity;
+import Irumping.IrumOrder.entity.OrderStatus;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface OrderRepository {
+import java.util.List;
 
+public interface OrderRepository extends JpaRepository<OrderEntity, Integer> {
+    List<OrderEntity> findByOrderStatus(OrderStatus orderStatus);
     public OrderEntity findByOrderId(int id);
 }
