@@ -7,6 +7,7 @@ function Signup() {
     const [id, setId] = useState('');
     const [pw, setPw] = useState('');
     const [pwConfirm, setPwConfirm] = useState('');
+    const [email, setEmail] = useState('');
     const [isIdValid, setIsIdValid] = useState(false);
     const [isPwValid, setPwValid] = useState(false);
     const navigate = useNavigate();
@@ -16,17 +17,44 @@ function Signup() {
     };
 
     const handlePwChange = (e) => {
+        const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+        if (!emailPattern.test(email)) { 
+            alert('이메일 형식이 맞지 않습니다.'); 
+            setEmail(''); 
+            return;
+        }
+        
         setPw(e.target.value);
     };
 
     const handlePwConfirmChange = (e) => {
+        const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z0-9!@#$%^&*(),.?":{}|<>]{4,20}$/;
+
+        if (!passwordPattern.test(pw)) {
+            alert('비밀번호는 4자 이상 20자 이하의 영문과 숫자, 특수문자 조합이어야 합니다.');
+            setPw('');
+            return;
+        }
         setPwConfirm(e.target.value);
     };
 
+    const handleEmailChange = (e) => {  // 이메일 변경 핸들러 추가
+        setEmail(e.target.value);
+    };
+
     const checkIdAvailability = async () => {
-        // Check if the ID is available by sending a request to the server
+        const idPattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z0-9]{4,20}$/;
+
+        if (!idPattern.test(id)) {
+            alert('아이디는 4자 이상 20자 이하의 영문과 숫자 조합이어야 합니다.');
+            setId('');
+            return;
+        }
+
+        // ID 중복 확인 요청
         try {
-            const response = await fetch(`https://your-backend-url.com/api/check-id?userId=${id}`);
+            const response = await fetch(`http://localhost:8080/auth/checkId?id=${id}`);  // Swagger API URL로 수정
             const data = await response.json();
             if (data.available) {
                 setIsIdValid(true);
@@ -42,33 +70,41 @@ function Signup() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-
         if (pw !== pwConfirm) {
             setPwValid(false);
             alert('비밀번호가 일치하지 않습니다.');
             return;
-        } else{
-          alert('비밀번호 일치');
-          setPwValid(true);
+        } else {
+            if(pw === ''){
+                setPwValid(false);
+                alert('비밀번호가 일치하지 않습니다.');
+                return;
+            }
+            setPwValid(true);
         }
 
-        // POST request to register the new user
+        if (!isIdValid || !isPwValid) {
+            alert('다시 시도해 주십시오.');
+            return;
+        }
+
+        // 새로운 사용자 등록을 위한 POST 요청 (Swagger API 규격에 맞춤)
         try {
-            const response = await fetch('https://your-backend-url.com/api/signup', {
+            const response = await fetch('http://localhost:8080/auth/signUp', {  // Swagger API URL로 수정
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
                     id,
-                    pw,
+                    password: pw,  // Swagger 스키마에 맞춰서 password로 변경
+                    email,  // 이메일 추가
                 }),
             });
 
-
             if (response.ok) {
                 alert('회원가입이 완료되었습니다.');
-                navigate('/login'); // Redirect to login after successful signup
+                navigate('/login'); // 회원가입 성공 후 로그인 페이지로 이동
             } else {
                 console.error('회원가입 실패:', response.statusText);
                 alert('회원가입에 실패했습니다. 다시 시도해주세요.');
@@ -79,17 +115,13 @@ function Signup() {
         }
     };
 
-    const handleBackClick = () => {
-        navigate(-1);  // 이전 페이지로 이동
-    };
-
     return (
         <div className='signup-container'>
             <header className='signup-header'>
                 <Link to={'/signupstart'}>
                     <button className="back-button">
                         <img
-                        src={`${process.env.PUBLIC_URL}/백버튼.png`}
+                        src={`${process.env.PUBLIC_URL}/back_button.png`}
                         alt="back"
                         className="back-image"
                     /></button>
@@ -100,7 +132,7 @@ function Signup() {
                 <Link to={'/'}>
                 <button className="x-button">
                     <img
-                    src={`${process.env.PUBLIC_URL}/x버튼.png`}
+                    src={`${process.env.PUBLIC_URL}/x_button.png`}
                     alt="x"
                     className="x-image"
                 /></button>
@@ -125,6 +157,15 @@ function Signup() {
                     />
                     <button type="button" onClick={checkIdAvailability} className='id-check-button'>중복 확인</button>
 
+                    <label htmlFor="email">이메일</label>
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="이메일을 입력해주세요."
+                        value={email}
+                        onChange={handleEmailChange}
+                    />
+
                     <label htmlFor="pw">비밀번호</label>
                     <input
                         type="password"
@@ -142,22 +183,13 @@ function Signup() {
                         value={pwConfirm}
                         onChange={handlePwConfirmChange}
                     />
-                    <Link to={'/signupcomplete'}>
-                        {/* <button 
-                        type="submit" 
-                        className='signup-button'
-                        // disabled={!isIdValid | !isPwValid}
-                        >
-                        완료
-                        </button> */}
-                        <button className="next-button">
+                    <button type="submit" className="next-button">
                         <img
-                        src={`${process.env.PUBLIC_URL}/계속하기.png`}
-                        alt="next"
-                        className="next-image"
-                    /></button>
-                    </Link>
-
+                            src={`${process.env.PUBLIC_URL}/next_button.png`}
+                            alt="next"
+                            className="next-image"
+                        />
+                    </button>
                 </form>
             </div>
         </div>

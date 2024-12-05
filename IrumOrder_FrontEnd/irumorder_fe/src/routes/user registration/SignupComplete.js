@@ -19,7 +19,7 @@ function SignupComplete() {
       </div>
       <div className="character-image-container">
         <img
-          src={`${process.env.PUBLIC_URL}/Group 243.png`}
+          src={`${process.env.PUBLIC_URL}/Group_243.png`}
           alt="character"
           className="character-image"
           />
@@ -28,7 +28,7 @@ function SignupComplete() {
         <Link to={'/main'}>  
           <button type="complete" className="complete-button">
               <img
-                src={`${process.env.PUBLIC_URL}/완료.png`}
+                src={`${process.env.PUBLIC_URL}/complete.png`}
                 alt="완료"
                 className="complete-image"
               />

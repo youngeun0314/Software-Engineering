@@ -1,5 +1,4 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
 import './SignupStart.css';
 import { Link } from 'react-router-dom';
 
@@ -13,7 +12,7 @@ function SignupStart() {
         <Link to={'/'}>
           <button className="x-button">
             <img
-            src={`${process.env.PUBLIC_URL}/x버튼.png`}
+            src={`${process.env.PUBLIC_URL}/x_button.png`}
             alt="x"
             className="x-image"
           /></button>
@@ -22,7 +21,7 @@ function SignupStart() {
       <div className='content-container'>
         <div className='image-container'>
           <img
-            src={`${process.env.PUBLIC_URL}/Group 242.png`}
+            src={`${process.env.PUBLIC_URL}/Group_242.png`}
             alt="이룸오더는 간단하게 가입할 수 있어요."
             className="text-image"
           />
@@ -32,7 +31,7 @@ function SignupStart() {
         <Link to={'/signup'}>  
           <button type="complete" className="complete-button">
               <img
-                src={`${process.env.PUBLIC_URL}/회원가입 시작하기.png`}
+                src={`${process.env.PUBLIC_URL}/start_signup.png`}
                 alt="완료"
                 className="complete-image"
               />
