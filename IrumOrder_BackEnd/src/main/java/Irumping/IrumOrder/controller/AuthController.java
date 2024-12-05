@@ -83,7 +83,8 @@ public class AuthController {
     )
     @PostMapping("/signUp")
     public ResponseEntity<String> signUp(
-            @Parameter(name = "signUpRequest", description = "회원가입 요청 정보") @Validated SignUpRequest signUpRequest,
+            @Parameter(name = "signUpRequest", description = "회원가입 요청 정보")
+            @Validated @RequestBody SignUpRequest signUpRequest,
             BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
