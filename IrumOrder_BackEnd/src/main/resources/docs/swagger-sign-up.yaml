@@ -8,6 +8,29 @@ servers:
   - url: http://localhost:8080
     description: Generated server url
 paths:
+  "/auth/verifyEmail":
+    post:
+      tags:
+        - auth-controller
+      operationId: verifyEmail
+      parameters:
+        - name: email
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: code
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: string
   "/auth/signUp":
     post:
       tags:
@@ -26,13 +49,31 @@ paths:
             "*/*":
               schema:
                 type: string
+  "/auth/sendEmailVerification":
+    post:
+      tags:
+        - auth-controller
+      operationId: sendEmailVerification
+      parameters:
+        - name: email
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: string
   "/auth/login":
     post:
       tags:
         - auth-controller
       operationId: login
       parameters:
-        - name: userId
+        - name: id
           in: query
           required: true
           schema:
@@ -49,16 +90,40 @@ paths:
             "*/*":
               schema:
                 type: string
-  "/docs/swagger.yaml":
-    get:
+  "/auth/checkId":
+    post:
       tags:
-        - open-api-controller
-      operationId: getSwaggerYaml
+        - auth-controller
+      operationId: checkId
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: string
       responses:
         '200':
           description: OK
           content:
-            application/yaml:
+            "*/*":
+              schema:
+                type: string
+  "/api/fcm/register-token":
+    post:
+      tags:
+        - fcm-controller
+      operationId: registerToken
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/TokenRequest"
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
               schema:
                 type: string
 components:
@@ -66,9 +131,16 @@ components:
     SignUpRequest:
       type: object
       properties:
-        userId:
+        id:
           type: string
         password:
           type: string
         email:
+          type: string
+    TokenRequest:
+      type: object
+      properties:
+        fcmToken:
+          type: string
+        id:
           type: string

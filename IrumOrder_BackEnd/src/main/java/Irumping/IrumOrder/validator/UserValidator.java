@@ -59,7 +59,7 @@ public class UserValidator implements Validator {
         } else if (request.getPassword().length() > 20) {
             errors.rejectValue("password", "length", "password 길이가 20자를 초과합니다.");
         } else if (request.getPassword().length() < 8) {
-            errors.rejectValue("password", "length", "password 길이가 4자 미만입니다.");
+            errors.rejectValue("password", "length", "password 길이가 8자 미만입니다.");
         } else if (!request.getPassword().matches("^[a-zA-Z0-9!@#$%^&*()-_=+]*$")) {
             errors.rejectValue("password", "pattern", "password는 영어 소문자, 대문자, 숫자, 특수문자(!@#$%^&*()-_=+)만 가능합니다.");
         }
