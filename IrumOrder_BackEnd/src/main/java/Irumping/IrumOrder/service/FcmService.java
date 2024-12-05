@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
  * 클래스 설명: FCM 관련 기능을 제공하는 서비스
  * 사용자 FCM 토큰 저장 및 사용자 조회 기능을 포함
  *
- * 작성자: 주영은
+ * 작성자: 김은지
  * 마지막 수정일: 2024-12-05
  */
 @RequiredArgsConstructor

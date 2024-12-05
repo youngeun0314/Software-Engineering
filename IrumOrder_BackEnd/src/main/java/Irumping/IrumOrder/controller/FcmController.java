@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
  * 클래스 설명: FCM 관련 API를 제공하는 컨트롤러
  * 사용자 FCM 토큰 등록 기능을 제공
  *
- * 작성자: 주영은
+ * 작성자: 김은지
  * 마지막 수정일: 2024-12-05
  */
 @RestController
