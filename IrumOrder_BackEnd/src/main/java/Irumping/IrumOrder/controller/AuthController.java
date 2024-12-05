@@ -41,6 +41,12 @@ public class AuthController {
         dataBinder.setValidator(new UserValidator());
     }
 
+    /**
+     * 사용자 등록 시, 사용자가 입력한 아이디가 이미 존재하는지 확인하는 메소드
+     *
+     * @param id 사용자가 입력한 아이디
+     * @return 사용 가능한 아이디인 경우 200 OK, 이미 존재하는 아이디인 경우 400 BAD REQUEST
+     */
     @Operation(
             summary = "아이디 중복 체크",
             description = "사용 가능한 아이디인지 확인합니다.",
@@ -49,15 +55,8 @@ public class AuthController {
                     @ApiResponse(responseCode = "400", description = "아이디가 이미 존재합니다.")
             }
     )
-
-    /**
-     * 사용자 등록 시, 사용자가 입력한 아이디가 이미 존재하는지 확인하는 메소드
-     *
-     * @param id 사용자가 입력한 아이디
-     * @return 사용 가능한 아이디인 경우 200 OK, 이미 존재하는 아이디인 경우 400 BAD REQUEST
-     */
     @PostMapping("/checkId")
-    public ResponseEntity<String> checkId(@Parameter(description = "확인할 아이디", example = "user123") @RequestParam String id) {
+    public ResponseEntity<String> checkId(@Parameter(name="id",description = "확인할 아이디", example = "user123") @RequestParam("id") String id) {
         if (authService.isExist(id)) {
             log.info("id is exist");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("아이디가 이미 존재합니다.");
@@ -84,7 +83,7 @@ public class AuthController {
     )
     @PostMapping("/signUp")
     public ResponseEntity<String> signUp(
-            @Parameter(description = "회원가입 요청 정보") @Validated SignUpRequest signUpRequest,
+            @Parameter(name = "signUpRequest", description = "회원가입 요청 정보") @Validated SignUpRequest signUpRequest,
             BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
@@ -121,8 +120,8 @@ public class AuthController {
     )
     @PostMapping("/sendEmailVerification")
     public ResponseEntity<String> sendEmailVerification(
-            @Parameter(description = "인증 코드를 받을 이메일 주소", example = "user@example.com")
-            @RequestParam String email) {
+            @Parameter(name="email", description = "인증 코드를 받을 이메일 주소", example = "user@example.com")
+            @RequestParam("email") String email) {
         String code = authService.generateVerificationCode();
         authService.sendVerificationEmail(email, code);
         return ResponseEntity.ok("인증 번호가 이메일로 전송되었습니다.");
@@ -146,10 +145,10 @@ public class AuthController {
     )
     @PostMapping("/verifyEmail")
     public ResponseEntity<String> verifyEmail(
-            @Parameter(description = "인증할 이메일 주소", example = "user@example.com")
-            @RequestParam String email,
-            @Parameter(description = "사용자가 받은 인증 코드", example = "1234")
-            @RequestParam String code) {
+            @Parameter(name="email", description = "인증할 이메일 주소", example = "user@example.com")
+            @RequestParam("email") String email,
+            @Parameter(name="code", description = "사용자가 받은 인증 코드", example = "1234")
+            @RequestParam("code") String code) {
         if (authService.verifyEmailCode(email, code)) {
             return ResponseEntity.ok("이메일 인증이 완료되었습니다.");
         } else {
@@ -174,10 +173,10 @@ public class AuthController {
     )
     @PostMapping("/login")
     public ResponseEntity<String> login(
-            @Parameter(description = "사용자의 아이디", example = "user123")
-            @RequestParam String id,
-            @Parameter(description = "사용자의 비밀번호", example = "password")
-            @RequestParam String password) {
+            @Parameter(name="id", description = "사용자의 아이디", example = "user123")
+            @RequestParam("id") String id,
+            @Parameter(name="password", description = "사용자의 비밀번호", example = "password")
+            @RequestParam("password") String password) {
         if (authService.login(id, password)) {
             log.info("{}님 로그인 성공", id);
             return ResponseEntity.ok("로그인 성공");
