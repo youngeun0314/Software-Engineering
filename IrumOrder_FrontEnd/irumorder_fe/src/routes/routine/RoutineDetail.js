@@ -12,7 +12,7 @@ const RoutineDetail = () => {
     userId: 1,
     menuId: 10,
     menuDetailId: 1001,
-    routineDay: [],
+    routineDays: [],
     routineTime: "",
     isActivated: true,
   });
@@ -33,9 +33,9 @@ const RoutineDetail = () => {
   const handleDayToggle = (day) => {
     setRoutine((prev) => ({
       ...prev,
-      routineDay: prev.routineDay.includes(day)
-        ? prev.routineDay.filter((d) => d !== day)
-        : [...prev.routineDay, day],
+      routineDays: prev.routineDays.includes(day)
+        ? prev.routineDays.filter((d) => d !== day)
+        : [...prev.routineDays, day],
     }));
   };
 
@@ -50,7 +50,7 @@ const RoutineDetail = () => {
     try {
       const method = id ? "PUT" : "POST";
       const endpoint = id
-        ? `http://localhost:8080/api/users/1/routines/10`
+        ? `http://localhost:8080/api/users/1/routines/${routineData.routineId}`
         : `http://localhost:8080/api/users/1/routines/add`;
 
       const response = await fetch(endpoint, {
@@ -83,7 +83,7 @@ const RoutineDetail = () => {
       ...routine,
       userId,
       routineTime: routine.routineTime,
-      routineDay: routine.routineDay,
+      routineDays: routine.routineDays,
     };
     saveRoutineToServer(routineData);
   };
@@ -112,7 +112,7 @@ const RoutineDetail = () => {
         {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map((day) => (
           <button
             key={day}
-            className={`day-button ${routine.routineDay.includes(day) ? "active" : ""}`}
+            className={`day-button ${routine.routineDays.includes(day) ? "active" : ""}`}
             onClick={() => handleDayToggle(day)}
           >
             {day}
