@@ -17,6 +17,8 @@ const RoutineDetail = () => {
     routineTime: "",
     isActivated: true,
   });
+  const [store, setStore] = useState("");
+
   const user_id=getUserId();
 
   useEffect(() => {
@@ -42,8 +44,7 @@ const RoutineDetail = () => {
   };
 
   const handleStoreChange = (store) => {
-    setRoutine((prev) => ({
-      ...prev,
+    setStore(() => ({
       store: store,
     }));
   };

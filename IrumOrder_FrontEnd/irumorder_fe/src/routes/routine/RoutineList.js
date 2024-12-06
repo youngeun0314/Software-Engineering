@@ -1,10 +1,10 @@
-import React, { useContext} from "react";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import RoutineContext, { RoutineProvider } from "../../context/RoutineContext";
-import "./RoutineList.css";
 import { getUserId } from "../../context/userStorage";
+import "./RoutineList.css";
 
-const RoutineList = ({ userId }) => {
+const RoutineList = () => {
   const { routines, setRoutines } = useContext(RoutineContext);
   const navigate = useNavigate();
   const user_id = getUserId()
