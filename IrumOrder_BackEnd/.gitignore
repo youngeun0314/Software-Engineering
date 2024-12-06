@@ -39,3 +39,4 @@ src/main/resources/firebase/serviceAccount.json
 
 ### Mac OS ###
 .DS_Store
+.idea/
