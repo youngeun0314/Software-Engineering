@@ -1,5 +1,5 @@
 import React from "react";
-import { HashRouter, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Signup from "./routes/user registration/Signup";
 import SignupStart from "./routes/user registration/SignupStart";
 import SignupComplete from "./routes/user registration/SignupComplete";
@@ -14,7 +14,6 @@ import { RoutineProvider } from "./context/RoutineContext";
 function App() {
   return (
     <RoutineProvider>
-      <HashRouter>
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/signupstart" element={<SignupStart />} />
@@ -27,7 +26,6 @@ function App() {
           <Route path="/routine/:id" element={<RoutineDetail />} />
           <Route path="/routine/new" element={<RoutineDetail />} />
         </Routes>
-      </HashRouter>
     </RoutineProvider>
   );
 }

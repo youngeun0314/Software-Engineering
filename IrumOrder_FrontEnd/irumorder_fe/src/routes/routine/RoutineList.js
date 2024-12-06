@@ -2,15 +2,17 @@ import React, { useContext} from "react";
 import { useNavigate } from "react-router-dom";
 import RoutineContext, { RoutineProvider } from "../../context/RoutineContext";
 import "./RoutineList.css";
+import { getUserId } from "../../context/userStorage";
 
 const RoutineList = ({ userId }) => {
   const { routines, setRoutines } = useContext(RoutineContext);
   const navigate = useNavigate();
+  const user_id = getUserId();
 
   const deleteRoutineToServer = async (routine) => {
     try {
       const method = "DELETE";
-      const endpoint = `http://localhost:8080/api/users/1/routines/${routine.routineId}`;
+      const endpoint = `http://localhost:8080/api/users/${user_id}/routines/${routine.routineId}`;
 
       const response = await fetch(endpoint, {
         method,

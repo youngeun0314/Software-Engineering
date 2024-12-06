@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import RoutineContext from "../../context/RoutineContext";
 import "./RoutineDetail.css";
+import { getUserId } from "../../context/userStorage";
 
 const RoutineDetail = () => {
   const { id } = useParams();
@@ -16,6 +17,7 @@ const RoutineDetail = () => {
     routineTime: "",
     isActivated: true,
   });
+  const user_id=getUserId();
 
   useEffect(() => {
     if (id && routines) {
@@ -50,8 +52,8 @@ const RoutineDetail = () => {
     try {
       const method = id ? "PUT" : "POST";
       const endpoint = id
-        ? `http://localhost:8080/api/users/1/routines/${routineData.routineId}`
-        : `http://localhost:8080/api/users/1/routines/add`;
+        ? `http://localhost:8080/api/users/${user_id}/routines/${routineData.routineId}`
+        : `http://localhost:8080/api/users/${user_id}/routines/add`;
 
       const response = await fetch(endpoint, {
         method,
