@@ -26,16 +26,13 @@ const App = () => {
     nav(`/option/${menuId}`);
   };
 
-
   return (
-
     <Routes>
       <Route path="/" element={<HomeView onStartStore={handleStartStore} />} />
       <Route path="/store" element={<StoreSelection onStartMenu={handleStartMenu} />} />
       <Route path="/store/:store" element={<MenuView onSelectedStore={selectedStore} onStartOption={handleOption}/>} />
       <Route path="/option/:menuId" element={<OptionView onSelectedOption={selectedOption}/>} /> {/* 옵션 페이지 라우트 추가 */}
     </Routes>
-
   );
 };
 
