@@ -11,9 +11,14 @@ function Signup() {
     const [isIdValid, setIsIdValid] = useState(false);
     const [isPwValid, setPwValid] = useState(false);
     const navigate = useNavigate();
+    const [verificationCode, setVerificationCode] = useState('');
+    const [isCodeSent, setIsCodeSent] = useState(false);
+    const [isEmailVerified, setIsEmailVerified] = useState(false);
+
 
     const handleIdChange = (e) => {
         setId(e.target.value);
+        setIsIdValid(false);
     };
 
     const handlePwChange = (e) => {
@@ -29,18 +34,19 @@ function Signup() {
     };
 
     const handlePwConfirmChange = (e) => {
-        const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z0-9!@#$%^&*(),.?":{}|<>]{4,20}$/;
+        const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z0-9!@#$%^&*(),.?":{}|<>]{8,20}$/;
 
         if (!passwordPattern.test(pw)) {
-            alert('비밀번호는 4자 이상 20자 이하의 영문과 숫자, 특수문자 조합이어야 합니다.');
+            alert('비밀번호는 8자 이상 20자 이하의 영문과 숫자, 특수문자 조합이어야 합니다.');
             setPw('');
             return;
         }
         setPwConfirm(e.target.value);
     };
 
-    const handleEmailChange = (e) => {  // 이메일 변경 핸들러 추가
+    const handleEmailChange = (e) => {
         setEmail(e.target.value);
+        setIsEmailVerified(false);
     };
 
     const checkIdAvailability = async () => {
@@ -54,22 +60,90 @@ function Signup() {
 
         // ID 중복 확인 요청
         try {
-            const response = await fetch(`http://localhost:8080/auth/checkId?id=${id}`);  // Swagger API URL로 수정
-            const data = await response.json();
-            if (data.available) {
+            const response = await fetch(`http://localhost:8080/auth/checkId?id=${id}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            if (!response.ok) {
+                throw new Error("서버 오류가 발생했습니다.");
+            }
+        
+            const message = await response.text(); // JSON 대신 text()로 처리
+            if (message === "사용 가능한 아이디입니다.") {
                 setIsIdValid(true);
-                alert("아이디 사용 가능")
+                alert(message);
             } else {
                 setIsIdValid(false);
-                alert('아이디가 이미 존재합니다.');
+                alert(message);
             }
         } catch (error) {
-            console.error('아이디 중복 확인 오류:', error);
+            console.error('아이디 중복 확인 오류:1', error);
         }
     };
 
+    const sendVerificationCode = async () => {
+        if (!email) {
+            alert('이메일을 입력해주세요.');
+            return;
+        }
+    
+        try {
+            const response = await fetch(`http://localhost:8080/auth/sendEmailVerification?email=${email}`, { 
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+    
+            if (response.ok) {
+                alert('인증 코드가 이메일로 전송되었습니다.');
+                setIsCodeSent(true);
+            } else {
+                alert('인증 코드 전송에 실패했습니다. 다시 시도해주세요.');
+            }
+        } catch (error) {
+            console.error('인증 코드 전송 오류:', error);
+            alert('서버와의 통신 오류가 발생했습니다.');
+        }
+    };
+    
+    const verifyCode = async () => {
+        if (!verificationCode) {
+            alert('인증 코드를 입력해주세요.');
+            return;
+        }
+    
+        try {
+            const response = await fetch(`http://localhost:8080/auth/verifyEmail?email=user%40example.com&code=1234`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+    
+            // 서버가 JSON 형식으로 응답하지 않으면 response.text()로 처리
+            const responseText = await response.text();
+    
+            if (response.ok) {
+                alert(responseText);
+                setIsEmailVerified(true);
+            } else {
+                alert('인증 코드 확인에 실패했습니다. 다시 시도해주세요.');
+            }
+        } catch (error) {
+            console.error('인증 코드 확인 오류:', error);
+            alert('서버와의 통신 오류가 발생했습니다.');
+        }
+    };    
+
     const handleSubmit = async (event) => {
         event.preventDefault();
+        if (!isIdValid) {
+            alert('아이디를 확인해 주십시오.');
+            return;
+        } 
         if (pw !== pwConfirm) {
             setPwValid(false);
             alert('비밀번호가 일치하지 않습니다.');
@@ -81,12 +155,17 @@ function Signup() {
                 return;
             }
             setPwValid(true);
+            console.log(isPwValid);
         }
-
-        if (!isIdValid || !isPwValid) {
-            alert('다시 시도해 주십시오.');
+        if (!isCodeSent) {
+            alert('이메일 인증을 실시하십시오.');
             return;
         }
+        if (!isEmailVerified) {
+            alert('이메일 인증코드를 확인해 주십시오.');
+            return;
+        }
+        
 
         // 새로운 사용자 등록을 위한 POST 요청 (Swagger API 규격에 맞춤)
         try {
@@ -103,8 +182,7 @@ function Signup() {
             });
 
             if (response.ok) {
-                alert('회원가입이 완료되었습니다.');
-                navigate('/login'); // 회원가입 성공 후 로그인 페이지로 이동
+                navigate('/main'); // 회원가입 성공 후 로그인 페이지로 이동
             } else {
                 console.error('회원가입 실패:', response.statusText);
                 alert('회원가입에 실패했습니다. 다시 시도해주세요.');
@@ -165,12 +243,46 @@ function Signup() {
                         value={email}
                         onChange={handleEmailChange}
                     />
+                    
+                    <div className="email-verification">
+                        <button 
+                            type="button" 
+                            onClick={sendVerificationCode} 
+                            className="send-code-button"
+                        >
+                            인증 코드 전송
+                        </button>
+
+                        {isCodeSent && !isEmailVerified && (
+                            <div className="verification-code-section">
+                                <label htmlFor="verificationCode">인증 코드</label>
+                                <input
+                                    type="text"
+                                    id="verificationCode"
+                                    placeholder="이메일로 받은 코드를 입력하세요."
+                                    value={verificationCode}
+                                    onChange={(e) => setVerificationCode(e.target.value)}
+                                />
+                                <button 
+                                    type="button" 
+                                    onClick={verifyCode} 
+                                    className="verify-code-button"
+                                >
+                                    인증 확인
+                                </button>
+                            </div>
+                        )}
+
+                        {isEmailVerified && (
+                            <p className="verified-message">이메일 인증이 완료되었습니다!</p>
+                        )}
+                    </div>
 
                     <label htmlFor="pw">비밀번호</label>
                     <input
                         type="password"
                         id="pw"
-                        placeholder="4자 이상 20자 이하 영문, 숫자, 특수문자 조합"
+                        placeholder="8자 이상 20자 이하 영문, 숫자, 특수문자 조합"
                         value={pw}
                         onChange={handlePwChange}
                     />

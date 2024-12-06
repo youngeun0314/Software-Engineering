@@ -77,6 +77,69 @@
   border-color: #FFCC73; /* Darker yellow when focused */
 }
 
+.email-verification {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.id-check-button,
+.send-code-button,
+.verify-code-button {
+  background-color: #FFCC73;
+  color: white;
+  border: none;
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.send-code-button:disabled,
+.verify-code-button:disabled {
+  background-color: #ffcc80; /* 비활성화 상태 */
+  cursor: not-allowed;
+}
+
+.send-code-button:hover:not(:disabled),
+.verify-code-button:hover:not(:disabled) {
+  background-color: #ff9900;
+}
+
+.verification-code-section {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.verification-code-section label {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.verification-code-section input {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #777777;
+  border-radius: 5px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.verification-code-section input:focus {
+  border-color: #FFCC73;
+}
+
+.verified-message {
+  margin-top: 10px;
+  color: #28a745; /* 초록색 */
+  font-weight: bold;
+}
+
+
 .id-check-button {
   background-color: #FFE3B2; /* Yellow background for the button */
   color: white;
