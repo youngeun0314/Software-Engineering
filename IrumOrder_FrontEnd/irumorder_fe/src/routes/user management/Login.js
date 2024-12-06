@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Login.css';
 import { Link } from 'react-router-dom';
-import { setUserId } from '../../context/userStorage'; 
+import { setUserId, getUserId } from '../../context/userStorage'; 
 
 function Login() {
     const navigate = useNavigate();
@@ -24,15 +24,10 @@ function Login() {
           if (response.status === 401) {
             alert("로그인 실패: 아이디나 비밀번호를 확인하세요.");
             console.error('로그인 실패:', response.statusText);
-          } else if (response.status === 500) {
-            alert("서버 오류: 잠시 후 다시 시도해주세요.");
           } else if (response.ok) {
-            //const data = await response.json();
             const responseText = await response.text();
-            //console.log('로그인 성공:', data);
             setUserId(responseText);
-            console.log(responseText);
-            navigate('main');
+            navigate('/main');
             // 필요한 경우 토큰 저장 등 후속 작업 수행
           }
         } catch (error) {

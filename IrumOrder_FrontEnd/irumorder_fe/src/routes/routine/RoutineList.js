@@ -7,7 +7,7 @@ import { getUserId } from "../../context/userStorage";
 const RoutineList = ({ userId }) => {
   const { routines, setRoutines } = useContext(RoutineContext);
   const navigate = useNavigate();
-  const user_id = getUserId();
+  const user_id = getUserId()
 
   const deleteRoutineToServer = async (routine) => {
     try {

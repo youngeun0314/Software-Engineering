@@ -2,7 +2,7 @@ let currentUserId = null;
 
 // user_id 저장
 export const setUserId = (id) => {
-  currentUserId = "1";
+  currentUserId = id;
   console.log(currentUserId);
 };
 

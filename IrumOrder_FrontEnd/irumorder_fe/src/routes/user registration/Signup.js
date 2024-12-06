@@ -34,7 +34,7 @@ function Signup() {
     };
 
     const handlePwConfirmChange = (e) => {
-        const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z0-9!@#$%^&*(),.?":{}|<>]{8,20}$/;
+        const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z0-9!@#$^&*(),.?":{}|<>]{8,20}$/;
 
         if (!passwordPattern.test(pw)) {
             alert('비밀번호는 8자 이상 20자 이하의 영문과 숫자, 특수문자 조합이어야 합니다.');
