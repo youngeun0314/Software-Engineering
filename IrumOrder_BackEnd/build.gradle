@@ -14,10 +14,9 @@ java {
 }
 
 repositories {
+	mavenCentral()  // Mock 관련 라이브러리를 찾기 위한 저장소
 	google()
-	mavenCentral()
 }
-
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
@@ -30,21 +29,17 @@ dependencies {
 	// Firebase Admin SDK
 	implementation platform('com.google.firebase:firebase-bom:32.3.0')
 	implementation 'com.google.firebase:firebase-admin:9.1.1'
-	implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '4.2.2'
 
+	// Test dependencies
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testImplementation 'org.mockito:mockito-core'
-	testImplementation 'org.assertj:assertj-core'
+	testImplementation 'org.mockito:mockito-core:5.2.0'
+	testImplementation 'org.mockito:mockito-inline:5.2.0' // Static mocking용
+	testImplementation 'org.mockito:mockito-junit-jupiter:5.2.0'
+	testImplementation 'org.assertj:assertj-core:3.24.2'
 
 	// lombok
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
-
-	compileOnly 'org.projectlombok:lombok:1.18.26' // 최신 버전으로 변경 가능
-	annotationProcessor 'org.projectlombok:lombok:1.18.26'
 	testCompileOnly 'org.projectlombok:lombok'
 	testAnnotationProcessor 'org.projectlombok:lombok'
 }

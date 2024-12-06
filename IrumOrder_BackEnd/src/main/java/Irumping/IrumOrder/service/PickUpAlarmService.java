@@ -24,7 +24,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class PickUpAlarmService {
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
     private final FirebaseMessaging firebaseMessaging;
     private final TokenRepository tokenRepository;
 
@@ -69,12 +69,15 @@ public class PickUpAlarmService {
 
         try {
             // FCM을 통해 메시지 전송
-            firebaseMessaging.send(message);
-            log.info("유저 ID {}에게 알림 전송 성공", userId);
+            String response = firebaseMessaging.send(message);
+            log.info("유저 ID {}에게 알림 전송 성공. Firebase 응답: {}", userId, response);
             return "알림을 성공적으로 전송했습니다.";
         } catch (FirebaseMessagingException e) {
-            log.error("유저 ID {}에게 알림 전송 실패: {}", userId, e.getMessage(), e);
+            log.error("FirebaseMessagingException 발생: {}", e.getLocalizedMessage());
+            log.error("유저 ID {}에게 알림 전송 실패. 오류 메시지: {}", userId, e.getMessage());
+            e.printStackTrace(); // 전체 예외 스택 트레이스 출력 (디버깅용)
             return "알림 보내기를 실패하였습니다.";
         }
     }
+
 }

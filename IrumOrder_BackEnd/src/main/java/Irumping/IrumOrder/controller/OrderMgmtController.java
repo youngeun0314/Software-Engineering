@@ -22,7 +22,7 @@ public class OrderMgmtController {
 
     // 주문 상태 업데이트
     @PostMapping("/orderStatus")
-    public ResponseEntity<?> updateOrderStatus(@RequestParam int orderId, @RequestParam OrderStatus status) {
+    public ResponseEntity<?>  updateOrderStatus(@RequestParam(name="orderId") int orderId, @RequestParam(name="status") OrderStatus status) {
         String result = orderMgmtService.updateOrderStatus(orderId, status);
         if (result.startsWith("fail")) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
@@ -33,7 +33,7 @@ public class OrderMgmtController {
 
     // 주문 확인
     @PostMapping("/checkOrder")
-    public ResponseEntity<?> checkOrder(@RequestParam int orderId) {
+    public ResponseEntity<?> checkOrder(@RequestParam(name="orderId") int orderId) {
         OrderEntity orderEntity = orderMgmtService.checkOrder(orderId);
         if (orderEntity == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)

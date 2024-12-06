@@ -27,7 +27,7 @@ public class OrderEntity {
     private Integer totalPrice;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "order_status", nullable = false)
+    @Column(name = "order_status", length = 50, nullable = false)
     private OrderStatus orderStatus;
 
     @Column(name = "pick_up")

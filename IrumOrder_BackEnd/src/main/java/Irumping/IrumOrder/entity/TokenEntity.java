@@ -14,13 +14,13 @@ public class TokenEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "token_id", nullable = false)
-    private Long tokenId;
+    private Integer tokenId;
 
     @ManyToOne(fetch = FetchType.LAZY) // 지연 로딩 설정
     @JoinColumn(name = "user_id", nullable = false)
     private UserEntity user;
 
-    @Column(name = "fcmToken", nullable = false)
+    @Column(name = "token", nullable = false)
     private String fcmToken;
 
     public TokenEntity(UserEntity user, String fcmToken) {

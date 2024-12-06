@@ -32,12 +32,16 @@ public class FirebaseConfig {
         }
 
         //기존 firebaseApp이 없으면 새로초기화
-        if (firebaseApp == null ){
+        if (firebaseApp == null) {
             FirebaseOptions options = FirebaseOptions.builder()
                     .setCredentials(GoogleCredentials.fromStream(serviceAccount))
                     .build();
             firebaseApp = FirebaseApp.initializeApp(options);
+            System.out.println("FirebaseApp initialized: " + firebaseApp.getName());
+        } else {
+            System.out.println("FirebaseApp already initialized: " + firebaseApp.getName());
         }
+
 
         return FirebaseMessaging.getInstance(firebaseApp);
     }
