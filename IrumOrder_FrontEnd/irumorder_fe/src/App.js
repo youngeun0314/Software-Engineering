@@ -5,7 +5,6 @@ import OptionView from "./components/OptionView/OptionView";
 import StoreSelection from "./components/StoreSelection/StoreSelection";
 import { RoutineProvider } from "./context/RoutineContext";
 import Main from "./routes/Main";
-import Order from "./routes/order received/Order";
 import PastOrder from "./routes/order received/PastOrder";
 import RoutineDetail from "./routes/routine/RoutineDetail";
 import RoutineListWrapper from "./routes/routine/RoutineList";
@@ -13,6 +12,7 @@ import Login from "./routes/user management/Login";
 import Signup from "./routes/user registration/Signup";
 import SignupComplete from "./routes/user registration/SignupComplete";
 import SignupStart from "./routes/user registration/SignupStart";
+import PickupReserv from "./routes/payment/PickupReserv";
 
 const App = () => {
   const [selectedStore, setSelectedStore] = useState("");
@@ -44,7 +44,6 @@ const App = () => {
         <Route path="/signup" element={<Signup />} />
         <Route path="/signupcomplete" element={<SignupComplete />} />
         <Route path="/main" element={<Main />} />
-        <Route path="/order" element={<Order />} />
         <Route path="/routinelist" element={<RoutineListWrapper/>} />
         <Route path="/past-order" element={<PastOrder />} />
         <Route path="/routine/:id" element={<RoutineDetail />} />
@@ -54,6 +53,7 @@ const App = () => {
         <Route path="/store" element={<StoreSelection onStartMenu={handleStartMenu} />} />
         <Route path="/store/:store" element={<MenuView onSelectedStore={selectedStore} onStartOption={handleOption} />} />
         <Route path="/option/:menuId" element={<OptionView onSelectedOption={selectedOption} />} />
+        <Route path="/reservation" element={<PickupReserv />} />
       </Routes>
     </RoutineProvider>
   );

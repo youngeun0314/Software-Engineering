@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Login.css';
 import { Link } from 'react-router-dom';
-import { setUserId, getUserId } from '../../context/userStorage'; 
+import { setUserId} from '../../context/userStorage'; 
 
 function Login() {
     const navigate = useNavigate();

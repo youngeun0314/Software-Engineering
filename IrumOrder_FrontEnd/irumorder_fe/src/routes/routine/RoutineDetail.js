@@ -133,7 +133,7 @@ const RoutineDetail = () => {
         ))}
       </div>
       <div className="menu-button-container">
-        <Link to="/order">
+        <Link to={`/store/:${routine.store}`}>
         <button className={`menu-select-button`}>
             메뉴
         </button>
