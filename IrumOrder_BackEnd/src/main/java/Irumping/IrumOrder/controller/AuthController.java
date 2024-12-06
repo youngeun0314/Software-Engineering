@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
  * 사용자 등록, 로그인, 이메일 인증 등의 기능을 제공
  *
  * 작성자: 주영은
- * 마지막 수정일: 2024-12-04
+ * 마지막 수정일: 2024-12-05
  */
 
 //@CrossOrigin(origins = "http://localhost:3000")
@@ -162,7 +162,7 @@ public class AuthController {
      *
      * @param id 사용자가 입력한 아이디
      * @param password 사용자가 입력한 비밀번호
-     * @return 로그인 성공 시 200 OK, 실패 시 401 UNAUTHORIZED
+     * @return
      */
     @Operation(
             summary = "로그인",
@@ -174,13 +174,14 @@ public class AuthController {
     )
     @PostMapping("/login")
     public ResponseEntity<String> login(
-            @Parameter(name="id", description = "사용자의 아이디", example = "user123")
+            @Parameter(name = "id", description = "사용자의 아이디", example = "user123")
             @RequestParam("id") String id,
-            @Parameter(name="password", description = "사용자의 비밀번호", example = "password")
+            @Parameter(name = "password", description = "사용자의 비밀번호", example = "password")
             @RequestParam("password") String password) {
-        if (authService.login(id, password)) {
-            log.info("{}님 로그인 성공", id);
-            return ResponseEntity.ok("로그인 성공");
+        Integer userId = authService.loginAndGetUserId(id, password);
+        if (userId != null) {
+            log.info("{}님 로그인 성공, userId: {}", id, userId);
+            return ResponseEntity.ok("로그인 성공: userId = " + userId);
         } else {
             log.info("로그인 실패");
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인 실패");

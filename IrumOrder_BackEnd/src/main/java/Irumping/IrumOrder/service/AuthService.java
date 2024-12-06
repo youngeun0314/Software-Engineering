@@ -1,6 +1,7 @@
 package Irumping.IrumOrder.service;
 
 import Irumping.IrumOrder.repository.UserRepository;
+import Irumping.IrumOrder.entity.UserEntity;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -55,6 +56,22 @@ public class AuthService {
             return false;
         }
         return verifyPassword(password, dbPassword);
+    }
+
+    /**
+     * 사용자 로그인 및 userId 반환
+     *
+     * @param id 사용자 아이디
+     * @param password 사용자 비밀번호
+     * @return 로그인 성공 시 userId, 실패 시 null
+     */
+    public Integer loginAndGetUserId(String id, String password) {
+        if (login(id, password)) {
+            return repository.findById(id)      // Optional<UserEntity> 반환
+                    .map(UserEntity::getUserId) // userId 반환
+                    .orElse(null);
+        }
+        return null;
     }
 
     /**
