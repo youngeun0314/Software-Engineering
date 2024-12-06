@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./PickupReserv.css";
+import { Link } from "react-router-dom";
 
 const PickupReserv = () => {
   const [selectedHour, setSelectedHour] = useState(null);
@@ -35,7 +36,14 @@ const PickupReserv = () => {
   return (
     <div className="time-picker-container">
       <header className="time-picker-header">
-        <button className="back-button">{"<"}</button>
+        <Link to={'/main'}>
+          <button className="back-button">
+            <img
+            src={`${process.env.PUBLIC_URL}/back_button.png`}
+            alt="back"
+            className="back-image"
+          /></button>
+        </Link>
         <h2>픽업 시간 예약</h2>
       </header>
       <p>상품을 픽업할 시간대를 선택하세요.</p>
