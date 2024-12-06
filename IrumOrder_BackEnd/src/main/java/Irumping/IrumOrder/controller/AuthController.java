@@ -173,7 +173,7 @@ public class AuthController {
             }
     )
     @PostMapping("/login")
-    public ResponseEntity<String> login(
+    public ResponseEntity<Integer> login(
             @Parameter(name = "id", description = "사용자의 아이디", example = "user123")
             @RequestParam("id") String id,
             @Parameter(name = "password", description = "사용자의 비밀번호", example = "password")
@@ -181,10 +181,10 @@ public class AuthController {
         Integer userId = authService.loginAndGetUserId(id, password);
         if (userId != null) {
             log.info("{}님 로그인 성공, userId: {}", id, userId);
-            return ResponseEntity.ok("로그인 성공: userId = " + userId);
+            return ResponseEntity.ok(userId);
         } else {
             log.info("로그인 실패");
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("로그인 실패");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         }
     }
 }
