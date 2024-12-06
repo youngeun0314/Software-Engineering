@@ -5,11 +5,10 @@ import Category from './Category';
 import MenuGrid from './MenuGrid';
 import { useNavigate, useParams } from 'react-router-dom';
 
-const Menu = () => {
+const Menu = ({onStartOption}) => {
 const [selectedCategory, setSelectedCategory] = useState(null); // 선택된 카테고리
-const nav = useNavigate();
 const { store, categoryId } = useParams(); // URL에서 categoryId를 가져옴 (옵션)
-
+const nav = useNavigate();
 
 useEffect(() => {
     if (categoryId) {
@@ -45,7 +44,9 @@ return (
         </div>
     </div>
     <Category onCategorySelect={handleCategorySelect} /> {/* 카테고리 선택 */}
-    {selectedCategory && <MenuGrid category={selectedCategory} />} {/* 선택된 카테고리 메뉴 표시 */}
+    {selectedCategory && (
+    <MenuGrid category={selectedCategory} onStartOption={onStartOption}
+     />)}
     </div>
 );
 };

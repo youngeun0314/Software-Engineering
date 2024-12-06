@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios'; // HTTP 요청을 위해 axios 사용
 import './MenuGrid.css';
 
-const MenuGrid = ({ category }) => {
+const MenuGrid = ({ category , onStartOption}) => {
 const [menuItems, setMenuItems] = useState([]);
 const [loading, setLoading] = useState(false);
 const [error, setError] = useState(null);
@@ -41,12 +41,14 @@ if (error) {
     return <div className="menu-error">{error}</div>; // 에러 메시지 표시
 }
 
+
 return (
     <>
     {menuItems.length > 0 ? (
         <div className="menu-grid">
         {menuItems.map((item) => (
-            <div key={item.id} className="menu-item">
+            <button key={item.menuId} className="menu-item" onClick={() => onStartOption(item.menuId)}
+            >
             <div className="menu-image">
                 {item.image ? (
                 <img src={item.image} alt={item.name} />
@@ -58,7 +60,7 @@ return (
                 <span>{item.name}</span>
                 <strong>{item.price.toLocaleString()}원</strong> {/* 가격 포맷팅 */}
             </div>
-            </div>
+            </button>
         ))}
         </div>
     ) : (
