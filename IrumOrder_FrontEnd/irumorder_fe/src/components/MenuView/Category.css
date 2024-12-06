@@ -1,0 +1,31 @@
+.Category {
+    color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 10px 20px;
+    overflow-x: auto; /* 수평 스크롤 가능 */
+    white-space: nowrap; /* 텍스트가 넘칠 경우 줄바꿈 방지 */
+}
+.Category::-webkit-scrollbar {
+    display: none; /* For Webkit browsers */
+}
+
+.button {
+    color: #333;
+    background: none;
+    font-weight: bold;
+    border: none;
+    margin-right: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease; /* hover 시 부드럽게 변화 */
+    white-space: nowrap; /* 텍스트가 줄 바뀌지 않도록 설정 */
+    padding: 5px 8px; /* 상하 여백 추가로 글씨 흔들림 방지 */
+}
+
+.button:focus {
+    
+    border-bottom: 5px solid orange; /* 선택된 카테고리 강조 표시 */
+}
+
