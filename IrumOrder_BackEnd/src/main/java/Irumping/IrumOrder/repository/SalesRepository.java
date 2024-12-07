@@ -23,7 +23,7 @@ public interface SalesRepository extends JpaRepository<OrderEntity, Long> {
      * @param endOfDay 조회할 날짜의 끝 시각
      * @return Optional<Integer> 조회된 매출 총합 (없을 경우 빈 Optional 반환)
      */
-    @Query("SELECT SUM(o.totalPrice) FROM OrderEntity o WHERE o.payDatetime >= :startOfDay AND o.payDatetime < :endOfDay")
+    @Query("SELECT SUM(o.totalPrice) FROM OrderEntity o WHERE o.payment >= :startOfDay AND o.payment < :endOfDay")
     Optional<Integer> findTotalSalesByDate(
             @Param("startOfDay") LocalDateTime startOfDay,
             @Param("endOfDay") LocalDateTime endOfDay
