@@ -1,6 +1,7 @@
 package Irumping.IrumOrder.entity;
 
 public enum OrderStatus {
+
     // 직원 view : 신규주문, 예약대기, 주문접수, 상품준비완료, 완료
     NEW_ORDER, WAITING, ACCEPTED_ORDER, READY_FOR_PICKUP, COMPLETED,
 

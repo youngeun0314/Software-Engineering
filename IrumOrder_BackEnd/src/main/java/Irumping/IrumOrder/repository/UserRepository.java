@@ -1,5 +1,6 @@
 package Irumping.IrumOrder.repository;
 
+import Irumping.IrumOrder.entity.OrderEntity;
 import Irumping.IrumOrder.entity.UserEntity;
 
 import java.util.Optional;
@@ -19,4 +20,6 @@ public interface UserRepository {
     boolean isExist(String id);
 
     Optional<UserEntity> findById(String id);
+
+    public Optional<UserEntity> findByUserId(Integer userId);
 }

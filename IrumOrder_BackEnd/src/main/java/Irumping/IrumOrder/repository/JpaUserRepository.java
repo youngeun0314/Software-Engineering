@@ -26,9 +26,9 @@ public class JpaUserRepository implements UserRepository {
      * 사용자 정보를 DB에 저장하는 메소드
      * 사용자의 아이디, 비밀번호, 이메일 정보를 DB에 저장
      *
-     * @param id 사용자 아이디
+     * @param id       사용자 아이디
      * @param password 사용자 비밀번호
-     * @param email 사용자 이메일
+     * @param email    사용자 이메일
      */
     @Override
     public void save(String id, String password, String email) {
@@ -71,7 +71,7 @@ public class JpaUserRepository implements UserRepository {
      *
      * @param id 사용자 아이디
      * @return Optional로 감싼 UserEntity 객체.
-     *         해당 아이디의 사용자가 존재하지 않을 경우 Optional.empty() 반환.
+     * 해당 아이디의 사용자가 존재하지 않을 경우 Optional.empty() 반환.
      */
 
     @Override
@@ -86,12 +86,13 @@ public class JpaUserRepository implements UserRepository {
         return Optional.ofNullable(user);
     }
 
+
     /**
      * 사용자 아이디로 사용자 권한을 조회하는 메소드
      *
      * @param userId 사용자 아이디
      * @return Optional로 감싼 String.
-     *         해당 아이디의 사용자가 존재하지 않을 경우 Optional.empty() 반환.
+     * 해당 아이디의 사용자가 존재하지 않을 경우 Optional.empty() 반환.
      */
 
     public Optional<String> getUserMode(Integer userId) {
@@ -104,5 +105,10 @@ public class JpaUserRepository implements UserRepository {
         } catch (NoResultException e) {
             return Optional.empty();
         }
+    }
+
+    @Override
+    public Optional<UserEntity> findByUserId(Integer userId) {
+        return Optional.ofNullable(em.find(UserEntity.class, userId));
     }
 }

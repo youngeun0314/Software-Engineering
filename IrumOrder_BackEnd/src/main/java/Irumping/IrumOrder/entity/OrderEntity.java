@@ -18,16 +18,16 @@ public class OrderEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_id", nullable = false)
-    private int orderId;
+    private Integer orderId;
 
     @Column(name = "user_id", nullable = false)
-    private int userId;
+    private Integer userId;
 
     @Column(name = "total_price", nullable = false)
-    private int totalPrice;
+    private Integer totalPrice;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "order_status", nullable = false)
+    @Column(name = "order_status", length = 50, nullable = false)
     private OrderStatus orderStatus;
 
     @Column(name = "pick_up")
@@ -44,7 +44,7 @@ public class OrderEntity {
 
     public OrderEntity() {}
 
-    public OrderEntity(int userId, int totalPrice, OrderStatus orderStatus, LocalTime pickUp) {
+    public OrderEntity(Integer userId, Integer totalPrice, OrderStatus orderStatus, LocalTime pickUp) {
         this.userId = userId;
         this.totalPrice = totalPrice;
         this.orderStatus = orderStatus;
