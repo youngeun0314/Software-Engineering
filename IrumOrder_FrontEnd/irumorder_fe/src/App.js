@@ -53,7 +53,7 @@ const App = () => {
         <Route path="/store" element={<StoreSelection onStartMenu={handleStartMenu} />} />
         <Route path="/store/:store" element={<MenuView onSelectedStore={selectedStore} onStartOption={handleOption} />} />
         <Route path="/option/:menuId" element={<OptionView onSelectedOption={selectedOption} />} />
-        <Route path="/reservation" element={<PickupReserv />} />
+        {/*<Route path="/cart" element={<CartView/>} />*/}
       </Routes>
     </RoutineProvider>
   );

@@ -10,30 +10,59 @@ const OptionView = () => {
     const [menuDetails, setMenuDetails] = useState(null); // 메뉴 세부정보 상태
     const [loading, setLoading] = useState(false); // 로딩 상태
     const [error, setError] = useState(null); // 에러 상태
-    const [selectedCup, setSelectedCup] = useState(null);
     const [options, setOptions] = useState({
-        addShot: false,
-        addVanilla: false,
-        addHazelnut: false,
-        light: false,
+        userId : 1, //그냥 고정값으로 함
+        Price : null,//프라이스 장바구니 페이지에서 수정, 샷추가도 넣어야함 
+        pickUp : null, //예약시간에서 추가
+
+        menuId : null, //이거 구조수정해야함
+        quantity : 1,
+        menuOptions: {
+            addShot: false, 
+            addVanilla: false,
+            addHazelnut: false,
+            light: false,
+        }    
 });
 
 const nav = useNavigate();
+
+useEffect(() => {
+    if (menuId) {
+        setOptions((prevOptions) => ({
+            ...prevOptions,
+            menuId: Number(menuId), // menuId를 숫자로 변환하여 추가
+        }));
+    }
+}, [menuId]); // menuId 변경 시 실행
+
 
 const handleBack = () => {
     nav(-1);
 };
 
 const handleCupSelection = (cupType) => {
-    setSelectedCup(cupType);
+    setOptions((prevOptions) => ({
+        ...prevOptions,
+        menuOptions: {
+            ...prevOptions.menuOptions,
+            useCup: cupType, // useCup 값 업데이트
+        },
+    }));
 };
+
 
 const handleOptionClick = (option) => {
     setOptions((prevOptions) => ({
-    ...prevOptions,
-      [option]: !prevOptions[option], // 선택 상태를 toggle
+        ...prevOptions,
+        menuOptions: {
+            ...prevOptions.menuOptions,
+            [option]: !prevOptions.menuOptions[option], // 현재 상태를 반대로 토글
+        },
     }));
 };
+
+
 
 // 메뉴 정보를 가져오는 함수
 useEffect(() => {
@@ -45,6 +74,11 @@ useEffect(() => {
         params: { menuId }, // menuId를 쿼리 파라미터로 전달
         });
         setMenuDetails(response.data); // 서버에서 가져온 데이터 저장
+        // options에 Price 업데이트
+        setOptions((prevOptions) => ({
+            ...prevOptions,
+            Price: response.data.price, // Price에 price 값 설정
+        }));
     } catch (err) {
         console.error('Error fetching menu details:', err);
         setError('메뉴 정보를 가져오는 중 오류가 발생했습니다.');
@@ -95,13 +129,13 @@ return (
             <h3 className='choose-cup'>컵 선택</h3>
             <div className='add-cup'>
                 <button 
-                    className={selectedCup === 'TakeIn' ? 'selected' : ''}
+                    className={options.menuOptions.useCup  === 'TakeIn' ? 'selected' : ''}
                     onClick={() => handleCupSelection('TakeIn')}
                 >
                     매장 내 다회용컵
                 </button>
                 <button
-                    className={selectedCup === 'TakeOut' ? 'selected' : ''}
+                    className={options.menuOptions.useCup  === 'TakeOut' ? 'selected' : ''}
                     onClick={() => handleCupSelection('TakeOut')}
                 >
                     일회용컵
@@ -110,29 +144,30 @@ return (
             <h3 className="choose-option">추가옵션</h3>
             <div className='add-option'>
                 <button
-                    className={options.light ? 'selected' : ''}
+                    className={options.menuOptions.light ? 'selected' : ''}
                     onClick={() => handleOptionClick('light')}
                 >연하게(+0)
                 </button>
                 <button
-                    className={options.addShot ? 'selected' : ''}
+                    className={options.menuOptions.addShot ? 'selected' : ''}
                     onClick={() => handleOptionClick('addShot')}
                 >샷 추가(+500)
                 </button>
                 <button
-                    className={options.addVanilla ? 'selected' : ''}
+                    className={options.menuOptions.addVanilla ? 'selected' : ''}
                     onClick={() => handleOptionClick('addVanilla')}
                 >바닐라 시럽(+500)
                 </button>
                 <button
-                    className={options.addHazelnut ? 'selected' : ''}
+                    className={options.menuOptions.addHazelnut ? 'selected' : ''}
                     onClick={() => handleOptionClick('addHazelnut')}
                 >
                 헤이즐넛 시럽(+500)
                 </button>
             </div>
         </div>
-        <OptionUnder   />
+
+        <OptionUnder  options = {options} setOptions={setOptions}/>
     </>
 );
 };

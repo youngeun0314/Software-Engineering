@@ -74,7 +74,7 @@ function Main() {
                     <p className="welcome-message">{nickname}님 환영해요!</p>
                 </div>
                 <div className="main-options">
-                    <Link to={'/order'}>
+                    <Link to={'/store'}>
                         <button type="main_order" className="main-button">
                             <img src="main_order.png" alt="main_order" className="main-image"/>
                         </button>

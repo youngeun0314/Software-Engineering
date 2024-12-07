@@ -7,7 +7,7 @@
   font-family: Inter;
   margin-left:0px;
   background-color: #ffffff;
-  min-height: 100vh; /* 화면 전체 높이 */
+  height: 100%; /* 화면 전체 높이 */
   margin-top: 10px;
 }
 

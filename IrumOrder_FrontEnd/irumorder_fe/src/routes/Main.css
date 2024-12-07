@@ -2,7 +2,7 @@
     font-family: Inter;
     margin-top: 10px;
     background-color: #fff8e1;
-    min-height: 100vh; /* 화면 전체 높이 */
+    height: 100%; /* 화면 전체 높이 */
     display: flex;
     flex-direction: column;
 }

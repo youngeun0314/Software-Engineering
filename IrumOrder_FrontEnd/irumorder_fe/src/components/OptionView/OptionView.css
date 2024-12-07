@@ -6,13 +6,15 @@
     align-items: center;
     height: 35vh;
     position: relative;
+    overflow-y : auto;
 }
   .menu-name {
     font-size: 1.5rem;
     font-weight: bold;
     color: #333;
     text-align: center; /* 텍스트 중앙 정렬 */
-    padding-top : 50px;
+    padding-top : 75px;
+    padding-bottom: 5px;
   }
   
   .menu-image {
@@ -84,6 +86,7 @@
     white-space: nowrap; /* 줄바꿈 방지 */
     
 }
+
 
 /* 공통 버튼 스타일 */
 .OptionView2  button {
