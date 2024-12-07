@@ -23,7 +23,7 @@ class CategoryServiceTest {
         String categoryName = "testCategory";
 
         // When
-        Long categoryId = categoryService.createCategory(categoryName);
+        Integer categoryId = categoryService.createCategory(categoryName);
 
         // Then
         CategoryEntity category = categoryService.findCategoryById(categoryId);
