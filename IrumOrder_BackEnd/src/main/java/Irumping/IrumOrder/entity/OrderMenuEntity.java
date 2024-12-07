@@ -28,7 +28,6 @@ public class OrderMenuEntity {
     @JoinColumn(name = "menu_detail_id", nullable = false)
     private MenuDetailEntity menuDetail;
 
-
     @Column(name = "quantity", nullable = false)
     private int quantity = 1;
 

@@ -21,7 +21,7 @@ public class OrderEntity {
     private int orderId;
 
     @Column(name = "user_id", nullable = false)
-    private long userId;
+    private int userId;
 
     @Column(name = "total_price", nullable = false)
     private int totalPrice;
@@ -30,14 +30,24 @@ public class OrderEntity {
     @Column(name = "order_status", nullable = false)
     private OrderStatus orderStatus;
 
-    @Column(name = "pick_up")
+    @Column(name = "pickUp")
     private LocalTime pickUp;
 
-    @Column(name = "pay_time")
-    private LocalDateTime payDatetime = null;
+    @Column(name = "payment")
+    private LocalDateTime payment = null;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<OrderMenuEntity> orderMenuOptions = new ArrayList<>();
 
+    @Column(name = "tid")
+    private String tid;
+
     public OrderEntity() {}
+
+    public OrderEntity(int userId, int totalPrice, OrderStatus orderStatus, LocalTime pickUp) {
+        this.userId = userId;
+        this.totalPrice = totalPrice;
+        this.orderStatus = orderStatus;
+        this.pickUp = pickUp;
+    }
 }

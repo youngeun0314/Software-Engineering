@@ -76,6 +76,19 @@ public class GlobalExceptionHandler {
     }
 
     /**
+     * 권한이 없는 요청을 처리하는 메서드.
+     *
+     * @param ex IllegalAccessException 예외 객체
+     * @return ResponseEntity<ApiError> 에러 응답 객체
+     */
+    @ExceptionHandler(IllegalAccessException.class)
+    public ResponseEntity<ApiError> handleIllegalAccessException(IllegalAccessException ex) {
+        logger.error("IllegalAccessException: {}", ex.getMessage(), ex);
+        ApiError apiError = new ApiError(HttpStatus.FORBIDDEN.value(), ex.getMessage(), "Access denied");
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(apiError);
+    }
+
+    /**
      * 데이터베이스 연결 관련 예외를 처리하는 메서드.
      *
      * @param ex CannotCreateTransactionException, DataAccessException, SQLNonTransientConnectionException 예외 객체
