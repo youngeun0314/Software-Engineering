@@ -57,13 +57,18 @@ public class RoutineAlarmService {
         RoutineDay today = mapDayOfWeekToRoutineDay(LocalDate.now().getDayOfWeek());
         log.info("오늘 요일: {}", today);
 
-        // 조건에 맞는 루틴 조회
-        List<RoutineEntity> routines = routineRepository.findByRoutineDayAndAlarmEnabledTrue(today);
-        log.info("조건에 부합하는 루틴 수: {}", routines.size());
-        routines.forEach(routine -> log.info("루틴 ID: {}, 요일: {}, 시간: {}, 활성화 여부: {}",
-                routine.getRoutineId(), routine.getRoutineDay(), routine.getRoutineTime(), routine.getAlarmEnabled()));
+        // 모든 루틴을 가져와 필터링
+        List<RoutineEntity> allRoutines = routineRepository.findAll();
+        List<RoutineEntity> filteredRoutines = allRoutines.stream()
+                .filter(routine -> routine.getAlarmEnabled()) // 알람 활성화 여부 확인
+                .filter(routine -> RoutineDayUtils.isSpecificDay(routine.getRoutineDayBitmask(), today)) // 오늘 요일에 해당하는 루틴 필터링
+                .toList();
 
-        for (RoutineEntity routine : routines) {
+        log.info("조건에 부합하는 루틴 수: {}", filteredRoutines.size());
+        filteredRoutines.forEach(routine -> log.info("루틴 ID: {}, 요일 비트마스크: {}, 시간: {}, 활성화 여부: {}",
+                routine.getRoutineId(), routine.getRoutineDayBitmask(), routine.getRoutineTime(), routine.getAlarmEnabled()));
+
+        for (RoutineEntity routine : filteredRoutines) {
             log.info("루틴 ID: {}, 루틴 시간: {}", routine.getRoutineId(), routine.getRoutineTime());
             if (routine.getRoutineTime().isAfter(twoHoursLater.minusMinutes(5)) &&
                     routine.getRoutineTime().isBefore(twoHoursLater.plusMinutes(5))) {

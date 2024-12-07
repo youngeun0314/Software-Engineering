@@ -3,6 +3,7 @@ package Irumping.IrumOrder.repository;
 import Irumping.IrumOrder.entity.RoutineEntity;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -41,5 +42,12 @@ public class JpaRoutineRepository implements RoutineRepository {
     @Override
     public void delete(RoutineEntity routine) {
         em.remove(routine);
+    }
+
+    @Override
+    public List<RoutineEntity> findAll() {
+        TypedQuery<RoutineEntity> query = em.createQuery(
+                "SELECT r FROM RoutineEntity r", RoutineEntity.class);
+        return query.getResultList();
     }
 }

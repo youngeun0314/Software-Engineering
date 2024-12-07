@@ -29,4 +29,6 @@ public interface RoutineRepository{
     Optional<RoutineEntity> findById(Integer routineId);
 
     void delete(RoutineEntity routine);
+
+    List<RoutineEntity> findAll();
 }
