@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
+import CartView from './components/CartView/CartView';
 import MenuView from "./components/MenuView/MenuView";
 import OptionView from "./components/OptionView/OptionView";
 import StoreSelection from "./components/StoreSelection/StoreSelection";
@@ -13,19 +14,13 @@ import Signup from "./routes/user registration/Signup";
 import SignupComplete from "./routes/user registration/SignupComplete";
 import SignupStart from "./routes/user registration/SignupStart";
 import PickupReserv from "./routes/payment/PickupReserv";
-import Cart from './routes/Cart';
 import Payment from './routes/Payment';
 import Paymentcomplete from './routes/Paymentcomplete';
+import { setUserId } from "./context/userStorage";
 
 const App = () => {
   const [selectedStore, setSelectedStore] = useState("");
-  const [selectedOption, setSelectedOption] = useState(""); // 선택한 옵션 상태 추가
   const nav = useNavigate(); // 페이지 이동을 위해 useNavigate 사용
-
-  // 스토어 선택 화면으로 이동
-  const handleStartStore = () => {
-    nav("/store");
-  };
 
   // 메뉴 화면으로 이동
   const handleStartMenu = (store) => {
@@ -34,9 +29,29 @@ const App = () => {
   };
 
   const handleOption = (menuId) => {
-    setSelectedOption(menuId); // 선택한 옵션 상태
+    setOptions((prevOptions) => ({
+      ...prevOptions,
+      menuId: menuId, // 선택한 menuId를 options에 저장
+  }));
     nav(`/option/${menuId}`);
   };
+
+
+  const [options, setOptions] = useState({
+    userId : 1, //그냥 고정값으로 함
+    Price : 0,//프라이스 장바구니 페이지에서 수정, 샷추가도 넣어야함 
+
+    menuId : null, //이거 구조수정해야함
+    name : "",
+    quantity : 1,
+    menuOptions: {
+        useCup : "",
+        addShot: false, 
+        addVanilla: false,
+        addHazelnut: false,
+        light: false,
+    }    
+});
 
   return (
     <RoutineProvider>
@@ -55,9 +70,8 @@ const App = () => {
         {/* 추가 라우트 */}
         <Route path="/store" element={<StoreSelection onStartMenu={handleStartMenu} />} />
         <Route path="/store/:store" element={<MenuView onSelectedStore={selectedStore} onStartOption={handleOption} />} />
-        <Route path="/option/:menuId" element={<OptionView onSelectedOption={selectedOption} />} />
-        {/*<Route path="/cart" element={<CartView/>} />*/}
-        <Route path="/cart" element={<Cart/>}/>
+        <Route path="/option/:menuId" element={<OptionView options={options} setOptions={setOptions}/>} />
+        <Route path="/cart/:userId" element={<CartView />}/>
         <Route path="/payment" element={<Payment/>}/>
         <Route path="/paymentcomplete" element={<Paymentcomplete/>}/>
       </Routes>

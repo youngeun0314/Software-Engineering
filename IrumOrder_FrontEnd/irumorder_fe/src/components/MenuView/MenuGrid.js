@@ -51,14 +51,14 @@ const MenuGrid = ({ category, onStartOption }) => {
               className="menu-item"
               onClick={() => onStartOption(item.menuId)}
             >
-              <div className="menu-image">
+              <div className="menu-img">
                 {item.image ? (
                   <img src={item.image} alt={item.name} />
                 ) : (
                   <div className="placeholder">이미지 없음</div>
                 )}
               </div>
-              <div className="menu-info">
+              <div className="menu-information">
                 <span>{item.name}</span>
                 <strong>{item.price.toLocaleString()}원</strong>
               </div>

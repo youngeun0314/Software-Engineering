@@ -1,6 +1,21 @@
-import React, {useState} from 'react';
+import React from 'react';
 import './OptionUnder.css';
 import { useNavigate } from 'react-router-dom'; // React Router의 useNavigate 사용
+
+const INITIAL_OPTIONS = {
+    userId: 1,
+    Price: 0,
+    menuId: null,
+    name: "",
+    quantity: 1,
+    menuOptions: {
+        useCup: "",
+        addShot: false,
+        addVanilla: false,
+        addHazelnut: false,
+        light: false,
+    },
+};
 
 const OptionUnder = ({options, setOptions}) => {//여기서 가격 받아서
     const nav = useNavigate(); // 페이지 이동을 위한 useNavigate 훅
@@ -23,20 +38,30 @@ const OptionUnder = ({options, setOptions}) => {//여기서 가격 받아서
         const addShotPrice = options.menuOptions.addShot ? 500 : 0;
         const addVanillaPrice = options.menuOptions.addVanilla ? 500 : 0;
         const addHazelnutPrice = options.menuOptions.addHazelnut ? 500 : 0;
+        options.Price = basePrice + addShotPrice + addVanillaPrice + addHazelnutPrice;
         return basePrice + addShotPrice + addVanillaPrice + addHazelnutPrice;
     };
 
+    
+    //장바구니에 추가 버튼 클릭
     const handleCartClick = () => {
         if (!options.menuOptions.useCup) {
             // 컵 선택이 안 되었을 경우
             alert('컵을 선택해주세요.');
             return;
         }
-
+        const userId = options.userId; // options에서 userId 가져오기
+        if (!userId) {
+            console.error("User ID가 없습니다.");
+            return;
+        }
+console.log()
         // 컵이 선택된 경우 경고 메시지 초기화 후 페이지 이동
-        nav('/cart'); // 장바구니 페이지로 이동
+        nav(`/cart/${userId}`, { state: { options }, replace: true });
+        setOptions(INITIAL_OPTIONS);
     };
 
+    
 return (
     <div className="OptionUnder">
         <div className="quantity">

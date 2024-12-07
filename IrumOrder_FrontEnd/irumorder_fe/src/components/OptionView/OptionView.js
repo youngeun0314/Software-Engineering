@@ -5,27 +5,21 @@ import './OptionView.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 
-const OptionView = () => {
+const OptionView = ({options = {}, setOptions}) => {
+    console.log("Received options:", options); // 전달된 props 확인
+    console.log("setOptions exists:", typeof setOptions === "function"); // setOptions 함수 여부 확인
+
+    useEffect(() => {
+        console.log("Options state:", options); // 상태 출력
+    }, [options]);
+
+
     const { menuId } = useParams(); // URL에서 menuId 가져오기
     const [menuDetails, setMenuDetails] = useState(null); // 메뉴 세부정보 상태
     const [loading, setLoading] = useState(false); // 로딩 상태
     const [error, setError] = useState(null); // 에러 상태
-    const [options, setOptions] = useState({
-        userId : 1, //그냥 고정값으로 함
-        Price : null,//프라이스 장바구니 페이지에서 수정, 샷추가도 넣어야함 
-        pickUp : null, //예약시간에서 추가
 
-        menuId : null, //이거 구조수정해야함
-        quantity : 1,
-        menuOptions: {
-            addShot: false, 
-            addVanilla: false,
-            addHazelnut: false,
-            light: false,
-        }    
-});
-
-const nav = useNavigate();
+    const nav = useNavigate();
 
 useEffect(() => {
     if (menuId) {
@@ -34,7 +28,7 @@ useEffect(() => {
             menuId: Number(menuId), // menuId를 숫자로 변환하여 추가
         }));
     }
-}, [menuId]); // menuId 변경 시 실행
+}, [menuId, setOptions]); // menuId 변경 시 실행
 
 
 const handleBack = () => {
@@ -71,14 +65,17 @@ useEffect(() => {
     setError(null); // 에러 초기화
     try {
         const response = await axios.get(`http://localhost:8080/menu/getOneMenu`, {
-        params: { menuId }, // menuId를 쿼리 파라미터로 전달
+            params: { menuId }, // menuId를 쿼리 파라미터로 전달
         });
         setMenuDetails(response.data); // 서버에서 가져온 데이터 저장
         // options에 Price 업데이트
         setOptions((prevOptions) => ({
-            ...prevOptions,
-            Price: response.data.price, // Price에 price 값 설정
+                ...prevOptions,
+                name: response.data.name,
+                Price: response.data.price,
         }));
+        
+        
     } catch (err) {
         console.error('Error fetching menu details:', err);
         setError('메뉴 정보를 가져오는 중 오류가 발생했습니다.');
@@ -90,7 +87,7 @@ useEffect(() => {
     if (menuId) {
     fetchMenuDetails(); // menuId가 있는 경우 데이터 가져오기
     }
-}, [menuId]); // menuId 변경 시 데이터 갱신
+}, [menuId, setOptions]); // menuId 변경 시 데이터 갱신
 
 if (loading) {
     return <div>로딩 중...</div>; // 로딩 상태 표시
@@ -98,6 +95,13 @@ if (loading) {
 
 if (error) {
     return <div>{error}</div>; // 에러 메시지 표시
+}
+
+console.log("Current Options:", options);
+console.log("Menu Options:", options.menuOptions);
+
+if (!options || !options.menuOptions) {
+    return <div>옵션 데이터를 불러오는 중입니다...</div>;
 }
 
 return (
@@ -167,7 +171,7 @@ return (
             </div>
         </div>
 
-        <OptionUnder  options = {options} setOptions={setOptions}/>
+        <OptionUnder  options ={options} setOptions={setOptions}/>
     </>
 );
 };

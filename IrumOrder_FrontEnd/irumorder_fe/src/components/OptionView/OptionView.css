@@ -1,6 +1,6 @@
   /* 메뉴 이름 */
 
-.option-container{
+.OptionView .option-container{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -8,7 +8,7 @@
     position: relative;
     overflow-y : auto;
 }
-  .menu-name {
+ .OptionView .menu-name {
     font-size: 1.5rem;
     font-weight: bold;
     color: #333;
@@ -17,7 +17,7 @@
     padding-bottom: 5px;
   }
   
-  .menu-image {
+ .OptionView .menu-image {
     width: 180px; /* 고정된 너비 */
     height: 180px; /* 고정된 높이 */
     border-radius: 10px; /* 둥근 모서리 */

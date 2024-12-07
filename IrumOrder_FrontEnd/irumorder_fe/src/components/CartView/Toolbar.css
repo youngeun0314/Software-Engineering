@@ -17,22 +17,6 @@
     color: #333;
 }
 
-.cart {
-    position: absolute;
-    background: none;
-    border: none;
-    right : 15px;
-    transform: translateY(-50%); /* 수직 가운데 정렬 */
-}
-.cart_icon {
-    position : absolute;
-    width : 30px;
-    height : 30px;
-    right : 15px;
-    cursor: pointer;
-    transform: translateY(-50%); /* 수직 가운데 정렬 */
-}
-
 .back_icon {
     position : relative;
     top: 22px;
