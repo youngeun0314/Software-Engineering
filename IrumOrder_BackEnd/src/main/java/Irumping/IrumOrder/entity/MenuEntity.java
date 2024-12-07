@@ -14,18 +14,26 @@ public class MenuEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "menu_id", nullable = false)
-    private int menuId;
+    private Integer menuId;
 
     @Column(name = "name", nullable = false)
     private String name;
 
     @Column(name = "price", nullable = false)
-    private int price;
+    private Integer price;
 
-    @JoinColumn (name = "category_id", nullable = false)
-    private int categoryId;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "category_id", referencedColumnName = "category_id")
+    private CategoryEntity category;
 
     public MenuEntity() {}
+
+    public MenuEntity(String name, Integer price, CategoryEntity category) {
+        this.name = name;
+        this.price = price;
+        this.category = category;
+    }
 
     @Override
     public boolean equals(Object o) {

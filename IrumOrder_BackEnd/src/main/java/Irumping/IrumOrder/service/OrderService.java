@@ -10,8 +10,8 @@ import Irumping.IrumOrder.entity.OrderMenuEntity;
 import Irumping.IrumOrder.entity.MenuDetailEntity;
 import Irumping.IrumOrder.entity.MenuEntity;
 import Irumping.IrumOrder.entity.OrderStatus;
+import Irumping.IrumOrder.repository.JpaMenuRepository;
 import Irumping.IrumOrder.repository.OrderRepository;
-import Irumping.IrumOrder.repository.MenuRepository;
 import Irumping.IrumOrder.repository.MenuDetailRepository;
 import Irumping.IrumOrder.repository.OrderMenuRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +32,7 @@ public class OrderService {
     private OrderRepository orderRepository;
 
     @Autowired
-    private MenuRepository menuRepository;
+    private JpaMenuRepository menuRepository;
 
     @Autowired
     private MenuDetailRepository menuDetailRepository;
@@ -75,8 +75,10 @@ public class OrderService {
         orderMenuEntity.setOrder(order);  // OrderEntity와 매핑
 
         // Menu 설정
-        MenuEntity menu = menuRepository.findById(orderMenuDto.getMenuId())
-                .orElseThrow(() -> new IllegalArgumentException("Menu ID가 잘못되었습니다: " + orderMenuDto.getMenuId()));
+        MenuEntity menu = menuRepository.findMenuById(orderMenuDto.getMenuId());
+        if(menu == null){
+            throw new IllegalArgumentException("Menu ID가 잘못되었습니다: " + orderMenuDto.getMenuId());
+        }
         orderMenuEntity.setMenu(menu);
 
         // MenuDetailEntity 생성 및 저장
