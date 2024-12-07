@@ -1,4 +1,3 @@
-
 package Irumping.IrumOrder.entity;
 
 import jakarta.persistence.*;
