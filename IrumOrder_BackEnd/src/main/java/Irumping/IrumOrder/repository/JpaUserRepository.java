@@ -5,6 +5,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -74,6 +75,7 @@ public class JpaUserRepository implements UserRepository {
      */
 
     @Override
+    @Transactional
     public Optional<UserEntity> findById(String id) {
         UserEntity user = em.createQuery(
                         "SELECT u FROM UserEntity u WHERE u.id = :id", UserEntity.class)
