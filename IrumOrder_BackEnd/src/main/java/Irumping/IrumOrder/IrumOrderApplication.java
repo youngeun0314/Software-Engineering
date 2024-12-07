@@ -6,10 +6,9 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @EnableScheduling
 @SpringBootApplication
+@EnableScheduling
 public class IrumOrderApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(IrumOrderApplication.class, args);
 	}
-
 }
