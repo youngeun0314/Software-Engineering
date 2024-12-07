@@ -92,7 +92,7 @@ public class JpaUserRepository implements UserRepository {
      *         해당 아이디의 사용자가 존재하지 않을 경우 Optional.empty() 반환.
      */
 
-    public Optional<String> getUserMode(Long userId) {
+    public Optional<String> getUserMode(Integer userId) {
         try {
             return Optional.ofNullable(
                     em.createQuery("select u.mode from UserEntity u where u.userId = :userId", String.class)
