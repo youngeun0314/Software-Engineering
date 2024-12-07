@@ -2,7 +2,6 @@ package Irumping.IrumOrder.service;
 
 import Irumping.IrumOrder.dto.RoutineDto;
 import Irumping.IrumOrder.dto.RoutineResponseDto;
-import Irumping.IrumOrder.entity.MenuEntity;
 import Irumping.IrumOrder.entity.RoutineEntity;
 import Irumping.IrumOrder.exception.CustomExceptions.InvalidInputException;
 import Irumping.IrumOrder.exception.CustomExceptions.InvalidRoutineException;
