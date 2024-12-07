@@ -13,6 +13,9 @@ import Signup from "./routes/user registration/Signup";
 import SignupComplete from "./routes/user registration/SignupComplete";
 import SignupStart from "./routes/user registration/SignupStart";
 import PickupReserv from "./routes/payment/PickupReserv";
+import Cart from './routes/Cart';
+import Payment from './routes/Payment';
+import Paymentcomplete from './routes/Paymentcomplete';
 
 const App = () => {
   const [selectedStore, setSelectedStore] = useState("");
@@ -54,9 +57,13 @@ const App = () => {
         <Route path="/store/:store" element={<MenuView onSelectedStore={selectedStore} onStartOption={handleOption} />} />
         <Route path="/option/:menuId" element={<OptionView onSelectedOption={selectedOption} />} />
         {/*<Route path="/cart" element={<CartView/>} />*/}
+        <Route path="/cart" element={<Cart/>}/>
+        <Route path="/payment" element={<Payment/>}/>
+        <Route path="/paymentcomplete" element={<Paymentcomplete/>}/>
       </Routes>
     </RoutineProvider>
   );
 };
 
 export default App;
+
