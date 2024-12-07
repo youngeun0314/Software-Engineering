@@ -1,6 +1,6 @@
 import React from 'react';
 import './OptionUnder.css';
-import { useNavigate } from 'react-router-dom'; // React Router의 useNavigate 사용
+import { useNavigate, useParams } from 'react-router-dom'; // React Router의 useNavigate 사용
 
 const INITIAL_OPTIONS = {
     userId: 1,
@@ -17,9 +17,8 @@ const INITIAL_OPTIONS = {
     },
 };
 
-const OptionUnder = ({options, setOptions}) => {//여기서 가격 받아서
+const OptionUnder = ({store, options, setOptions}) => {//여기서 가격 받아서
     const nav = useNavigate(); // 페이지 이동을 위한 useNavigate 훅
-
     const increaseQuantity = () => {
         setOptions((prevOptions) => ({
             ...prevOptions,
@@ -55,9 +54,9 @@ const OptionUnder = ({options, setOptions}) => {//여기서 가격 받아서
             console.error("User ID가 없습니다.");
             return;
         }
-console.log()
+
         // 컵이 선택된 경우 경고 메시지 초기화 후 페이지 이동
-        nav(`/cart/${userId}`, { state: { options }, replace: true });
+        nav(`/store/${store}/cart/${userId}`, { state: { options }, replace: true });
         setOptions(INITIAL_OPTIONS);
     };
 

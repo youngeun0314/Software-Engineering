@@ -29,11 +29,12 @@ const App = () => {
   };
 
   const handleOption = (menuId) => {
+    const store = selectedStore
     setOptions((prevOptions) => ({
       ...prevOptions,
       menuId: menuId, // 선택한 menuId를 options에 저장
   }));
-    nav(`/option/${menuId}`);
+    nav(`/store/${store}/option/${menuId}`);
   };
 
 
@@ -69,9 +70,9 @@ const App = () => {
 
         {/* 추가 라우트 */}
         <Route path="/store" element={<StoreSelection onStartMenu={handleStartMenu} />} />
-        <Route path="/store/:store" element={<MenuView onSelectedStore={selectedStore} onStartOption={handleOption} />} />
-        <Route path="/option/:menuId" element={<OptionView options={options} setOptions={setOptions}/>} />
-        <Route path="/cart/:userId" element={<CartView />}/>
+        <Route path="/store/:store" element={<MenuView userId={options.userId} onSelectedStore={selectedStore} onStartOption={handleOption} />} />
+        <Route path="/store/:store/option/:menuId" element={<OptionView onSelectedStore={selectedStore} options={options} setOptions={setOptions}/>} />
+        <Route path="/store/:store/cart/:userId" element={<CartView onSelectedStore={selectedStore}/>}/>
         <Route path="/payment" element={<Payment/>}/>
         <Route path="/paymentcomplete" element={<Paymentcomplete/>}/>
       </Routes>

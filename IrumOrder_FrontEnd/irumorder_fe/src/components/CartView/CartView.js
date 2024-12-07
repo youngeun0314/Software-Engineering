@@ -1,9 +1,10 @@
 import React from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
 import Toolbar from "./Toolbar";
 import "./CartView.css";
 
-const CartView = () => {
+const CartView = (onSelectedStore) => {
+    const {store}=useParams();
     const nav = useNavigate();
     const location = useLocation();
     const options = location.state?.options;
@@ -21,11 +22,8 @@ const CartView = () => {
             
             {/* 장바구니 내용 */}
             <div className="cart-view">
-                <p>유저 ID: {options.userId}</p>
-                <p> 메뉴 이름: {options.name}</p>
-                <p>메뉴 ID: {options.menuId}</p>
-                <p>수량: {options.quantity}</p>
-                <p>총 금액: {options.quantity * (options.Price || 0)}원</p>
+            <h3>옵션 데이터:</h3>
+            <pre>{JSON.stringify(options, null, 2)}</pre> {/* JSON 형식으로 출력 */}
             </div>
         </div>
     );

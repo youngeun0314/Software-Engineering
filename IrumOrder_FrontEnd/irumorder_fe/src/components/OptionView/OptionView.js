@@ -6,15 +6,12 @@ import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 
 const OptionView = ({options = {}, setOptions}) => {
-    console.log("Received options:", options); // 전달된 props 확인
-    console.log("setOptions exists:", typeof setOptions === "function"); // setOptions 함수 여부 확인
 
     useEffect(() => {
         console.log("Options state:", options); // 상태 출력
     }, [options]);
 
-
-    const { menuId } = useParams(); // URL에서 menuId 가져오기
+    const {store, menuId} = useParams(); // URL에서 menuId 가져오기
     const [menuDetails, setMenuDetails] = useState(null); // 메뉴 세부정보 상태
     const [loading, setLoading] = useState(false); // 로딩 상태
     const [error, setError] = useState(null); // 에러 상태
@@ -171,7 +168,7 @@ return (
             </div>
         </div>
 
-        <OptionUnder  options ={options} setOptions={setOptions}/>
+        <OptionUnder store={store} options ={options} setOptions={setOptions}/>
     </>
 );
 };
