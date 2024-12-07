@@ -21,7 +21,7 @@ public class OrderEntity {
     private Integer orderId;
 
     @Column(name = "user_id", nullable = false)
-    private Long userId;
+    private Integer userId;
 
     @Column(name = "total_price", nullable = false)
     private Integer totalPrice;
@@ -41,7 +41,7 @@ public class OrderEntity {
 
     public OrderEntity() {}
 
-    public OrderEntity(Long userId, Integer totalPrice, OrderStatus orderStatus, LocalTime pickUp) {
+    public OrderEntity(Integer userId, Integer totalPrice, OrderStatus orderStatus, LocalTime pickUp) {
         this.userId = userId;
         this.totalPrice = totalPrice;
         this.orderStatus = orderStatus;

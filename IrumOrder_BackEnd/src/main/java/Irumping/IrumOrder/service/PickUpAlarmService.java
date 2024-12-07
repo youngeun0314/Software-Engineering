@@ -36,7 +36,7 @@ public class PickUpAlarmService {
      * @param body   알림 내용
      * @return 알림 전송 성공 또는 실패 메시지
      */
-    public String sendPushNotification(Long userId, String title, String body) {
+    public String sendPushNotification(Integer userId, String title, String body) {
 
         // 사용자 정보 조회
         UserEntity user = userRepository.findByUserId(userId)

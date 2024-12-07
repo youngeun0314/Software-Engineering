@@ -2,7 +2,6 @@ package Irumping.IrumOrder.repository;
 
 import Irumping.IrumOrder.entity.RoutineDay;
 import Irumping.IrumOrder.entity.RoutineEntity;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -24,7 +23,7 @@ public interface RoutineRepository{
      * @return List<RoutineEntity> 해당 사용자의 모든 루틴 리스트
      */
 
-    List<RoutineEntity> findByUserId(long userId);
+    List<RoutineEntity> findByUserId(Integer userId);
 
     List<RoutineEntity> findByRoutineDayAndAlarmEnabledTrue(RoutineDay routineDay);
 
@@ -33,6 +32,4 @@ public interface RoutineRepository{
     Optional<RoutineEntity> findById(Integer routineId);
 
     void delete(RoutineEntity routine);
-
-
 }

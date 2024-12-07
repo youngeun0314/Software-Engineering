@@ -18,7 +18,7 @@ public class JpaRoutineRepository implements RoutineRepository {
     private final EntityManager em;
 
     @Override
-    public List<RoutineEntity> findByUserId(long userId) {
+    public List<RoutineEntity> findByUserId(Integer userId) {
         return em.createQuery("SELECT r FROM RoutineEntity r WHERE r.userId = :userId", RoutineEntity.class)
                 .setParameter("userId", userId)
                 .getResultList();
@@ -33,9 +33,10 @@ public class JpaRoutineRepository implements RoutineRepository {
                 .getResultList();
     }
 
+
     @Override
     public void save(RoutineEntity routine) {
-        if (routine.getRoutineId() == 0) { // New entity
+        if (routine.getRoutineId() == null) { // New entity
             em.persist(routine);
         } else { // Existing entity
             em.merge(routine);
