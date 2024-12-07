@@ -2,6 +2,7 @@ package Irumping.IrumOrder.repository;
 
 import Irumping.IrumOrder.entity.UserEntity;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -81,5 +82,25 @@ public class JpaUserRepository implements UserRepository {
                 .findFirst()
                 .orElse(null);
         return Optional.ofNullable(user);
+    }
+
+    /**
+     * 사용자 아이디로 사용자 권한을 조회하는 메소드
+     *
+     * @param userId 사용자 아이디
+     * @return Optional로 감싼 String.
+     *         해당 아이디의 사용자가 존재하지 않을 경우 Optional.empty() 반환.
+     */
+
+    public Optional<String> getUserMode(Long userId) {
+        try {
+            return Optional.ofNullable(
+                    em.createQuery("select u.mode from UserEntity u where u.userId = :userId", String.class)
+                            .setParameter("userId", userId)
+                            .getSingleResult()
+            );
+        } catch (NoResultException e) {
+            return Optional.empty();
+        }
     }
 }

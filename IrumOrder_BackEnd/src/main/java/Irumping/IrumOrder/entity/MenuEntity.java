@@ -41,7 +41,7 @@ public class MenuEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MenuEntity that = (MenuEntity) o;
-        return menuId == that.menuId;
+        return Objects.equals(menuId, that.menuId);
     }
 
     @Override
