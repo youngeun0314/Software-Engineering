@@ -15,13 +15,13 @@ public class MenuEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "menu_id", nullable = false)
-    private Long menuId;
+    private Integer menuId;
 
     @Column(name = "name", nullable = false)
     private String name;
 
     @Column(name = "price", nullable = false)
-    private Long price;
+    private Integer price;
 
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -30,7 +30,7 @@ public class MenuEntity {
 
     public MenuEntity() {}
 
-    public MenuEntity(String name, Long price, CategoryEntity category) {
+    public MenuEntity(String name, Integer price, CategoryEntity category) {
         this.name = name;
         this.price = price;
         this.category = category;
