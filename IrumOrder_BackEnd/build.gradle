@@ -17,6 +17,7 @@ java {
 
 repositories {
 	mavenCentral()
+	google()	// 추가 (Firebase Admin SDK)
 }
 
 
@@ -34,6 +35,12 @@ dependencies {
 	implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.2'
 	testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+	// Firebase Admin SDK
+	implementation platform('com.google.firebase:firebase-bom:32.3.0')
+	implementation 'com.google.firebase:firebase-admin:9.1.1'
+	implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '4.2.2'
+
 
 	// lombok
 	compileOnly 'org.projectlombok:lombok'

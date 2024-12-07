@@ -5,6 +5,12 @@ import Irumping.IrumOrder.entity.MenuEntity;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * 클래스 설명: 메뉴 정보를 DB에 저장하고 조회하는 인터페이스
+ *
+ * 작성자: 주영은
+ * 마지막 수정일: 2024-12-04
+ */
 public interface MenuRepository {
 
     MenuEntity findMenuById(Integer menuId);

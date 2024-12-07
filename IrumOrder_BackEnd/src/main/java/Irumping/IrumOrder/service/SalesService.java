@@ -37,7 +37,7 @@ public class SalesService {
      * @throws IllegalAccessException 사용자가 권한이 없는 경우 발생
      * @throws IllegalArgumentException 사용자 ID가 존재하지 않는 경우 발생
      */
-    public int getTotalSalesByDate(LocalDate date, long userId) throws IllegalAccessException {
+    public int getTotalSalesByDate(LocalDate date, Integer userId) throws IllegalAccessException {
         // 사용자 모드를 조회
         String mode = userRepository.getUserMode(userId)
                 .orElseThrow(() -> new IllegalArgumentException("User not found with ID: " + userId));

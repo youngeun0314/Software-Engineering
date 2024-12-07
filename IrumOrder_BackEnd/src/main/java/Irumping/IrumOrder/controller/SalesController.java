@@ -52,7 +52,7 @@ public class SalesController {
                                                                @RequestParam LocalDate date,
 
                                                            @Parameter(description = "The user ID requesting the data", example = "12345")
-                                                               @RequestParam long userId
+                                                               @RequestParam Integer userId
     )throws IllegalAccessException {
         log.info("Fetching sales for date: {} and userId: {}", date, userId);
         int totalSales = salesService.getTotalSalesByDate(date, userId);
