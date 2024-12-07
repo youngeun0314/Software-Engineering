@@ -37,7 +37,7 @@ class UserValidatorTest {
     @CsvSource(value = {
             "user123; null; user@example.com; password; null; password가 null입니다.",
             "user123; tooLongPassword1234567890; user@example.com; password; length; password 길이가 20자를 초과합니다.",
-            "user123; short; user@example.com; password; length; password 길이가 4자 미만입니다.",
+            "user123; short; user@example.com; password; length; password 길이가 8자 미만입니다.",
             "user123; invalid|password; user@example.com; password; pattern; password는 영어 소문자, 대문자, 숫자, 특수문자(!@#$%^&*()-_=+)만 가능합니다."
     }, delimiter = ';')
     void testPasswordValidation(String id, String password, String email, String field, String errorCode, String defaultMessage) {

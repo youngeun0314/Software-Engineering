@@ -13,7 +13,7 @@ import static org.assertj.core.api.Assertions.*;
 class AuthServiceTest {
 
     @Autowired
-    private static AuthService authService;
+    private AuthService authService;
 
     @DisplayName("Test SignUp")
     @Test
