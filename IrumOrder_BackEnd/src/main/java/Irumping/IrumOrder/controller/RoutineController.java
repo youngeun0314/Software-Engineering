@@ -22,7 +22,7 @@ import java.util.List;
  * 마지막 수정일: 2024-12-02
  */
 
-@CrossOrigin(origins = "http://localhost:3000")
+//@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/users/{userId}/routines")
 public class RoutineController {
@@ -50,7 +50,7 @@ public class RoutineController {
     )
     @GetMapping
     public ResponseEntity<List<RoutineResponseDto>> getAllRoutinesByUserId(@Parameter(description = "ID of the user whose routines are to be fetched", example = "123")
-                                                                               @PathVariable Integer userId) {
+                                                                               @PathVariable(name = "userId") Integer userId) {
         List<RoutineResponseDto> responseDtos = routineService.getRoutinesByUserId(userId);
         return ResponseEntity.status(HttpStatus.OK).body(responseDtos);
     }
@@ -97,7 +97,7 @@ public class RoutineController {
     @PutMapping("/{routineId}")
     public ResponseEntity<RoutineResponseDto> updateRoutine(
             @Parameter(description = "ID of the routine to be updated", example = "1")
-            @PathVariable Integer routineId,
+            @PathVariable(name = "routineId") Integer routineId,
 
             @Parameter(description = "Updated details of the routine")
             @RequestBody RoutineDto routineDto) {
@@ -126,7 +126,7 @@ public class RoutineController {
     @DeleteMapping("/{routineId}")
     public ResponseEntity<Void> deleteRoutine(
             @Parameter(description = "ID of the routine to be deleted", example = "1")
-            @PathVariable Integer routineId,
+            @PathVariable(name = "routineId") Integer routineId,
 
             @Parameter(description = "ID of the user who owns the routine", example = "123")
             @PathVariable Integer userId) {

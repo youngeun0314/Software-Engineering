@@ -17,7 +17,7 @@ import java.time.LocalTime;
  * 데이터베이스의 `routine` 테이블과 매핑되며, 루틴의 속성을 정의한다.
  *
  * 작성자: 양나슬
- * 마지막 수정일: 2024-12-02
+ * 마지막 수정일: 2024-12-05
  */
 @Entity
 @Table(name = "routine")
@@ -43,10 +43,9 @@ public class RoutineEntity {
     @Column(name = "menu_detail_id", nullable = false)
     private Integer menuDetailId;
 
-    //루틴 실행 요일: 루틴이 실행되는 요일.
-    @Enumerated(EnumType.STRING)
+    //루틴 실행 요일: 루틴이 실행되는 요일. 비트형태로 저장
     @Column(name = "routine_day", nullable = false)
-    private RoutineDay routineDay;
+    private int routineDayBitmask;
 
     //루틴 실행 시간: 루틴이 실행되는 시간.
     @Column(name = "routine_time", nullable = false)

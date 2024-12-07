@@ -46,10 +46,15 @@ public class RoutineService {
      */
     public List<RoutineResponseDto> getRoutinesByUserId(Integer userId) {
         List<RoutineEntity> routines =  routineRepository.findByUserId(userId);
-        return routines.stream().map(routine -> {
-            MenuEntity menu = menuRepository.findMenuById(routine.getMenuId());
-            return new RoutineResponseDto(routine, menu.getName());
-        }).collect(Collectors.toList());
+        return routines.stream().map(routine -> new RoutineResponseDto(
+                routine.getRoutineId(),
+                routine.getUserId(),
+                routine.getMenuId(),
+                menuRepository.findMenuById(routine.getMenuId()).getName(),
+                routine.getMenuDetailId(),
+                RoutineDayUtils.fromBitmask(routine.getRoutineDayBitmask()),
+                routine.getRoutineTime(),
+                routine.getAlarmEnabled())).collect(Collectors.toList());
     }
 
 
@@ -70,7 +75,7 @@ public class RoutineService {
         if(routineDto.getMenuId() == null){
             throw new InvalidInputException("Menu id is required.");
         }
-        if(routineDto.getRoutineDay() == null){
+        if(routineDto.getRoutineDays() == null){
             throw new InvalidInputException("Routine Day is required.");
         }
         if(routineDto.getRoutineTime() == null){
@@ -81,13 +86,22 @@ public class RoutineService {
         }
         routine.setMenuId(routineDto.getMenuId());
         routine.setMenuDetailId(routineDto.getMenuDetailId());
-        routine.setRoutineDay(routineDto.getRoutineDay());
         routine.setRoutineTime(routineDto.getRoutineTime());
         routine.setAlarmEnabled(routineDto.getIsActivated());
+        routine.setRoutineDayBitmask(RoutineDayUtils.toBitmask(routineDto.getRoutineDays()));
 
         routineRepository.save(routine);
 
-        return new RoutineResponseDto(routine, menuRepository.findMenuById(routine.getMenuId()).getName());
+        return new RoutineResponseDto(
+                routine.getRoutineId(),
+                routine.getUserId(),
+                routine.getMenuId(),
+                menuRepository.findMenuById(routine.getMenuId()).getName(),
+                routine.getMenuDetailId(),
+                RoutineDayUtils.fromBitmask(routine.getRoutineDayBitmask()),
+                routine.getRoutineTime(),
+                routine.getAlarmEnabled()
+        );
     }
 
     /**
@@ -110,12 +124,22 @@ public class RoutineService {
 
         Optional.ofNullable(routineDto.getMenuId()).ifPresent(routine::setMenuId);
         Optional.ofNullable(routineDto.getMenuDetailId()).ifPresent(routine::setMenuDetailId);
-        Optional.ofNullable(routineDto.getRoutineDay()).ifPresent(routine::setRoutineDay);
         Optional.ofNullable(routineDto.getRoutineTime()).ifPresent(routine::setRoutineTime);
         Optional.ofNullable(routineDto.getIsActivated()).ifPresent(routine::setAlarmEnabled);
+        Optional.ofNullable(routineDto.getRoutineDays())
+                .ifPresent(days -> routine.setRoutineDayBitmask(RoutineDayUtils.toBitmask(days)));
 
         routineRepository.save(routine);
-        return new RoutineResponseDto(routine, menuRepository.findMenuById(routine.getMenuId()).getName());
+        return new RoutineResponseDto(
+                routine.getRoutineId(),
+                routine.getUserId(),
+                routine.getMenuId(),
+                menuRepository.findMenuById(routine.getMenuId()).getName(),
+                routine.getMenuDetailId(),
+                RoutineDayUtils.fromBitmask(routine.getRoutineDayBitmask()),
+                routine.getRoutineTime(),
+                routine.getAlarmEnabled()
+        );
     }
 
 
