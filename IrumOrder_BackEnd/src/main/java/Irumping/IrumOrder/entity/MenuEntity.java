@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import java.util.Objects;
 
+@Setter
 @Getter
 @Entity
 @Table(name = "menu")
@@ -40,7 +41,7 @@ public class MenuEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MenuEntity that = (MenuEntity) o;
-        return menuId == that.menuId;
+        return Objects.equals(menuId, that.menuId);
     }
 
     @Override
