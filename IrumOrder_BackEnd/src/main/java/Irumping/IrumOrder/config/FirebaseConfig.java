@@ -4,6 +4,7 @@ import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.messaging.FirebaseMessaging;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
@@ -12,6 +13,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
+@Slf4j
 @Configuration
 public class FirebaseConfig {
 
@@ -19,6 +21,11 @@ public class FirebaseConfig {
     FirebaseMessaging firebaseMessaging() throws IOException {
         // ClassPath에서 리소스를 로드
         InputStream serviceAccount = new ClassPathResource("firebase/serviceAccount.json").getInputStream();
+        log.info("Firebase Service Account Path: {}", new ClassPathResource("firebase/serviceAccount.json").getPath());
+
+        if (!new ClassPathResource("firebase/serviceAccount.json").exists()) {
+            throw new IllegalStateException("Firebase serviceAccount.json not found");
+        }
 
         FirebaseApp firebaseApp = null;
         List<FirebaseApp> firebaseAppList = FirebaseApp.getApps();
