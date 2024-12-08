@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @Getter
 @Setter
+@Slf4j
 @AllArgsConstructor
 public class OrdersCheckResponseDto {
 
@@ -30,4 +32,7 @@ public class OrdersCheckResponseDto {
     private LocalTime pickUp; //픽업시간
 
     private List<OrderDto> orderMenuOptions; // 주문 내 메뉴와 옵션 목록
+
+    public OrdersCheckResponseDto() {
+    }
 }

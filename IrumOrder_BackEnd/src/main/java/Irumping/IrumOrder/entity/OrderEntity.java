@@ -9,6 +9,14 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 클래스 설명: 주문 정보를 담는 엔티티.
+ * 주문 ID, 사용자 ID, 총 금액, 주문 상태, 픽업 시간, 결제 시간 등의 정보를 관리한다.
+ * 또한 주문에 포함된 메뉴 옵션 목록도 관리한다.
+ *
+ * 작성자: 김은지
+ * 마지막 수정일: 2024-12-08
+ */
 @Getter
 @Setter
 @Entity
@@ -42,8 +50,19 @@ public class OrderEntity {
     @Column(name = "tid")
     private String tid;
 
+    /**
+     * 기본 생성자.
+     */
     public OrderEntity() {}
 
+    /**
+     * 주문 정보를 초기화하는 생성자.
+     *
+     * @param userId      사용자 ID
+     * @param totalPrice  주문 총 금액
+     * @param orderStatus 주문 상태
+     * @param pickUp      픽업 시간
+     */
     public OrderEntity(Integer userId, Integer totalPrice, OrderStatus orderStatus, LocalTime pickUp) {
         this.userId = userId;
         this.totalPrice = totalPrice;

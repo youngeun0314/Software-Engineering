@@ -119,7 +119,7 @@ public class RoutineAlarmService {
      * @param title    알림 제목
      * @param body     알림 내용
      */
-    private void sendPushNotification(Integer userId, String fcmToken, String title, String body) {
+    void sendPushNotification(Integer userId, String fcmToken, String title, String body) {
         Notification notification = Notification.builder()
                 .setTitle(title)
                 .setBody(body)
@@ -127,17 +127,37 @@ public class RoutineAlarmService {
 
         Message message = Message.builder()
                 .setNotification(notification)
-                .setToken(fcmToken)  // 정확한 FCM 토큰 설정
+                .setToken(fcmToken)
+                .putData("click_action", "OPEN_CART") //click했을때 액션(만약안되면이부분지우기)
                 .build();
 
-        try {
-            log.info("User ID {}에게 알림 전송 시도. 제목: {}, 내용: {}", userId, title, body);
-            String response = firebaseMessaging.send(message);
-            log.info("User ID {}에게 알림 전송 성공. Firebase 응답: {}", userId, response);
-        } catch (FirebaseMessagingException e) {
-            log.error("User ID {}에게 알림 전송 실패: {}", userId, e.getMessage(), e);
+        int retryCount = 3; // 최대 재시도 횟수
+
+        for (int i = 0; i < retryCount; i++) {
+            try {
+                log.info("User ID {}에게 알림 전송 시도 ({}회). 제목: {}, 내용: {}", userId, i + 1, title, body);
+                String response = firebaseMessaging.send(message);
+                log.info("User ID {}에게 알림 전송 성공. Firebase 응답: {}", userId, response);
+                break; // 성공하면 루프 종료
+            } catch (FirebaseMessagingException e) {
+                log.error("User ID {}에게 알림 전송 실패. 재시도: {}/{}", userId, i + 1, retryCount, e);
+
+                if (i == retryCount - 1) {
+                    // 재시도 횟수를 초과한 경우 예외를 던짐
+                    throw new RuntimeException("알림 전송에 실패했습니다. User ID: " + userId, e);
+                }
+
+                try {
+                    // 재시도 전 잠시 대기
+                    Thread.sleep(2000); // 2초 대기
+                } catch (InterruptedException interruptedException) {
+                    Thread.currentThread().interrupt();
+                    log.warn("재시도 대기 중 인터럽트 발생", interruptedException);
+                }
+            }
         }
     }
+
 
     /**
      * Java의 DayOfWeek를 RoutineDay로 매핑하는 메서드입니다.

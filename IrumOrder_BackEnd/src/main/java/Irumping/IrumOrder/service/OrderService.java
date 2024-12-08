@@ -1,25 +1,24 @@
 package Irumping.IrumOrder.service;
 
 import Irumping.IrumOrder.dto.*;
-import Irumping.IrumOrder.entity.OrderEntity;
-import Irumping.IrumOrder.entity.OrderMenuId;
-import Irumping.IrumOrder.entity.OrderMenuEntity;
-import Irumping.IrumOrder.entity.MenuDetailEntity;
-import Irumping.IrumOrder.entity.MenuEntity;
-import Irumping.IrumOrder.entity.OrderStatus;
-import Irumping.IrumOrder.repository.JpaMenuRepository;
-import Irumping.IrumOrder.repository.OrderRepository;
-import Irumping.IrumOrder.repository.MenuDetailRepository;
-import Irumping.IrumOrder.repository.OrderMenuRepository;
+import Irumping.IrumOrder.entity.*;
+import Irumping.IrumOrder.repository.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
+/**
+ * 클래스 설명: 주문 관련 비즈니스 로직을 처리하는 서비스 클래스.
+ * 주문 생성, 조회 등의 기능을 제공.
+ *
+ * 작성자: 김은지
+ * 마지막 수정일: 2024-12-08
+ */
 @Service
 public class OrderService {
 
@@ -38,7 +37,11 @@ public class OrderService {
     private OrderMenuRepository orderMenuRepository;
 
     /**
-     * 주문 생성: 클라이언트 요청으로 주문 생성
+     * 주문 생성 메서드.
+     * 클라이언트로부터 전달받은 주문 데이터를 처리하여 DB에 저장.
+     *
+     * @param orderRequestDto 클라이언트 요청 데이터
+     * @return OrderResponseDto 생성된 주문에 대한 응답 DTO
      */
     @Transactional
     public OrderResponseDto createOrder(OrderRequestDto orderRequestDto) {
@@ -65,7 +68,11 @@ public class OrderService {
     }
 
     /**
-     * OrderMenuEntity 생성 메서드
+     * OrderMenuEntity 생성 메서드.
+     *
+     * @param order        주문 엔티티
+     * @param orderMenuDto 주문 메뉴 DTO
+     * @return 생성된 OrderMenuEntity
      */
     private OrderMenuEntity createOrderMenuEntity(OrderEntity order, OrderMenuDto orderMenuDto) {
         OrderMenuEntity orderMenuEntity = new OrderMenuEntity();
@@ -73,7 +80,7 @@ public class OrderService {
 
         // Menu 설정
         MenuEntity menu = menuRepository.findMenuById(orderMenuDto.getMenuId());
-        if(menu == null){
+        if (menu == null) {
             throw new IllegalArgumentException("Menu ID가 잘못되었습니다: " + orderMenuDto.getMenuId());
         }
         orderMenuEntity.setMenu(menu);
@@ -103,7 +110,10 @@ public class OrderService {
     }
 
     /**
-     * OrderEntity를 OrderResponseDto로 변환
+     * OrderEntity를 OrderResponseDto로 변환.
+     *
+     * @param orderEntity 변환할 OrderEntity
+     * @return 변환된 OrderResponseDto
      */
     public OrderResponseDto convertToResponseDto(OrderEntity orderEntity) {
         OrderResponseDto responseDto = new OrderResponseDto();
@@ -122,6 +132,12 @@ public class OrderService {
         return responseDto;
     }
 
+    /**
+     * OrderMenuEntity를 OrderMenuDto로 변환.
+     *
+     * @param orderMenuEntity 변환할 OrderMenuEntity
+     * @return 변환된 OrderMenuDto
+     */
     private OrderMenuDto convertToOrderMenuDto(OrderMenuEntity orderMenuEntity) {
         OrderMenuDto orderMenuDto = new OrderMenuDto();
         orderMenuDto.setMenuId(orderMenuEntity.getMenu().getMenuId());
@@ -143,7 +159,7 @@ public class OrderService {
      * 사용자의 모든 주문을 조회하는 메서드.
      *
      * @param userId 사용자 ID
-     * @return OrdersCheckResponseDto 사용자의 주문 정보
+     * @return 사용자의 주문 정보를 담은 OrdersCheckResponseDto 리스트
      */
     public List<OrdersCheckResponseDto> getOrdersByUserId(Integer userId) {
         // 사용자의 주문 목록 조회
