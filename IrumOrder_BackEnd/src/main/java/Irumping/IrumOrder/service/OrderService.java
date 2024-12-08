@@ -1,9 +1,6 @@
 package Irumping.IrumOrder.service;
 
-import Irumping.IrumOrder.dto.OrderRequestDto;
-import Irumping.IrumOrder.dto.OrderResponseDto;
-import Irumping.IrumOrder.dto.OrderMenuDto;
-import Irumping.IrumOrder.dto.MenuDetailDto;
+import Irumping.IrumOrder.dto.*;
 import Irumping.IrumOrder.entity.OrderEntity;
 import Irumping.IrumOrder.entity.OrderMenuId;
 import Irumping.IrumOrder.entity.OrderMenuEntity;
@@ -140,5 +137,45 @@ public class OrderService {
         orderMenuDto.setMenuOptions(menuDetailDto);
 
         return orderMenuDto;
+    }
+
+    /**
+     * 사용자의 모든 주문을 조회하는 메서드.
+     *
+     * @param userId 사용자 ID
+     * @return OrdersCheckResponseDto 사용자의 주문 정보
+     */
+    public List<OrdersCheckResponseDto> getOrdersByUserId(Integer userId) {
+        // 사용자의 주문 목록 조회
+        List<OrderEntity> orders = orderRepository.findByUserId(userId);
+
+        // 결과 변환
+        return orders.stream().map(order -> {
+            // OrderMenuEntity에서 데이터를 추출하여 OrderDto로 변환
+            List<OrderDto> orderMenuOptions = order.getOrderMenuOptions().stream().map(orderMenu -> {
+                MenuDetailEntity menuDetail = orderMenu.getMenuDetail();
+                MenuEntity menu = orderMenu.getMenu();
+                return new OrderDto(
+                        menu.getMenuId(),
+                        menu.getName(),
+                        orderMenu.getQuantity(),
+                        menuDetail.getUseCup(),
+                        menuDetail.isAddShot(),
+                        menuDetail.isAddVanilla(),
+                        menuDetail.isAddHazelnut(),
+                        menuDetail.isLight()
+                );
+            }).collect(Collectors.toList());
+
+            // OrdersCheckResponseDto 생성
+            return new OrdersCheckResponseDto(
+                    order.getOrderId(),
+                    order.getUserId(),
+                    order.getTotalPrice(),
+                    order.getOrderStatus(),
+                    order.getPickUp(),
+                    orderMenuOptions
+            );
+        }).collect(Collectors.toList());
     }
 }

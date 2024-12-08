@@ -5,7 +5,11 @@ import Irumping.IrumOrder.entity.OrderMenuId;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
-public interface OrderMenuRepository extends JpaRepository<OrderMenuEntity, OrderMenuId> {
-    // 필요한 커스텀 메서드가 있다면 추가로 정의할 수 있습니다.
+public interface OrderMenuRepository {
+    List<OrderMenuEntity> findByOrder_OrderId(Integer orderId);
+
+    void saveAll(List<OrderMenuEntity> orderMenuOptions);
 }
