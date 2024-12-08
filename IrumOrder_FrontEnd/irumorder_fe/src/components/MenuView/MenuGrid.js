@@ -49,7 +49,9 @@ const MenuGrid = ({ category, onStartOption }) => {
             <button
               key={item.menuId}
               className="menu-item"
-              onClick={() => onStartOption(item.menuId)}
+              onClick={() => {
+                console.log("Clicked menuId:", item.menuId); // 로그 추가
+                onStartOption(item.menuId)}}
             >
               <div className="menu-img">
                 {item.image ? (

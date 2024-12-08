@@ -6,7 +6,7 @@ const StoreSelection = ({ onStartMenu }) => {
   // handleCancel 함수 정의
   const handleCancel = () => {
     // 메인 페이지로 이동하는 기능
-    window.location.href = '/';
+    window.location.href = '/main';
   };
 
   return (

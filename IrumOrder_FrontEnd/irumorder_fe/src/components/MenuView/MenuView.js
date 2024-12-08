@@ -6,6 +6,9 @@ import MenuGrid from './MenuGrid';
 import { useNavigate, useParams } from 'react-router-dom';
 
 const Menu = ({userId , onStartOption}) => {
+    useEffect(() => {
+        console.log("Menu received userId:", userId);
+    }, [userId]);
     
     const [selectedCategory, setSelectedCategory] = useState(null); // 선택된 카테고리
     const {store, categoryId } = useParams(); // URL에서 categoryId를 가져옴 (옵션)
@@ -33,6 +36,11 @@ const Menu = ({userId , onStartOption}) => {
         setSelectedCategory(categoryId); // 선택된 카테고리를 상태로 설정
     };
 
+    useEffect(() => {
+        console.log("Received userId in MenuView:", userId);
+    }, [userId]);
+
+    
 
     return (
         <div className="Menu">

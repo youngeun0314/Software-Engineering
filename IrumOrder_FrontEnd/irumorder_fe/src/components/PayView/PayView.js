@@ -1,0 +1,141 @@
+import React, { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import "./PayView.css"; // Import the CSS file
+import Toolbar from "./Toolbar";
+
+const Pay = ({ onSelectedStore }) => {
+  const location = useLocation();
+  const nav = useNavigate();
+
+  const { userId, totalPrice, pickUp, orderMenuOptions } = location.state || {};
+  const [isLoading, setIsLoading] = useState(false);
+  const [menuDetails, setMenuDetails] = useState([]);
+
+  useEffect(() => {
+    if (orderMenuOptions) {
+      fetchMenuDetails(orderMenuOptions);
+    }
+  }, [orderMenuOptions]);
+
+  // Fetch menu details for each menuId
+  const fetchMenuDetails = async (menuOptions) => {
+    try {
+      const menuDetailsPromises = menuOptions.map(async (option) => {
+        const response = await fetch(`/menu/getOneMenu?menuId=${option.menuId}`, {
+          method: "GET",
+        });
+
+        if (!response.ok) {
+          throw new Error(`메뉴 ID ${option.menuId} 정보를 가져오는데 실패했습니다.`);
+        }
+
+        const menu = await response.json(); // Assuming response is { menuId, name }
+        return { menuId: option.menuId, name: menu.name, quantity: option.quantity || 1 };
+      });
+
+      const resolvedMenuDetails = await Promise.all(menuDetailsPromises);
+      setMenuDetails(resolvedMenuDetails);
+    } catch (error) {
+      console.error("메뉴 정보를 가져오는 중 오류 발생:", error);
+      alert("메뉴 정보를 가져오는 중 문제가 발생했습니다. 다시 시도해주세요.");
+    }
+  };
+
+  const handlePayment = async () => {
+    if (!userId || !totalPrice || !pickUp || !orderMenuOptions) {
+      alert("주문 정보를 확인해주세요.");
+      return;
+    }
+
+    const payload = {
+      userId,
+      totalPrice,
+      pickUp,
+      orderMenuOptions,
+    };
+
+    try {
+      setIsLoading(true);
+      const response = await fetch("/orders", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        throw new Error("결제에 실패했습니다. 다시 시도해주세요.");
+      }
+
+      const data = await response.json();
+      alert("결제가 완료되었습니다!");
+      nav("/paymentcomplete", { state: { orderId: data.orderId } });
+    } catch (error) {
+      console.error("결제 요청 중 오류 발생:", error);
+      alert("결제 처리 중 문제가 발생했습니다. 다시 시도해주세요.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return (
+    <div className="PayView">
+        <div className="pay-view-tool">
+            <Toolbar title="결제" onBack={() => nav(-1)} />
+        </div>
+        <div className="pay-view-details">
+            <div className="pay-view-title">주문 내역</div>
+            {menuDetails.length > 0 ? (
+            <ul>
+                {menuDetails.map((menu) => (
+                <li className="pay-view-title-li-details" key={menu.menuId}>
+                    {menu.name}  {menu.quantity}건
+                </li>
+                ))}
+            </ul>
+            ) : (
+            <p>메뉴 정보를 불러오는 중...</p>
+            )}
+            <p>
+            <div className="pay-view-title">픽업 시간</div> 
+            <div className="pay-view-title-details">{pickUp || "09:40~09:50"}</div>
+            </p>
+            <p>
+            <div className="pay-view-title">픽업 장소</div> 
+            <div className="pay-view-title-details">{onSelectedStore || "전농관"}</div>
+            </p>
+        </div>
+
+        <div className="pay-view-payment-amount">
+            <p>
+            <span>결제 금액</span> {totalPrice || "1,600"}원
+            </p>
+        </div>
+
+        <div className="pay-view-payment-button-container">
+            <button
+            className="payment-button"
+            onClick={handlePayment}
+            disabled={isLoading}
+            >
+            {isLoading ? (
+                "결제 중..."
+            ) : (
+                <img
+                src="/kakaopay.png" // public 폴더의 이미지 경로
+                alt="결제 버튼"
+                style={{
+                    width: "100%",
+                    height: "auto",
+                    display: "block",
+                }}
+                />
+            )}
+            </button>
+        </div>
+        </div>
+    );
+    };
+
+export default Pay;

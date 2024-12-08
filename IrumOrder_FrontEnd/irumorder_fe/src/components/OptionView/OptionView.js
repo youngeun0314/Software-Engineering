@@ -5,7 +5,7 @@ import './OptionView.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 
-const OptionView = ({options = {}, setOptions}) => {
+const OptionView = ({options = {}, setOptions,  onStartCart}) => {
 
     useEffect(() => {
         console.log("Options state:", options); // 상태 출력
@@ -168,7 +168,7 @@ return (
             </div>
         </div>
 
-        <OptionUnder store={store} options ={options} setOptions={setOptions}/>
+        <OptionUnder store={store} options ={options} setOptions={setOptions}  onStartCart={onStartCart}/>
     </>
 );
 };

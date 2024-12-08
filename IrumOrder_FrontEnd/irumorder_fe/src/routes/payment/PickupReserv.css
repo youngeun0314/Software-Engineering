@@ -1,26 +1,22 @@
 .time-picker-container {
   font-family: Arial, sans-serif;
   padding: 20px;
-  background-color: #f9f9f9;
+
   text-align: center;
   max-width: 90%;
   width: 100%;
-  margin: 20px auto;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease-in-out;
+  margin: 0 auto; /* 중앙 정렬 */
 }
 
 @media (min-width: 768px) {
   .time-picker-container {
-      max-width: 600px;
+    max-width: 600px;
   }
 }
 
 @media (min-width: 1200px) {
   .time-picker-container {
-      max-width: 800px;
+    max-width: 800px;
   }
 }
 
@@ -32,7 +28,7 @@
   margin-bottom: 30px;
 }
 
-.back-button {
+.time-picker-header .back-button {
   position: absolute;
   left: 10px;
   top: 50%;
@@ -43,18 +39,18 @@
   cursor: pointer;
 }
 
-.back-image {
+.time-picker-header .back-button .back-image {
   width: 24px;
   height: 24px;
 }
 
-h2 {
+.time-picker-header h2 {
   margin: 0;
   font-size: 18px;
   text-align: center;
 }
 
-p {
+.time-picker-container p {
   font-size: 14px;
   color: #333;
   margin: 20px 0;
@@ -69,8 +65,8 @@ p {
   margin-bottom: 30px;
 }
 
-.hour-button,
-.interval-button {
+.time-picker-hours .hour-button,
+.time-picker-intervals .interval-button {
   background-color: #f0f0f0;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -79,30 +75,42 @@ p {
   cursor: pointer;
 }
 
-.hour-button.active,
-.interval-button.active {
+.time-picker-hours .hour-button.active,
+.time-picker-intervals .interval-button.active {
   background-color: #007bff;
   color: #fff;
   border-color: #0056b3;
 }
 
-.payment-button {
+.payment-button-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+  padding: 15px 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.payment-button-container .payment-button {
   background-color: #007bff;
   color: white;
   border: none;
-  padding: 15px;
+  padding: 15px 20px;
   font-size: 16px;
   border-radius: 5px;
   cursor: pointer;
   width: 100%;
-  margin-top: 20px;
+  max-width: 400px;
 }
 
-.payment-button:hover {
+.payment-button-container .payment-button:hover {
   background-color: #0056b3;
 }
 
-.current-time {
+.time-picker-container .current-time {
   margin-top: 30px;
   font-size: 14px;
   color: #666;
