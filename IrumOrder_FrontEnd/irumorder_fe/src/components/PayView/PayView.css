@@ -1,40 +1,91 @@
 .PayView {
-    font-family: Arial, sans-serif;
-    padding: 20px;
-    max-width: 400px;
-    margin: 0 auto;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    overflow: hidden;
-  }
+   font-family: Arial, sans-serif;
+    /* padding: 20px; */
+   margin: 0 auto;
+   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+   background-color: #fff;
+   display: flex;
+   flex-direction: column;
+   height: 100vh;
+   overflow: hidden;
+}
 
 /* 전체 주문 내역 섹션 */
 .pay-view-details {
-    margin-top: 60px; /* 상단 여백 */
-    padding: 0 16px; /* 좌우 여백 */
-    font-size: 16px; /* 기본 폰트 크기 */
-    color: #333; /* 텍스트 색상 */
-  }
-  
- .pay-view-title{
-    margin-top: 5px;
-    font-weight: bolder;
-    font-size: 18px;
- }
- .pay-view-title-details{
-    font-size: 16px;
-    font-weight: bolder;
-    margin: 5px;
-    color: #777777;
- }
- .pay-view-title-li-details{
-    font-size: 16px;
-    margin: 5px;
-    color: #777777;
-    list-style-type: none;
- }
+   margin-top: 70px; /* 상단 여백 */
+   padding: 0 16px; /* 좌우 여백 */
+   font-size: 16px; /* 기본 폰트 크기 */
+   color: #333; /* 텍스트 색상 */
+}
+
+.pay-view-title{
+   margin-top: 5px;
+   font-weight: bolder;
+   font-size: 18px;
+}
+.pay-view-title-details{
+   font-size: 16px;
+   margin: 5px;
+   color: #777777;
+   margin-bottom:20px;
+}
+.pay-view-title-li-details{
+   font-size: 16px;
+   margin: 5px;
+   color: #777777;
+   list-style-type: none;
+}
+
+.pay-view-title-none{
+   font-size: 16px;
+   margin: 5px;
+   color: #777777;
+   margin-bottom:20px;
+}
+
+.divider{
+   width: 100vh;
+   height: 2%;
+   border: 1px solid #C6C6C6;
+   line-height: "0.1em";
+   margin: "10px 0 20px";
+   margin-top: 10px;
+   background-color: #e8e8e8;
+}
+
+.line-divider {
+   width: 100%;
+   border-top: 2px solid #E8E8E8; /* 회색 선 */
+}
+
+.payment-amount {
+   padding-right:20px;
+   color: #CA2E2E;
+   font-size:24px;
+   font-weight: bold;
+}
+
+.payment-summary {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   margin: 20px 0;
+   padding-left:20px;
+   font-size: 20px;
+}
+
+.payment-button {
+   margin-right: 10px;
+   font-size: 20px;
+   outline: none; /* 포커스 시 나타나는 외곽선 제거 */
+   box-shadow: none;
+   border: 0;
+   background-color: transparent;
+   margin-right: 10px;
+   cursor: pointer;
+}
+
+.pay-view-payment-button-container {
+   text-align: center;
+   margin-top: 10px;
+}

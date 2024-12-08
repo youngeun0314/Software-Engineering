@@ -103,7 +103,7 @@ const Pay = ({ onSelectedStore }) => {
             ))}
           </ul>
         ) : (
-          <p>메뉴 정보를 불러오는 중...</p>
+          <p className="pay-view-title-none">메뉴 정보를 불러오는 중...</p>
         )}
         <p>
           <div className="pay-view-title">픽업 시간</div>
@@ -116,12 +116,12 @@ const Pay = ({ onSelectedStore }) => {
           <div className="pay-view-title-details">{onSelectedStore || "전농관"}</div>
         </p>
       </div>
-
-      <div className="pay-view-payment-amount">
-        <p>
-          <span>결제 금액</span> {totalPrice || "1,600"}원
-        </p>
+      <div className="divider"></div>
+      <div className="payment-summary">
+        <p>결제 금액</p>
+        <p className="payment-amount">{totalPrice || "1,600"}</p>
       </div>
+      <div className="line-divider"></div>
 
       <div className="pay-view-payment-button-container">
         <button
