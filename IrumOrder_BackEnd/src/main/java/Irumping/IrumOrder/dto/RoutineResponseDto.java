@@ -14,7 +14,7 @@ import java.util.List;
  * 루틴 엔터티 데이터를 사용자 친화적인 형태로 변환한다.
  *
  * 작성자: 양나슬
- * 마지막 수정일: 2024-12-05
+ * 마지막 수정일: 2024-12-09
  */
 @Data
 @NoArgsConstructor
@@ -34,6 +34,9 @@ public class RoutineResponseDto {
 
     @Schema(description = "메뉴 세부 정보 ID", example = "5")
     private Integer menuDetailId;
+
+    @Schema(description = "메뉴 세부 정보")
+    private MenuDetailDto menuDetail;
 
     @Schema(description = "루틴이 실행될 요일", example = "[\"Mon\", \"Wed\", \"Fri\"]")
     private List<RoutineDay> routineDays;

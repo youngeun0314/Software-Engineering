@@ -1,11 +1,15 @@
 package Irumping.IrumOrder.service;
 
+import Irumping.IrumOrder.dto.MenuDetailDto;
 import Irumping.IrumOrder.dto.RoutineDto;
 import Irumping.IrumOrder.dto.RoutineResponseDto;
+import Irumping.IrumOrder.entity.MenuDetailEntity;
 import Irumping.IrumOrder.entity.RoutineEntity;
 import Irumping.IrumOrder.exception.CustomExceptions.InvalidInputException;
 import Irumping.IrumOrder.exception.CustomExceptions.InvalidRoutineException;
 import Irumping.IrumOrder.exception.CustomExceptions.UserIdMismatchException;
+import Irumping.IrumOrder.repository.JpaMenuRepository;
+import Irumping.IrumOrder.repository.MenuDetailRepository;
 import Irumping.IrumOrder.repository.MenuRepository;
 import Irumping.IrumOrder.repository.RoutineRepository;
 import jakarta.transaction.Transactional;
@@ -23,16 +27,18 @@ import java.util.stream.Collectors;
  * 루틴 생성, 조회, 수정, 삭제와 관련된 비즈니스 로직을 처리한다.
  *
  * 작성자: 양나슬
- * 마지막 수정일: 2024-12-02
+ * 마지막 수정일: 2024-12-09
  */
 @Service
 public class RoutineService {
 
     private final RoutineRepository routineRepository;
-    private final MenuRepository menuRepository;
+    private final JpaMenuRepository menuRepository;
+    @Autowired
+    private MenuDetailRepository menuDetailRepository;
 
     @Autowired
-    public RoutineService(RoutineRepository routineRepository, MenuRepository menuRepository) {
+    public RoutineService(RoutineRepository routineRepository, JpaMenuRepository menuRepository) {
         this.routineRepository = routineRepository;
         this.menuRepository = menuRepository;
     }
@@ -45,15 +51,23 @@ public class RoutineService {
      */
     public List<RoutineResponseDto> getRoutinesByUserId(Integer userId) {
         List<RoutineEntity> routines =  routineRepository.findByUserId(userId);
-        return routines.stream().map(routine -> new RoutineResponseDto(
-                routine.getRoutineId(),
-                routine.getUserId(),
-                routine.getMenuId(),
-                menuRepository.findMenuById(routine.getMenuId()).getName(),
-                routine.getMenuDetailId(),
-                RoutineDayUtils.fromBitmask(routine.getRoutineDayBitmask()),
-                routine.getRoutineTime(),
-                routine.getAlarmEnabled())).collect(Collectors.toList());
+        return routines.stream().map(routine -> {
+            MenuDetailEntity menuDetail = menuDetailRepository.findById(routine.getMenuDetailId());
+
+            MenuDetailDto menuDetailDto = convertToMenuDetailDto(menuDetail);
+
+            return new RoutineResponseDto(
+                    routine.getRoutineId(),
+                    routine.getUserId(),
+                    routine.getMenuId(),
+                    menuRepository.findMenuById(routine.getMenuId()).getName(),
+                    routine.getMenuDetailId(),
+                    menuDetailDto,
+                    RoutineDayUtils.fromBitmask(routine.getRoutineDayBitmask()),
+                    routine.getRoutineTime(),
+                    routine.getAlarmEnabled()
+            );
+        }).collect(Collectors.toList());
     }
 
 
@@ -68,7 +82,7 @@ public class RoutineService {
     public RoutineResponseDto addRoutine(RoutineDto routineDto) {
         RoutineEntity routine = new RoutineEntity();
         routine.setUserId(routineDto.getUserId());
-        if(routineDto.getMenuDetailId() == null){
+        if(routineDto.getMenuOptions() == null){
             throw new InvalidInputException("Menu detail id is required.");
         }
         if(routineDto.getMenuId() == null){
@@ -84,19 +98,30 @@ public class RoutineService {
             throw new InvalidInputException("Alarm on/off value is required.");
         }
         routine.setMenuId(routineDto.getMenuId());
-        routine.setMenuDetailId(routineDto.getMenuDetailId());
         routine.setRoutineTime(routineDto.getRoutineTime());
         routine.setAlarmEnabled(routineDto.getIsActivated());
         routine.setRoutineDayBitmask(RoutineDayUtils.toBitmask(routineDto.getRoutineDays()));
+        MenuDetailEntity menuDetailEntity = new MenuDetailEntity(
+                routineDto.getMenuOptions().getUseCup(),
+                routineDto.getMenuOptions().getAddShot(),
+                routineDto.getMenuOptions().getAddVanilla(),
+                routineDto.getMenuOptions().getAddHazelnut(),
+                routineDto.getMenuOptions().getLight()
+        );
+        menuDetailRepository.save(menuDetailEntity);
 
+        routine.setMenuDetailId(menuDetailEntity.getMenuDetailId());
         routineRepository.save(routine);
+
+        MenuDetailDto menuDetailDto = convertToMenuDetailDto(menuDetailEntity);
 
         return new RoutineResponseDto(
                 routine.getRoutineId(),
                 routine.getUserId(),
                 routine.getMenuId(),
                 menuRepository.findMenuById(routine.getMenuId()).getName(),
-                routine.getMenuDetailId(),
+                menuDetailEntity.getMenuDetailId(),
+                menuDetailDto,
                 RoutineDayUtils.fromBitmask(routine.getRoutineDayBitmask()),
                 routine.getRoutineTime(),
                 routine.getAlarmEnabled()
@@ -122,19 +147,34 @@ public class RoutineService {
         }
 
         Optional.ofNullable(routineDto.getMenuId()).ifPresent(routine::setMenuId);
-        Optional.ofNullable(routineDto.getMenuDetailId()).ifPresent(routine::setMenuDetailId);
         Optional.ofNullable(routineDto.getRoutineTime()).ifPresent(routine::setRoutineTime);
         Optional.ofNullable(routineDto.getIsActivated()).ifPresent(routine::setAlarmEnabled);
         Optional.ofNullable(routineDto.getRoutineDays())
                 .ifPresent(days -> routine.setRoutineDayBitmask(RoutineDayUtils.toBitmask(days)));
-
+        if (routineDto.getMenuOptions() != null) {
+            MenuDetailEntity menuDetailEntity = new MenuDetailEntity(
+                    routineDto.getMenuOptions().getUseCup(),
+                    routineDto.getMenuOptions().getAddShot(),
+                    routineDto.getMenuOptions().getAddVanilla(),
+                    routineDto.getMenuOptions().getAddHazelnut(),
+                    routineDto.getMenuOptions().getLight()
+            );
+            menuDetailRepository.save(menuDetailEntity);
+            routine.setMenuDetailId(menuDetailEntity.getMenuDetailId());
+        }
         routineRepository.save(routine);
+
+        MenuDetailEntity menuDetail = menuDetailRepository.findById(routine.getMenuDetailId());
+
+        MenuDetailDto menuDetailDto = convertToMenuDetailDto(menuDetail);
+
         return new RoutineResponseDto(
                 routine.getRoutineId(),
                 routine.getUserId(),
                 routine.getMenuId(),
                 menuRepository.findMenuById(routine.getMenuId()).getName(),
                 routine.getMenuDetailId(),
+                menuDetailDto,
                 RoutineDayUtils.fromBitmask(routine.getRoutineDayBitmask()),
                 routine.getRoutineTime(),
                 routine.getAlarmEnabled()
@@ -159,5 +199,15 @@ public class RoutineService {
             throw new UserIdMismatchException("User ID in request does not match the authenticated user ID.");
         }
         routineRepository.delete(routine);
+    }
+
+    private MenuDetailDto convertToMenuDetailDto(MenuDetailEntity menuDetail) {
+        return new MenuDetailDto(
+                menuDetail.getUseCup(),
+                menuDetail.isAddShot(),
+                menuDetail.isAddVanilla(),
+                menuDetail.isAddHazelnut(),
+                menuDetail.isLight()
+        );
     }
 }

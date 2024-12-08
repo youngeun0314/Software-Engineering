@@ -22,7 +22,6 @@ import java.util.List;
  * 마지막 수정일: 2024-12-02
  */
 
-//@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/users/{userId}/routines")
 public class RoutineController {

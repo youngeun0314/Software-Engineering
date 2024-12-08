@@ -16,7 +16,7 @@ import java.util.List;
  * 사용자가 제공한 데이터를 기반으로 루틴을 생성한다.
  *
  * 작성자: 양나슬
- * 마지막 수정일: 2024-12-05
+ * 마지막 수정일: 2024-12-09
  */
 @RequiredArgsConstructor
 @Getter
@@ -31,8 +31,10 @@ public class RoutineDto {
     @Schema(description = "메뉴 ID", example = "10")
     private Integer menuId;
 
-    @Schema(description = "메뉴 세부 정보 ID", example = "5")
-    private Integer menuDetailId;
+//    @Schema(description = "메뉴 세부 정보 ID", example = "5")
+//    private Integer menuDetailId;
+    @Schema(description = "옵션")
+    private MenuDetailDto menuOptions;
 
     @NotNull
     @Schema(description = "루틴이 실행될 요일", example = "[\"Mon\", \"Wed\", \"Fri\"]")

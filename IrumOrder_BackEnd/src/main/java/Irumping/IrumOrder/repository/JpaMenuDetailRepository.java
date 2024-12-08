@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
  * MenuDetailEntity의 저장 및 조회 기능을 제공한다.
  *
  * 작성자: 김은지
- * 마지막 수정일: 2024-12-08
+ * 마지막 수정일: 2024-12-09
  */
 @RequiredArgsConstructor
 @Repository
@@ -31,5 +31,14 @@ public class JpaMenuDetailRepository implements MenuDetailRepository {
         } else {
             em.merge(menuDetailEntity); // 기존 엔티티 갱신
         }
+    }
+
+    @Override
+    public MenuDetailEntity findById(int menuDetailId) {
+        MenuDetailEntity menuDetailEntity = em.find(MenuDetailEntity.class, menuDetailId);
+        if (menuDetailEntity == null) {
+            throw new IllegalArgumentException("Menu Detail not found for ID: " + menuDetailId);
+        }
+        return menuDetailEntity;
     }
 }
