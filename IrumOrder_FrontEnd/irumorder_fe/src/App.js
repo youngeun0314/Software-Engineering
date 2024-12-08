@@ -17,11 +17,14 @@ import SignupComplete from "./routes/user registration/SignupComplete";
 import SignupStart from "./routes/user registration/SignupStart";
 import PickupReserv from "./routes/payment/PickupReserv";
 import Paymentcomplete from './routes/Paymentcomplete';
-import { setUserId } from "./context/userStorage";
+import { getUserId } from "./context/userStorage";
+import { setMenuIn, getMenuIn, getState } from "./context/OrderOrRoutine";
+import { getRoutineState } from "./context/OrderOrRoutine";
 
 const App = () => {
+  const userId = getUserId();
   const [options, setOptions] = useState({
-    userId : 1, //그냥 고정값으로 함
+    userId : 2,//usrId, //그냥 고정값으로 함
     Price : 0,//프라이스 장바구니 페이지에서 수정, 샷추가도 넣어야함 
 
     menuId : null, //이거 구조수정해야함
@@ -48,6 +51,7 @@ useEffect(() => {
       console.error("Error: Store 값이 유효하지 않습니다.");
       return;
   }
+    setMenuIn(0);
     setSelectedStore(store);
     nav(`/store/${store}`);
   };
@@ -70,6 +74,7 @@ useEffect(() => {
       userId :prevOptions.userId,
       menuId: menuId, // 선택한 menuId를 options에 저장
   }));
+  console.log("Updated options.menuId in App:", menuId);
     nav(`/store/${selectedStore}/option/${menuId}`);
   };
 
@@ -82,14 +87,20 @@ useEffect(() => {
       alert("컵을 선택해주세요.");
       return;
   }
-
-
     const userId = options.userId;
 
-    // URL에 userId 포함하여 이동
-    nav(`/store/${selectedStore}/cart/${userId}`, { 
-      state: { options, fromOptionUnder: true }, replace: true 
-  });
+    const menu_out=getMenuIn();
+
+    if (menu_out === 1) {
+      setTimeout(() => {
+          nav(`${getRoutineState()}`,{ state: {options}}); // 상태 업데이트 이후 페이지 이동
+      }, 0);
+    } else if(menu_out==0) {
+      // URL에 userId 포함하여 이동
+      nav(`/store/${selectedStore}/cart/${userId}`, { 
+        state: { options, fromOptionUnder: true }, replace: true 
+      });
+    }
 
   // 옵션 초기화
   setOptions({
@@ -129,8 +140,8 @@ useEffect(() => {
         <Route path="/main" element={<Main />} />
         <Route path="/routinelist" element={<RoutineListWrapper/>} />
         <Route path="/past-order" element={<PastOrder />} />
-        <Route path="/routine/:id" element={<RoutineDetail />} />
-        <Route path="/routine/new" element={<RoutineDetail />} />
+        <Route path="/routine/:id" element={<RoutineDetail setSelectedStore={setSelectedStore} />} />
+        <Route path="/routine/new" element={<RoutineDetail setSelectedStore={setSelectedStore} />} />
 
         {/* 추가 라우트 */}
         <Route path="/store" element={<StoreSelection onStartMenu={handleStartMenu} />} />

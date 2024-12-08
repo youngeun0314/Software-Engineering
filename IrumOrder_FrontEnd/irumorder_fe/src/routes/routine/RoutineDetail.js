@@ -1,24 +1,29 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import RoutineContext from "../../context/RoutineContext";
 import "./RoutineDetail.css";
 import { getUserId } from "../../context/userStorage";
+import { setMenuIn, setState } from "../../context/OrderOrRoutine";
+import { setRoutineState } from "../../context/OrderOrRoutine";
 
-const RoutineDetail = () => {
+const RoutineDetail = ({setSelectedStore}) => {
+  const location = useLocation();
+  const { options } = location.state || {};
+  console.log("location.state:", location.state);
+
   const { id } = useParams();
   const { routines, setRoutines } = useContext(RoutineContext);
   const navigate = useNavigate();
   const [routine, setRoutine] = useState({
     userId: 1,
-    menuId: 10,
+    menuId: null,
     menuDetailId: 1001,
     routineDays: [],
     routineTime: "",
     isActivated: true,
   });
-  const [store, setStore] = useState("");
-
+  
   const user_id=getUserId();
 
   useEffect(() => {
@@ -26,9 +31,14 @@ const RoutineDetail = () => {
       const existingRoutine = routines.find((routine) => routine.routineId === parseInt(id));
       if (existingRoutine) {
         setRoutine(existingRoutine);
+        
       }
     }
   }, [id, routines]);
+
+  useEffect(() => {
+    console.log("Updated routine.menuId:", routine.menuId);
+  }, [routine.menuId]);
 
   const handleChange = (key, value) => {
     setRoutine({ ...routine, [key]: value });
@@ -44,10 +54,13 @@ const RoutineDetail = () => {
   };
 
   const handleStoreChange = (store) => {
-    setStore(() => ({
+    setRoutine((prev) => ({
+      ...prev,
       store: store,
     }));
+    setSelectedStore(store); // App의 selectedStore를 업데이트
   };
+
 
   const saveRoutineToServer = async (routineData) => {
     try {
@@ -88,6 +101,12 @@ const RoutineDetail = () => {
       routineTime: routine.routineTime,
       routineDays: routine.routineDays,
     };
+    ////////////////////////////////////////////////////////////
+    setRoutine((prev) => ({
+      ...prev,
+      menuId: options.menuId,
+    }));
+    console.log(options?.menuId, routine.menuId);
     saveRoutineToServer(routineData);
   };
 
@@ -134,8 +153,12 @@ const RoutineDetail = () => {
         ))}
       </div>
       <div className="menu-button-container">
-        <Link to={`/store/:${routine.store}`}>
-        <button className={`menu-select-button`}>
+      <Link to={`/store/${routine.store}`} 
+      onClick={() => {
+        setMenuIn(1);
+        setRoutineState(location.pathname);
+      }}>
+        <button className="menu-select-button">
             메뉴
         </button>
         </Link>

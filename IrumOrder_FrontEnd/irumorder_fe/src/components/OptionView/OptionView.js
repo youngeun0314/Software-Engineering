@@ -105,8 +105,6 @@ if (error) {
     return <div>{error}</div>; // 에러 메시지 표시
 }
 
-console.log("Current Options:", options);
-console.log("Menu Options:", options.menuOptions);
 
 if (!options || !options.menuOptions) {
     return <div>옵션 데이터를 불러오는 중입니다...</div>;

@@ -4,12 +4,14 @@ import Toolbar from './Toolbar';
 import Category from './Category';
 import MenuGrid from './MenuGrid';
 import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 const Menu = ({userId , onStartOption}) => {
     useEffect(() => {
         console.log("Menu received userId:", userId);
     }, [userId]);
     
+    const location = useLocation();
     const [selectedCategory, setSelectedCategory] = useState(null); // 선택된 카테고리
     const {store, categoryId } = useParams(); // URL에서 categoryId를 가져옴 (옵션)
     const nav = useNavigate();
