@@ -10,7 +10,6 @@ import Irumping.IrumOrder.exception.CustomExceptions.InvalidRoutineException;
 import Irumping.IrumOrder.exception.CustomExceptions.UserIdMismatchException;
 import Irumping.IrumOrder.repository.JpaMenuRepository;
 import Irumping.IrumOrder.repository.MenuDetailRepository;
-import Irumping.IrumOrder.repository.MenuRepository;
 import Irumping.IrumOrder.repository.RoutineRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
