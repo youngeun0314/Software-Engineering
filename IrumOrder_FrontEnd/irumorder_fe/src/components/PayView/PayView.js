@@ -7,7 +7,8 @@ const Pay = ({ onSelectedStore }) => {
   const location = useLocation();
   const nav = useNavigate();
 
-  const { userId, totalPrice, pickUp, orderMenuOptions } = location.state || {};
+  // 기존 데이터 가져오기
+  const { userId, totalPrice, pickUp, orderMenuOptions, fromCartView } = location.state || {};
   const [isLoading, setIsLoading] = useState(false);
   const [menuDetails, setMenuDetails] = useState([]);
 
@@ -16,6 +17,9 @@ const Pay = ({ onSelectedStore }) => {
       fetchMenuDetails(orderMenuOptions);
     }
   }, [orderMenuOptions]);
+
+  // 픽업 시간 처리
+  const adjustedPickUp = fromCartView ? null : pickUp;
 
   // Fetch menu details for each menuId
   const fetchMenuDetails = async (menuOptions) => {
@@ -42,7 +46,7 @@ const Pay = ({ onSelectedStore }) => {
   };
 
   const handlePayment = async () => {
-    if (!userId || !totalPrice || !pickUp || !orderMenuOptions) {
+    if (!userId || !totalPrice || orderMenuOptions === undefined) {
       alert("주문 정보를 확인해주세요.");
       return;
     }
@@ -50,7 +54,7 @@ const Pay = ({ onSelectedStore }) => {
     const payload = {
       userId,
       totalPrice,
-      pickUp,
+      pickUp: adjustedPickUp, // 카트뷰에서 온 경우 null로 저장
       orderMenuOptions,
     };
 
@@ -70,6 +74,10 @@ const Pay = ({ onSelectedStore }) => {
 
       const data = await response.json();
       alert("결제가 완료되었습니다!");
+
+      // 결제 성공 시 로컬 스토리지 비우기
+      localStorage.removeItem(userId);
+
       nav("/paymentcomplete", { state: { orderId: data.orderId } });
     } catch (error) {
       console.error("결제 요청 중 오류 발생:", error);
@@ -81,61 +89,63 @@ const Pay = ({ onSelectedStore }) => {
 
   return (
     <div className="PayView">
-        <div className="pay-view-tool">
-            <Toolbar title="결제" onBack={() => nav(-1)} />
-        </div>
-        <div className="pay-view-details">
-            <div className="pay-view-title">주문 내역</div>
-            {menuDetails.length > 0 ? (
-            <ul>
-                {menuDetails.map((menu) => (
-                <li className="pay-view-title-li-details" key={menu.menuId}>
-                    {menu.name}  {menu.quantity}건
-                </li>
-                ))}
-            </ul>
-            ) : (
-            <p>메뉴 정보를 불러오는 중...</p>
-            )}
-            <p>
-            <div className="pay-view-title">픽업 시간</div> 
-            <div className="pay-view-title-details">{pickUp || "09:40~09:50"}</div>
-            </p>
-            <p>
-            <div className="pay-view-title">픽업 장소</div> 
-            <div className="pay-view-title-details">{onSelectedStore || "전농관"}</div>
-            </p>
-        </div>
+      <div className="pay-view-tool">
+        <Toolbar title="결제" onBack={() => nav(-1)} />
+      </div>
+      <div className="pay-view-details">
+        <div className="pay-view-title">주문 내역</div>
+        {menuDetails.length > 0 ? (
+          <ul>
+            {menuDetails.map((menu) => (
+              <li className="pay-view-title-li-details" key={menu.menuId}>
+                {menu.name} {menu.quantity}건
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>메뉴 정보를 불러오는 중...</p>
+        )}
+        <p>
+          <div className="pay-view-title">픽업 시간</div>
+          <div className="pay-view-title-details">
+            {adjustedPickUp !== null ? adjustedPickUp : "바로 주문"}
+          </div>
+        </p>
+        <p>
+          <div className="pay-view-title">픽업 장소</div>
+          <div className="pay-view-title-details">{onSelectedStore || "전농관"}</div>
+        </p>
+      </div>
 
-        <div className="pay-view-payment-amount">
-            <p>
-            <span>결제 금액</span> {totalPrice || "1,600"}원
-            </p>
-        </div>
+      <div className="pay-view-payment-amount">
+        <p>
+          <span>결제 금액</span> {totalPrice || "1,600"}원
+        </p>
+      </div>
 
-        <div className="pay-view-payment-button-container">
-            <button
-            className="payment-button"
-            onClick={handlePayment}
-            disabled={isLoading}
-            >
-            {isLoading ? (
-                "결제 중..."
-            ) : (
-                <img
-                src="/kakaopay.png" // public 폴더의 이미지 경로
-                alt="결제 버튼"
-                style={{
-                    width: "100%",
-                    height: "auto",
-                    display: "block",
-                }}
-                />
-            )}
-            </button>
-        </div>
-        </div>
-    );
-    };
+      <div className="pay-view-payment-button-container">
+        <button
+          className="payment-button"
+          onClick={handlePayment}
+          disabled={isLoading}
+        >
+          {isLoading ? (
+            "결제 중..."
+          ) : (
+            <img
+              src="/kakaopay.png" // public 폴더의 이미지 경로
+              alt="결제 버튼"
+              style={{
+                width: "100%",
+                height: "auto",
+                display: "block",
+              }}
+            />
+          )}
+        </button>
+      </div>
+    </div>
+  );
+};
 
 export default Pay;

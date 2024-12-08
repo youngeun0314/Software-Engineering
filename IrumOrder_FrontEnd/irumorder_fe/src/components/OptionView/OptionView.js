@@ -29,6 +29,17 @@ useEffect(() => {
 
 
 const handleBack = () => {
+    setOptions((prevOptions) => ({
+        ...prevOptions,
+        quantity: 1, // 수량 초기화
+        menuOptions: {
+            useCup: "", // 컵 옵션 초기화
+            addShot: false, // 샷 추가 초기화
+            addVanilla: false, // 바닐라 시럽 초기화
+            addHazelnut: false, // 헤이즐넛 시럽 초기화
+            light: false, // 연하게 초기화
+        },
+    }));
     nav(-1);
 };
 
