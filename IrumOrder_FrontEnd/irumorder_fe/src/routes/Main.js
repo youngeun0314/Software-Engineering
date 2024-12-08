@@ -84,7 +84,7 @@ function Main() {
                         <img src="main_routine.png" alt="main_routine" className="main-image"/>
                         </button>
                     </Link>
-                    <Link to={'/past-order'}>
+                    <Link to={'/check'}>
                         <button type="main_past_order" className="main-button">
                             <img src="main_past_order.png" alt="main_past_order" className="main-image"/>
                         </button>

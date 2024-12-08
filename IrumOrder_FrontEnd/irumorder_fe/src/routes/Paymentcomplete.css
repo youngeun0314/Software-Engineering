@@ -1,17 +1,12 @@
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
 
 .complete-container {
-  height: 700px;
-  width: 400px;
   font-family: Inter;
   margin: 0 auto;
   margin-top: 10px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
   background-color: #ffffff;
 }
 
