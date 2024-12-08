@@ -50,7 +50,7 @@ class RoutineAlarmServiceTest {
     }
 
     @Test
-    void testProcessRoutineAlarms_SendsNotificationAtRightTime() throws FirebaseMessagingException {
+    void testProcessRoutineAlarms_SendsNotificationAtRightTime_WithMockBuilder_UsingToString() throws FirebaseMessagingException {
         // Arrange
         LocalTime fixedTime = LocalTime.of(10, 0);
         RoutineEntity routine = new RoutineEntity();
@@ -58,9 +58,9 @@ class RoutineAlarmServiceTest {
         routine.setUserId(123);
 
         // 월요일 비트마스크 생성
-        int mondayBitmask = RoutineDayUtils.toBitmask(Collections.singletonList(RoutineDay.Mon));
-        routine.setRoutineDayBitmask(mondayBitmask);
-        routine.setRoutineTime(fixedTime.plusHours(2));
+        int sundayBitmask = RoutineDayUtils.toBitmask(Collections.singletonList(RoutineDay.Mon));
+        routine.setRoutineDayBitmask(sundayBitmask);
+        routine.setRoutineTime(fixedTime.plusHours(2)); // 12:00
         routine.setAlarmEnabled(true);
 
         TokenEntity token = new TokenEntity();
@@ -74,22 +74,33 @@ class RoutineAlarmServiceTest {
         when(userRepository.findByUserId(123)).thenReturn(Optional.of(user));
         when(tokenRepository.findByUser(user)).thenReturn(token);
 
-        ArgumentCaptor<com.google.firebase.messaging.Message> messageCaptor = ArgumentCaptor.forClass(com.google.firebase.messaging.Message.class);
+        // Mock Message.builder() 설정
+        com.google.firebase.messaging.Message.Builder messageBuilderMock = mock(com.google.firebase.messaging.Message.Builder.class);
+        com.google.firebase.messaging.Message messageMock = mock(com.google.firebase.messaging.Message.class);
+
+        when(messageBuilderMock.setNotification(any())).thenReturn(messageBuilderMock);
+        when(messageBuilderMock.setToken(anyString())).thenReturn(messageBuilderMock);
+        when(messageBuilderMock.putData(anyString(), anyString())).thenReturn(messageBuilderMock);
+        when(messageBuilderMock.build()).thenReturn(messageMock);
+
+        when(messageMock.toString()).thenReturn(
+                "Message{token='mock-fcm-token', notification=Notification{title='픽업 예약 알림', body='2시간 뒤 픽업 주문을 지금 예약하세요!'}, data={click_action=OPEN_CART}}"
+        );
 
         // Act
         routineAlarmService.processRoutineAlarms();
 
         // Assert
-        verify(firebaseMessaging, times(1)).send(messageCaptor.capture());
-        com.google.firebase.messaging.Message sentMessage = messageCaptor.getValue();
+        String sentMessageString = messageMock.toString();
 
-        // Message 내부 데이터 검증 (toString 사용)
-        String sentMessageString = sentMessage.toString();
-        assertTrue(sentMessageString.contains("mock-fcm-token"));
-        assertTrue(sentMessageString.contains("픽업 예약 알림"));
-        assertTrue(sentMessageString.contains("2시간 뒤 픽업 주문을 지금 예약하세요!"));
-        assertTrue(sentMessageString.contains("OPEN_CART"));
+        // toString을 활용한 검증
+        assertTrue(sentMessageString.contains("mock-fcm-token"), "토큰 정보가 포함되어야 합니다.");
+        assertTrue(sentMessageString.contains("픽업 예약 알림"), "알림 제목이 포함되어야 합니다.");
+        assertTrue(sentMessageString.contains("2시간 뒤 픽업 주문을 지금 예약하세요!"), "알림 내용이 포함되어야 합니다.");
+        assertTrue(sentMessageString.contains("click_action=OPEN_CART"), "데이터 필드 'click_action'이 포함되어야 합니다.");
     }
+
+
 
     @Test
     void testProcessRoutineAlarms_SendsNotificationAtRightTime_UsingStringCheck() throws FirebaseMessagingException {
@@ -145,7 +156,7 @@ class RoutineAlarmServiceTest {
     @Test
     void testProcessRoutineAlarms_RetriesOnNetworkFailure() throws FirebaseMessagingException {
         // Arrange
-        LocalTime fixedTime = LocalTime.of(21, 35);
+        LocalTime fixedTime = LocalTime.of(21, 35); // 테스트에서 고정된 현재 시간
         RoutineEntity routine = new RoutineEntity();
         routine.setRoutineId(1);
         routine.setUserId(123);
@@ -154,7 +165,7 @@ class RoutineAlarmServiceTest {
         int sundayBitmask = RoutineDayUtils.toBitmask(Collections.singletonList(RoutineDay.Sun));
         routine.setRoutineDayBitmask(sundayBitmask);
 
-        // 루틴 시간 설정 (2시간 후 조건 만족)
+        // 루틴 시간 설정 (현재 시간의 2시간 후로 고정)
         routine.setRoutineTime(fixedTime.plusHours(2)); // 23:35
         routine.setAlarmEnabled(true);
 
@@ -168,15 +179,11 @@ class RoutineAlarmServiceTest {
         when(userRepository.findByUserId(123)).thenReturn(Optional.of(user));
         when(tokenRepository.findByUser(user)).thenReturn(token);
 
-        // Mock 현재 시간
-        when(LocalDate.now()).thenReturn(LocalDate.of(2024, 12, 8)); // SUNDAY
-        when(LocalTime.now()).thenReturn(fixedTime);
-
-        // Mock FirebaseMessaging.send()
+        // FirebaseMessaging.send()에 대한 Mock 설정
         doAnswer(invocation -> {
             // 첫 번째 호출에서 예외를 던짐
             throw new RuntimeException("Simulated network failure");
-        }).doReturn("mock-response") // 두 번째 호출에서 정상 응답
+        }).doReturn("mock-response") // 두 번째 호출에서 정상 응답 반환
                 .when(firebaseMessaging).send(any());
 
         // Act
@@ -185,6 +192,7 @@ class RoutineAlarmServiceTest {
         // Assert
         verify(firebaseMessaging, times(2)).send(any()); // 두 번 호출
     }
+
 
 
 
