@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getUserId } from "../../context/userStorage";
 import "./CheckView.css";
+import { Link } from "react-router-dom";
 
 const CheckView = () => {
   const [orders, setOrders] = useState([]);
@@ -36,52 +37,43 @@ const CheckView = () => {
 
   return (
     <div className="order-list-container">
-      <h2>주문 내역</h2>
-      <table className="order-table">
-        <thead>
-          <tr>
-            <th>주문 ID</th>
-            <th>메뉴명</th>
-            <th>수량</th>
-            <th>가격</th>
-            <th>픽업 시간</th>
-            <th>옵션</th>
-          </tr>
-        </thead>
-        <tbody>
-          {orders.map((order) => (
-            <React.Fragment key={order.orderId}>
-              {order.orderMenuOptions.map((menu, index) => (
-                <tr key={`${order.orderId}-${index}`}>
-                  {index === 0 && (
-                    <td rowSpan={order.orderMenuOptions.length}>
-                      {order.orderId}
-                    </td>
-                  )}
-                  <td>{menu.menuName}</td>
-                  <td>{menu.quantity}</td>
-                  {index === 0 && (
-                    <td rowSpan={order.orderMenuOptions.length}>
-                      {order.totalPrice}원
-                    </td>
-                  )}
-                  {index === 0 && (
-                    <td rowSpan={order.orderMenuOptions.length}>
-                      {order.pickUp || "미정"}
-                    </td>
-                  )}
-                  <td>
-                    {menu.addShot && "샷 추가 "}
-                    {menu.addVanilla && "바닐라 "}
-                    {menu.addHazelnut && "헤이즐넛 "}
-                    {menu.light && "연하게"}
-                  </td>
-                </tr>
-              ))}
-            </React.Fragment>
-          ))}
-        </tbody>
-      </table>
+      <header className="check-header">
+        <p className="check-title">주문 내역</p>
+        <Link to={"/main"}>
+          <button className="x-button">
+            <img
+              src={`${process.env.PUBLIC_URL}/x_button.png`}
+              alt="close"
+              className="x-image"
+            />
+          </button>
+        </Link>
+      </header>
+
+      <div className="order-card-container">
+        {orders.map((order) => (
+          <div key={order.orderId} className="order-card">
+            {order.orderMenuOptions.map((menu, index) => (
+              <div key={`${order.orderId}-${index}`}>
+                <div className="menu-header">
+                  <p className="menu-name">
+                    ({menu.useCup === "TakeOut" ? "ICE" : "HOT"})
+                    {menu.menuName} {menu.quantity}건
+                  </p>
+                </div>
+                <div className="menu-footer">
+                  <p className="pickup-time">
+                    {order.pickUp ? order.pickUp : "시간 미정"}
+                  </p>
+                  <p className="menu-price">
+                    {order.totalPrice.toLocaleString()}원
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

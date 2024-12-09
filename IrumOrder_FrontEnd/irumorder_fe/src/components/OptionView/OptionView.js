@@ -192,7 +192,7 @@ return (
         </button>
         </div>
     </div>
-
+    <div className='container-divider'></div>
     <div className="quantity">
         <h3>수량</h3>
         <div className="quantity-button">
@@ -201,7 +201,7 @@ return (
         <button onClick={increaseQuantity}>+</button>
         </div>
     </div>
-
+        
     <div className="gocart">
         <button onClick={handleCartClick}>
         {calculatePrice() * options.quantity}원 담기

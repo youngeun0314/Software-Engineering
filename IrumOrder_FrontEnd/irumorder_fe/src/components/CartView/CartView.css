@@ -12,13 +12,13 @@
 }
 
 .CartView .menu-card {
-    width: 100%;
+    width: 98%;
     /* max-width: 560px; 중앙에 정렬되도록 최대 너비 설정 */
     border: 1px solid #ddd;
     border-radius: 8px;
     margin-bottom: 16px;
-    margin-right:10px;
-    margin-left:10px;
+    /* margin-right:10px; */
+    margin-left:5px;
     padding: 16px;
     display: flex;
     flex-direction: column;
