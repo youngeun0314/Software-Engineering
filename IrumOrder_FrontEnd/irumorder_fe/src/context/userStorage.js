@@ -2,8 +2,7 @@ let currentUserId = null;
 
 // user_id 저장
 export const setUserId = (id) => {
-  currentUserId = id;
-  console.log(currentUserId);
+  currentUserId = id; //id
 };
 
 // user_id 가져오기

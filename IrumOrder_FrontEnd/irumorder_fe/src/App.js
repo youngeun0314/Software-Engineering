@@ -18,7 +18,7 @@ import SignupStart from "./routes/user registration/SignupStart";
 import PickupReserv from "./routes/payment/PickupReserv";
 import Paymentcomplete from './routes/Paymentcomplete';
 import { getUserId } from "./context/userStorage";
-import { setMenuIn, getMenuIn, getState } from "./context/OrderOrRoutine";
+import { setMenuIn, getMenuIn} from "./context/OrderOrRoutine";
 import { getRoutineState } from "./context/OrderOrRoutine";
 
 const App = () => {
@@ -95,7 +95,7 @@ useEffect(() => {
       setTimeout(() => {
           nav(`${getRoutineState()}`,{ state: {options}}); // 상태 업데이트 이후 페이지 이동
       }, 0);
-    } else if(menu_out==0) {
+    } else if(menu_out===0) {
       // URL에 userId 포함하여 이동
       nav(`/store/${selectedStore}/cart/${userId}`, { 
         state: { options, fromOptionUnder: true }, replace: true 

@@ -5,22 +5,21 @@ import { getUserId } from "./userStorage";
 const RoutineContext = createContext();
 
 // RoutineProvider 컴포넌트
-export const RoutineProvider = ({ children, userId }) => {
+export const RoutineProvider = ({ children }) => {
   const [routines, setRoutines] = useState([]);
   const user_id = getUserId();
 
   useEffect(() => {
-    if (!userId) {
+    if (!user_id) {
       console.error("userId가 제공되지 않았습니다.");
       return;
     }
 
     // API 호출로 루틴 데이터를 가져옵니다.
     const fetchRoutines = async () => {
-      console.log(getUserId());
       try {
         // 사용자별 루틴 데이터 가져오기
-        const response = await fetch(`http://localhost:8080/api/users/${user_id}/routines`); //${userId}
+        const response = await fetch(`http://localhost:8080/api/users/${user_id}/routines`);
         if (!response.ok) {
           throw new Error(`HTTP 오류: ${response.status}`);
         }
@@ -32,7 +31,7 @@ export const RoutineProvider = ({ children, userId }) => {
     };
 
     fetchRoutines();
-  }, [userId, user_id]);
+  }, [user_id]);
 
   return (
     <RoutineContext.Provider value={{ routines, setRoutines }}>

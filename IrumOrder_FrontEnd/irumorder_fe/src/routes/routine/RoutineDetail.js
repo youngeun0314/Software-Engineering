@@ -4,21 +4,26 @@ import { Link } from "react-router-dom";
 import RoutineContext from "../../context/RoutineContext";
 import "./RoutineDetail.css";
 import { getUserId } from "../../context/userStorage";
-import { setMenuIn, setState } from "../../context/OrderOrRoutine";
+import { setMenuIn } from "../../context/OrderOrRoutine";
 import { setRoutineState } from "../../context/OrderOrRoutine";
 
 const RoutineDetail = ({setSelectedStore}) => {
   const location = useLocation();
-  const { options } = location.state || {};
-  console.log("location.state:", location.state);
+  const { options } = location.state || {}; //menuId, menuOptions
 
   const { id } = useParams();
   const { routines, setRoutines } = useContext(RoutineContext);
   const navigate = useNavigate();
   const [routine, setRoutine] = useState({
-    userId: 1,
-    menuId: null,
-    menuDetailId: 1001,
+    userId: getUserId(),
+    menuId: 1,
+    menuOptions: {
+      useCup: "Disposable",
+      addShot: false,
+      addVanilla: false,
+      addHazelnut: false,
+      light: false,
+    },
     routineDays: [],
     routineTime: "",
     isActivated: true,
@@ -63,50 +68,58 @@ const RoutineDetail = ({setSelectedStore}) => {
 
 
   const saveRoutineToServer = async (routineData) => {
+    const method = id ? "PUT" : "POST";
+    const endpoint = id
+      ? `http://localhost:8080/api/users/${user_id}/routines/${id}`
+      : `http://localhost:8080/api/users/${user_id}/routines/add`;
+  
     try {
-      const method = id ? "PUT" : "POST";
-      const endpoint = id
-        ? `http://localhost:8080/api/users/${user_id}/routines/${routineData.routineId}`
-        : `http://localhost:8080/api/users/${user_id}/routines/add`;
-
       const response = await fetch(endpoint, {
         method,
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(routineData),
       });
-
+  
       if (!response.ok) {
         throw new Error(`HTTP 오류: ${response.status}`);
       }
-
+  
       const updatedRoutine = await response.json();
-
       setRoutines((prev) =>
         method === "PUT"
           ? prev.map((r) => (r.routineId === updatedRoutine.routineId ? updatedRoutine : r))
           : [...prev, updatedRoutine]
       );
-
+  
       navigate("/routinelist");
     } catch (error) {
+      console.log("routineData:", JSON.stringify(routineData, null, 2));
+      console.error("요청 실패:", error.message);
       console.error("루틴 저장 중 오류 발생:", error);
     }
   };
 
   const handleSave = () => {
-    const userId = routines?.[0]?.userId || 1;
-    const routineData = {
-      ...routine,
-      userId,
-      routineTime: routine.routineTime,
-      routineDays: routine.routineDays,
-    };
-    ////////////////////////////////////////////////////////////
     setRoutine((prev) => ({
       ...prev,
-      menuId: options.menuId,
+      menuId: options?.menuId,
     }));
-    console.log(options?.menuId, routine.menuId);
+    
+    setRoutine((prev) => ({
+      ...prev,
+      menuOptions: options?.menuOptions,
+    }));
+
+    const routineData = {
+      userId: routine?.userId,
+      menuId: routine?.menuId,
+      menuId: routine?.menuId,
+      menuDetail: routine?.menuDetail,
+      menuOptions: routine?.menuOptions,
+      routineDays: routine?.routineDays,
+      routineTime: routine?.routineTime,
+      isActivated: routine?.isActivated,
+    };
     saveRoutineToServer(routineData);
   };
 
