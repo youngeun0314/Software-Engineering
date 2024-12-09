@@ -1,15 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useLocation, useParams } from "react-router-dom";
-import Toolbar from "./Toolbar";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import "./CartView.css";
+import Toolbar from "./Toolbar";
 
-const CartView = () => {
-  const { store, userId } = useParams(); // store와 userId 가져오기
+const CartView = ({ onSelectedStore, options, userId }) => {
+  const { store } = useParams(); // store만 가져오기
   const nav = useNavigate();
   const location = useLocation();
-
+  
   const [cartData, setCartData] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
+
+   // userId 검증
+  useEffect(() => {
+    if (!userId) {
+      console.error("Error: userId가 null입니다. 유저 정보를 확인해주세요.");
+      nav("/"); // 유효하지 않은 경우 로그인 페이지로 리다이렉트
+    }
+  }, [userId, nav]);
 
   // 데이터 변환 함수
   const transformData = (options) => ({

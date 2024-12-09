@@ -1,12 +1,15 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './StoreSelection.css';
 import Toolbar from './Toolbar';
 
 const StoreSelection = ({ onStartMenu }) => {
+  const navigate = useNavigate(); // useNavigate 훅 사용
+
   // handleCancel 함수 정의
   const handleCancel = () => {
-    // 메인 페이지로 이동하는 기능
-    window.location.href = '/main';
+    // 메인 페이지로 이동 (새로고침 방지)
+    navigate('/main');
   };
 
   return (

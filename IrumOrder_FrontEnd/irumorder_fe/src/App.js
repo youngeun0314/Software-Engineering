@@ -177,7 +177,7 @@ const App = () => {
         />
         <Route
           path="/store/:store/cart/:userId"
-          element={<CartView onSelectedStore={selectedStore} options={options} />}
+          element={<CartView onSelectedStore={selectedStore} options={options} userId={getUserId()}/>}
         />
         <Route path="/timeReservation" element={<PickupReserv />} />
         <Route path="/pay" element={<PayView onSelectedStore={selectedStore} />} />
