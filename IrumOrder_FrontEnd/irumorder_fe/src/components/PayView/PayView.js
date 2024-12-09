@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { getUserId } from "../../context/userStorage";
 import "./PayView.css"; // Import the CSS file
 import Toolbar from "./Toolbar";
 
@@ -57,7 +58,13 @@ const Pay = ({ onSelectedStore }) => {
   
 
   const handlePayment = async () => {
-    if (!userId || !totalPrice || orderMenuOptions === undefined) {
+    const userId = getUserId();
+    if (!userId) {
+      console.error("Error: userId가 null입니다. 로그인 상태를 확인하세요.");
+      alert("로그인 정보가 확인되지 않습니다. 다시 로그인해주세요.");
+      return;
+    }
+    if (!totalPrice || orderMenuOptions === undefined) {
       alert("주문 정보를 확인해주세요.");
       return;
     }
