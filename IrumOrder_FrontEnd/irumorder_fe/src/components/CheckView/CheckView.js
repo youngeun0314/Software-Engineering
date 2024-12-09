@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { getUserId } from "../../context/userStorage";
 import "./CheckView.css";
-import { Link } from "react-router-dom";
 
 const CheckView = () => {
   const [orders, setOrders] = useState([]);
@@ -65,12 +65,15 @@ const CheckView = () => {
                   <p className="pickup-time">
                     {order.pickUp ? order.pickUp : "시간 미정"}
                   </p>
-                  <p className="menu-price">
+                  
+                </div>
+                
+              </div>
+              
+            ))}
+            <p className="menu-price">
                     {order.totalPrice.toLocaleString()}원
                   </p>
-                </div>
-              </div>
-            ))}
           </div>
         ))}
       </div>
