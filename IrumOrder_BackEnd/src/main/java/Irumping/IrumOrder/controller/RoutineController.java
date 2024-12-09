@@ -128,7 +128,7 @@ public class RoutineController {
             @PathVariable(name = "routineId") Integer routineId,
 
             @Parameter(description = "ID of the user who owns the routine", example = "123")
-            @PathVariable Integer userId) {
+            @PathVariable(name="userId") Integer userId) {
         routineService.deleteRoutine(routineId, userId);
         return ResponseEntity.noContent().build(); // 204 No Content 응답
     }
