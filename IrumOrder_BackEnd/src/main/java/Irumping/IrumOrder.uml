@@ -1,0 +1,717 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>C:/study/newIrumOrder/IrumOrder_BackEnd/src/main/java/Irumping/IrumOrder</OriginalElement>
+  <nodes>
+    <node x="2635.0" y="2643.0">Irumping.IrumOrder.repository.CategoryRepository</node>
+    <node x="5469.0" y="3801.5">Irumping.IrumOrder.controller.PayController</node>
+    <node x="2233.5" y="4289.5">Irumping.IrumOrder.controller.CategoryController</node>
+    <node x="5628.5" y="2425.5">Irumping.IrumOrder.dto.PayOrderForm</node>
+    <node x="1685.5" y="4325.5">Irumping.IrumOrder.repository.JpaOrderMenuRepository</node>
+    <node x="3389.5" y="2631.0">Irumping.IrumOrder.repository.RoutineRepository</node>
+    <node x="-96.0" y="-14.5">Irumping.IrumOrder.dto.PayApproveResponse</node>
+    <node x="5320.0" y="1139.0">Irumping.IrumOrder.repository.PayRepository</node>
+    <node x="4877.5" y="1921.5">Irumping.IrumOrder.entity.TokenEntity</node>
+    <node x="763.0" y="969.5">Irumping.IrumOrder.dto.MenuDetailDto</node>
+    <node x="5571.0" y="4621.5">Irumping.IrumOrder.dto.LoginDto</node>
+    <node x="363.0" y="2401.5">Irumping.IrumOrder.dto.OrderDto</node>
+    <node x="4313.0" y="4959.0">Irumping.IrumOrder.config.OpenApiConfig</node>
+    <node x="1322.0" y="3669.5">Irumping.IrumOrder.entity.OrderMenuEntity</node>
+    <node x="1423.0" y="1789.5">Irumping.IrumOrder.entity.MenuDetailEntity</node>
+    <node x="3147.5" y="1971.0">Irumping.IrumOrder.repository.MenuRepository</node>
+    <node x="4873.5" y="3705.5">Irumping.IrumOrder.service.AuthService</node>
+    <node x="4140.0" y="4241.5">Irumping.IrumOrder.controller.SignUpRequest</node>
+    <node x="4329.0" y="2036.5">Irumping.IrumOrder.exception.CustomExceptions.InvalidRoutineException</node>
+    <node x="4840.0" y="969.5">Irumping.IrumOrder.entity.UserEntity</node>
+    <node x="3807.0" y="2631.0">Irumping.IrumOrder.repository.UserRepository</node>
+    <node x="-48.5" y="1397.5">Irumping.IrumOrder.entity.OrderStatus</node>
+    <node x="4128.0" y="5099.0">Irumping.IrumOrder.config.WebConfig</node>
+    <node x="5279.5" y="4325.5">Irumping.IrumOrder.controller.FcmController</node>
+    <node x="2957.0" y="2521.5">Irumping.IrumOrder.entity.MenuEntity</node>
+    <node x="3081.5" y="4313.5">Irumping.IrumOrder.listener.PickUpAlarmEventListener</node>
+    <node x="2907.5" y="3777.5">Irumping.IrumOrder.repository.JpaMenuRepository</node>
+    <node x="1610.0" y="2593.5">Irumping.IrumOrder.exception.GlobalExceptionHandler</node>
+    <node x="3572.5" y="2019.0">Irumping.IrumOrder.repository.TokenRepository</node>
+    <node x="4459.5" y="2437.5">Irumping.IrumOrder.entity.RoutineEntity</node>
+    <node x="4750.0" y="3347.0">Irumping.IrumOrder.validator.UserValidator</node>
+    <node x="4507.0" y="3765.5">Irumping.IrumOrder.repository.JpaUserRepository</node>
+    <node x="2555.0" y="3285.5">Irumping.IrumOrder.service.MenuService</node>
+    <node x="2318.0" y="1801.5">Irumping.IrumOrder.dto.RoutineDto</node>
+    <node x="69.0" y="3225.5">Irumping.IrumOrder.dto.OrderRequestDto</node>
+    <node x="5097.0" y="4645.5">Irumping.IrumOrder.dto.SalesResponse</node>
+    <node x="4757.0" y="2696.5">Irumping.IrumOrder.exception.CustomExceptions.InvalidInputException</node>
+    <node x="5106.0" y="2521.5">Irumping.IrumOrder.service.PayService</node>
+    <node x="3274.5" y="4633.5">Irumping.IrumOrder.scheduler.RoutineAlarmScheduler</node>
+    <node x="3069.5" y="3297.5">Irumping.IrumOrder.repository.JpaRoutineRepository</node>
+    <node x="1074.5" y="4549.5">Irumping.IrumOrder.service.OrderService</node>
+    <node x="3928.5" y="4621.5">Irumping.IrumOrder.service.SalesService</node>
+    <node x="1070.0" y="3825.5">Irumping.IrumOrder.event.PickUpAlarmEvent</node>
+    <node x="3031.5" y="1421.5">Irumping.IrumOrder.entity.RoutineDay</node>
+    <node x="2659.0" y="4229.5">Irumping.IrumOrder.dto.PayReadyResponse</node>
+    <node x="2818.5" y="4609.5">Irumping.IrumOrder.controller.MenuController</node>
+    <node x="1557.5" y="4597.5">Irumping.IrumOrder.controller.TokenRequest</node>
+    <node x="2181.0" y="2545.5">Irumping.IrumOrder.entity.OrderMenuId</node>
+    <node x="4254.5" y="4609.5">Irumping.IrumOrder.controller.RoutineController</node>
+    <node x="1685.5" y="3839.0">Irumping.IrumOrder.repository.OrderMenuRepository</node>
+    <node x="1781.5" y="1421.5">Irumping.IrumOrder.exception.ApiError</node>
+    <node x="2059.0" y="1873.5">Irumping.IrumOrder.dto.PayApproveRequest</node>
+    <node x="4753.0" y="4253.5">Irumping.IrumOrder.controller.AuthController</node>
+    <node x="5193.5" y="3801.5">Irumping.IrumOrder.service.FcmService</node>
+    <node x="1835.0" y="3309.5">Irumping.IrumOrder.repository.JpaCategoryRepository</node>
+    <node x="2371.0" y="3803.0">Irumping.IrumOrder.repository.OrderRepository</node>
+    <node x="5148.0" y="1536.5">Irumping.IrumOrder.exception.CustomExceptions.PayErrorException</node>
+    <node x="801.5" y="2581.5">Irumping.IrumOrder.dto.OrderMenuDto</node>
+    <node x="4602.0" y="2036.5">Irumping.IrumOrder.exception.CustomExceptions.UserIdMismatchException</node>
+    <node x="2055.0" y="3789.5">Irumping.IrumOrder.service.CategoryService</node>
+    <node x="3794.0" y="4933.5">Irumping.IrumOrder.controller.SalesController</node>
+    <node x="3648.5" y="3309.5">Irumping.IrumOrder.service.PickUpAlarmService</node>
+    <node x="3673.0" y="5099.0">Irumping.IrumOrder.IrumOrderApplication</node>
+    <node x="1123.5" y="2401.5">Irumping.IrumOrder.entity.OrderEntity</node>
+    <node x="1991.0" y="4609.5">Irumping.IrumOrder.service.OrderMgmtService</node>
+    <node x="445.0" y="3621.5">Irumping.IrumOrder.dto.OrdersCheckResponseDto</node>
+    <node x="3827.5" y="3839.0">Irumping.IrumOrder.repository.SalesRepository</node>
+    <node x="2889.0" y="1077.5">Irumping.IrumOrder.entity.CategoryEntity</node>
+    <node x="4138.0" y="2353.5">Irumping.IrumOrder.dto.RoutineResponseDto</node>
+    <node x="806.0" y="5073.5">Irumping.IrumOrder.controller.OrderController</node>
+    <node x="4109.5" y="3297.5">Irumping.IrumOrder.service.RoutineService</node>
+    <node x="1500.5" y="5075.0">Irumping.IrumOrder.service.RoutineDayUtils</node>
+    <node x="3433.0" y="3753.5">Irumping.IrumOrder.service.RoutineAlarmService</node>
+    <node x="-111.0" y="3597.5">Irumping.IrumOrder.dto.OrderResponseDto</node>
+    <node x="1432.5" y="4241.5">Irumping.IrumOrder.controller.MenuRequest</node>
+    <node x="1794.5" y="4933.5">Irumping.IrumOrder.controller.OrderMgmtController</node>
+    <node x="2451.0" y="4609.5">Irumping.IrumOrder.repository.JpaOrderRepository</node>
+    <node x="790.0" y="3839.0">Irumping.IrumOrder.repository.MenuDetailRepository</node>
+    <node x="1339.0" y="4945.5">Irumping.IrumOrder.config.FirebaseConfig</node>
+    <node x="722.5" y="4645.5">Irumping.IrumOrder.repository.JpaMenuDetailRepository</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="Irumping.IrumOrder.service.OrderService" target="Irumping.IrumOrder.repository.MenuDetailRepository" relationship="TO_ONE">
+      <point x="108.25" y="-141.5" />
+      <point x="1399.25" y="4231.0" />
+      <point x="1751.0" y="4231.0" />
+      <point x="1751.0" y="4091.0" />
+      <point x="941.5" y="4091.0" />
+      <point x="50.5" y="32.0" />
+    </edge>
+    <edge source="Irumping.IrumOrder.controller.CategoryController" target="Irumping.IrumOrder.service.CategoryService" relationship="TO_ONE">
+      <point x="0.0" y="-81.5" />
+      <point x="2411.0" y="4251.0" />
+      <point x="2351.0" y="4251.0" />
+      <point x="2351.0" y="3751.0" />
+      <point x="2123.0" y="3751.0" />
+      <point x="-68.0" y="-81.5" />
+    </edge>
+    <edge source="Irumping.IrumOrder.service.OrderService" target="Irumping.IrumOrder.dto.OrderMenuDto" relationship="CREATE">
+      <point x="-108.25" y="-141.5" />
+      <point x="1182.75" y="4511.0" />
+      <point x="1011.0" y="4511.0" />
+      <point x="1011.0" y="3811.0" />
+      <point x="931.0" y="3811.0" />
+      <point x="0.0" y="129.5" />
+    </edge>
+    <edge source="Irumping.IrumOrder.service.OrderService" target="Irumping.IrumOrder.dto.OrdersCheckResponseDto" relationship="CREATE">
+      <point x="-108.25" y="-141.5" />
+      <point x="1182.75" y="4511.0" />
+      <point x="1011.0" y="4511.0" />
+      <point x="1011.0" y="4171.0" />
+      <point x="591.0" y="4171.0" />
+      <point x="0.0" y="249.5" />
+    </edge>
+    <edge source="Irumping.IrumOrder.service.OrderService" target="Irumping.IrumOrder.repository.JpaMenuRepository" relationship="TO_ONE">
+      <point x="108.25" y="-141.5" />
+      <point x="1399.25" y="4231.0" />
+      <point x="1751.0" y="4231.0" />
+      <point x="1751.0" y="4091.0" />
+      <point x="3051.0" y="4091.0" />
+      <point x="0.0" y="93.5" />
+    </edge>
+    <edge source="Irumping.IrumOrder.service.SalesService" target="Irumping.IrumOrder.repository.JpaUserRepository" relationship="TO_ONE">
+      <point x="0.0" y="-69.5" />
+      <point x="4071.0" y="4011.0" />
+      <point x="4651.0" y="4011.0" />
+      <point x="0.0" y="105.5" />
+    </edge>
+    <edge source="Irumping.IrumOrder.service.RoutineService" target="Irumping.IrumOrder.exception.CustomExceptions.InvalidRoutineException" relationship="CREATE">
+      <point x="90.75" y="-93.5" />
+      <point x="4381.75" y="3271.0" />
+      <point x="4271.0" y="3271.0" />
+      <point x="4271.0" y="3111.0" />
+      <point x="4431.0" y="3111.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="Irumping.IrumOrder.service.RoutineService" target="Irumping.IrumOrder.dto.RoutineResponseDto" relationship="CREATE">
+      <point x="90.75" y="-93.5" />
+      <point x="4381.75" y="3271.0" />
+      <point x="4271.0" y="3271.0" />
+      <point x="0.0" y="357.5" />
+    </edge>
+    <edge source="Irumping.IrumOrder.dto.OrderResponseDto" target="Irumping.IrumOrder.entity.OrderStatus" relationship="TO_ONE">
+      <point x="0.0" y="-273.5" />
+      <point x="0.0" y="153.5" />
+    </edge>
+    <edge source="Irumping.IrumOrder.service.OrderService" target="Irumping.IrumOrder.entity.OrderEntity" relationship="CREATE">
+      <point x="-108.25" y="-141.5" />
+      <point x="1182.75" y="4511.0" />
+      <point x="1011.0" y="4511.0" />
+      <point x="1011.0" y="4171.0" />
+      <point x="1051.0" y="4171.0" />
+      <point x="1051.0" y="3591.0" />
+      <point x="1207.25" y="3591.0" />
+      <point x="-83.75" y="309.5" />
+    </edge>
+    <edge source="Irumping.IrumOrder.entity.MenuEntity" target="Irumping.IrumOrder.entity.CategoryEntity" relationship="TO_ONE">
+      <point x="0.0" y="-189.5" />
+      <point x="3071.0" y="1751.0" />
+      <point x="3012.0" y="1751.0" />
+      <point x="41.0" y="93.5" />
+    </edge>
+    <edge source="Irumping.IrumOrder.service.OrderMgmtService" target="Irumping.IrumOrder.repository.OrderRepository" relationship="TO_ONE">
+      <point x="70.0" y="-81.5" />
+      <point x="2201.0" y="4131.0" />
+      <point x="2451.0" y="4131.0" />
+      <point x="-80.0" y="68.0" />
+    </edge>
+    <edge source="Irumping.IrumOrder.entity.OrderMenuEntity" target="Irumping.IrumOrder.entity.MenuDetailEntity" relationship="TO_ONE">
+      <point x="-64.5" y="-201.5" />
+      <point x="1386.5" y="3611.0" />
+      <point x="1571.0" y="3611.0" />
+      <point x="1571.0" y="2951.0" />
+      <point x="1585.0" y="2951.0" />
+      <point x="54.0" y="261.5" />
+    </edge>
+    <edge source="Irumping.IrumOrder.service.OrderService" target="Irumping.IrumOrder.entity.OrderMenuEntity" relationship="CREATE">
+      <point x="-108.25" y="-141.5" />
+      <point x="1182.75" y="4511.0" />
+      <point x="1011.0" y="4511.0" />
+      <point x="1011.0" y="4171.0" />
+      <point x="1291.0" y="4171.0" />
+      <point x="1291.0" y="3631.0" />
+      <point x="1515.5" y="3631.0" />
+      <point x="64.5" y="-201.5" />
+    </edge>
+    <edge source="Irumping.IrumOrder.entity.OrderMenuEntity" target="Irumping.IrumOrder.entity.OrderMenuId" relationship="CREATE">
+      <point x="64.5" y="-201.5" />
+      <point x="1515.5" y="2931.0" />
+      <point x="2311.0" y="2931.0" />
+      <point x="2311.0" y="2911.0" />
+      <point x="2346.0" y="2911.0" />
+      <point x="55.0" y="165.5" />
+    </edge>
+    <edge source="Irumping.IrumOrder.repository.JpaCategoryRepository" target="Irumping.IrumOrder.repository.CategoryRepository" relationship="REALIZATION">
+      <point x="0.0" y="-81.5" />
+      <point x="1971.0" y="2971.0" />
+      <point x="2703.0" y="2971.0" />
+      <point x="-68.0" y="68.0" />
+    </edge>
+    <edge source="Irumping.IrumOrder.service.RoutineService" target="Irumping.IrumOrder.entity.RoutineEntity" relationship="CREATE">
+      <point x="90.75" y="-93.5" />
+      <point x="4381.75" y="3271.0" />
+      <point x="4271.0" y="3271.0" />
+      <point x="4271.0" y="3111.0" />
+      <point x="4571.0" y="3111.0" />
+      <point x="0.0" y="273.5" />
+    </edge>
+    <edge source="Irumping.IrumOrder.service.RoutineService" target="Irumping.IrumOrder.repository.RoutineRepository" relationship="TO_ONE">
+      <point x="-90.75" y="-93.5" />
+      <point x="4200.25" y="3251.0" />
+      <point x="3611.0" y="3251.0" />
+      <point x="3611.0" y="2811.0" />
+      <point x="3601.75" y="2811.0" />
+      <point x="70.75" y="80.0" />
+    </edge>
+    <edge source="Irumping.IrumOrder.controller.SalesController" target="Irumping.IrumOrder.service.SalesService" relationship="TO_ONE">
+      <point x="-108.5" y="-57.5" />
+      <point x="3902.5" y="4911.0" />
+      <point x="3911.0" y="4911.0" />
+      <point x="3911.0" y="4591.0" />
+      <point x="4071.0" y="4591.0" />
+      <point x="0.0" y="-69.5" />
+    </edge>
+    <edge source="Irumping.IrumOrder.service.OrderService" target="Irumping.IrumOrder.entity.OrderMenuId" relationship="CREATE">
+      <point x="-108.25" y="-141.5" />
+      <point x="1182.75" y="4511.0" />
+      <point x="1011.0" y="4511.0" />
+      <point x="1011.0" y="4171.0" />
+      <point x="1651.0" y="4171.0" />
+      <point x="1651.0" y="2931.0" />
+      <point x="2311.0" y="2931.0" />
+      <point x="2311.0" y="2911.0" />
+      <point x="2346.0" y="2911.0" />
+      <point x="55.0" y="165.5" />
+    </edge>
+    <edge source="Irumping.IrumOrder.entity.OrderEntity" target="Irumping.IrumOrder.entity.OrderMenuEntity" relationship="TO_MANY">
+      <point x="83.75" y="309.5" />
+      <point x="1374.75" y="3571.0" />
+      <point x="1386.5" y="3571.0" />
+      <point x="-64.5" y="-201.5" />
+    </edge>
+    <edge source="Irumping.IrumOrder.service.PayService" target="Irumping.IrumOrder.repository.PayRepository" relationship="TO_ONE">
+      <point x="122.5" y="-189.5" />
+      <point x="5473.5" y="2471.0" />
+      <point x="5471.0" y="2471.0" />
+      <point x="0.0" y="32.0" />
+    </edge>
+    <edge source="Irumping.IrumOrder.controller.PayController" target="Irumping.IrumOrder.service.PayService" relationship="TO_ONE">
+      <point x="91.0" y="-69.5" />
+      <point x="5742.0" y="3771.0" />
+      <point x="5611.0" y="3771.0" />
+      <point x="5611.0" y="2491.0" />
+      <point x="5473.5" y="2491.0" />
+      <point x="122.5" y="-189.5" />
+    </edge>
+    <edge source="Irumping.IrumOrder.dto.OrderRequestDto" target="Irumping.IrumOrder.dto.OrderMenuDto" relationship="TO_MANY">
+      <point x="0.0" y="-165.5" />
+      <point x="231.0" y="2391.0" />
+      <point x="931.0" y="2391.0" />
+      <point x="0.0" y="-129.5" />
+    </edge>
+    <edge source="Irumping.IrumOrder.service.CategoryService" target="Irumping.IrumOrder.repository.CategoryRepository" relationship="TO_ONE">
+      <point x="-68.0" y="-81.5" />
+      <point x="2123.0" y="2991.0" />
+      <point x="2631.0" y="2991.0" />
+      <point x="2631.0" y="2811.0" />
+      <point x="2839.0" y="2811.0" />
+      <point x="68.0" y="68.0" />
+    </edge>
+    <edge source="Irumping.IrumOrder.service.SalesService" target="Irumping.IrumOrder.repository.SalesRepository" relationship="TO_ONE">
+      <point x="0.0" y="-69.5" />
+      <point x="4071.0" y="4011.0" />
+      <point x="4051.0" y="4011.0" />
+      <point x="0.0" y="32.0" />
+    </edge>
+    <edge source="Irumping.IrumOrder.dto.OrdersCheckResponseDto" target="Irumping.IrumOrder.entity.OrderStatus" relationship="TO_ONE">
+      <point x="0.0" y="-249.5" />
+      <point x="591.0" y="3051.0" />
+      <point x="611.0" y="3051.0" />
+      <point x="611.0" y="2351.0" />
+      <point x="51.0" y="2351.0" />
+      <point x="0.0" y="153.5" />
+    </edge>
+    <edge source="Irumping.IrumOrder.entity.OrderMenuEntity" target="Irumping.IrumOrder.entity.OrderMenuId" relationship="TO_ONE">
+      <point x="-64.5" y="-201.5" />
+      <point x="1386.5" y="3611.0" />
+      <point x="1571.0" y="3611.0" />
+      <point x="1571.0" y="2951.0" />
+      <point x="2236.0" y="2951.0" />
+      <point x="-55.0" y="165.5" />
+    </edge>
+    <edge source="Irumping.IrumOrder.repository.JpaUserRepository" target="Irumping.IrumOrder.entity.UserEntity" relationship="CREATE">
+      <point x="72.0" y="-105.5" />
+      <point x="4723.0" y="3131.0" />
+      <point x="4111.0" y="3131.0" />
+      <point x="4111.0" y="1751.0" />
+      <point x="4885.5" y="1751.0" />
+      <point x="-45.5" y="201.5" />
+    </edge>
+    <edge source="Irumping.IrumOrder.entity.OrderMenuEntity" target="Irumping.IrumOrder.entity.OrderEntity" relationship="TO_ONE">
+      <point x="-64.5" y="-201.5" />
+      <point x="1386.5" y="3611.0" />
+      <point x="1571.0" y="3611.0" />
+      <point x="1571.0" y="3591.0" />
+      <point x="1371.0" y="3591.0" />
+      <point x="1371.0" y="3051.0" />
+      <point x="1374.75" y="3051.0" />
+      <point x="83.75" y="309.5" />
+    </edge>
+    <edge source="Irumping.IrumOrder.service.FcmService" target="Irumping.IrumOrder.entity.TokenEntity" relationship="CREATE">
+      <point x="58.75" y="-69.5" />
+      <point x="5369.75" y="2911.0" />
+      <point x="4971.0" y="2911.0" />
+      <point x="0.0" y="129.5" />
+    </edge>
+    <edge source="Irumping.IrumOrder.controller.RoutineController" target="Irumping.IrumOrder.service.RoutineService" relationship="TO_ONE">
+      <point x="0.0" y="-81.5" />
+      <point x="4491.0" y="3231.0" />
+      <point x="4200.25" y="3231.0" />
+      <point x="-90.75" y="-93.5" />
+    </edge>
+    <edge source="Irumping.IrumOrder.controller.MenuController" target="Irumping.IrumOrder.service.MenuService" relationship="TO_ONE">
+      <point x="0.0" y="-81.5" />
+      <point x="2991.0" y="4211.0" />
+      <point x="2891.0" y="4211.0" />
+      <point x="2891.0" y="3231.0" />
+      <point x="2633.0" y="3231.0" />
+      <point x="-78.0" y="-105.5" />
+    </edge>
+    <edge source="Irumping.IrumOrder.service.OrderService" target="Irumping.IrumOrder.dto.MenuDetailDto" relationship="CREATE">
+      <point x="-108.25" y="-141.5" />
+      <point x="1182.75" y="4511.0" />
+      <point x="1011.0" y="4511.0" />
+      <point x="1011.0" y="4171.0" />
+      <point x="771.0" y="4171.0" />
+      <point x="771.0" y="2371.0" />
+      <point x="817.0" y="2371.0" />
+      <point x="-54.0" y="201.5" />
+    </edge>
+    <edge source="Irumping.IrumOrder.listener.PickUpAlarmEventListener" target="Irumping.IrumOrder.service.PickUpAlarmService" relationship="TO_ONE">
+      <point x="0.0" y="-57.5" />
+      <point x="3231.0" y="4291.0" />
+      <point x="3371.0" y="4291.0" />
+      <point x="3371.0" y="3271.0" />
+      <point x="3811.0" y="3271.0" />
+      <point x="0.0" y="-81.5" />
+    </edge>
+    <edge source="Irumping.IrumOrder.event.PickUpAlarmEvent" target="Irumping.IrumOrder.entity.OrderEntity" relationship="TO_ONE">
+      <point x="0.0" y="-45.5" />
+      <point x="1171.0" y="3611.0" />
+      <point x="1371.0" y="3611.0" />
+      <point x="1371.0" y="3051.0" />
+      <point x="1374.75" y="3051.0" />
+      <point x="83.75" y="309.5" />
+    </edge>
+    <edge source="Irumping.IrumOrder.entity.OrderMenuEntity" target="Irumping.IrumOrder.entity.MenuEntity" relationship="TO_ONE">
+      <point x="-64.5" y="-201.5" />
+      <point x="1386.5" y="3611.0" />
+      <point x="1571.0" y="3611.0" />
+      <point x="1571.0" y="2951.0" />
+      <point x="2611.0" y="2951.0" />
+      <point x="2611.0" y="2491.0" />
+      <point x="3071.0" y="2491.0" />
+      <point x="0.0" y="-189.5" />
+    </edge>
+    <edge source="Irumping.IrumOrder.service.PayService" target="Irumping.IrumOrder.exception.CustomExceptions.PayErrorException" relationship="CREATE">
+      <point x="-122.5" y="-189.5" />
+      <point x="5228.5" y="2491.0" />
+      <point x="5231.0" y="2491.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="Irumping.IrumOrder.service.MenuService" target="Irumping.IrumOrder.repository.MenuRepository" relationship="TO_ONE">
+      <point x="-78.0" y="-105.5" />
+      <point x="2633.0" y="3251.0" />
+      <point x="2631.0" y="3251.0" />
+      <point x="2631.0" y="3211.0" />
+      <point x="3371.0" y="3211.0" />
+      <point x="3371.0" y="2151.0" />
+      <point x="3362.75" y="2151.0" />
+      <point x="71.75" y="80.0" />
+    </edge>
+    <edge source="Irumping.IrumOrder.service.PickUpAlarmService" target="Irumping.IrumOrder.repository.TokenRepository" relationship="TO_ONE">
+      <point x="0.0" y="-81.5" />
+      <point x="3811.0" y="3231.0" />
+      <point x="3691.0" y="3231.0" />
+      <point x="0.0" y="32.0" />
+    </edge>
+    <edge source="Irumping.IrumOrder.exception.GlobalExceptionHandler" target="Irumping.IrumOrder.exception.ApiError" relationship="CREATE">
+      <point x="0.0" y="-117.5" />
+      <point x="0.0" y="129.5" />
+    </edge>
+    <edge source="Irumping.IrumOrder.controller.AuthController" target="Irumping.IrumOrder.service.AuthService" relationship="TO_ONE">
+      <point x="99.0" y="-117.5" />
+      <point x="5050.0" y="4231.0" />
+      <point x="5171.0" y="4231.0" />
+      <point x="5171.0" y="3671.0" />
+      <point x="5011.0" y="3671.0" />
+      <point x="0.0" y="-165.5" />
+    </edge>
+    <edge source="Irumping.IrumOrder.service.MenuService" target="Irumping.IrumOrder.repository.CategoryRepository" relationship="TO_ONE">
+      <point x="-78.0" y="-105.5" />
+      <point x="2633.0" y="3251.0" />
+      <point x="2631.0" y="3251.0" />
+      <point x="2631.0" y="2811.0" />
+      <point x="2839.0" y="2811.0" />
+      <point x="68.0" y="68.0" />
+    </edge>
+    <edge source="Irumping.IrumOrder.repository.JpaRoutineRepository" target="Irumping.IrumOrder.repository.RoutineRepository" relationship="REALIZATION">
+      <point x="0.0" y="-93.5" />
+      <point x="3211.0" y="3251.0" />
+      <point x="3460.25" y="3251.0" />
+      <point x="-70.75" y="80.0" />
+    </edge>
+    <edge source="Irumping.IrumOrder.repository.JpaMenuDetailRepository" target="Irumping.IrumOrder.repository.MenuDetailRepository" relationship="REALIZATION">
+      <point x="0.0" y="-45.5" />
+      <point x="831.0" y="4611.0" />
+      <point x="840.5" y="4611.0" />
+      <point x="-50.5" y="32.0" />
+    </edge>
+    <edge source="Irumping.IrumOrder.dto.OrderResponseDto" target="Irumping.IrumOrder.dto.OrderMenuDto" relationship="TO_MANY">
+      <point x="0.0" y="-273.5" />
+      <point x="51.0" y="3211.0" />
+      <point x="231.0" y="3211.0" />
+      <point x="231.0" y="2391.0" />
+      <point x="931.0" y="2391.0" />
+      <point x="0.0" y="-129.5" />
+    </edge>
+    <edge source="Irumping.IrumOrder.controller.OrderMgmtController" target="Irumping.IrumOrder.service.OrderMgmtService" relationship="TO_ONE">
+      <point x="0.0" y="-57.5" />
+      <point x="1971.0" y="4571.0" />
+      <point x="2201.0" y="4571.0" />
+      <point x="70.0" y="-81.5" />
+    </edge>
+    <edge source="Irumping.IrumOrder.controller.SalesController" target="Irumping.IrumOrder.dto.SalesResponse" relationship="CREATE">
+      <point x="108.5" y="-57.5" />
+      <point x="4119.5" y="4911.0" />
+      <point x="5171.0" y="4911.0" />
+      <point x="0.0" y="45.5" />
+    </edge>
+    <edge source="Irumping.IrumOrder.service.OrderMgmtService" target="Irumping.IrumOrder.event.PickUpAlarmEvent" relationship="CREATE">
+      <point x="-70.0" y="-81.5" />
+      <point x="2061.0" y="4191.0" />
+      <point x="1171.0" y="4191.0" />
+      <point x="0.0" y="45.5" />
+    </edge>
+    <edge source="Irumping.IrumOrder.service.RoutineAlarmService" target="Irumping.IrumOrder.repository.UserRepository" relationship="TO_ONE">
+      <point x="0.0" y="-117.5" />
+      <point x="3611.0" y="3291.0" />
+      <point x="3651.0" y="3291.0" />
+      <point x="3651.0" y="3111.0" />
+      <point x="4031.0" y="3111.0" />
+      <point x="4031.0" y="2811.0" />
+      <point x="4023.0" y="2811.0" />
+      <point x="72.0" y="80.0" />
+    </edge>
+    <edge source="Irumping.IrumOrder.scheduler.RoutineAlarmScheduler" target="Irumping.IrumOrder.service.RoutineAlarmService" relationship="TO_ONE">
+      <point x="0.0" y="-57.5" />
+      <point x="3411.0" y="3731.0" />
+      <point x="3611.0" y="3731.0" />
+      <point x="0.0" y="-117.5" />
+    </edge>
+    <edge source="Irumping.IrumOrder.service.RoutineService" target="Irumping.IrumOrder.exception.CustomExceptions.UserIdMismatchException" relationship="CREATE">
+      <point x="90.75" y="-93.5" />
+      <point x="4381.75" y="3271.0" />
+      <point x="4271.0" y="3271.0" />
+      <point x="4271.0" y="3171.0" />
+      <point x="4711.0" y="3171.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="Irumping.IrumOrder.controller.OrderController" target="Irumping.IrumOrder.service.OrderService" relationship="TO_ONE">
+      <point x="0.0" y="-57.5" />
+      <point x="1051.0" y="4211.0" />
+      <point x="1399.25" y="4211.0" />
+      <point x="108.25" y="-141.5" />
+    </edge>
+    <edge source="Irumping.IrumOrder.service.FcmService" target="Irumping.IrumOrder.repository.UserRepository" relationship="TO_ONE">
+      <point x="-58.75" y="-69.5" />
+      <point x="5252.25" y="3211.0" />
+      <point x="4031.0" y="3211.0" />
+      <point x="4031.0" y="2811.0" />
+      <point x="4023.0" y="2811.0" />
+      <point x="72.0" y="80.0" />
+    </edge>
+    <edge source="Irumping.IrumOrder.controller.FcmController" target="Irumping.IrumOrder.service.FcmService" relationship="TO_ONE">
+      <point x="0.0" y="-45.5" />
+      <point x="5451.0" y="3771.0" />
+      <point x="5252.25" y="3771.0" />
+      <point x="-58.75" y="-69.5" />
+    </edge>
+    <edge source="Irumping.IrumOrder.service.RoutineService" target="Irumping.IrumOrder.repository.MenuRepository" relationship="TO_ONE">
+      <point x="-90.75" y="-93.5" />
+      <point x="4200.25" y="3251.0" />
+      <point x="3611.0" y="3251.0" />
+      <point x="3611.0" y="3231.0" />
+      <point x="3371.0" y="3231.0" />
+      <point x="3371.0" y="2151.0" />
+      <point x="3362.75" y="2151.0" />
+      <point x="71.75" y="80.0" />
+    </edge>
+    <edge source="Irumping.IrumOrder.repository.JpaUserRepository" target="Irumping.IrumOrder.repository.UserRepository" relationship="REALIZATION">
+      <point x="-72.0" y="-105.5" />
+      <point x="4579.0" y="3151.0" />
+      <point x="3879.0" y="3151.0" />
+      <point x="-72.0" y="80.0" />
+    </edge>
+    <edge source="Irumping.IrumOrder.controller.PayController" target="Irumping.IrumOrder.exception.CustomExceptions.InvalidInputException" relationship="CREATE">
+      <point x="-91.0" y="-69.5" />
+      <point x="5560.0" y="3331.0" />
+      <point x="4931.0" y="3331.0" />
+      <point x="4931.0" y="2751.0" />
+      <point x="4851.0" y="2751.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="Irumping.IrumOrder.service.OrderService" target="Irumping.IrumOrder.dto.OrderResponseDto" relationship="CREATE">
+      <point x="-108.25" y="-141.5" />
+      <point x="1182.75" y="4511.0" />
+      <point x="1011.0" y="4511.0" />
+      <point x="1011.0" y="4171.0" />
+      <point x="51.0" y="4171.0" />
+      <point x="0.0" y="273.5" />
+    </edge>
+    <edge source="Irumping.IrumOrder.service.MenuService" target="Irumping.IrumOrder.entity.MenuEntity" relationship="CREATE">
+      <point x="78.0" y="-105.5" />
+      <point x="2789.0" y="3191.0" />
+      <point x="3071.0" y="3191.0" />
+      <point x="0.0" y="189.5" />
+    </edge>
+    <edge source="Irumping.IrumOrder.service.RoutineAlarmService" target="Irumping.IrumOrder.repository.TokenRepository" relationship="TO_ONE">
+      <point x="0.0" y="-117.5" />
+      <point x="3611.0" y="3291.0" />
+      <point x="3651.0" y="3291.0" />
+      <point x="3651.0" y="2811.0" />
+      <point x="3691.0" y="2811.0" />
+      <point x="0.0" y="32.0" />
+    </edge>
+    <edge source="Irumping.IrumOrder.dto.RoutineDto" target="Irumping.IrumOrder.entity.RoutineDay" relationship="TO_MANY">
+      <point x="0.0" y="-249.5" />
+      <point x="2451.0" y="1771.0" />
+      <point x="3131.0" y="1771.0" />
+      <point x="0.0" y="129.5" />
+    </edge>
+    <edge source="Irumping.IrumOrder.service.OrderService" target="Irumping.IrumOrder.dto.OrderDto" relationship="CREATE">
+      <point x="-108.25" y="-141.5" />
+      <point x="1182.75" y="4511.0" />
+      <point x="1011.0" y="4511.0" />
+      <point x="1011.0" y="4171.0" />
+      <point x="411.0" y="4171.0" />
+      <point x="411.0" y="3851.0" />
+      <point x="417.0" y="3851.0" />
+      <point x="-54.0" y="309.5" />
+    </edge>
+    <edge source="Irumping.IrumOrder.repository.JpaMenuRepository" target="Irumping.IrumOrder.repository.MenuRepository" relationship="REALIZATION">
+      <point x="0.0" y="-93.5" />
+      <point x="3051.0" y="3231.0" />
+      <point x="3219.25" y="3231.0" />
+      <point x="-71.75" y="80.0" />
+    </edge>
+    <edge source="Irumping.IrumOrder.service.FcmService" target="Irumping.IrumOrder.repository.TokenRepository" relationship="TO_ONE">
+      <point x="-58.75" y="-69.5" />
+      <point x="5252.25" y="3211.0" />
+      <point x="4031.0" y="3211.0" />
+      <point x="4031.0" y="3191.0" />
+      <point x="3691.0" y="3191.0" />
+      <point x="0.0" y="32.0" />
+    </edge>
+    <edge source="Irumping.IrumOrder.service.PickUpAlarmService" target="Irumping.IrumOrder.repository.UserRepository" relationship="TO_ONE">
+      <point x="0.0" y="-81.5" />
+      <point x="3811.0" y="3171.0" />
+      <point x="4031.0" y="3171.0" />
+      <point x="4031.0" y="2811.0" />
+      <point x="4023.0" y="2811.0" />
+      <point x="72.0" y="80.0" />
+    </edge>
+    <edge source="Irumping.IrumOrder.dto.OrderMenuDto" target="Irumping.IrumOrder.dto.MenuDetailDto" relationship="TO_ONE">
+      <point x="0.0" y="-129.5" />
+      <point x="931.0" y="2371.0" />
+      <point x="925.0" y="2371.0" />
+      <point x="54.0" y="201.5" />
+    </edge>
+    <edge source="Irumping.IrumOrder.service.OrderService" target="Irumping.IrumOrder.entity.MenuDetailEntity" relationship="CREATE">
+      <point x="-108.25" y="-141.5" />
+      <point x="1182.75" y="4511.0" />
+      <point x="1011.0" y="4511.0" />
+      <point x="1011.0" y="4171.0" />
+      <point x="1611.0" y="4171.0" />
+      <point x="1611.0" y="3571.0" />
+      <point x="1477.0" y="3571.0" />
+      <point x="-54.0" y="261.5" />
+    </edge>
+    <edge source="Irumping.IrumOrder.service.OrderService" target="Irumping.IrumOrder.repository.OrderMenuRepository" relationship="TO_ONE">
+      <point x="108.25" y="-141.5" />
+      <point x="1399.25" y="4231.0" />
+      <point x="1751.0" y="4231.0" />
+      <point x="1751.0" y="4091.0" />
+      <point x="1748.25" y="4091.0" />
+      <point x="-62.75" y="32.0" />
+    </edge>
+    <edge source="Irumping.IrumOrder.service.RoutineService" target="Irumping.IrumOrder.exception.CustomExceptions.InvalidInputException" relationship="CREATE">
+      <point x="90.75" y="-93.5" />
+      <point x="4381.75" y="3271.0" />
+      <point x="4271.0" y="3271.0" />
+      <point x="4271.0" y="3191.0" />
+      <point x="4851.0" y="3191.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="Irumping.IrumOrder.dto.RoutineResponseDto" target="Irumping.IrumOrder.entity.RoutineDay" relationship="TO_MANY">
+      <point x="0.0" y="-357.5" />
+      <point x="4271.0" y="1771.0" />
+      <point x="3131.0" y="1771.0" />
+      <point x="0.0" y="129.5" />
+    </edge>
+    <edge source="Irumping.IrumOrder.service.CategoryService" target="Irumping.IrumOrder.entity.CategoryEntity" relationship="CREATE">
+      <point x="68.0" y="-81.5" />
+      <point x="2259.0" y="3011.0" />
+      <point x="2931.0" y="3011.0" />
+      <point x="2931.0" y="1751.0" />
+      <point x="2930.0" y="1751.0" />
+      <point x="-41.0" y="93.5" />
+    </edge>
+    <edge source="Irumping.IrumOrder.controller.AuthController" target="Irumping.IrumOrder.validator.UserValidator" relationship="CREATE">
+      <point x="-99.0" y="-117.5" />
+      <point x="4852.0" y="4231.0" />
+      <point x="4851.0" y="4231.0" />
+      <point x="0.0" y="44.0" />
+    </edge>
+    <edge source="Irumping.IrumOrder.controller.PayController" target="Irumping.IrumOrder.exception.CustomExceptions.PayErrorException" relationship="CREATE">
+      <point x="-91.0" y="-69.5" />
+      <point x="5560.0" y="3331.0" />
+      <point x="4931.0" y="3331.0" />
+      <point x="4931.0" y="3191.0" />
+      <point x="5091.0" y="3191.0" />
+      <point x="5091.0" y="2491.0" />
+      <point x="5231.0" y="2491.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="Irumping.IrumOrder.repository.JpaOrderMenuRepository" target="Irumping.IrumOrder.repository.OrderMenuRepository" relationship="REALIZATION">
+      <point x="0.0" y="-45.5" />
+      <point x="1811.0" y="4291.0" />
+      <point x="1873.75" y="4291.0" />
+      <point x="62.75" y="32.0" />
+    </edge>
+    <edge source="Irumping.IrumOrder.entity.TokenEntity" target="Irumping.IrumOrder.entity.UserEntity" relationship="TO_ONE">
+      <point x="0.0" y="-129.5" />
+      <point x="4971.0" y="1891.0" />
+      <point x="4976.5" y="1891.0" />
+      <point x="45.5" y="201.5" />
+    </edge>
+    <edge source="Irumping.IrumOrder.controller.PayController" target="Irumping.IrumOrder.exception.CustomExceptions.UserIdMismatchException" relationship="CREATE">
+      <point x="-91.0" y="-69.5" />
+      <point x="5560.0" y="3331.0" />
+      <point x="4931.0" y="3331.0" />
+      <point x="4931.0" y="2771.0" />
+      <point x="4711.0" y="2771.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="Irumping.IrumOrder.repository.JpaOrderRepository" target="Irumping.IrumOrder.repository.OrderRepository" relationship="REALIZATION">
+      <point x="0.0" y="-81.5" />
+      <point x="80.0" y="68.0" />
+    </edge>
+    <edge source="Irumping.IrumOrder.entity.OrderEntity" target="Irumping.IrumOrder.entity.OrderStatus" relationship="TO_ONE">
+      <point x="83.75" y="309.5" />
+      <point x="1374.75" y="3071.0" />
+      <point x="1091.0" y="3071.0" />
+      <point x="1091.0" y="2351.0" />
+      <point x="51.0" y="2351.0" />
+      <point x="0.0" y="153.5" />
+    </edge>
+    <edge source="Irumping.IrumOrder.service.AuthService" target="Irumping.IrumOrder.repository.UserRepository" relationship="TO_ONE">
+      <point x="0.0" y="-165.5" />
+      <point x="5011.0" y="3091.0" />
+      <point x="4031.0" y="3091.0" />
+      <point x="4031.0" y="2811.0" />
+      <point x="4023.0" y="2811.0" />
+      <point x="72.0" y="80.0" />
+    </edge>
+    <edge source="Irumping.IrumOrder.dto.OrdersCheckResponseDto" target="Irumping.IrumOrder.dto.OrderDto" relationship="TO_MANY">
+      <point x="0.0" y="-249.5" />
+      <point x="591.0" y="3051.0" />
+      <point x="525.0" y="3051.0" />
+      <point x="54.0" y="309.5" />
+    </edge>
+    <edge source="Irumping.IrumOrder.service.RoutineAlarmService" target="Irumping.IrumOrder.repository.RoutineRepository" relationship="TO_ONE">
+      <point x="0.0" y="-117.5" />
+      <point x="3611.0" y="3291.0" />
+      <point x="3651.0" y="3291.0" />
+      <point x="3651.0" y="3211.0" />
+      <point x="3611.0" y="3211.0" />
+      <point x="3611.0" y="2811.0" />
+      <point x="3601.75" y="2811.0" />
+      <point x="70.75" y="80.0" />
+    </edge>
+    <edge source="Irumping.IrumOrder.service.OrderService" target="Irumping.IrumOrder.repository.OrderRepository" relationship="TO_ONE">
+      <point x="108.25" y="-141.5" />
+      <point x="1399.25" y="4231.0" />
+      <point x="1751.0" y="4231.0" />
+      <point x="1751.0" y="4111.0" />
+      <point x="2451.0" y="4111.0" />
+      <point x="-80.0" y="68.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Compact" zoom="0.06051299245599332" showDependencies="true" x="2754.783133865246" y="2233.9593860815576" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
