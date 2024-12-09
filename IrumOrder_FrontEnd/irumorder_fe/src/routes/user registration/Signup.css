@@ -103,11 +103,6 @@
   cursor: not-allowed;
 }
 
-.send-code-button:hover:not(:disabled),
-.verify-code-button:hover:not(:disabled) {
-  background-color: #ff9900;
-}
-
 .verification-code-section {
   margin-top: 10px;
   display: flex;
@@ -141,7 +136,7 @@
 
 
 .id-check-button {
-  background-color: #FFE3B2; /* Yellow background for the button */
+  background-color: #Ffcc73; /* Yellow background for the button */
   color: white;
   border: none;
   padding: 10px;
@@ -164,10 +159,6 @@
   border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s;
-}
-
-.signup-button:hover {
-  background-color: #ff9900; /* Darker yellow on hover */
 }
 
 .signup-button:disabled {
@@ -207,4 +198,14 @@
   width: 100%; /* 필요한 크기에 맞게 변경 */
   max-width: 400px; /* 최대 크기 제한 */
   cursor: pointer;
+}
+.toggle-visibility-button{
+  background-color: #c8c8c8;
+  color: white;
+  border: none;
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }

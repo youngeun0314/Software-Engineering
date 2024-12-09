@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './Signup.css';
-import { Link } from 'react-router-dom';
 
 function Signup() {
     const [id, setId] = useState('');
@@ -14,7 +13,16 @@ function Signup() {
     const [verificationCode, setVerificationCode] = useState('');
     const [isCodeSent, setIsCodeSent] = useState(false);
     const [isEmailVerified, setIsEmailVerified] = useState(false);
+    const [isPwVisible, setIsPwVisible] = useState(false); // 비밀번호 가시성 상태 추가
+    const [isPwConfirmVisible, setIsPwConfirmVisible] = useState(false); // 비밀번호
 
+    const handlePwVisibilityToggle = () => {
+        setIsPwVisible(!isPwVisible);
+    };
+
+    const handlePwConfirmVisibilityToggle = () => {
+        setIsPwConfirmVisible(!isPwConfirmVisible);
+    };
 
     const handleIdChange = (e) => {
         setId(e.target.value);
@@ -80,6 +88,7 @@ function Signup() {
             }
         } catch (error) {
             console.error('아이디 중복 확인 오류:1', error);
+            alert('사용할 수 없는 아이디 입니다.');
         }
     };
 
@@ -141,7 +150,7 @@ function Signup() {
     const handleSubmit = async (event) => {
         event.preventDefault();
         if (!isIdValid) {
-            alert('아이디를 확인해 주십시오.');
+            alert('아이디 중복 확인을 해주십시오.');
             return;
         } 
         if (pw !== pwConfirm) {
@@ -185,7 +194,7 @@ function Signup() {
                 navigate('/'); // 회원가입 성공 후 로그인 페이지로 이동
             } else {
                 console.error('회원가입 실패:', response.statusText);
-                alert('회원가입에 실패했습니다. 다시 시도해주세요.');
+                alert('회원가입에 실패했습니다. 중복된 이메일을 사용했습니다.');
             }
         } catch (error) {
             console.error('서버와의 통신 오류:', error);
@@ -280,27 +289,40 @@ function Signup() {
 
                     <label htmlFor="pw">비밀번호</label>
                     <input
-                        type="password"
+                        type={isPwVisible ? "text" : "password"}
                         id="pw"
                         placeholder="8자 이상 20자 이하 영문, 숫자, 특수문자 조합"
                         value={pw}
-                        onChange={handlePwChange}
+                        onChange={(e) => setPw(e.target.value)}
                     />
-
+                    <button
+                            type="button"
+                            className="toggle-visibility-button"
+                            onClick={handlePwVisibilityToggle}
+                        >
+                            {isPwVisible ? "숨기기" : "보기"}
+                        </button>
                     <label htmlFor="pwConfirm">비밀번호 확인</label>
                     <input
-                        type="password"
+                        type={isPwConfirmVisible ? "text" : "password"}
                         id="pwConfirm"
                         placeholder="비밀번호를 한 번 더 입력해주세요."
                         value={pwConfirm}
-                        onChange={handlePwConfirmChange}
-                    />
+                        onChange={(e) => setPwConfirm(e.target.value)}
+                        />
+                        <button
+                            type="button"
+                            className="toggle-visibility-button"
+                            onClick={handlePwConfirmVisibilityToggle}
+                        >
+                            {isPwConfirmVisible ? "숨기기" : "보기"}
+                        </button>
                     <button type="submit" className="next-button">
                         <img
                             src={`${process.env.PUBLIC_URL}/next_button.png`}
                             alt="next"
                             className="next-image"
-                        />
+                        ></img>
                     </button>
                 </form>
             </div>
