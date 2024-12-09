@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
-import CartView from './components/CartView/CartView';
-import CheckView from './components/CheckView/CheckView';
+import CartView from "./components/CartView/CartView";
+import CheckView from "./components/CheckView/CheckView";
 import MenuView from "./components/MenuView/MenuView";
 import OptionView from "./components/OptionView/OptionView";
-import PayView from './components/PayView/PayView';
+import PayView from "./components/PayView/PayView";
 import StoreSelection from "./components/StoreSelection/StoreSelection";
 import { getMenuIn, getRoutineState, setMenuIn } from "./context/OrderOrRoutine";
 import { RoutineProvider } from "./context/RoutineContext";
 import { getUserId } from "./context/userStorage";
 import Main from "./routes/Main";
-import Paymentcomplete from './routes/Paymentcomplete';
+import Paymentcomplete from "./routes/Paymentcomplete";
 import PickupReserv from "./routes/payment/PickupReserv";
 import RoutineDetail from "./routes/routine/RoutineDetail";
 import RoutineListWrapper from "./routes/routine/RoutineList";
@@ -18,27 +18,15 @@ import Login from "./routes/user management/Login";
 import Signup from "./routes/user registration/Signup";
 import SignupComplete from "./routes/user registration/SignupComplete";
 import SignupStart from "./routes/user registration/SignupStart";
-import PickupReserv from "./routes/payment/PickupReserv";
-import Paymentcomplete from './routes/Paymentcomplete';
-import { getUserId } from "./context/userStorage";
-import { setMenuIn, getMenuIn} from "./context/OrderOrRoutine";
-import { getRoutineState } from "./context/OrderOrRoutine";
 import requestPermission from "./firebase/requestPermission";
 
 const App = () => {
   const nav = useNavigate();
 
-  // `getUserId`에서 초기 값을 가져오고, 상태로 관리
+  // 상태 관리
   const [userId, setUserId] = useState(null);
-
-  useEffect(() => {
-    const fetchedUserId = getUserId();
-    setUserId(fetchedUserId);
-    console.log("Fetched userId:", fetchedUserId);
-  }, []);
-
   const [options, setOptions] = useState({
-    userId: null, // 초기값 null로 변경
+    userId: null,
     Price: 0,
     menuId: null,
     name: "",
@@ -51,18 +39,69 @@ const App = () => {
       light: false,
     },
   });
+  const [selectedStore, setSelectedStore] = useState(null);
 
+  // 유저 ID 가져오기
+  useEffect(() => {
+    const fetchedUserId = getUserId();
+    setUserId(fetchedUserId);
+    console.log("Fetched userId:", fetchedUserId);
+  }, []);
+
+  // 옵션 업데이트
   useEffect(() => {
     if (userId !== null) {
       setOptions((prevOptions) => ({
         ...prevOptions,
-        userId: userId, // `userId` 상태를 옵션에 반영
+        userId: userId,
       }));
     }
   }, [userId]);
 
-  const [selectedStore, setSelectedStore] = useState(null);
+  // FCM 토큰 가져오기
+  useEffect(() => {
+    const fetchFCMToken = async () => {
+      try {
+        const token = await requestPermission();
+        if (token) {
+          console.log("FCM Token:", token);
+          await sendTokenToServer(token);
+        }
+      } catch (error) {
+        console.error("FCM 처리 중 오류 발생:", error);
+      }
+    };
 
+    fetchFCMToken();
+  }, []);
+
+  // selectedStore 상태 확인
+  useEffect(() => {
+    console.log("현재 선택된 Store:", selectedStore);
+  }, [selectedStore]);
+
+  // FCM 토큰 서버 전송 함수
+  const sendTokenToServer = async (token) => {
+    try {
+      const response = await fetch("http://localhost:3000/api/save-token", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ token }),
+      });
+
+      if (response.ok) {
+        console.log("FCM 토큰이 서버에 저장되었습니다.");
+      } else {
+        console.error("FCM 토큰 저장 실패:", response.statusText);
+      }
+    } catch (error) {
+      console.error("FCM 토큰 전송 중 오류 발생:", error);
+    }
+  };
+
+  // 메뉴 시작 핸들러
   const handleStartMenu = (store) => {
     if (!store) {
       console.error("Error: Store 값이 유효하지 않습니다.");
@@ -73,17 +112,16 @@ const App = () => {
     nav(`/store/${store}`);
   };
 
+  // 옵션 핸들러
   const handleOption = (menuId) => {
     if (!selectedStore) {
       console.error("Error: Store is not selected.");
       return;
     }
-
     if (!menuId) {
       console.error("Error: Menu ID is undefined.");
       return;
     }
-
     setOptions((prevOptions) => ({
       ...prevOptions,
       userId: userId,
@@ -92,6 +130,7 @@ const App = () => {
     nav(`/store/${selectedStore}/option/${menuId}`);
   };
 
+  // 장바구니 시작 핸들러
   const handleStartCart = (options) => {
     if (!selectedStore) {
       console.error("Error: Store is not selected.");
@@ -131,55 +170,6 @@ const App = () => {
     });
   };
 
-  useEffect(() => {
-    console.log("Updated userId in options:", options.userId);
-  }, [options.userId]);
-
-///
-useEffect(() => {
-  const fetchFCMToken = async () => {
-    try {
-      // 푸시 알림 권한 요청 및 FCM 토큰 가져오기
-      const token = await requestPermission();
-      if (token) {
-        console.log("FCM Token:", token);
-        // 서버에 FCM 토큰 전송
-        await sendTokenToServer(token);
-      }
-    } catch (error) {
-      console.error("FCM 처리 중 오류 발생:", error);
-    }
-  };
-
-  useEffect(() => {
-    console.log("현재 선택된 Store:", selectedStore);
-  }, [selectedStore]);
-
-  fetchFCMToken();
-}, []);
-
-// FCM 토큰 서버 전송 함수
-const sendTokenToServer = async (token) => {
-  try {
-    const response = await fetch("http://localhost:3000/api/save-token", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ token }),
-    });
-
-    if (response.ok) {
-      console.log("FCM 토큰이 서버에 저장되었습니다.");
-    } else {
-      console.error("FCM 토큰 저장 실패:", response.statusText);
-    }
-  } catch (error) {
-    console.error("FCM 토큰 전송 중 오류 발생:", error);
-  }
-};
-
-////
   return (
     <RoutineProvider>
       <Routes>
@@ -191,10 +181,6 @@ const sendTokenToServer = async (token) => {
         <Route path="/routinelist" element={<RoutineListWrapper />} />
         <Route
           path="/routine/:id"
-          element={<RoutineDetail setSelectedStore={setSelectedStore} />}
-        />
-        <Route
-          path="/routine/new"
           element={<RoutineDetail setSelectedStore={setSelectedStore} />}
         />
         <Route
@@ -224,7 +210,13 @@ const sendTokenToServer = async (token) => {
         />
         <Route
           path="/store/:store/cart/:userId"
-          element={<CartView onSelectedStore={selectedStore} options={options} userId={getUserId()}/>}
+          element={
+            <CartView
+              onSelectedStore={selectedStore}
+              options={options}
+              userId={getUserId()}
+            />
+          }
         />
         <Route path="/timeReservation" element={<PickupReserv />} />
         <Route path="/pay" element={<PayView onSelectedStore={selectedStore} />} />
