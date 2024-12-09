@@ -117,11 +117,11 @@ public class OrderService {
      */
     public OrderResponseDto convertToResponseDto(OrderEntity orderEntity) {
         OrderResponseDto responseDto = new OrderResponseDto();
-
         responseDto.setOrderId(orderEntity.getOrderId());
         responseDto.setUserId(orderEntity.getUserId());
         responseDto.setTotalPrice(orderEntity.getTotalPrice());
         responseDto.setOrderStatus(OrderStatus.valueOf(orderEntity.getOrderStatus().toString()));
+        responseDto.setPickUp(orderEntity.getPickUp());
         responseDto.setPayment(orderEntity.getPayment());
 
         // OrderMenuDto 리스트로 변환
@@ -150,8 +150,8 @@ public class OrderService {
         menuDetailDto.setAddVanilla(orderMenuEntity.getMenuDetail().isAddVanilla());
         menuDetailDto.setAddHazelnut(orderMenuEntity.getMenuDetail().isAddHazelnut());
         menuDetailDto.setLight(orderMenuEntity.getMenuDetail().isLight());
-        orderMenuDto.setMenuOptions(menuDetailDto);
 
+        orderMenuDto.setMenuOptions(menuDetailDto);
         return orderMenuDto;
     }
 

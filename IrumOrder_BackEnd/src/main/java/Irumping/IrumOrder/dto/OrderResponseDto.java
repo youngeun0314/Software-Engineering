@@ -14,13 +14,13 @@ import java.util.List;
 public class OrderResponseDto {
 
     @Schema(example="1")
-    private int orderId; // 주문 번호
+    private Integer orderId; // 주문 번호
 
     @Schema(example="1")
-    private int userId; // 주문한 유저의 ID
+    private Integer userId; // 주문한 유저의 ID
 
     @Schema(example="3000")
-    private int totalPrice; // 주문 총 가격
+    private Integer totalPrice; // 주문 총 가격
 
     @Schema(example="WAITING")
     private OrderStatus orderStatus; // 주문 상태

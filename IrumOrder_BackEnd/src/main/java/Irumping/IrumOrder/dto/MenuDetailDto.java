@@ -3,9 +3,11 @@ package Irumping.IrumOrder.dto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 @Getter
 @Setter
+@Slf4j
 public class MenuDetailDto {
 
     @Schema(example="TakeOut")
@@ -22,4 +24,5 @@ public class MenuDetailDto {
 
     @Schema(example="true")
     private Boolean light;          // 라이트 옵션 여부
+
 }
