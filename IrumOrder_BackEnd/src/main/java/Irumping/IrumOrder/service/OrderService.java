@@ -164,9 +164,12 @@ public class OrderService {
     public List<OrdersCheckResponseDto> getOrdersByUserId(Integer userId) {
         // 사용자의 주문 목록 조회
         List<OrderEntity> orders = orderRepository.findByUserId(userId);
+        List<OrderEntity> payOrders = orders.stream()
+                .filter(order -> order.getPayment() != null)
+                .collect(Collectors.toList());
 
         // 결과 변환
-        return orders.stream().map(order -> {
+        return payOrders.stream().map(order -> {
             // OrderMenuEntity에서 데이터를 추출하여 OrderDto로 변환
             List<OrderDto> orderMenuOptions = order.getOrderMenuOptions().stream().map(orderMenu -> {
                 MenuDetailEntity menuDetail = orderMenu.getMenuDetail();
