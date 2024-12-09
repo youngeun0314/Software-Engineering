@@ -17,7 +17,7 @@ const CheckView = ({ userId }) => {
       setIsLoading(true);
       setError(null);
 
-      const response = await fetch(`/orders/getRecentOrders?userId=${userId}`, {
+      const response = await fetch(`/orders/1/orderCheck?userId=1`, {
         method: "GET",
       });
 

@@ -24,19 +24,29 @@ const Pay = ({ onSelectedStore }) => {
   // Fetch menu details for each menuId
   const fetchMenuDetails = async (menuOptions) => {
     try {
-      const menuDetailsPromises = menuOptions.map(async (option) => {
+      const uniqueMenuOptions = menuOptions.map((option, index) => ({
+        ...option,
+        uniqueKey: `${option.menuId}-${index}`,
+      }));
+  
+      const menuDetailsPromises = uniqueMenuOptions.map(async (option) => {
         const response = await fetch(`/menu/getOneMenu?menuId=${option.menuId}`, {
           method: "GET",
         });
-
+  
         if (!response.ok) {
           throw new Error(`메뉴 ID ${option.menuId} 정보를 가져오는데 실패했습니다.`);
         }
-
-        const menu = await response.json(); // Assuming response is { menuId, name }
-        return { menuId: option.menuId, name: menu.name, quantity: option.quantity || 1 };
+  
+        const menu = await response.json();
+        return {
+          menuId: option.menuId,
+          name: menu.name,
+          quantity: option.quantity || 1,
+          uniqueKey: option.uniqueKey,
+        };
       });
-
+  
       const resolvedMenuDetails = await Promise.all(menuDetailsPromises);
       setMenuDetails(resolvedMenuDetails);
     } catch (error) {
@@ -44,6 +54,7 @@ const Pay = ({ onSelectedStore }) => {
       alert("메뉴 정보를 가져오는 중 문제가 발생했습니다. 다시 시도해주세요.");
     }
   };
+  
 
   const handlePayment = async () => {
     if (!userId || !totalPrice || orderMenuOptions === undefined) {
@@ -51,16 +62,24 @@ const Pay = ({ onSelectedStore }) => {
       return;
     }
 
+    const sanitizedOrderMenuOptions = orderMenuOptions.map(({ menuId, quantity, menuOptions }) => ({
+      menuId,
+      quantity,
+      menuOptions,
+    }));
+  
     const payload = {
       userId,
       totalPrice,
-      pickUp: adjustedPickUp, // 카트뷰에서 온 경우 null로 저장
-      orderMenuOptions,
+      pickUp: adjustedPickUp,
+      orderMenuOptions: sanitizedOrderMenuOptions, // clean된 데이터 사용
     };
+
+    console.log("백엔드로 보내는 payload:", payload);
 
     try {
       setIsLoading(true);
-      const response = await fetch("/orders", {
+      const response = await fetch(`/orders/${userId}/order`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -69,8 +88,11 @@ const Pay = ({ onSelectedStore }) => {
       });
 
       if (!response.ok) {
+        const errorMessage = await response.text(); // 서버 오류 메시지 출력
+        console.error("서버 오류 메시지:", errorMessage);
         throw new Error("결제에 실패했습니다. 다시 시도해주세요.");
       }
+      
 
       const data = await response.json();
       alert("결제가 완료되었습니다!");
@@ -96,20 +118,25 @@ const Pay = ({ onSelectedStore }) => {
         <div className="pay-view-title">주문 내역</div>
         {menuDetails.length > 0 ? (
           <ul>
-            {menuDetails.map((menu) => (
-              <li className="pay-view-title-li-details" key={menu.menuId}>
-                {menu.name} {menu.quantity}건
-              </li>
-            ))}
-          </ul>
+          {menuDetails.map((menu, index) => (
+            <li
+              className="pay-view-title-li-details"
+              key={`${menu.menuId}-${index}`}
+            >
+              {menu.name} {menu.quantity}건
+            </li>
+          ))}
+        </ul>
+        
         ) : (
           <p className="pay-view-title-none">메뉴 정보를 불러오는 중...</p>
         )}
         <p>
           <div className="pay-view-title">픽업 시간</div>
           <div className="pay-view-title-details">
-            {adjustedPickUp !== null ? adjustedPickUp : "바로 주문"}
+            {adjustedPickUp || "바로 주문"}
           </div>
+
         </p>
         <p>
           <div className="pay-view-title">픽업 장소</div>
