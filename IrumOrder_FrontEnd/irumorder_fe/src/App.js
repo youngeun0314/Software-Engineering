@@ -18,224 +18,142 @@ import Login from "./routes/user management/Login";
 import Signup from "./routes/user registration/Signup";
 import SignupComplete from "./routes/user registration/SignupComplete";
 import SignupStart from "./routes/user registration/SignupStart";
-import PickupReserv from "./routes/payment/PickupReserv";
-import Paymentcomplete from './routes/Paymentcomplete';
-import { getUserId } from "./context/userStorage";
-import { setMenuIn, getMenuIn} from "./context/OrderOrRoutine";
-import { getRoutineState } from "./context/OrderOrRoutine";
-import requestPermission from "./firebase/requestPermission";
 
 const App = () => {
-  const nav = useNavigate();
-
-  // `getUserId`에서 초기 값을 가져오고, 상태로 관리
-  const [userId, setUserId] = useState(null);
-
-  useEffect(() => {
-    const fetchedUserId = getUserId();
-    setUserId(fetchedUserId);
-    console.log("Fetched userId:", fetchedUserId);
-  }, []);
-
+  const userId = getUserId();
   const [options, setOptions] = useState({
-    userId: null, // 초기값 null로 변경
-    Price: 0,
-    menuId: null,
-    name: "",
-    quantity: 1,
-    menuOptions: {
-      useCup: "",
-      addShot: false,
-      addVanilla: false,
-      addHazelnut: false,
-      light: false,
-    },
-  });
+    userId : 2,//usrId, //그냥 고정값으로 함
+    Price : 0,//프라이스 장바구니 페이지에서 수정, 샷추가도 넣어야함 
 
-  useEffect(() => {
-    if (userId !== null) {
-      setOptions((prevOptions) => ({
-        ...prevOptions,
-        userId: userId, // `userId` 상태를 옵션에 반영
-      }));
-    }
-  }, [userId]);
+    menuId : null, //이거 구조수정해야함
+    name : "",
+    quantity : 1,
+    menuOptions: {
+        useCup : "",
+        addShot: false, 
+        addVanilla: false,
+        addHazelnut: false,
+        light: false,
+    }    
+});
+useEffect(() => {
+  console.log("App.js - Current userId:", options.userId); // 로그로 확인
+}, [options.userId]);
 
   const [selectedStore, setSelectedStore] = useState(null);
+  const nav = useNavigate(); // 페이지 이동을 위해 useNavigate 사용
 
+  // 메뉴 화면으로 이동
   const handleStartMenu = (store) => {
     if (!store) {
       console.error("Error: Store 값이 유효하지 않습니다.");
       return;
-    }
+  }
     setMenuIn(0);
     setSelectedStore(store);
     nav(`/store/${store}`);
   };
 
   const handleOption = (menuId) => {
+    const userId = options.userId;
+    console.log("handleOption called with userId:", userId, "and menuId:", menuId); // 로그 추가
     if (!selectedStore) {
       console.error("Error: Store is not selected.");
       return;
-    }
+  }
 
-    if (!menuId) {
+  if (!menuId) {
       console.error("Error: Menu ID is undefined.");
       return;
-    }
-
+  }
+  
     setOptions((prevOptions) => ({
       ...prevOptions,
-      userId: userId,
-      menuId: menuId,
-    }));
+      userId :prevOptions.userId,
+      menuId: menuId, // 선택한 menuId를 options에 저장
+  }));
+  console.log("Updated options.menuId in App:", menuId);
     nav(`/store/${selectedStore}/option/${menuId}`);
   };
 
   const handleStartCart = (options) => {
     if (!selectedStore) {
-      console.error("Error: Store is not selected.");
-      return;
+        console.error("Error: Store is not selected.");
+        return;
     }
     if (!options.menuOptions.useCup) {
       alert("컵을 선택해주세요.");
       return;
-    }
-
-    const menu_out = getMenuIn();
+  }
+    const userId = getUserId();
+    const menu_out=getMenuIn();
 
     if (menu_out === 1) {
       setTimeout(() => {
-        nav(`${getRoutineState()}`, { state: { options } });
+          nav(`${getRoutineState()}`,{ state: {options}}); // 상태 업데이트 이후 페이지 이동
       }, 0);
-    } else if (menu_out === 0) {
-      nav(`/store/${selectedStore}/cart/${userId}`, {
-        state: { options, fromOptionUnder: true },
-        replace: true,
+    } else if(menu_out===0) {
+      // URL에 userId 포함하여 이동
+      nav(`/store/${selectedStore}/cart/${userId}`, { 
+        state: { options, fromOptionUnder: true }, replace: true 
       });
     }
-
-    setOptions({
+    console.log("현재 선택된 Store:", selectedStore);
+    console.log("메뉴 상태 (menu_out):", getMenuIn());
+    
+  // 옵션 초기화
+  setOptions({
       userId: userId,
       Price: 0,
       menuId: null,
       name: "",
       quantity: 1,
       menuOptions: {
-        useCup: "",
-        addShot: false,
-        addVanilla: false,
-        addHazelnut: false,
-        light: false,
+          useCup: "",
+          addShot: false,
+          addVanilla: false,
+          addHazelnut: false,
+          light: false,
       },
-    });
-  };
+  });
+};
+
+
 
   useEffect(() => {
     console.log("Updated userId in options:", options.userId);
-  }, [options.userId]);
-
-///
+}, [options.userId]);
 useEffect(() => {
-  const fetchFCMToken = async () => {
-    try {
-      // 푸시 알림 권한 요청 및 FCM 토큰 가져오기
-      const token = await requestPermission();
-      if (token) {
-        console.log("FCM Token:", token);
-        // 서버에 FCM 토큰 전송
-        await sendTokenToServer(token);
-      }
-    } catch (error) {
-      console.error("FCM 처리 중 오류 발생:", error);
-    }
-  };
+  console.log("현재 선택된 Store:", selectedStore);
+}, [selectedStore]);
 
-  useEffect(() => {
-    console.log("현재 선택된 Store:", selectedStore);
-  }, [selectedStore]);
 
-  fetchFCMToken();
-}, []);
-
-// FCM 토큰 서버 전송 함수
-const sendTokenToServer = async (token) => {
-  try {
-    const response = await fetch("http://localhost:3000/api/save-token", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ token }),
-    });
-
-    if (response.ok) {
-      console.log("FCM 토큰이 서버에 저장되었습니다.");
-    } else {
-      console.error("FCM 토큰 저장 실패:", response.statusText);
-    }
-  } catch (error) {
-    console.error("FCM 토큰 전송 중 오류 발생:", error);
-  }
-};
-
-////
   return (
     <RoutineProvider>
       <Routes>
+        {/* 기존 라우트 */}
         <Route path="/" element={<Login />} />
         <Route path="/signupstart" element={<SignupStart />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/signupcomplete" element={<SignupComplete />} />
         <Route path="/main" element={<Main />} />
-        <Route path="/routinelist" element={<RoutineListWrapper />} />
-        <Route
-          path="/routine/:id"
-          element={<RoutineDetail setSelectedStore={setSelectedStore} />}
-        />
-        <Route
-          path="/routine/new"
-          element={<RoutineDetail setSelectedStore={setSelectedStore} />}
-        />
-        <Route
-          path="/store"
-          element={<StoreSelection onStartMenu={handleStartMenu} />}
-        />
-        <Route
-          path="/store/:store"
-          element={
-            <MenuView
-              userId={options.userId}
-              onSelectedStore={selectedStore}
-              onStartOption={handleOption}
-            />
-          }
-        />
-        <Route
-          path="/store/:store/option/:menuId"
-          element={
-            <OptionView
-              onSelectedStore={selectedStore}
-              options={options}
-              setOptions={setOptions}
-              onStartCart={handleStartCart}
-            />
-          }
-        />
-        <Route
-          path="/store/:store/cart/:userId"
-          element={<CartView onSelectedStore={selectedStore} options={options} userId={getUserId()}/>}
-        />
-        <Route path="/timeReservation" element={<PickupReserv />} />
-        <Route path="/pay" element={<PayView onSelectedStore={selectedStore} />} />
-        <Route
-          path="/check"
-          element={<CheckView userId={options.userId} />}
-        />
-        <Route path="/paymentcomplete" element={<Paymentcomplete />} />
+        <Route path="/routinelist" element={<RoutineListWrapper/>} />
+        <Route path="/routine/:id" element={<RoutineDetail setSelectedStore={setSelectedStore} />} />
+        <Route path="/routine/new" element={<RoutineDetail setSelectedStore={setSelectedStore} />} />
+
+        {/* 추가 라우트 */}
+        <Route path="/store" element={<StoreSelection onStartMenu={handleStartMenu} />} />
+        <Route path="/store/:store" element={<MenuView userId={options.userId} onSelectedStore={selectedStore} onStartOption={handleOption} />} />
+        <Route path="/store/:store/option/:menuId" element={<OptionView onSelectedStore={selectedStore} options={options} setOptions={setOptions} onStartCart = {handleStartCart}/>} />
+        <Route path="/store/:store/cart/:userId" element={<CartView onSelectedStore={selectedStore} options={options} />}/>
+        <Route path="/timeReservation" element={<PickupReserv/>}/>
+        <Route path="/pay" element={<PayView onSelectedStore={selectedStore} />}/>
+        <Route path="/check" element={<CheckView userId={options.userId}/>}/>
+        <Route path="/paymentcomplete" element={<Paymentcomplete/>}/>
       </Routes>
     </RoutineProvider>
   );
 };
 
 export default App;
+
