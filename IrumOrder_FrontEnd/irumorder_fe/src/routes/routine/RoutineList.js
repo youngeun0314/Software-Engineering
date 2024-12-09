@@ -7,29 +7,39 @@ import "./RoutineList.css";
 const RoutineList = () => {
   const { routines, setRoutines } = useContext(RoutineContext);
   const navigate = useNavigate();
-  const user_id = getUserId()
+  const user_id = getUserId();
 
   const deleteRoutineToServer = async (routine) => {
     try {
       const method = "DELETE";
       const endpoint = `http://localhost:8080/api/users/${user_id}/routines/${routine.routineId}`;
-
+  
       const response = await fetch(endpoint, {
         method,
         headers: { "Content-Type": "application/json" },
       });
-
+  
       if (!response.ok) {
-        throw new Error(`HTTP 오류: ${response.status}`);
+        // HTTP 오류 처리
+        if (response.status === 404) {
+          throw new Error("루틴을 찾을 수 없습니다.");
+        } else if (response.status === 403) {
+          throw new Error("삭제 권한이 없습니다.");
+        } else {
+          throw new Error(`HTTP 오류: ${response.status}`);
+        }
       }
-
-      setRoutines((prev) => prev.filter((r) => r.routineId !== routine.routineId)); 
-
-      navigate("/routinelist");
+  
+      // UI에서 삭제된 루틴 제거
+      setRoutines((prev) =>
+        prev.filter((r) => r.routineId !== routine.routineId)
+      );
     } catch (error) {
       console.error("루틴 삭제 중 오류 발생:", error);
+      alert(error.message); // 사용자에게 오류 메시지 표시
     }
   };
+  
 
   return (
     <div className="routine-list">
@@ -47,23 +57,29 @@ const RoutineList = () => {
                   <p>시간: {routine.routineTime}</p>
                 </div>
                 <div className="routine-item-others">
-                <p>
-                  요일: {routine.routineDays.map((day, index) => <span key={index}>{day+" "}</span>)}    
-                  || 메뉴: {routine.menuName}
-                </p>
+                  <p>
+                    요일:{" "}
+                    {routine.routineDays.map((day, index) => (
+                      <span key={index}>{day + " "}</span>
+                    ))}
+                    || 메뉴: {routine.menuName}
+                  </p>
                 </div>
               </div>
               <div className="routine-item-delete">
-                <p onClick={() => deleteRoutineToServer(routine)}>{"X"}</p>  
+                <p onClick={() => deleteRoutineToServer(routine)}>{"X"}</p>
               </div>
             </div>
           ))}
         </div>
       ) : (
-        <p>데이터를 불러오는 중입니다...</p>
+        <p>루틴 개수 : {routines.length}개</p>
       )}
 
-      <button className="item-add-button" onClick={() => navigate("/routine/new")}>
+      <button
+        className="item-add-button"
+        onClick={() => navigate("/routine/new")}
+      >
         +
       </button>
     </div>

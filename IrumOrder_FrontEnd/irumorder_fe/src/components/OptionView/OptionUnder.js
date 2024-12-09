@@ -4,7 +4,6 @@ import { useNavigate, useParams } from 'react-router-dom'; // React Router의 us
 
 
 const OptionUnder = ({store, options, setOptions, onStartCart}) => {//여기서 가격 받아서
-    const nav = useNavigate(); // 페이지 이동을 위한 useNavigate 훅
     const increaseQuantity = () => {
         setOptions((prevOptions) => ({
             ...prevOptions,
@@ -28,7 +27,7 @@ const OptionUnder = ({store, options, setOptions, onStartCart}) => {//여기서 
     };
 
     
-    //장바구니에 추가 버튼 클릭
+    //담기 버튼 클릭
     const handleCartClick = () => {
        onStartCart(options);
     };
@@ -46,7 +45,7 @@ return (
             </div>
             <div className="gocart">
                 <button onClick={handleCartClick}>
-                    {calculatePrice() * options.quantity}원 장바구니에 담기
+                    {calculatePrice() * options.quantity}원 담기
                     </button>
         </div>
     </div>

@@ -1,24 +1,34 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import RoutineContext from "../../context/RoutineContext";
 import "./RoutineDetail.css";
 import { getUserId } from "../../context/userStorage";
+import { setMenuIn } from "../../context/OrderOrRoutine";
+import { setRoutineState } from "../../context/OrderOrRoutine";
 
-const RoutineDetail = () => {
+const RoutineDetail = ({setSelectedStore}) => {
+  const location = useLocation();
+  const { options } = location.state || {}; //menuId, menuOptions
+
   const { id } = useParams();
   const { routines, setRoutines } = useContext(RoutineContext);
   const navigate = useNavigate();
   const [routine, setRoutine] = useState({
-    userId: 1,
-    menuId: 10,
-    menuDetailId: 1001,
+    userId: getUserId(),
+    menuId: 1,
+    menuOptions: {
+      useCup: "Disposable",
+      addShot: false,
+      addVanilla: false,
+      addHazelnut: false,
+      light: false,
+    },
     routineDays: [],
     routineTime: "",
     isActivated: true,
   });
-  const [store, setStore] = useState("");
-
+  
   const user_id=getUserId();
 
   useEffect(() => {
@@ -26,9 +36,17 @@ const RoutineDetail = () => {
       const existingRoutine = routines.find((routine) => routine.routineId === parseInt(id));
       if (existingRoutine) {
         setRoutine(existingRoutine);
+        setRoutine((prev) => ({
+          ...prev,
+          store: "전농관",
+        }));;
       }
     }
   }, [id, routines]);
+
+  useEffect(() => {
+    console.log("Updated routine.menuId:", routine.menuId);
+  }, [routine.menuId]);
 
   const handleChange = (key, value) => {
     setRoutine({ ...routine, [key]: value });
@@ -44,49 +62,66 @@ const RoutineDetail = () => {
   };
 
   const handleStoreChange = (store) => {
-    setStore(() => ({
+    setRoutine((prev) => ({
+      ...prev,
       store: store,
     }));
+    setSelectedStore(store); // App의 selectedStore를 업데이트
   };
 
-  const saveRoutineToServer = async (routineData) => {
-    try {
-      const method = id ? "PUT" : "POST";
-      const endpoint = id
-        ? `http://localhost:8080/api/users/${user_id}/routines/${routineData.routineId}`
-        : `http://localhost:8080/api/users/${user_id}/routines/add`;
 
+  const saveRoutineToServer = async (routineData) => {
+    const method = id ? "PUT" : "POST";
+    const endpoint = id
+      ? `http://localhost:8080/api/users/${user_id}/routines/${id}`
+      : `http://localhost:8080/api/users/${user_id}/routines/add`;
+  
+    try {
       const response = await fetch(endpoint, {
         method,
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(routineData),
       });
-
+  
       if (!response.ok) {
         throw new Error(`HTTP 오류: ${response.status}`);
       }
-
+  
       const updatedRoutine = await response.json();
-
       setRoutines((prev) =>
         method === "PUT"
           ? prev.map((r) => (r.routineId === updatedRoutine.routineId ? updatedRoutine : r))
           : [...prev, updatedRoutine]
       );
-
+  
       navigate("/routinelist");
     } catch (error) {
+      console.log("routineData:", JSON.stringify(routineData, null, 2));
+      console.error("요청 실패:", error.message);
       console.error("루틴 저장 중 오류 발생:", error);
     }
   };
 
   const handleSave = () => {
-    const userId = routines?.[0]?.userId || 1;
+    setRoutine((prev) => ({
+      ...prev,
+      menuId: options?.menuId,
+    }));
+    
+    setRoutine((prev) => ({
+      ...prev,
+      menuOptions: options?.menuOptions,
+    }));
+
     const routineData = {
-      ...routine,
-      userId,
-      routineTime: routine.routineTime,
-      routineDays: routine.routineDays,
+      userId: routine?.userId,
+      menuId: routine?.menuId,
+      menuId: routine?.menuId,
+      menuDetail: routine?.menuDetail,
+      menuOptions: routine?.menuOptions,
+      routineDays: routine?.routineDays,
+      routineTime: routine?.routineTime,
+      isActivated: routine?.isActivated,
     };
     saveRoutineToServer(routineData);
   };
@@ -134,8 +169,12 @@ const RoutineDetail = () => {
         ))}
       </div>
       <div className="menu-button-container">
-        <Link to={`/store/:${routine.store}`}>
-        <button className={`menu-select-button`}>
+      <Link to={`/store/${routine.store}`} 
+      onClick={() => {
+        setMenuIn(1);
+        setRoutineState(location.pathname);
+      }}>
+        <button className="menu-select-button">
             메뉴
         </button>
         </Link>
