@@ -8,6 +8,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.*;
 
+/**
+ * AuthService 테스트 클래스
+ *
+ * 작성자: 주영은
+ * 마지막 수정일: 2024-12-09
+ */
 @SpringBootTest
 @Transactional
 class AuthServiceTest {
