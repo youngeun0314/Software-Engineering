@@ -23,7 +23,7 @@ import { getRoutineState } from "./context/OrderOrRoutine";
 const App = () => {
   const userId = getUserId();
   const [options, setOptions] = useState({
-    userId : 2,//usrId, //그냥 고정값으로 함
+    userId : userId,//usrId, //그냥 고정값으로 함
     Price : 0,//프라이스 장바구니 페이지에서 수정, 샷추가도 넣어야함 
 
     menuId : null, //이거 구조수정해야함
