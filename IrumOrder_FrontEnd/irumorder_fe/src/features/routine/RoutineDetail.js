@@ -136,56 +136,58 @@ const RoutineDetail = ({setSelectedStore}) => {
 
   return (
     <div className="container">
-      <h1>{id ? "루틴 수정" : "새 루틴 추가"}</h1>
-      <div className="time-section">
-        <label htmlFor="time">시간:</label>
-        <input
-          id="time"
-          type="time"
-          value={routine.routineTime}
-          onChange={(e) => handleChange("routineTime", e.target.value)}
-        />
-      </div>
-      <div className="days-container">
-        {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map((day) => (
-          <button
-            key={day}
-            className={`day-button ${routine.routineDays.includes(day) ? "active" : ""}`}
-            onClick={() => handleDayToggle(day)}
-          >
-            {day}
+      <h1>루틴 설정</h1>
+      <div className="routine-container">
+        <div className="time-section">
+          <label htmlFor="time">시간:</label>
+          <input
+            id="time"
+            type="time"
+            value={routine.routineTime}
+            onChange={(e) => handleChange("routineTime", e.target.value)}
+          />
+        </div>
+        <div className="days-container">
+          {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map((day) => (
+            <button
+              key={day}
+              className={`day-button ${routine.routineDays.includes(day) ? "active" : ""}`}
+              onClick={() => handleDayToggle(day)}
+            >
+              {day}
+            </button>
+          ))}
+        </div>
+        <div className="store-button-container">
+          {["전농관", "학생회관"].map((store) => (
+            <button
+              key={store}
+              className={`store-button ${routine.store === store ? "active" : ""}`}
+              onClick={() => handleStoreChange(store)}
+            >
+              {store}
+            </button>
+          ))}
+        </div>
+        <div className="menu-button-container">
+        <Link to={`/store/${routine.store}`} 
+        onClick={() => {
+          setMenuIn(1);
+          setRoutineState(location.pathname);
+        }}>
+          <button className="menu-select-button">
+              메뉴
           </button>
-        ))}
-      </div>
-      <div className="store-button-container">
-        {["전농관", "학생회관"].map((store) => (
-          <button
-            key={store}
-            className={`store-button ${routine.store === store ? "active" : ""}`}
-            onClick={() => handleStoreChange(store)}
-          >
-            {store}
+          </Link>
+        </div>
+        <div className="action-buttons">
+          <button className="cancel-button" onClick={handleCancel}>
+            취소
           </button>
-        ))}
-      </div>
-      <div className="menu-button-container">
-      <Link to={`/store/${routine.store}`} 
-      onClick={() => {
-        setMenuIn(1);
-        setRoutineState(location.pathname);
-      }}>
-        <button className="menu-select-button">
-            메뉴
-        </button>
-        </Link>
-      </div>
-      <div className="action-buttons">
-        <button className="cancel-button" onClick={handleCancel}>
-          취소
-        </button>
-        <button className="save-button" onClick={handleSave}>
-          저장
-        </button>
+          <button className="save-button" onClick={handleSave}>
+            저장
+          </button>
+        </div>
       </div>
     </div>
   );

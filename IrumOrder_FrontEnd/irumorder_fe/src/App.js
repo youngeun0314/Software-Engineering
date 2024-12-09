@@ -9,7 +9,6 @@ import StoreSelection from "./components/StoreSelection/StoreSelection";
 import { getMenuIn, getRoutineState, setMenuIn } from "./context/OrderOrRoutine";
 import { RoutineProvider } from "./context/RoutineContext";
 import { getUserId } from "./context/userStorage";
-import requestPermission from "./firebase/requestPermission";
 import Main from "./routes/Main";
 import Paymentcomplete from "./routes/Paymentcomplete";
 import PickupReserv from "./features/payment/PickupReserv";
@@ -19,6 +18,7 @@ import Login from "./routes/user management/Login";
 import Signup from "./routes/user registration/Signup";
 import SignupComplete from "./routes/user registration/SignupComplete";
 import SignupStart from "./routes/user registration/SignupStart";
+import requestPermission from "./firebase/requestPermission";
 
 const App = () => {
   const nav = useNavigate();
@@ -120,14 +120,11 @@ const App = () => {
       console.error("Error: Store is not selected.");
       return;
 
-  }
-
-  if (!menuId) {
+    }
+    if (!menuId) {
       console.error("Error: Menu ID is undefined.");
       return;
-  }
-  
-
+    }
     setOptions((prevOptions) => ({
       ...prevOptions,
       userId :prevOptions.userId,
@@ -181,7 +178,8 @@ const App = () => {
 };
 
 
-useEffect(() => {
+
+  useEffect(() => {
     console.log("Updated userId in options:", options.userId);
 }, [options.userId]);
 useEffect(() => {

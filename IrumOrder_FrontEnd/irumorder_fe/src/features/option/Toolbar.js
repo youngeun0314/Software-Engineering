@@ -6,7 +6,7 @@ const Toolbar = ({title, onBack}) => {
     return (
         <div className="Toolbar">
             <button className="back" onClick={onBack}>
-                &#x25c0;
+                <img src="/images/back_button.png" alt="뒤로가기" className="back_icon" />
             </button>
             <span className="title">{title}</span>
         </div>
