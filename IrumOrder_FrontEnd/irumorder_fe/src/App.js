@@ -8,7 +8,6 @@ import OptionView from "./components/OptionView/OptionView";
 import StoreSelection from "./components/StoreSelection/StoreSelection";
 import { RoutineProvider } from "./context/RoutineContext";
 import Main from "./routes/Main";
-import PastOrder from "./routes/order received/PastOrder";
 import RoutineDetail from "./routes/routine/RoutineDetail";
 import RoutineListWrapper from "./routes/routine/RoutineList";
 import Login from "./routes/user management/Login";
@@ -139,7 +138,6 @@ useEffect(() => {
         <Route path="/signupcomplete" element={<SignupComplete />} />
         <Route path="/main" element={<Main />} />
         <Route path="/routinelist" element={<RoutineListWrapper/>} />
-        <Route path="/past-order" element={<PastOrder />} />
         <Route path="/routine/:id" element={<RoutineDetail setSelectedStore={setSelectedStore} />} />
         <Route path="/routine/new" element={<RoutineDetail setSelectedStore={setSelectedStore} />} />
 

@@ -7,8 +7,6 @@ import { setUserId, getUserId } from '../context/userStorage';
 function Main() {
     const [nickname, setNickname] = useState('');
 
-    setUserId(1); //로그인api 작동 시 생략 가능
-
     useEffect(() => {
         
         const fetchNickname = async () => {

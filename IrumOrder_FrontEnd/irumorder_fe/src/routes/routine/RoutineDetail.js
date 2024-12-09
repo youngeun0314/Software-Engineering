@@ -16,9 +16,9 @@ const RoutineDetail = ({setSelectedStore}) => {
   const navigate = useNavigate();
   const [routine, setRoutine] = useState({
     userId: getUserId(),
-    menuId: 1,
+    menuId: options?.menuId,
     menuOptions: {
-      useCup: "Disposable",
+      useCup: "",
       addShot: false,
       addVanilla: false,
       addHazelnut: false,
