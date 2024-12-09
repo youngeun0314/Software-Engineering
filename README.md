@@ -151,7 +151,7 @@ npm start
 - [UI Design](https://www.figma.com/design/x51yUm7qlKHmJsBmILMI7w/Irum-order?node-id=0-1&node-type=canvas&t=b9dXi4WOvpVvjXLQ-0)
 
 ### Coding Standard
-- [Coding Standard](https://linktodocumentation)
+- [Coding Standard](./artifacts/Coding%20Standard,%20Repository%20Management%20and%20Review%20Process%20-%20이룸핑.docx)
 
 ---
 
