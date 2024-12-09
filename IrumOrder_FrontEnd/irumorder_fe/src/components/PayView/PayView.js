@@ -131,11 +131,11 @@ const Pay = ({ onSelectedStore }) => {
       const paymentData = await paymentResponse.json();
       console.log("결제 준비 성공 데이터:", paymentData);
 
-      const { next_redirect_pc_url } = paymentData;
-      if (next_redirect_pc_url) {
-        window.location.href = next_redirect_pc_url; // PC URL로 리다이렉션
+      const { next_redirect_mobile_url } = paymentData;
+      if (next_redirect_mobile_url) {
+        window.location.href = next_redirect_mobile_url; 
       } else {
-        throw new Error("PC URL이 응답 데이터에 없습니다.");
+        throw new Error("mobile URL이 응답 데이터에 없습니다.");
       }
     } catch (error) {
       console.error("결제 요청 중 오류 발생:", error);
