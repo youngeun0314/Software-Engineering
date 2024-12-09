@@ -13,6 +13,12 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+/**
+ * 클래스 설명: OrderService 테스트 클래스
+ *
+ * 작성자: 김은지
+ * 마지막 수정일: 2024-12-09
+ */
 class OrderServiceTest {
 
     @InjectMocks
@@ -35,6 +41,12 @@ class OrderServiceTest {
         MockitoAnnotations.openMocks(this);
     }
 
+    /**
+     * 메서드 설명: 주문 생성 테스트
+     *
+     * 주문 요청 데이터를 사용하여 올바른 OrderEntity가 저장되고
+     * 응답 데이터가 올바른지 확인하는 테스트.
+     */
     @Test
     void createOrder_shouldSaveOrderAndReturnResponse() {
         // Given: OrderRequestDto 생성
@@ -43,7 +55,7 @@ class OrderServiceTest {
         orderRequestDto.setTotalPrice(10000);
         orderRequestDto.setPickUp(LocalTime.of(10, 0)); // LocalTime 사용
 
-        // MenuDetailDto 객체 생성 및 초기화
+        // OrderMenuDto 및 MenuDetailDto 객체 생성 및 초기화
         MenuDetailDto menuDetailDto = new MenuDetailDto();
         menuDetailDto.setUseCup("TakeOut");
         menuDetailDto.setAddShot(true);
@@ -51,44 +63,34 @@ class OrderServiceTest {
         menuDetailDto.setAddHazelnut(false);
         menuDetailDto.setLight(false);
 
-        // OrderMenuDto 객체 생성 및 초기화
         OrderMenuDto orderMenuDto = new OrderMenuDto();
         orderMenuDto.setMenuId(1);
         orderMenuDto.setQuantity(2);
         orderMenuDto.setMenuOptions(menuDetailDto);
 
-        // OrderRequestDto의 orderMenuOptions 설정
         orderRequestDto.setOrderMenuOptions(Collections.singletonList(orderMenuDto));
 
-        // Mocking: CategoryEntity 생성
+        // Mocking: CategoryEntity 및 MenuEntity 생성
         CategoryEntity mockCategory = new CategoryEntity();
         mockCategory.setId(1);
         mockCategory.setName("Beverage");
 
-        // Mocking: MenuEntity 생성
         MenuEntity mockMenu = new MenuEntity("Americano", 5000, mockCategory);
         mockMenu.setMenuId(1);
         when(menuRepository.findMenuById(1)).thenReturn(mockMenu);
 
         // Mocking: MenuDetailEntity 저장
-        MenuDetailEntity mockMenuDetail = new MenuDetailEntity();
-        mockMenuDetail.setUseCup("TakeOut");
-        mockMenuDetail.setAddShot(true);
-        mockMenuDetail.setAddVanilla(true);
-        mockMenuDetail.setAddHazelnut(false);
-        mockMenuDetail.setLight(false);
-
         doAnswer(invocation -> {
             MenuDetailEntity savedEntity = invocation.getArgument(0);
-            assertNotNull(savedEntity); // 저장하려는 엔티티가 null이 아님을 확인
-            return null; // save는 void를 반환하므로 null 반환
+            assertNotNull(savedEntity);
+            return null;
         }).when(menuDetailRepository).save(any(MenuDetailEntity.class));
 
         // Mocking: OrderEntity 저장
         doAnswer(invocation -> {
             OrderEntity savedOrder = invocation.getArgument(0);
-            savedOrder.setOrderId(1); // 저장 후 ID 설정
-            savedOrder.setPickUp(LocalTime.of(10, 0)); // pickUp 값 설정
+            savedOrder.setOrderId(1);
+            savedOrder.setPickUp(LocalTime.of(10, 0));
             return null;
         }).when(orderRepository).save(any(OrderEntity.class));
 
@@ -100,7 +102,7 @@ class OrderServiceTest {
         assertEquals(1, result.getOrderId());
         assertEquals(10000, result.getTotalPrice());
         assertEquals(OrderStatus.WAITING, result.getOrderStatus());
-        assertEquals(LocalTime.of(10, 0), result.getPickUp()); // PickUp 검증
+        assertEquals(LocalTime.of(10, 0), result.getPickUp());
 
         // Verify: 저장 메서드 호출 검증
         verify(orderRepository, times(1)).save(any(OrderEntity.class));
@@ -109,7 +111,11 @@ class OrderServiceTest {
         verify(menuDetailRepository, times(1)).save(any(MenuDetailEntity.class));
     }
 
-
+    /**
+     * 메서드 설명: 특정 사용자 ID로 주문 조회 테스트
+     *
+     * 사용자 ID를 기반으로 올바른 주문 목록이 반환되는지 확인.
+     */
     @Test
     void getOrdersByUserId_shouldReturnOrderList() {
         // Given: Mock 데이터 설정
@@ -152,7 +158,7 @@ class OrderServiceTest {
         assertEquals(1, response.getOrderId());
         assertEquals(10000, response.getTotalPrice());
         assertEquals(OrderStatus.WAITING, response.getOrderStatus());
-        assertEquals(LocalTime.of(10, 0), response.getPickUp()); // PickUp 검증
+        assertEquals(LocalTime.of(10, 0), response.getPickUp());
         assertEquals(1, response.getOrderMenuOptions().size());
 
         OrderDto orderMenuDto = response.getOrderMenuOptions().get(0);

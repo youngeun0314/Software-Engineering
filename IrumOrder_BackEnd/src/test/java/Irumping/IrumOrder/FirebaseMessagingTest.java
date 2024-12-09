@@ -20,7 +20,7 @@ public class FirebaseMessagingTest {
 
             FirebaseApp.initializeApp(options);
             // 하드코딩된 FCM 토큰
-            String testToken = "dRsiYYi7B4GRibCcM2LFH7:APA91bEAB_yLfmfkzTVheBk35a44RrNvZaVndBxx9kYryTCRKMj2BHLkdGOSJUPhZkKbwAOTNMGmux2AYrPGxWhSQaDCyh9Ky0gl5WT8-g_Wecly0XDWUSA";
+            String testToken = "dRsiYYi7B4GRibCcM2LFH7:APA91bFp8vUY-ND4t0vCPMQOX0ZTQcweoKw2VOZgZTHAPH1tsjdedK6WzkfJqLAgFVo3HpmDVh9BoT2_H9YuVnNsNmRuLBtgrVB_dwczb1jqKiZN3BiYvzs";
 
             // Firebase 알림 메시지 생성
             Notification notification = Notification.builder()

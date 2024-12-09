@@ -44,11 +44,11 @@ class PayControllerTest {
         var requestBody = """
         {
             "cid": "TC0ONETIME",
-            "order_id": 6,
-            "user_id": 1,
+            "order_id": 18,
+            "user_id": 8,
             "item_name": "Product Name",
             "quantity": 2,
-            "totalPrice": 4500,
+            "totalPrice": 3000,
             "tax_free_amount": 0
         }
         """;
@@ -84,9 +84,9 @@ class PayControllerTest {
 
         var requestBody = """
         {
-            "pg_token": "d5cb9b4322cc3642b2fb",
-            "userId": 1,
-            "orderId": 6,
+            "pg_token": "cb2d61e95271e2682d72",
+            "userId": 8,
+            "orderId": 18,
             "cid": "TC0ONETIME"
         }
         """;

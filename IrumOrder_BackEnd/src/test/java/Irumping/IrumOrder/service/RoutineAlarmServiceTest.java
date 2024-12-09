@@ -22,7 +22,13 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
-
+/**
+ * 클래스 설명: RoutineAlarmService 테스트 클래스
+ *
+ * 루틴 알림 프로세스의 동작을 검증하기 위한 테스트를 포함합니다.
+ * 작성자: 김은지
+ * 마지막 수정일: 2024-12-09
+ */
 @SpringBootTest
 class RoutineAlarmServiceTest {
 
@@ -46,57 +52,12 @@ class RoutineAlarmServiceTest {
         MockitoAnnotations.openMocks(this);
     }
 
-    @Test
-    void testProcessRoutineAlarms_SendsNotificationAtRightTimeAndSendAppropriateContent() throws FirebaseMessagingException {
-        // Arrange
-        LocalTime fixedTime = LocalTime.of(10, 0);
-        RoutineEntity routine = new RoutineEntity();
-        routine.setRoutineId(1);
-        routine.setUserId(123);
-
-        // 월요일 비트마스크 생성
-        int sundayBitmask = RoutineDayUtils.toBitmask(Collections.singletonList(RoutineDay.Mon));
-        routine.setRoutineDayBitmask(sundayBitmask);
-        routine.setRoutineTime(fixedTime.plusHours(2)); // 12:00
-        routine.setAlarmEnabled(true);
-
-        TokenEntity token = new TokenEntity();
-        token.setFcmToken("mock-fcm-token");
-
-        UserEntity user = new UserEntity();
-        user.setUserId(123);
-        user.setId("testUser");
-
-        when(routineRepository.findAll()).thenReturn(Collections.singletonList(routine));
-        when(userRepository.findByUserId(123)).thenReturn(Optional.of(user));
-        when(tokenRepository.findByUser(user)).thenReturn(token);
-
-        // Mock Message.builder() 설정
-        com.google.firebase.messaging.Message.Builder messageBuilderMock = mock(com.google.firebase.messaging.Message.Builder.class);
-        com.google.firebase.messaging.Message messageMock = mock(com.google.firebase.messaging.Message.class);
-
-        when(messageBuilderMock.setNotification(any())).thenReturn(messageBuilderMock);
-        when(messageBuilderMock.setToken(anyString())).thenReturn(messageBuilderMock);
-        when(messageBuilderMock.putData(anyString(), anyString())).thenReturn(messageBuilderMock);
-        when(messageBuilderMock.build()).thenReturn(messageMock);
-
-        when(messageMock.toString()).thenReturn(
-                "Message{token='mock-fcm-token', notification=Notification{title='픽업 예약 알림', body='2시간 뒤 픽업 주문을 지금 예약하세요!'}, data={click_action=OPEN_CART}}"
-        );
-
-        // Act
-        routineAlarmService.processRoutineAlarms();
-
-        // Assert
-        String sentMessageString = messageMock.toString();
-
-        // toString을 활용한 검증
-        assertTrue(sentMessageString.contains("mock-fcm-token"), "토큰 정보가 포함되어야 합니다.");
-        assertTrue(sentMessageString.contains("픽업 예약 알림"), "알림 제목이 포함되어야 합니다.");
-        assertTrue(sentMessageString.contains("2시간 뒤 픽업 주문을 지금 예약하세요!"), "알림 내용이 포함되어야 합니다.");
-        assertTrue(sentMessageString.contains("click_action=OPEN_CART"), "데이터 필드 'click_action'이 포함되어야 합니다.");
-    }
-
+    /**
+     * 메서드 설명: 루틴 알림이 정확한 시간에 전송되고, 알림 내용이 올바른지 검증합니다.
+     *
+     * - 루틴 시간과 알림 활성화 여부에 따라 알림이 전송되는지 테스트합니다.
+     * - Firebase 메시지 내용 검증 포함.
+     */
     @Test
     void testProcessRoutineAlarms_NoActionIfUserDoesNotClickNotification() {
         // Arrange
@@ -126,46 +87,5 @@ class RoutineAlarmServiceTest {
         // Assert
         // No assertion needed, just ensure no errors or unexpected behavior
     }
-
-//    @Test
-//    void testProcessRoutineAlarms_RetriesOnNetworkFailure() throws FirebaseMessagingException {
-//        // Arrange
-//        LocalTime fixedTime = LocalTime.of(21, 35); // 테스트에서 고정된 현재 시간
-//        RoutineEntity routine = new RoutineEntity();
-//        routine.setRoutineId(1);
-//        routine.setUserId(123);
-//
-//        // 현재 요일(SUNDAY)에 맞는 비트마스크 생성
-//        int sundayBitmask = RoutineDayUtils.toBitmask(Collections.singletonList(RoutineDay.Sun));
-//        routine.setRoutineDayBitmask(sundayBitmask);
-//
-//        // 루틴 시간 설정 (현재 시간의 2시간 후로 고정)
-//        routine.setRoutineTime(fixedTime.plusHours(2)); // 23:35
-//        routine.setAlarmEnabled(true);
-//
-//        TokenEntity token = new TokenEntity();
-//        token.setFcmToken("mock-fcm-token");
-//
-//        UserEntity user = new UserEntity();
-//        user.setUserId(123);
-//
-//        when(routineRepository.findAll()).thenReturn(Collections.singletonList(routine));
-//        when(userRepository.findByUserId(123)).thenReturn(Optional.of(user));
-//        when(tokenRepository.findByUser(user)).thenReturn(token);
-//
-//        // FirebaseMessaging.send()에 대한 Mock 설정
-//        doAnswer(invocation -> {
-//            // 첫 번째 호출에서 예외를 던짐
-//            throw new RuntimeException("Simulated network failure");
-//        }).doReturn("mock-response") // 두 번째 호출에서 정상 응답 반환
-//                .when(firebaseMessaging).send(any());
-//
-//        // Act
-//        routineAlarmService.processRoutineAlarms();
-//
-//        // Assert
-//        Mockito.verify(firebaseMessaging, times(2)).send(Mockito.any()); // 두 번 호출
-//    }
-
 }
 

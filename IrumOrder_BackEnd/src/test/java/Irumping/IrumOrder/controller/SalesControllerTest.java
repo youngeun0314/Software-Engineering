@@ -24,7 +24,7 @@ public class SalesControllerTest {
         // Given: Prepare the API endpoint and parameters
         String baseUrl = "http://localhost:" + port + "/api/sales";
         String date = "2024-12-02";
-        long userId = 1;
+        Integer userId = 8;
 
         // When: Send the GET request
         String url = baseUrl + "?date=" + date + "&userId=" + userId;
@@ -41,7 +41,7 @@ public class SalesControllerTest {
         // Given: Unauthorized userId
         String baseUrl = "http://localhost:" + port + "/api/sales";
         String date = "2024-12-02";
-        long unauthorizedUserId = 2; // User ID not allowed to access data
+        Integer unauthorizedUserId = 2; // User ID not allowed to access data
 
         // When: Send the GET request
         String url = baseUrl + "?date=" + date + "&userId=" + unauthorizedUserId;
