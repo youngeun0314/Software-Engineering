@@ -36,7 +36,10 @@ const RoutineDetail = ({setSelectedStore}) => {
       const existingRoutine = routines.find((routine) => routine.routineId === parseInt(id));
       if (existingRoutine) {
         setRoutine(existingRoutine);
-        
+        setRoutine((prev) => ({
+          ...prev,
+          store: "전농관",
+        }));;
       }
     }
   }, [id, routines]);
