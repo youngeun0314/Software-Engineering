@@ -96,6 +96,8 @@ function Signup() {
         if (!email) {
             alert('이메일을 입력해주세요.');
             return;
+        } else {
+            handlePwChange(email);
         }
     
         try {
@@ -163,6 +165,7 @@ function Signup() {
                 alert('비밀번호가 일치하지 않습니다.');
                 return;
             }
+            handlePwConfirmChange(pw);
             setPwValid(true);
             console.log(isPwValid);
         }

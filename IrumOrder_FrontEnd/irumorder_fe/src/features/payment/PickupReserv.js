@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./PickupReserv.css";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import Toolbar from "../../routes/payment/Toolbar";
+import Toolbar from "../../shared/ui/ToolbarBack";
 
 const PickupReserv = () => {
   const nav = useNavigate();

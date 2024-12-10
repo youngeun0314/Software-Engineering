@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './StoreSelection.css';
-import Toolbar from './Toolbar';
+import Toolbar from '../../shared/ui/ToolbarClose';
 
 const StoreSelection = ({ onStartMenu }) => {
   const navigate = useNavigate(); // useNavigate 훅 사용

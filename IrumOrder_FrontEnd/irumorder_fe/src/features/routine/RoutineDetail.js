@@ -1,11 +1,9 @@
-import React, { useState, useEffect, useContext } from "react";
-import { useParams, useNavigate, useLocation } from "react-router-dom";
-import { Link } from "react-router-dom";
-import RoutineContext from "../../context/RoutineContext";
+import React, { useContext, useEffect, useState } from "react";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import { setMenuIn, setRoutineState } from "../../shared/context/OrderOrRoutine";
+import RoutineContext from "../../shared/context/RoutineContext";
+import { getUserId } from "../../shared/context/userStorage";
 import "./RoutineDetail.css";
-import { getUserId } from "../../context/userStorage";
-import { setMenuIn } from "../../context/OrderOrRoutine";
-import { setRoutineState } from "../../context/OrderOrRoutine";
 
 const RoutineDetail = ({setSelectedStore}) => {
   const location = useLocation();
@@ -15,7 +13,7 @@ const RoutineDetail = ({setSelectedStore}) => {
   const { routines, setRoutines } = useContext(RoutineContext);
   const navigate = useNavigate();
   const [routine, setRoutine] = useState({
-    userId: getUserId(),
+    userId: parseInt(getUserId()),
     menuId: options?.menuId,
     menuOptions: {
       useCup: "",
@@ -77,6 +75,7 @@ const RoutineDetail = ({setSelectedStore}) => {
       : `http://localhost:8080/api/users/${user_id}/routines/add`;
   
     try {
+      console.log("Sending data to server:", JSON.stringify(routineData, null, 2)); // 디버깅용 로그
       const response = await fetch(endpoint, {
         method,
         headers: { "Content-Type": "application/json" },
@@ -84,23 +83,41 @@ const RoutineDetail = ({setSelectedStore}) => {
       });
   
       if (!response.ok) {
+        const errorText = await response.text();
+        console.error("Server responded with error:", errorText); // 서버 응답 확인
         throw new Error(`HTTP 오류: ${response.status}`);
       }
   
       const updatedRoutine = await response.json();
+      console.log("Server responded with updatedRoutine:", updatedRoutine);
+  
       setRoutines((prev) =>
         method === "PUT"
-          ? prev.map((r) => (r.routineId === updatedRoutine.routineId ? updatedRoutine : r))
+          ? prev.map((r) =>
+              r.routineId === updatedRoutine.routineId ? updatedRoutine : r
+            )
           : [...prev, updatedRoutine]
       );
   
       navigate("/routinelist");
     } catch (error) {
-      console.log("routineData:", JSON.stringify(routineData, null, 2));
-      console.error("요청 실패:", error.message);
+      console.log("routineData:", JSON.stringify(routineData, null, 2)); // 오류 발생 시 데이터를 확인
       console.error("루틴 저장 중 오류 발생:", error);
+  
+      // 4번 항목: HTTP 500에 대한 추가 디버깅
+      if (error.message.includes("HTTP 오류: 500")) {
+        console.error("서버 내부 오류 발생: 이 문제는 서버에서 데이터를 처리하는 중 발생했습니다.");
+        console.error("서버 로그를 확인하거나 요청 데이터의 형식을 다시 확인하세요.");
+      }
+  
+      alert(
+        `루틴 저장 중 문제가 발생했습니다. 서버 응답: ${
+          error.message || "Unknown error"
+        }`
+      );
     }
   };
+  
 
   const handleSave = () => {
     setRoutine((prev) => ({

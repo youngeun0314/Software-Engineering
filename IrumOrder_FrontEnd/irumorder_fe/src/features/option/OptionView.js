@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import Toolbar from './Toolbar';
+import Toolbar from '../../shared/ui/ToolbarBack';
 import './OptionView.css';
 import axios from 'axios';
 

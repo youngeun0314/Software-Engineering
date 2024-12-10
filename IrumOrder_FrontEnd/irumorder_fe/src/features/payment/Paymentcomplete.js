@@ -1,11 +1,9 @@
 import "./Paymentcomplete.css";
 import { Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { getUserId, setUserId } from "../context/userStorage";
+import { setUserId } from "../../shared/context/userStorage";
 
 function Paymentcomplete() {
-  const nav = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {

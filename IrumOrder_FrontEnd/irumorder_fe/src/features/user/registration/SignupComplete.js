@@ -35,17 +35,6 @@ function SignupComplete() {
             </button>
           </Link>
       </div>
-      {/* <div className="payment-image-container">
-        <Link to={'/paymentcomplete'}>
-            <button type="pay" className="pay-button">
-              <img
-                src={`${process.env.PUBLIC_URL}/Group 2.png`}
-                alt="pay로 결제하기"
-                className="payment-image"
-              />
-            </button>
-        </Link>
-      </div> */}
     </div>
   );
 };

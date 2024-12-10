@@ -1,5 +1,5 @@
 import React from 'react';
-import './Toolbar.css';
+import './ToolbarClose.css';
 
 const Toolbar = ({ title, onClose }) => {
     return (

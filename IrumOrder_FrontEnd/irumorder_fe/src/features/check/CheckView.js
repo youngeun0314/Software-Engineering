@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { getUserId } from "../../context/userStorage";
+import { getUserId } from "../../shared/context/userStorage";
 import "./CheckView.css";
 
 const CheckView = () => {

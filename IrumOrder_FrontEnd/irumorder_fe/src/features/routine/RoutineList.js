@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import RoutineContext, { RoutineProvider } from "../../context/RoutineContext";
-import { getUserId } from "../../context/userStorage";
+import RoutineContext, { RoutineProvider } from "../../shared/context/RoutineContext";
+import { getUserId } from "../../shared/context/userStorage";
 import "./RoutineList.css";
 
 const RoutineList = () => {

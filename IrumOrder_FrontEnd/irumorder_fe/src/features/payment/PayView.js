@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { getUserId } from "../../context/userStorage";
+import { getUserId } from "../../shared/context/userStorage";
 import "./PayView.css";
-import Toolbar from "./Toolbar";
+import Toolbar from "../../shared/ui/ToolbarBack";
 
 const Pay = ({ onSelectedStore }) => {
   const location = useLocation();

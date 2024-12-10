@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useLocation, useParams } from "react-router-dom";
-import Toolbar from "./Toolbar";
+import { useNavigate, useLocation } from "react-router-dom";
+import Toolbar from "../../shared/ui/ToolbarBack";
 import "./CartView.css";
-import { getUserId } from "../../context/userStorage";
+import { getUserId } from "../../shared/context/userStorage";
 
 const CartView = () => {
   const nav = useNavigate();

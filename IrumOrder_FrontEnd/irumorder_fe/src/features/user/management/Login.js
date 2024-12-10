@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { setUserId } from '../../context/userStorage';
+import { setUserId } from '../../../shared/context/userStorage';
 import './Login.css';
 
 function Login() {
