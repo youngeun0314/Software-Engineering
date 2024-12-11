@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './MenuView.css';
-import Toolbar from '../../shared/ui/ToolbarClose';
+import Toolbar from '../../shared/ui/ToolbarCartBack';
 import Category from './Category';
 import MenuGrid from './MenuGrid';
 import { useNavigate, useParams } from 'react-router-dom';
