@@ -15,10 +15,13 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 /**
- * 클래스 설명: OrderService 테스트 클래스
+ * OrderServiceTest
+ *
+ * 이 클래스는 OrderService의 주요 메서드를 테스트하기 위한 단위 테스트 클래스입니다.
+ * 주요 기능으로는 특정 사용자 ID를 기반으로 올바른 주문 데이터를 가져오는지 확인하는 테스트를 포함합니다.
  *
  * 작성자: 김은지
- * 마지막 수정일: 2024-12-09
+ * 작성일: 2024-12-09
  */
 class OrderServiceTest {
 
