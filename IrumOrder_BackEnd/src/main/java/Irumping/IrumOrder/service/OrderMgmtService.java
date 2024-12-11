@@ -9,6 +9,13 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
+/**
+ * 클래스 설명: 주문 관리 기능을 제공하는 서비스
+ *
+ * 작성자: 주영은, 김은지
+ * 마지막 수정일: 2024-12-04
+ */
 @Slf4j
 @Service
 public class OrderMgmtService {
@@ -22,7 +29,13 @@ public class OrderMgmtService {
         this.eventPublisher = eventPublisher;
     }
 
-    // 주문 상태 업데이트
+    /**
+     * 주문 상태 업데이트
+     *
+     * @param orderId   주문 ID
+     * @param newStatus 새로운 주문 상태
+     * @return 업데이트 성공 시 success, 실패 시 fail 반환
+     */
     @Transactional
     public String updateOrderStatus(int orderId, OrderStatus newStatus) {
         OrderEntity orderEntity = repository.findByOrderId(orderId);
@@ -41,32 +54,13 @@ public class OrderMgmtService {
         return "success";
     }
 
-    // 주문 확인
+    /**
+     * 주문 확인
+     *
+     * @param orderId 주문 ID
+     * @return 주문 정보
+     */
     public OrderEntity checkOrder(int orderId) {
         return repository.findByOrderId(orderId);
     }
-
-//    // 주문 상태 업데이트
-//    public ResponseEntity<?> updateOrderStatus(int orderId, OrderStatus status) {
-//        // 주문 엔티티 조회
-//        OrderEntity orderEntity = repository.findById(orderId);
-//        if (orderEntity == null) {
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-//                    .body("{\"result\":\"fail\", \"message\":\"주문이 존재하지 않습니다.\"}");
-//        }
-//        // 주문 상태 업데이트
-//        orderEntity.setOrderStatus(status);
-//        return ResponseEntity.ok("{\"result\":\"success\", \"orderId\":" + orderId + "}");
-//    }
-//
-//    // 주문 확인
-//    public ResponseEntity<?> checkOrder(int orderId) {
-//        // 주문 엔티티 조회
-//        OrderEntity orderEntity = repository.findById(orderId);
-//        if (orderEntity == null) {
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-//                    .body("{\"result\":\"fail\", \"message\":\"주문이 존재하지 않습니다.\"}");
-//        }
-//        return ResponseEntity.ok(orderEntity);
-//    }
 }

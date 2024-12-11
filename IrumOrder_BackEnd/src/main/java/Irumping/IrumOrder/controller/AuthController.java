@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.*;
  * 마지막 수정일: 2024-12-05
  */
 
-//@CrossOrigin(origins = "http://localhost:3000")
 @Slf4j
 @RequiredArgsConstructor
 @RestController

@@ -73,7 +73,6 @@ public class JpaUserRepository implements UserRepository {
      * @return Optional로 감싼 UserEntity 객체.
      * 해당 아이디의 사용자가 존재하지 않을 경우 Optional.empty() 반환.
      */
-
     @Override
     @Transactional
     public Optional<UserEntity> findById(String id) {
@@ -94,7 +93,6 @@ public class JpaUserRepository implements UserRepository {
      * @return Optional로 감싼 String.
      * 해당 아이디의 사용자가 존재하지 않을 경우 Optional.empty() 반환.
      */
-
     public Optional<String> getUserMode(Integer userId) {
         try {
             return Optional.ofNullable(
@@ -107,6 +105,13 @@ public class JpaUserRepository implements UserRepository {
         }
     }
 
+    /**
+     * userId로 사용자 정보를 조회하는 메소드
+     *
+     * @param userId DB에 저장된 user의 기본키(사용자가 입력한 아이디 아님)
+     * @return Optional로 감싼 UserEntity 객체.
+     * 해당 아이디의 사용자가 존재하지 않을 경우 Optional.empty() 반환.
+     */
     @Override
     public Optional<UserEntity> findByUserId(Integer userId) {
         return Optional.ofNullable(em.find(UserEntity.class, userId));

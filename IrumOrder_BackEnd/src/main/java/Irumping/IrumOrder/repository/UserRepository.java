@@ -1,6 +1,5 @@
 package Irumping.IrumOrder.repository;
 
-import Irumping.IrumOrder.entity.OrderEntity;
 import Irumping.IrumOrder.entity.UserEntity;
 
 import java.util.Optional;
