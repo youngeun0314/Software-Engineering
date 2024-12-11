@@ -13,7 +13,7 @@ import Menu from "./features/menu/MenuView";
 import OptionView from "./features/option/OptionView";
 import Pay from "./features/payment/PayView";
 import StoreSelection from "./features/store/StoreSelection";
-import { getMenuIn, getRoutineState, setMenuIn } from "./shared/context/OrderOrRoutine";
+import { getMenuIn, getRoutineState, setMenuIn } from "./shared/context/menuRoutineState";
 import { RoutineProvider } from "./shared/context/RoutineContext";
 import { getUserId } from "./shared/context/userStorage";
 import requestPermission from "./firebase/requestPermission";
