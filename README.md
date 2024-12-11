@@ -297,9 +297,7 @@ irumorder_fe
 │   ├── features
 │   │   ├── cart
 │   │   │   ├── CartView.css
-│   │   │   ├── CartView.js
-│   │   │   ├── Toolbar.css
-│   │   │   └── Toolbar.js
+│   │   │   └── CartView.js
 │   │   ├── check
 │   │   │   ├── CheckView.css
 │   │   │   ├── CheckView.js
@@ -319,9 +317,7 @@ irumorder_fe
 │   │   │   ├── PayView.css
 │   │   │   ├── PayView.js
 │   │   │   ├── Paymentcomplete.css
-│   │   │   ├── Paymentcomplete.js
-│   │   │   ├── Toolbar.css
-│   │   │   └── Toolbar.js
+│   │   │   └── Paymentcomplete.js
 │   │   ├── store
 │   │   │   ├── StoreSelection.css
 │   │   │   ├── StoreSelection.js
@@ -341,27 +337,36 @@ irumorder_fe
 │   │   │   │   ├── SignupComplete.js
 │   │   │   │   ├── SignupStart.css
 │   │   │   │   └── SignupStart.js
+│   ├── firebase
+│   │   ├── firebase.js
+│   │   └── requsetPermission.js
 │   ├── shared
 │   │   ├── context
-│   │   │   ├── OrderOrRoutine.js
+│   │   │   ├── menuRoutineState.js
 │   │   │   ├── RoutineContext.js
-│   │   │   ├── RoutineModify.js
 │   │   │   └── userStorage.js
 │   │   ├── ui
 │   │   │   ├── Main.css
-│   │   │   └── Main.js
+│   │   │   ├── Main.js
+│   │   │   ├── ToolbarBack.css
+│   │   │   ├── ToolbarBack.js
+│   │   │   ├── ToolbarCartBack.css
+│   │   │   ├── ToolbarCartBack.js
+│   │   │   ├── ToolbarClose.css
+│   │   │   └── ToolbarClose.js
 ├── App.js
 ├── index.js
 └── setupProxy.js
 ```
-#### **`irumorder_fe`**
-- React 프로젝트의 최상위 디렉터리.
-- 프로젝트 설정과 엔트리 파일을 포함.
+# 프로젝트 폴더 구조 및 파일 설명
+
+## **`irumorder_fe`**
+React 프로젝트의 최상위 디렉터리. 프로젝트 설정과 엔트리 파일을 포함.
 
 ---
 
-#### **`src`**
-- 애플리케이션 소스 코드가 포함된 메인 디렉터리.
+## **`src`**
+애플리케이션의 소스 코드가 포함된 메인 디렉터리.
 
 ---
 
@@ -371,8 +376,6 @@ irumorder_fe
 #### **`cart`**
 - **`CartView.js`**: 장바구니 화면 컴포넌트.
 - **`CartView.css`**: 장바구니 화면 스타일링.
-- **`Toolbar.js`**: 장바구니에서 사용되는 툴바 컴포넌트.
-- **`Toolbar.css`**: 툴바 스타일링 파일.
 
 #### **`check`**
 - **`CheckView.js`**: 주문 확인 화면 컴포넌트.
@@ -397,8 +400,6 @@ irumorder_fe
 - **`PayView.css`**: 결제 화면 스타일링.
 - **`Paymentcomplete.js`**: 결제 완료 화면 컴포넌트.
 - **`Paymentcomplete.css`**: 결제 완료 화면 스타일링.
-- **`Toolbar.js`**: 결제 툴바 컴포넌트.
-- **`Toolbar.css`**: 결제 툴바 스타일링.
 
 #### **`store`**
 - **`StoreSelection.js`**: 매장 선택 화면 컴포넌트.
@@ -424,34 +425,43 @@ irumorder_fe
 
 ---
 
+### **`firebase`**
+Firebase 관련 설정 및 유틸리티 파일을 포함.
+- **`firebase.js`**: Firebase 초기화 설정 파일.
+- **`requsetPermission.js`**: 푸시 알림 권한 요청 로직.
+
+---
+
 ### **`shared`**
 공통으로 사용되는 코드와 유틸리티를 포함.
 
 #### **`context`**
-- **`OrderOrRoutine.js`**: 주문 및 루틴 관리 상태.
+- **`menuRoutineState.js`**: 주문 및 루틴 관리 상태.
 - **`RoutineContext.js`**: 루틴 관련 데이터 관리 컨텍스트.
-- **`RoutineModify.js`**: 루틴 수정 관련 유틸리티.
 - **`userStorage.js`**: 사용자 정보를 로컬 스토리지에 저장 및 가져오는 유틸리티.
 
 #### **`ui`**
 - **`Main.js`**: 메인 화면 컴포넌트.
 - **`Main.css`**: 메인 화면 스타일링.
+- **`ToolbarBack.js`**: 뒤로 가기 툴바 컴포넌트.
+- **`ToolbarBack.css`**: 툴바 스타일링.
+- **`ToolbarCartBack.js`**: 장바구니 뒤로 가기 툴바 컴포넌트.
+- **`ToolbarCartBack.css`**: 장바구니 툴바 스타일링.
+- **`ToolbarClose.js`**: 닫기 버튼 툴바 컴포넌트.
+- **`ToolbarClose.css`**: 닫기 버튼 툴바 스타일링.
 
 ---
 
 ### **프로젝트 루트**
 
 #### **`App.js`**
-- 애플리케이션의 루트 컴포넌트.
-- 모든 라우트를 정의하고 최상위 레이아웃을 설정.
+애플리케이션의 루트 컴포넌트. 모든 라우트를 정의하고 최상위 레이아웃을 설정.
 
 #### **`index.js`**
-- 애플리케이션의 진입점.
-- ReactDOM을 사용해 루트 컴포넌트를 DOM에 렌더링.
+애플리케이션의 진입점. ReactDOM을 사용해 루트 컴포넌트를 DOM에 렌더링.
 
 #### **`setupProxy.js`**
-- API 프록시 설정 파일.
-- 클라이언트와 서버 간의 원활한 통신을 지원.
+API 프록시 설정 파일. 클라이언트와 서버 간의 원활한 통신을 지원.
 
 
 
