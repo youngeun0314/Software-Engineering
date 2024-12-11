@@ -1,62 +1,55 @@
+/**
+ * 파일: Signup.js
+ * 설명: 사용자가 새로운 계정을 생성할 수 있도록 회원가입 절차를 관리하는 컴포넌트
+ * 작성자: 이희진
+ * 마지막 수정일: 2024-12-10
+ */
+
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Signup.css';
 
 function Signup() {
-    const [id, setId] = useState('');
-    const [pw, setPw] = useState('');
-    const [pwConfirm, setPwConfirm] = useState('');
-    const [email, setEmail] = useState('');
-    const [isIdValid, setIsIdValid] = useState(false);
-    const [isPwValid, setPwValid] = useState(false);
-    const navigate = useNavigate();
-    const [verificationCode, setVerificationCode] = useState('');
-    const [isCodeSent, setIsCodeSent] = useState(false);
-    const [isEmailVerified, setIsEmailVerified] = useState(false);
-    const [isPwVisible, setIsPwVisible] = useState(false); // 비밀번호 가시성 상태 추가
-    const [isPwConfirmVisible, setIsPwConfirmVisible] = useState(false); // 비밀번호
+    const [id, setId] = useState(''); // 사용자 ID 상태 관리
+    const [pw, setPw] = useState(''); // 비밀번호 상태 관리
+    const [pwConfirm, setPwConfirm] = useState(''); // 비밀번호 확인 상태 관리
+    const [email, setEmail] = useState(''); // 이메일 상태 관리
+    const [isIdValid, setIsIdValid] = useState(false); // ID 유효성 상태
+    const [isPwValid, setPwValid] = useState(false); // 비밀번호 유효성 상태
+    const navigate = useNavigate(); // 페이지 이동을 위한 Hook
+    const [verificationCode, setVerificationCode] = useState(''); // 이메일 인증 코드 상태 관리
+    const [isCodeSent, setIsCodeSent] = useState(false); // 이메일 인증 코드 전송 여부 상태
+    const [isEmailVerified, setIsEmailVerified] = useState(false); // 이메일 인증 여부 상태
+    const [isPwVisible, setIsPwVisible] = useState(false); // 비밀번호 표시 여부 상태
+    const [isPwConfirmVisible, setIsPwConfirmVisible] = useState(false); // 비밀번호 확인 표시 여부 상태
 
+    // 비밀번호 가시성 토글
     const handlePwVisibilityToggle = () => {
         setIsPwVisible(!isPwVisible);
     };
 
+    // 비밀번호 확인 가시성 토글
     const handlePwConfirmVisibilityToggle = () => {
         setIsPwConfirmVisible(!isPwConfirmVisible);
     };
 
+    // ID 입력 변경 핸들러
     const handleIdChange = (e) => {
         setId(e.target.value);
-        setIsIdValid(false);
+        setIsIdValid(false); // 유효성 초기화
     };
 
-    const handlePwChange = (e) => {
-        const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-
-        if (!emailPattern.test(email)) { 
-            alert('이메일 형식이 맞지 않습니다.'); 
-            setEmail(''); 
-            return;
-        }
-        
-        setPw(e.target.value);
-    };
-
-    const handlePwConfirmChange = (e) => {
-        const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z0-9!@#$^&*(),.?":{}|<>]{8,20}$/;
-
-        if (!passwordPattern.test(pw)) {
-            alert('비밀번호는 8자 이상 20자 이하의 영문과 숫자, 특수문자 조합이어야 합니다.');
-            setPw('');
-            return;
-        }
-        setPwConfirm(e.target.value);
-    };
-
+    // 이메일 입력 변경 핸들러
     const handleEmailChange = (e) => {
         setEmail(e.target.value);
-        setIsEmailVerified(false);
+        setIsEmailVerified(false); // 인증 초기화
     };
 
+    /**
+     * 아이디 중복 확인 요청
+     *
+     * @return void
+     */
     const checkIdAvailability = async () => {
         const idPattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z0-9]{4,20}$/;
 
@@ -78,26 +71,29 @@ function Signup() {
                 throw new Error("서버 오류가 발생했습니다.");
             }
         
-            const message = await response.text(); // JSON 대신 text()로 처리
+            const message = await response.text(); // 서버 응답 메시지
             if (message === "사용 가능한 아이디입니다.") {
                 setIsIdValid(true);
-                alert(message);
+                alert(message); // 성공 메시지 알림
             } else {
                 setIsIdValid(false);
-                alert(message);
+                alert(message); // 실패 메시지 알림
             }
         } catch (error) {
-            console.error('아이디 중복 확인 오류:1', error);
+            console.error('아이디 중복 확인 오류:', error);
             alert('사용할 수 없는 아이디 입니다.');
         }
     };
 
+    /**
+     * 이메일 인증 코드 전송
+     *
+     * @return void
+     */
     const sendVerificationCode = async () => {
         if (!email) {
             alert('이메일을 입력해주세요.');
             return;
-        } else {
-            handlePwChange(email);
         }
     
         try {
@@ -120,6 +116,11 @@ function Signup() {
         }
     };
     
+    /**
+     * 인증 코드 확인 요청
+     *
+     * @return void
+     */
     const verifyCode = async () => {
         if (!verificationCode) {
             alert('인증 코드를 입력해주세요.');
@@ -127,16 +128,14 @@ function Signup() {
         }
     
         try {
-            const response = await fetch(`http://localhost:8080/auth/verifyEmail?email=user%40example.com&code=1234`, {
+            const response = await fetch(`http://localhost:8080/auth/verifyEmail?email=${email}&code=${verificationCode}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
             });
     
-            // 서버가 JSON 형식으로 응답하지 않으면 response.text()로 처리
-            const responseText = await response.text();
-    
+            const responseText = await response.text(); // 응답 메시지 확인
             if (response.ok) {
                 alert(responseText);
                 setIsEmailVerified(true);
@@ -149,8 +148,14 @@ function Signup() {
         }
     };    
 
+    /**
+     * 회원가입 요청
+     *
+     * @param event 폼 제출 이벤트
+     * @return void
+     */
     const handleSubmit = async (event) => {
-        event.preventDefault();
+        event.preventDefault(); // 폼 기본 동작 방지
         if (!isIdValid) {
             alert('아이디 중복 확인을 해주십시오.');
             return;
@@ -160,14 +165,12 @@ function Signup() {
             alert('비밀번호가 일치하지 않습니다.');
             return;
         } else {
-            if(pw === ''){
+            if (pw === '') {
                 setPwValid(false);
-                alert('비밀번호가 일치하지 않습니다.');
+                alert('비밀번호를 입력해주세요.');
                 return;
             }
-            handlePwConfirmChange(pw);
             setPwValid(true);
-            console.log(isPwValid);
         }
         if (!isCodeSent) {
             alert('이메일 인증을 실시하십시오.');
@@ -177,24 +180,23 @@ function Signup() {
             alert('이메일 인증코드를 확인해 주십시오.');
             return;
         }
-        
 
-        // 새로운 사용자 등록을 위한 POST 요청 (Swagger API 규격에 맞춤)
+        // 회원가입 요청 전송
         try {
-            const response = await fetch('http://localhost:8080/auth/signUp', {  // Swagger API URL로 수정
+            const response = await fetch('http://localhost:8080/auth/signUp', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
                     id,
-                    password: pw,  // Swagger 스키마에 맞춰서 password로 변경
-                    email,  // 이메일 추가
+                    password: pw, // 서버 요구 스키마에 맞춘 키
+                    email,
                 }),
             });
 
             if (response.ok) {
-                navigate('/'); // 회원가입 성공 후 로그인 페이지로 이동
+                navigate('/'); // 성공 시 로그인 페이지로 이동
             } else {
                 console.error('회원가입 실패:', response.statusText);
                 alert('회원가입에 실패했습니다. 중복된 이메일을 사용했습니다.');
@@ -208,24 +210,28 @@ function Signup() {
     return (
         <div className='signup-container'>
             <header className='signup-header'>
+                {/* 이전 페이지로 이동 */}
                 <Link to={'/signupstart'}>
                     <button className="back-button">
                         <img
-                        src={`${process.env.PUBLIC_URL}/back_button.png`}
-                        alt="back"
-                        className="back-image"
-                    /></button>
+                            src={`${process.env.PUBLIC_URL}/back_button.png`}
+                            alt="back"
+                            className="back-image"
+                        />
+                    </button>
                 </Link>
                 <div className="signup-text">
                     <p>회원가입</p>
                 </div>
+                {/* 메인 페이지로 이동 */}
                 <Link to={'/'}>
-                <button className="x-button">
-                    <img
-                    src={`${process.env.PUBLIC_URL}/x_button.png`}
-                    alt="x"
-                    className="x-image"
-                /></button>
+                    <button className="x-button">
+                        <img
+                            src={`${process.env.PUBLIC_URL}/x_button.png`}
+                            alt="x"
+                            className="x-image"
+                        />
+                    </button>
                 </Link>
             </header>
             <div className='signup-content'>
@@ -237,6 +243,7 @@ function Signup() {
                     />
                 </div>
                 <form onSubmit={handleSubmit} className='signup-form'>
+                    {/* 아이디 입력 */}
                     <label htmlFor="id">아이디</label>
                     <input
                         type="text"
@@ -247,6 +254,7 @@ function Signup() {
                     />
                     <button type="button" onClick={checkIdAvailability} className='id-check-button'>중복 확인</button>
 
+                    {/* 이메일 입력 */}
                     <label htmlFor="email">이메일</label>
                     <input
                         type="email"
@@ -256,6 +264,7 @@ function Signup() {
                         onChange={handleEmailChange}
                     />
                     
+                    {/* 이메일 인증 */}
                     <div className="email-verification">
                         <button 
                             type="button" 
@@ -290,6 +299,7 @@ function Signup() {
                         )}
                     </div>
 
+                    {/* 비밀번호 입력 */}
                     <label htmlFor="pw">비밀번호</label>
                     <input
                         type={isPwVisible ? "text" : "password"}
@@ -299,12 +309,14 @@ function Signup() {
                         onChange={(e) => setPw(e.target.value)}
                     />
                     <button
-                            type="button"
-                            className="toggle-visibility-button"
-                            onClick={handlePwVisibilityToggle}
-                        >
-                            {isPwVisible ? "숨기기" : "보기"}
-                        </button>
+                        type="button"
+                        className="toggle-visibility-button"
+                        onClick={handlePwVisibilityToggle}
+                    >
+                        {isPwVisible ? "숨기기" : "보기"}
+                    </button>
+                    
+                    {/* 비밀번호 확인 입력 */}
                     <label htmlFor="pwConfirm">비밀번호 확인</label>
                     <input
                         type={isPwConfirmVisible ? "text" : "password"}
@@ -312,20 +324,22 @@ function Signup() {
                         placeholder="비밀번호를 한 번 더 입력해주세요."
                         value={pwConfirm}
                         onChange={(e) => setPwConfirm(e.target.value)}
-                        />
-                        <button
-                            type="button"
-                            className="toggle-visibility-button"
-                            onClick={handlePwConfirmVisibilityToggle}
-                        >
-                            {isPwConfirmVisible ? "숨기기" : "보기"}
-                        </button>
+                    />
+                    <button
+                        type="button"
+                        className="toggle-visibility-button"
+                        onClick={handlePwConfirmVisibilityToggle}
+                    >
+                        {isPwConfirmVisible ? "숨기기" : "보기"}
+                    </button>
+
+                    {/* 제출 버튼 */}
                     <button type="submit" className="next-button">
                         <img
                             src={`${process.env.PUBLIC_URL}/next_button.png`}
                             alt="next"
                             className="next-image"
-                        ></img>
+                        />
                     </button>
                 </form>
             </div>
