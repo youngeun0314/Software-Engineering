@@ -137,6 +137,10 @@ npm start
         - `spring.datasource.url`: MySQL 데이터베이스 URL
 4. **IntelliJ와 데이터베이스 연결**
     - IntelliJ에서 MySQL 데이터베이스 연결 설정 완료.
+---
+### Alarm기능 사용 시
+1. **chrome에서 알림 기능을 킨 후 실행**
+2. **개발자모드의 콘솔창에서 "FCM Token: " 뒤의 전체 string을 복사해서 TokenEntity 데이터베이스에 저장(혹은 swagger.io에서 FcmController를 이용하여 데이터베이스에 저장)**
 
 ---
 
@@ -475,3 +479,7 @@ API 프록시 설정 파일. 클라이언트와 서버 간의 원활한 통신�
 - **최진영** ([@glebungle](https://www.github.com/glebungle)) - **Frontend, Design**
 - **이희진** ([@22huijin](https://www.github.com/22huijin)) - **Frontend, 기획**
 - **주영은** ([@ye0314](https://www.github.com/ye0314)) - **Backend**
+
+
+### Notes
+- 프로젝트 협업 중 일부 작업에서 코드를 작성한 사람과 커밋을 올린 사람이 다를 수 있습니다. 환경 설정 및 장비 공유로 발생하였으며, 커밋 메시지에 실제 작성자의 이름이 명시되어 있으니 참고해 주세요.
