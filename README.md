@@ -139,8 +139,36 @@ npm start
     - IntelliJ에서 MySQL 데이터베이스 연결 설정 완료.
 ---
 ### Alarm기능 사용 시
-1. **chrome에서 알림 기능을 킨 후 실행**
-2. **개발자모드의 콘솔창에서 "FCM Token: " 뒤의 전체 string을 복사해서 TokenEntity 데이터베이스에 저장(혹은 swagger.io에서 FcmController를 이용하여 데이터베이스에 저장)**
+1. **/IrumOrder_Backend/src/main/resources/firebase에 serviceAccount.json 파일을 만든 후, 아래와 같은 형식으로 json 파일 저장**
+
+    {
+
+   "type": "service_account",
+
+   "project_id": "irumorder",
+
+   "private_key_id": ,
+
+   "private_key": ,
+
+   "client_email": ,
+
+   "client_id": ,
+
+   "auth_uri": ,
+
+   "token_uri": ,
+
+   "auth_provider_x509_cert_url": ,
+
+   "client_x509_cert_url": ",
+
+   "universe_domain": "googleapis.com"
+
+   }
+
+2. **chrome에서 알림 기능을 킨 후 실행**
+3. **개발자모드의 콘솔창에서 "FCM Token: " 뒤의 전체 string을 복사해서 TokenEntity 데이터베이스에 저장(혹은 swagger.io에서 FcmController를 이용하여 데이터베이스에 저장)**
 
 ---
 
