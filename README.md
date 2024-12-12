@@ -171,6 +171,11 @@ npm start
 3. **개발자모드의 콘솔창에서 "FCM Token: " 뒤의 전체 string을 복사해서 TokenEntity 데이터베이스에 저장(혹은 swagger.io에서 FcmController를 이용하여 데이터베이스에 저장)**
 
 ---
+### 결제기능 사용 시
+1. [카카오페이 개발자센터](https://developers.kakaopay.com/) 접속 후 비밀키 발급
+2. `IrumOrder_BackEnd/src/main/resources/application.properties` 의 kakao.pay.secret-key에 발급받은 Secret key(dev) 작성
+
+---
 
 ## Project Deliverables
 (링크 업데이트 예정)
