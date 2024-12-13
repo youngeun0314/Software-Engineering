@@ -1,0 +1,750 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.1">
+  <zoom_level>3</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>234</x>
+      <y>309</y>
+      <w>84</w>
+      <h>69</h>
+    </coordinates>
+    <panel_attributes>Menu::OptionView
+--
+-menuDetails: Object
+-loading: Boolean
+-error: Boolean
+--
++fetchMenuDetails(): void
++handleBack(): void
++handleCupSelection(): void
++handleOptionClick(): void
++handleCartClick(): void
+--
+Responsibilities
+-- Fetch and display menu details
+-- Allow users to customize menu options</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>84</x>
+      <y>291</y>
+      <w>93</w>
+      <h>57</h>
+    </coordinates>
+    <panel_attributes>Backend::API
+--
+-auth/login
+-auth/signUp
+-menu/getOneMenu
+-orders
+-api/users/:id/routines
+-api/users/:id/routines/add
+--
+Responsibilities
+-- Handle authentication and user management
+-- Manage menu, orders, and routines</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>234</x>
+      <y>234</y>
+      <w>69</w>
+      <h>57</h>
+    </coordinates>
+    <panel_attributes>Store::StoreSelection
+--
+(No attributes)
+--
++handleCancel(): void
++onStartMenu(): void
+--
+Responsibilities
+-- Allow users to select a store
+-- Handle navigation to menu view</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>84</x>
+      <y>435</y>
+      <w>111</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>Core::App
+--
+-selectedStore: String
+-options: Object
+--
++handleStartMenu(store: String): void
++handleOption(menuId: Number): void
++handleStartCart(options: Object): void
++render(): JSX.Element
+--
+Responsibilities
+-- Serve as the root component of the application
+-- Manage global states like `selectedStore` and `options`
+-- Handle navigation between key application screens</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>213</x>
+      <y>228</y>
+      <w>489</w>
+      <h>315</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>267</x>
+      <y>552</y>
+      <w>78</w>
+      <h>57</h>
+    </coordinates>
+    <panel_attributes>Utility::OrderOrRoutine
+--
+(No attributes)
+--
++setMenuIn(): void
++getMenuIn(): Number
++clearMenuIn(): void
++setRoutineState(): void
++getRoutineState(): String
++clearRoutineState(): void
+--
+Responsibilities
+-- Manage state for orders and routines</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>213</x>
+      <y>546</y>
+      <w>489</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>423</x>
+      <y>552</y>
+      <w>72</w>
+      <h>57</h>
+    </coordinates>
+    <panel_attributes>Storage::userStorage
+--
+(No attributes)
+--
++setUserId(): void
++getUserId(): String
++clearUserId(): void
+--
+Responsibilities
+-- Store, retrieve, and clear user ID</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>585</x>
+      <y>552</y>
+      <w>63</w>
+      <h>57</h>
+    </coordinates>
+    <panel_attributes>Routine::RoutineContext
+--
+-routines: Array
+--
++RoutineProvider(): void
++setRoutines(): void
+--
+Responsibilities
+-- Share routine data globally
+-- Provide state management</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>357</x>
+      <y>429</y>
+      <w>63</w>
+      <h>57</h>
+    </coordinates>
+    <panel_attributes>Payment::PayView
+--
+-menuDetails: Object
+-isLoading: Boolean
+--
++fetchMenuDetails(): void
++handlePayment(): void
+--
+Responsibilities
+-- Display order summary
+-- Process user payment</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>423</x>
+      <y>228</y>
+      <w>78</w>
+      <h>57</h>
+    </coordinates>
+    <panel_attributes>Menu::Category
+--
+-categories: Array
+-loading: Boolean
+-error: Boolean
+--
++fetchCategories(): void
+--
+Responsibilities
+-- Fetch and display menu categories
+-- Handle category selection</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>336</x>
+      <y>228</y>
+      <w>78</w>
+      <h>57</h>
+    </coordinates>
+    <panel_attributes>UI::Toolbar
+--
+-title: String
+--
++onBack(): void
++onCart(): void
++onClose(): void
+--
+Responsibilities
+-- Provide back, cart, and close controls</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>507</x>
+      <y>228</y>
+      <w>78</w>
+      <h>57</h>
+    </coordinates>
+    <panel_attributes>Menu::MenuGrid
+--
+-menuItems: Array
+-loading: Boolean
+-error: Boolean
+--
++fetchMenuItems(): void
++onStartOption(): void
+--
+Responsibilities
+-- Fetch and display menu items
+-- Trigger option selection</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>264</x>
+      <y>420</y>
+      <w>84</w>
+      <h>66</h>
+    </coordinates>
+    <panel_attributes>Cart::CartView
+--
+-cartData: Array
+-totalPrice: Number
+--
++loadFromWebStorage(): void
++saveToWebStorage(): void
++handleRemoveItem(): void
++handleDecreaseQuantity(): void
++handleIncreaseQuantity(): void
++handleNavigate(): void
+--
+Responsibilities
+-- Manage cart items
+-- Calculate total price and handle storage</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>429</x>
+      <y>429</y>
+      <w>69</w>
+      <h>57</h>
+    </coordinates>
+    <panel_attributes>Reservation::PickupReserv
+--
+-selectedHour: Number
+-selectedInterval: String
+-pickUpTime: String
+--
++handleHourClick(): void
++handleIntervalClick(): void
++handlePayment(): void
+--
+Responsibilities
+-- Enable time selection for pickup
+-- Handle navigation to payment</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>540</x>
+      <y>288</y>
+      <w>93</w>
+      <h>57</h>
+    </coordinates>
+    <panel_attributes>Menu::MenuView
+--
+-selectedCategory: String
+--
++handleBack(): void
++handleCart(): void
++handleCategorySelect(): void
+--
+Responsibilities
+-- Display categories and filter menu items
+-- Handle navigation to cart and option selection</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>441</x>
+      <y>348</y>
+      <w>96</w>
+      <h>57</h>
+    </coordinates>
+    <panel_attributes>UserManagement::Login
+--
+-id: String
+-pw: String
+--
++handleLogin(): void
+--
+Responsibilities
+-- Authenticate user credentials
+-- Navigate to the main page on successful login</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>540</x>
+      <y>348</y>
+      <w>87</w>
+      <h>117</h>
+    </coordinates>
+    <panel_attributes>UserManagement::Signup
+--
+-id: String
+-pw: String
+-pwConfirm: String
+-email: String
+-verificationCode: String
+-isIdValid: Boolean
+-isPwValid: Boolean
+-isCodeSent: Boolean
+-isEmailVerified: Boolean
+--
++handleSubmit(): void
++handleIdChange(): void
++handlePwChange(): void
++checkIdAvailability(): void
++sendVerificationCode(): void
++verifyCode(): void
+--
+Responsibilities
+-- Validate user inputs
+-- Check ID availability and email verification
+-- Submit registration data to the server</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>528</x>
+      <y>474</y>
+      <w>72</w>
+      <h>57</h>
+    </coordinates>
+    <panel_attributes>Routine::RoutineList
+--
+-routines: Array
+--
++deleteRoutineToServer(): void
+--
+Responsibilities
+-- Display and manage user routines
+-- Allow deletion of routines</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>633</x>
+      <y>462</y>
+      <w>63</w>
+      <h>66</h>
+    </coordinates>
+    <panel_attributes>Routine::RoutineDetail
+--
+-routine: Object
+-routines: Array
+--
++handleChange(): void
++handleDayToggle(): void
++handleStoreChange(): void
++saveRoutineToServer(): void
++handleSave(): void
++handleCancel(): void
+--
+Responsibilities
+-- Manage routine details
+-- Save routine to server</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>174</x>
+      <y>318</y>
+      <w>45</w>
+      <h>12</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+&lt; 의존(데이터통신)</panel_attributes>
+    <additional_attributes>10.0;20.0;130.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>132</x>
+      <y>378</y>
+      <w>87</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+렌더링 &gt;</panel_attributes>
+    <additional_attributes>270.0;20.0;10.0;20.0;10.0;190.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>102</x>
+      <y>495</y>
+      <w>117</w>
+      <h>87</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+                               의존(사용) &gt;</panel_attributes>
+    <additional_attributes>370.0;270.0;110.0;270.0;110.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>192</x>
+      <y>261</y>
+      <w>48</w>
+      <h>210</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;680.0;110.0;680.0;110.0;10.0;140.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>192</x>
+      <y>339</y>
+      <w>72</w>
+      <h>132</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+의존(상태전달) v</panel_attributes>
+    <additional_attributes>10.0;420.0;110.0;420.0;110.0;10.0;140.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>300</x>
+      <y>483</y>
+      <w>21</w>
+      <h>75</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+
+
+
+
+
+
+
+제공 ^</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;230.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>246</x>
+      <y>375</y>
+      <w>63</w>
+      <h>183</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;550.0;190.0;550.0;190.0;590.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>300</x>
+      <y>525</y>
+      <w>393</w>
+      <h>33</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>1290.0;10.0;1290.0;50.0;10.0;50.0;10.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>192</x>
+      <y>483</y>
+      <w>138</w>
+      <h>15</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+&lt; 의존(상태사용)</panel_attributes>
+    <additional_attributes>10.0;30.0;440.0;30.0;440.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>192</x>
+      <y>483</y>
+      <w>201</w>
+      <h>15</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;30.0;650.0;30.0;650.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>192</x>
+      <y>483</y>
+      <w>279</w>
+      <h>15</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;30.0;910.0;30.0;910.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>384</x>
+      <y>282</y>
+      <w>21</w>
+      <h>153</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+
+포함 ^
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;490.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>384</x>
+      <y>282</y>
+      <w>84</w>
+      <h>153</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;430.0;260.0;430.0;260.0;490.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>306</x>
+      <y>282</y>
+      <w>87</w>
+      <h>144</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>270.0;10.0;270.0;430.0;10.0;430.0;10.0;460.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>315</x>
+      <y>282</y>
+      <w>78</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>240.0;10.0;240.0;130.0;10.0;130.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>384</x>
+      <y>282</y>
+      <w>162</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;130.0;520.0;130.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>450</x>
+      <y>282</y>
+      <w>96</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+                                          포함 ^</panel_attributes>
+    <additional_attributes>40.0;10.0;40.0;130.0;300.0;130.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>516</x>
+      <y>282</y>
+      <w>30</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;130.0;80.0;130.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>480</x>
+      <y>402</y>
+      <w>57</w>
+      <h>156</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+제공 ^
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</panel_attributes>
+    <additional_attributes>130.0;10.0;130.0;390.0;10.0;390.0;10.0;500.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>480</x>
+      <y>423</y>
+      <w>66</w>
+      <h>135</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>200.0;10.0;130.0;10.0;130.0;320.0;10.0;320.0;10.0;430.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>597</x>
+      <y>495</y>
+      <w>27</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>70.0;190.0;70.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>615</x>
+      <y>495</y>
+      <w>33</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+
+
+
+
+
+
+
+의존(사용) v</panel_attributes>
+    <additional_attributes>10.0;190.0;10.0;10.0;60.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>597</x>
+      <y>480</y>
+      <w>42</w>
+      <h>12</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+포함 &gt;</panel_attributes>
+    <additional_attributes>120.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+</diagram>
