@@ -100,9 +100,10 @@
 ### FrontEnd
 ```bash
 git clone https://github.com/ej9374/Software-Engineering
-npm i 
-npm i react-router-dom
-npm i firebase
+cd Software-Engineering/IrumOrder_FrontEnd/irumorder_fe 
+npm install
+npm install react-router-dom
+npm install firebase
 npm start
 ```
 
