@@ -198,6 +198,12 @@ npm start
 ### Coding Standard
 - [Coding Standard](artifacts/Coding Standard, Repository Management and Review Process.pdf)
 
+### API docs
+- [api docs](/artifacts/api_docs.pdf)
+
+### bug list
+- [bug list](/artifacts/Bug List.xlsx)
+
 ---
 
 ## Test Cases and Results
