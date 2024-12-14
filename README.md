@@ -191,7 +191,7 @@ npm start
 - [Final Version](artifacts/srs-template-v2.5 wirrten by 이룸오더.docx)
 
 ### Architecture & Design Documentation
-- [Software Architecture](artifacts/이룸오더 high-level Architecture UML Diagram.docx)
+- [Software Architecture](artifacts/이룸오더 high-level Architecture UML Diagram_v2.3.docx)
 - [Software Design](artifacts/Architecture_diagram)
 - [UI Design](artifacts/이룸오더 UI 디자인 문서 v1.2.docx)
 
