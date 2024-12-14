@@ -1,0 +1,103 @@
+.main-container {
+    font-family: Inter;
+    margin-top: 10px;
+    background-color: #fff8e1;
+    height: 100%; /* 화면 전체 높이 */
+    display: flex;
+    flex-direction: column;
+}
+
+.logo-header {
+    padding-top: 10px;
+    display: flex;
+    justify-content: flex-start;
+    background-color: rgb(255, 255, 255);
+}
+
+.logo {
+    margin-top: 10px;
+}
+
+.logo-image {
+    width: 100%; /* 필요한 크기에 맞게 변경 */
+    max-width: 150px;
+}
+
+.banner-image-container {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.banner-image {
+    width: 100%; /* 필요한 크기에 맞게 변경 */
+    max-width: 500px; /* 최대 크기 제한 */
+}
+
+.welcome-box {
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    margin: 20px;
+    background-color: #ffffff;
+    padding-bottom: 20px;
+}
+
+.profile {
+    padding: 20px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.profile .profile-image {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.profile .welcome-message {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.main-options {
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+}
+
+.main-button {
+    padding: 5px 10px;
+    margin: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #ffffff;
+    color: white;
+    cursor: pointer;
+}
+
+.main-image {
+    width: 65px;
+    height: 65px;
+    object-fit: cover;
+}
+.logout-button {
+    background-color: transparent; /* 배경 투명 */
+    color: #FF5722; /* 강조된 주황색 */
+    border: none; /* 테두리 제거 */
+    font-size: 0.9rem; /* 버튼 폰트 크기 */
+    font-weight: bold; /* 텍스트 굵게 */
+    margin-left: 10px; /* 텍스트와 간격 추가 */
+    cursor: pointer; /* 포인터 표시 */
+    transition: color 0.3s ease, transform 0.2s ease; /* 호버 시 애니메이션 */
+  }
+  
+  .logout-button:hover {
+    color: #D84315; /* 호버 시 어두운 주황색 */
+    transform: scale(1.00); /* 살짝 확대 */
+  }
+  
+  .logout-button:focus {
+    outline: none; /* 포커스 시 외곽선 제거 */
+  }
+  

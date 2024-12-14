@@ -1,0 +1,119 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  overflow-y: auto !important; /* 세로 스크롤 가능 */
+}
+
+.MenuGrid {
+  height: 100%;
+  padding: 5px; /* 내부 여백 */
+  padding: 10px;
+  max-width: 1200px; /* 최대 너비 */
+  box-sizing: border-box;
+  grid-template-rows: repeat(auto-fill, minmax(100px, auto)); /* 각 행의 높이 설정 */
+  overflow-y: auto !important; /* 세로 스크롤 가능 */
+}
+
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* 반응형 그리드 */
+  gap: 5px;
+  padding: 10px;
+  justify-content: center;
+  box-sizing: border-box; /* 패딩 포함해서 크기 계산 */
+  overflow-y: scroll; /* 세로 스크롤 가능 */
+}
+
+.menu-item {
+  width: 180px; /* 부모 그리드 셀 크기에 맞춤 */
+  height: 200px; /* 고정된 높이 */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* 이미지와 텍스트 사이 간격 조정 */
+  align-items: center;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  text-align: center;
+  padding: 10px; /* 버튼 내부 여백 */
+  box-sizing: border-box;
+  cursor: pointer; /* 마우스 포인터 */
+  overflow: hidden; /* 콘텐츠가 넘치지 않도록 */
+  margin: 0; /* 외부 여백 제거 */
+}
+
+.menu-item:focus {
+  outline: none; /* 버튼 포커스 시 기본 아웃라인 제거 */
+}
+
+.menu-item:hover {
+  transform: translateY(-3px); /* 호버 시 살짝 떠오르는 효과 */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
+  transition: all 0.2s ease;
+}
+
+.menu-img {
+  width: 100%;
+  height: 120px; /* 고정된 이미지 영역 */
+  background-color: #f0f0f0; /* 기본 배경색 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.menu-img img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover; /* 이미지 비율 유지 */
+}
+
+.placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ccc;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.menu-information {
+  display: flex;
+  flex-direction: column; /* 이름과 가격을 세로로 정렬 */
+  gap: 3px; /* 이름과 가격 사이 간격 */
+  margin-top: 0; /* 이미지와 정보 간격 */
+}
+
+.menu-information span {
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.menu-information strong {
+  font-size: 1rem;
+  font-weight: bold;
+}
+.no-menu-items {
+  display: flex;
+  flex-direction: column; /* 아이콘과 텍스트를 세로로 배치 */
+  justify-content: center;
+  align-items: center;
+  height: calc(80vh - 150px); /* 화면 높이에 맞게 중앙 정렬 */
+  font-size: 1.2rem;
+  color: #666;
+  text-align: center;
+  padding: 10px;
+  line-height: 1.5;
+  writing-mode: horizontal-tb; /* 텍스트 방향을 강제로 가로로 설정 */
+}
+
+.no-menu-items::before {
+  content: "⚠️"; /* 경고 아이콘 */
+  display: block;
+  font-size: 2rem;
+  margin-bottom: 10px;
+  color: #ff9900;
+}

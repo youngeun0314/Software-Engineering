@@ -1,0 +1,211 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.signup-container {
+  font-family: Inter;
+  margin-left:0px;
+  background-color: #ffffff;
+  height: 100%; /* 화면 전체 높이 */
+  margin-top: 10px;
+}
+
+.signup-header {
+  padding:20px;
+  display: flex;
+  align-items: center;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.back-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-top: 10px;
+  margin-left: 0px;
+}
+
+.signup-text {
+  margin-left:30%;
+  margin-right:30%;
+  font-size: 16px;
+}
+
+.x-button {
+  display: flex;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.signup-content {
+  background-color: #ffffff; /* Light yellow for the form background */
+}
+
+.signup-guide {
+  margin-top: 10%;
+  display: flex;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.signup-form label {
+  font-size: 14px;
+  color: #333;
+  font-weight: bold;
+}
+
+.signup-form input {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #777777; /* Yellow border for input fields */
+  border-radius: 5px;
+  margin-bottom: 10px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.signup-form input:focus {
+  border-color: #FFCC73; /* Darker yellow when focused */
+}
+
+.email-verification {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.id-check-button,
+.send-code-button,
+.verify-code-button {
+  background-color: #FFCC73;
+  color: white;
+  border: none;
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.send-code-button:disabled,
+.verify-code-button:disabled {
+  background-color: #ffcc80; /* 비활성화 상태 */
+  cursor: not-allowed;
+}
+
+.verification-code-section {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.verification-code-section label {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.verification-code-section input {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #777777;
+  border-radius: 5px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.verification-code-section input:focus {
+  border-color: #FFCC73;
+}
+
+.verified-message {
+  margin-top: 10px;
+  color: #28a745; /* 초록색 */
+  font-weight: bold;
+}
+
+
+.id-check-button {
+  background-color: #Ffcc73; /* Yellow background for the button */
+  color: white;
+  border: none;
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.id-check-button:hover {
+  background-color: #FFCC73; /* Darker yellow on hover */
+}
+
+.signup-button {
+  background-color: #FFCC73; /* Yellow background for submit button */
+  color: white;
+  border: none;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.signup-button:disabled {
+  background-color: #ffcc80; /* Lighter yellow when disabled */
+  cursor: not-allowed;
+}
+
+@media (max-width: 600px) {
+  .signup-content {
+      padding: 15px;
+  }
+
+  .signup-guide {
+      font-size: 16px;
+  }
+
+  .signup-form input,
+  .signup-form label {
+      font-size: 14px;
+  }
+
+  .signup-button {
+      font-size: 14px;
+  }
+}
+
+.next-button {
+  margin-right: 10px;
+  font-size: 20px;
+  outline: none; /* 포커스 시 나타나는 외곽선 제거 */
+  box-shadow: none;
+  border: 0;
+  background-color: transparent;
+}
+
+.next-image {
+  width: 100%; /* 필요한 크기에 맞게 변경 */
+  max-width: 400px; /* 최대 크기 제한 */
+  cursor: pointer;
+}
+.toggle-visibility-button{
+  background-color: #c8c8c8;
+  color: white;
+  border: none;
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}

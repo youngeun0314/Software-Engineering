@@ -1,0 +1,210 @@
+/* OptionView: 공통 스타일 */
+
+/* 메뉴 이름 및 컨테이너 */
+.OptionView .option-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 35vh;
+    position: relative;
+    overflow-y: auto;
+}
+
+.OptionView .menu-name {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    padding-top: 75px;
+    padding-bottom: 5px;
+}
+
+.OptionView .menu-image {
+    width: 180px;
+    height: 180px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.image-placeholder {
+    width: 180px;
+    height: 180px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    color: #666;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 1.5;
+}
+
+/* 컵 선택 제목 */
+.choose-cup {
+    font-size: 1.2rem;
+    color: #333;
+    margin-top: 20px;
+    margin-bottom: 5px;
+    padding-left: 20px;
+    text-align: left;
+}
+
+/* 컵 선택 버튼 컨테이너 */
+.add-cup {
+    display: flex;
+    padding-left: 20px;
+    justify-content: left;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+/* 추가 옵션 제목 */
+.choose-option {
+    font-size: 1.2rem;
+    color: #333;
+    margin-top: 20px;
+    margin-bottom: 5px;
+    padding-left: 20px;
+    text-align: left;
+}
+
+/* 추가 옵션 버튼 컨테이너 */
+.add-option {
+    display: flex;
+    padding-left: 20px;
+    justify-content: left;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+    white-space: nowrap;
+    margin-bottom: 20px;
+}
+
+/* 공통 버튼 스타일 */
+.OptionView2 button {
+    font-size: 0.9rem;
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    color: #666;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* 선택된 버튼 스타일 */
+.OptionView2 button.selected {
+    background-color: #f7c46c;
+    color: #fff;
+    border-color: #f7c46c;
+}
+
+/* 수량 및 장바구니 */
+
+/* OptionUnder 스타일 */
+.OptionUnder {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: #ffffff;
+    text-align: left;
+}
+
+/* 수량 제목 스타일 */
+.OptionUnder h3 {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+/* 수량 버튼 및 텍스트 컨테이너 */
+.quantity {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    margin:10px;
+    gap: 5px;
+}
+
+.quantity h3 {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #333;
+    margin: 0;
+}
+
+.quantity-button {
+    display: flex;
+    gap: 20px;
+}
+
+/* 수량 변경 버튼 */
+.quantity button {
+    width: 40px;
+    height: 40px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: transparent;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+/* 수량 텍스트 스타일 */
+.quantity span {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    margin: 0 5px;
+}
+
+/* 장바구니 버튼 컨테이너 */
+.gocart {
+    display: flex;
+    justify-content: center;
+    margin:10px;
+}
+
+.gocart button {
+    width: 100%;
+    padding: 15px 20px;
+    background-color: #f7c46c;
+    border: none;
+    border-radius: 20px;
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.gocart button:hover {
+    background-color: #ffa726;
+}
+
+
+.container-divider{
+    width: 100vh;
+    height: 2%;
+    border: 1px solid #C6C6C6;
+    line-height: "0.1em";
+    margin: "10px 0 20px";
+    margin-top: 10px;
+    background-color: #e8e8e8;
+}
