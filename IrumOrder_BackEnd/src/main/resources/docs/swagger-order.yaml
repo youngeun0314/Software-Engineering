@@ -1,0 +1,1195 @@
+---
+openapi: 3.0.1
+info:
+  title: API - 이룸오더
+  description: API Description
+  version: v1.0.0
+servers:
+  - url: http://localhost:8080
+    description: Generated server url
+tags:
+  - name: Order Management
+    description: API for managing orders
+  - name: Payment API
+    description: Payment processing APIs for managing payment operations
+paths:
+  "/api/users/{userId}/routines/{routineId}":
+    put:
+      tags:
+        - routine-controller
+      summary: Update an existing routine
+      description: Updates the details of an existing routine by routine ID.
+      operationId: updateRoutine
+      parameters:
+        - name: routineId
+          in: path
+          description: ID of the routine to be updated
+          required: true
+          schema:
+            type: integer
+            format: int32
+          example: 1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/RoutineDto"
+        required: true
+      responses:
+        '200':
+          description: Routine successfully updated
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/RoutineResponseDto"
+        '400':
+          description: Invalid input
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/RoutineResponseDto"
+        '404':
+          description: Routine not found
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/RoutineResponseDto"
+    delete:
+      tags:
+        - routine-controller
+      summary: Delete a routine
+      description: Deletes a routine by its ID for a specific user.
+      operationId: deleteRoutine
+      parameters:
+        - name: routineId
+          in: path
+          description: ID of the routine to be deleted
+          required: true
+          schema:
+            type: integer
+            format: int32
+          example: 1
+      responses:
+        '204':
+          description: Routine successfully deleted
+        '403':
+          description: User not authorized to delete this routine
+        '404':
+          description: Routine not found
+  "/orders/order":
+    post:
+      tags:
+        - Order Management
+      summary: Create Order
+      description: Creates a new order based on provided details.
+      operationId: create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/OrderRequestDto"
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/OrderResponseDto"
+  "/orders/orderCheck":
+    post:
+      tags:
+        - Order Management
+      operationId: getAllOrdersByUserId
+      parameters:
+        - name: userId
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/OrdersCheckResponseDto"
+  "/orderMgmt/orderStatus":
+    post:
+      tags:
+        - order-mgmt-controller
+      operationId: updateOrderStatus
+      parameters:
+        - name: orderId
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: status
+          in: query
+          required: true
+          schema:
+            type: string
+            enum:
+              - NEW_ORDER
+              - WAITING
+              - ACCEPTED_ORDER
+              - READY_FOR_PICKUP
+              - COMPLETED
+              - ACCEPTED
+              - COOKING_START
+              - COOKING_END
+              - PICKUP_END
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: object
+  "/orderMgmt/checkOrder":
+    post:
+      tags:
+        - order-mgmt-controller
+      operationId: checkOrder
+      parameters:
+        - name: orderId
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: object
+  "/order/pay/ready":
+    post:
+      tags:
+        - Payment API
+      summary: 결제 요청 준비
+      description: 결제 요청에 필요한 tid를 얻는다.
+      operationId: payReady
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/PayOrderForm"
+        required: true
+      responses:
+        '200':
+          description: 결제 준비 완료
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/PayReadyResponse"
+        '400':
+          description: User ID mismatch
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/PayReadyResponse"
+        '500':
+          description: 서버 에러
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/PayReadyResponse"
+  "/order/pay/approval":
+    post:
+      tags:
+        - Payment API
+      summary: Complete Payment
+      description: Approves a payment after user authorization.
+      operationId: payCompleted
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/PayApproveRequest"
+        required: true
+      responses:
+        '200':
+          description: Payment approval successful
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/PayApproveResponse"
+        '400':
+          description: Invalid input provided
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/PayApproveResponse"
+        '500':
+          description: Internal server error
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/PayApproveResponse"
+  "/menu/createMenu":
+    post:
+      tags:
+        - menu-controller
+      summary: 메뉴 생성
+      description: 새로운 메뉴를 생성합니다.
+      operationId: createMenu
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/MenuRequest"
+        required: true
+      responses:
+        '200':
+          description: 메뉴 추가 완료
+          content:
+            "*/*":
+              schema:
+                type: string
+        '400':
+          description: 잘못된 요청입니다.
+          content:
+            "*/*":
+              schema:
+                type: string
+  "/category/createCategory":
+    post:
+      tags:
+        - category-controller
+      summary: 카테고리 추가
+      description: 새로운 카테고리를 추가합니다.
+      operationId: createCategory
+      parameters:
+        - name: category
+          in: query
+          description: 추가할 카테고리 이름
+          required: true
+          schema:
+            type: string
+          example: Electronics
+      responses:
+        '200':
+          description: 카테고리 추가 완료
+          content:
+            "*/*":
+              schema:
+                type: string
+        '400':
+          description: 잘못된 요청입니다.
+          content:
+            "*/*":
+              schema:
+                type: string
+  "/auth/verifyEmail":
+    post:
+      tags:
+        - auth-controller
+      summary: 이메일 인증
+      description: 사용자가 받은 인증 코드를 검증합니다.
+      operationId: verifyEmail
+      parameters:
+        - name: email
+          in: query
+          description: 인증할 이메일 주소
+          required: true
+          schema:
+            type: string
+          example: user@example.com
+        - name: code
+          in: query
+          description: 사용자가 받은 인증 코드
+          required: true
+          schema:
+            type: string
+          example: 1234
+      responses:
+        '200':
+          description: 이메일 인증이 완료되었습니다.
+          content:
+            "*/*":
+              schema:
+                type: string
+        '400':
+          description: 인증 번호가 올바르지 않습니다.
+          content:
+            "*/*":
+              schema:
+                type: string
+  "/auth/signUp":
+    post:
+      tags:
+        - auth-controller
+      summary: 회원가입
+      description: 새로운 사용자를 등록합니다.
+      operationId: signUp
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/SignUpRequest"
+        required: true
+      responses:
+        '201':
+          description: 회원가입 완료
+          content:
+            "*/*":
+              schema:
+                type: string
+        '400':
+          description: 회원가입 실패
+          content:
+            "*/*":
+              schema:
+                type: string
+  "/auth/sendEmailVerification":
+    post:
+      tags:
+        - auth-controller
+      summary: 이메일 인증 코드 전송
+      description: 사용자의 이메일로 인증 코드를 전송합니다.
+      operationId: sendEmailVerification
+      parameters:
+        - name: email
+          in: query
+          description: 인증 코드를 받을 이메일 주소
+          required: true
+          schema:
+            type: string
+          example: user@example.com
+      responses:
+        '200':
+          description: 인증 번호가 이메일로 전송되었습니다.
+          content:
+            "*/*":
+              schema:
+                type: string
+        '400':
+          description: 잘못된 요청입니다.
+          content:
+            "*/*":
+              schema:
+                type: string
+  "/auth/login":
+    post:
+      tags:
+        - auth-controller
+      summary: 로그인
+      description: 사용자의 아이디와 비밀번호로 로그인합니다.
+      operationId: login
+      parameters:
+        - name: id
+          in: query
+          description: 사용자의 아이디
+          required: true
+          schema:
+            type: string
+          example: user123
+        - name: password
+          in: query
+          description: 사용자의 비밀번호
+          required: true
+          schema:
+            type: string
+          example: password
+      responses:
+        '200':
+          description: 로그인 성공
+          content:
+            "*/*":
+              schema:
+                type: integer
+                format: int32
+        '401':
+          description: 로그인 실패
+          content:
+            "*/*":
+              schema:
+                type: integer
+                format: int32
+  "/auth/checkId":
+    post:
+      tags:
+        - auth-controller
+      summary: 아이디 중복 체크
+      description: 사용 가능한 아이디인지 확인합니다.
+      operationId: checkId
+      parameters:
+        - name: id
+          in: query
+          description: 확인할 아이디
+          required: true
+          schema:
+            type: string
+          example: user123
+      responses:
+        '200':
+          description: 사용 가능한 아이디입니다.
+          content:
+            "*/*":
+              schema:
+                type: string
+        '400':
+          description: 아이디가 이미 존재합니다.
+          content:
+            "*/*":
+              schema:
+                type: string
+  "/api/users/{userId}/routines/add":
+    post:
+      tags:
+        - routine-controller
+      summary: Create a new routine
+      description: Adds a new routine for the user.
+      operationId: createRoutine
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/RoutineDto"
+        required: true
+      responses:
+        '201':
+          description: Routine successfully created
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/RoutineResponseDto"
+        '400':
+          description: Invalid input
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/RoutineResponseDto"
+  "/api/fcm/register-token":
+    post:
+      tags:
+        - fcm-controller
+      operationId: registerToken
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/TokenRequest"
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: string
+  "/menu/getOneMenu":
+    get:
+      tags:
+        - menu-controller
+      summary: 메뉴 조회
+      description: 메뉴 ID로 메뉴를 조회합니다.
+      operationId: getOneMenu
+      parameters:
+        - name: menuId
+          in: query
+          description: 조회할 메뉴 ID
+          required: true
+          schema:
+            type: integer
+            format: int32
+          example: 1
+      responses:
+        '200':
+          description: 메뉴 조회 완료
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/MenuEntity"
+        '400':
+          description: 잘못된 요청입니다.
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/MenuEntity"
+  "/menu/getMenu":
+    get:
+      tags:
+        - menu-controller
+      summary: 메뉴 조회
+      description: 카테코리 ID로 메뉴를 조회합니다.
+      operationId: getMenu
+      parameters:
+        - name: categoryId
+          in: query
+          description: 조회할 카테고리 ID
+          required: true
+          schema:
+            type: integer
+            format: int32
+          example: 1
+      responses:
+        '200':
+          description: 메뉴 조회 완료
+          content:
+            "*/*":
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/MenuEntity"
+        '400':
+          description: 잘못된 요청입니다.
+          content:
+            "*/*":
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/MenuEntity"
+  "/category/getCategory":
+    get:
+      tags:
+        - category-controller
+      summary: 카테고리 조회
+      description: 카테고리 ID로 카테고리를 조회합니다.
+      operationId: getCategory
+      parameters:
+        - name: categoryId
+          in: query
+          description: 조회할 카테고리의 ID
+          required: true
+          schema:
+            type: integer
+            format: int32
+          example: 1
+      responses:
+        '200':
+          description: 카테고리 조회 완료
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/CategoryEntity"
+        '400':
+          description: 잘못된 요청입니다.
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/CategoryEntity"
+  "/category/getAllCategory":
+    get:
+      tags:
+        - category-controller
+      summary: 전체 카테고리 조회
+      description: 모든 카테고리를 조회합니다.
+      operationId: getAllCategory
+      responses:
+        '200':
+          description: 전체 카테고리 조회 완료
+          content:
+            "*/*":
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/CategoryEntity"
+        '400':
+          description: 잘못된 요청입니다.
+          content:
+            "*/*":
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/CategoryEntity"
+  "/api/users/{userId}/routines":
+    get:
+      tags:
+        - routine-controller
+      summary: Get all routines by user ID
+      description: Fetches all routines associated with a specific user ID.
+      operationId: getAllRoutinesByUserId
+      parameters:
+        - name: userId
+          in: path
+          description: ID of the user whose routines are to be fetched
+          required: true
+          schema:
+            type: integer
+            format: int32
+          example: 123
+      responses:
+        '200':
+          description: Successfully fetched routines
+          content:
+            "*/*":
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/RoutineResponseDto"
+        '404':
+          description: User or routines not found
+          content:
+            "*/*":
+              schema:
+                type: array
+                items:
+                  "$ref": "#/components/schemas/RoutineResponseDto"
+  "/api/sales":
+    get:
+      tags:
+        - sales-controller
+      summary: Get Yesterday's Sales
+      description: Fetches the total sales data for a specific date and user ID.
+      operationId: getYesterdaySales
+      parameters:
+        - name: arg0
+          in: query
+          description: The date for which to fetch sales data (yyyy-MM-dd)
+          required: true
+          schema:
+            type: string
+            format: date
+          example: '2023-11-30'
+        - name: arg1
+          in: query
+          description: The user ID requesting the data
+          required: true
+          schema:
+            type: integer
+            format: int32
+          example: 12345
+      responses:
+        '200':
+          description: Successfully retrieved sales data
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/SalesResponse"
+        '400':
+          description: Invalid input parameters
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/SalesResponse"
+        '403':
+          description: User not authorized to access this data
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/SalesResponse"
+        '500':
+          description: Internal server error
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/SalesResponse"
+  "/menu/deleteMenu":
+    delete:
+      tags:
+        - menu-controller
+      summary: 메뉴 삭제
+      description: 메뉴 ID로 메뉴를 삭제합니다.
+      operationId: deleteMenu
+      parameters:
+        - name: menuId
+          in: query
+          description: 삭제할 메뉴의 ID
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: 메뉴 삭제 완료
+          content:
+            "*/*":
+              schema:
+                type: string
+        '404':
+          description: 메뉴를 찾을 수 없음
+          content:
+            "*/*":
+              schema:
+                type: string
+  "/category/deleteCategory":
+    delete:
+      tags:
+        - category-controller
+      summary: 카테고리 삭제
+      description: 카테고리 ID로 카테고리를 삭제합니다.
+      operationId: deleteCategory
+      parameters:
+        - name: categoryId
+          in: query
+          description: 삭제할 카테고리의 ID
+          required: true
+          schema:
+            type: integer
+            format: int32
+          example: 1
+      responses:
+        '200':
+          description: 카테고리 삭제 완료
+          content:
+            "*/*":
+              schema:
+                type: string
+        '400':
+          description: 잘못된 요청입니다.
+          content:
+            "*/*":
+              schema:
+                type: string
+components:
+  schemas:
+    LocalTime:
+      type: object
+      properties:
+        hour:
+          type: integer
+          format: int32
+        minute:
+          type: integer
+          format: int32
+        second:
+          type: integer
+          format: int32
+        nano:
+          type: integer
+          format: int32
+      description: 루틴이 실행될 시간
+      example: '09:00'
+    RoutineDto:
+      required:
+        - isActivated
+        - menuId
+        - routineDays
+        - routineTime
+        - userId
+      type: object
+      properties:
+        userId:
+          type: integer
+          description: 사용자 ID, long
+          format: int32
+          example: 12345
+        menuId:
+          type: integer
+          description: 메뉴 ID
+          format: int32
+          example: 10
+        menuDetailId:
+          type: integer
+          description: 메뉴 세부 정보 ID
+          format: int32
+          example: 5
+        routineDays:
+          type: array
+          description: 루틴이 실행될 요일
+          example:
+            - Mon
+            - Wed
+            - Fri
+          items:
+            type: string
+            description: 루틴이 실행될 요일
+            example: '["Mon","Wed","Fri"]'
+            enum:
+              - Mon
+              - Tue
+              - Wed
+              - Thu
+              - Fri
+              - Sat
+              - Sun
+        routineTime:
+          "$ref": "#/components/schemas/LocalTime"
+        isActivated:
+          type: boolean
+          description: 알람 활성화 여부
+          example: true
+      description: Details of the routine to be created
+    RoutineResponseDto:
+      type: object
+      properties:
+        routineId:
+          type: integer
+          description: 루틴 ID
+          format: int32
+          example: 1
+        userId:
+          type: integer
+          description: 사용자 ID
+          format: int32
+          example: 12345
+        menuId:
+          type: integer
+          description: 메뉴 ID
+          format: int32
+          example: 10
+        menuName:
+          type: string
+          description: 메뉴명
+          example: 아이스 아메리카노
+        menuDetailId:
+          type: integer
+          description: 메뉴 세부 정보 ID
+          format: int32
+          example: 5
+        routineDays:
+          type: array
+          description: 루틴이 실행될 요일
+          example:
+            - Mon
+            - Wed
+            - Fri
+          items:
+            type: string
+            description: 루틴이 실행될 요일
+            example: '["Mon","Wed","Fri"]'
+            enum:
+              - Mon
+              - Tue
+              - Wed
+              - Thu
+              - Fri
+              - Sat
+              - Sun
+        routineTime:
+          "$ref": "#/components/schemas/LocalTime"
+        activated:
+          type: boolean
+    MenuDetailDto:
+      type: object
+      properties:
+        useCup:
+          type: string
+          example: TakeOut
+        addShot:
+          type: boolean
+          example: true
+        addVanilla:
+          type: boolean
+          example: false
+        addHazelnut:
+          type: boolean
+          example: true
+        light:
+          type: boolean
+          example: true
+    OrderMenuDto:
+      type: object
+      properties:
+        menuId:
+          type: integer
+          format: int32
+          example: 1
+        quantity:
+          type: integer
+          format: int32
+          example: 2
+        menuOptions:
+          "$ref": "#/components/schemas/MenuDetailDto"
+    OrderRequestDto:
+      type: object
+      properties:
+        userId:
+          type: integer
+          format: int32
+          example: 1
+        totalPrice:
+          type: integer
+          format: int32
+          example: 3200
+        pickUp:
+          "$ref": "#/components/schemas/LocalTime"
+        orderMenuOptions:
+          type: array
+          items:
+            "$ref": "#/components/schemas/OrderMenuDto"
+    OrderResponseDto:
+      type: object
+      properties:
+        orderId:
+          type: integer
+          format: int32
+          example: 1
+        userId:
+          type: integer
+          format: int32
+          example: 1
+        totalPrice:
+          type: integer
+          format: int32
+          example: 3000
+        orderStatus:
+          type: string
+          example: WAITING
+          enum:
+            - NEW_ORDER
+            - WAITING
+            - ACCEPTED_ORDER
+            - READY_FOR_PICKUP
+            - COMPLETED
+            - ACCEPTED
+            - COOKING_START
+            - COOKING_END
+            - PICKUP_END
+        pickUp:
+          "$ref": "#/components/schemas/LocalTime"
+        payment:
+          type: string
+          format: date-time
+        orderMenuOptions:
+          type: array
+          items:
+            "$ref": "#/components/schemas/OrderMenuDto"
+    OrderDto:
+      type: object
+      properties:
+        menuId:
+          type: integer
+          format: int32
+          example: 1
+        menuName:
+          type: string
+          example: Americano
+        quantity:
+          type: integer
+          format: int32
+          example: 2
+        useCup:
+          type: string
+          example: 'true'
+        addShot:
+          type: boolean
+          example: false
+        addVanilla:
+          type: boolean
+          example: true
+        addHazelnut:
+          type: boolean
+          example: false
+        light:
+          type: boolean
+          example: true
+    OrdersCheckResponseDto:
+      type: object
+      properties:
+        orderId:
+          type: integer
+          format: int32
+          example: 1
+        userId:
+          type: integer
+          format: int32
+          example: 1
+        totalPrice:
+          type: integer
+          format: int32
+          example: 3000
+        orderStatus:
+          type: string
+          example: WAITING
+          enum:
+            - NEW_ORDER
+            - WAITING
+            - ACCEPTED_ORDER
+            - READY_FOR_PICKUP
+            - COMPLETED
+            - ACCEPTED
+            - COOKING_START
+            - COOKING_END
+            - PICKUP_END
+        pickUp:
+          "$ref": "#/components/schemas/LocalTime"
+        orderMenuOptions:
+          type: array
+          items:
+            "$ref": "#/components/schemas/OrderDto"
+    PayOrderForm:
+      required:
+        - totalPrice
+      type: object
+      properties:
+        cid:
+          type: string
+          description: Merchant Code (Test)
+          example: TC0ONETIME
+        order_id:
+          type: integer
+          description: Order ID
+          format: int32
+          example: 1001
+        user_id:
+          type: integer
+          description: User ID
+          format: int32
+          example: 1
+        item_name:
+          type: string
+          description: Name of the product
+          example: Product Name
+        quantity:
+          type: integer
+          description: Quantity of the product
+          format: int32
+          example: 2
+        totalPrice:
+          type: integer
+          description: Total price of the product
+          format: int32
+          example: 20000
+        tax_free_amount:
+          type: integer
+          description: Tax-free amount
+          format: int32
+          example: 0
+      description: Request object for preparing a payment
+    PayReadyResponse:
+      type: object
+      properties:
+        tid:
+          type: string
+          description: Transaction ID
+          example: TID123456789
+        next_redirect_pc_url:
+          type: string
+          description: Redirect URL for PC
+          example: https://pay.kakao.com/redirect
+        next_redirect_mobile_url:
+          type: string
+          description: Redirect URL for Mobile
+          example: https://m.pay.kakao.com/redirect
+      description: Response object for payment preparation
+    PayApproveRequest:
+      type: object
+      properties:
+        pg_token:
+          type: string
+          description: PG token for authorization, you can check it in form of ?pg_token=~~
+            in url
+          example: abcdef123456
+        userId:
+          type: integer
+          description: User ID
+          format: int32
+          example: 1
+        orderId:
+          type: integer
+          description: Order ID
+          format: int32
+          example: 1001
+        cid:
+          type: string
+          description: Merchant Code (Test)
+          example: TC0ONETIME
+      description: Request object for payment approval
+    PayApproveResponse:
+      type: object
+      properties:
+        aid:
+          type: string
+          description: Request unique ID
+          example: AID123456789
+        tid:
+          type: string
+          description: Transaction ID
+          example: TID123456789
+        cid:
+          type: string
+          description: Merchant Code
+          example: TC0ONETIME
+        partner_order_id:
+          type: string
+          description: Merchant Order ID
+          example: '1001'
+        partner_user_id:
+          type: string
+          description: Merchant User ID
+          example: '12345'
+        payment_method_type:
+          type: string
+          description: Payment method type
+          example: CARD
+        item_name:
+          type: string
+          description: Product name
+          example: Product Name
+        item_code:
+          type: string
+          description: Product code
+          example: P001
+        quantity:
+          type: string
+          description: Quantity of the product
+          example: '2'
+        created_at:
+          type: string
+          description: Request creation timestamp
+          example: '2023-12-01T12:00:00'
+        approved_at:
+          type: string
+          description: Payment approval timestamp
+          example: '2023-12-01T12:10:00'
+        payload:
+          type: string
+          description: Payload associated with the approval
+          example: Additional info
+      description: Response object for payment approval
+    MenuRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        price:
+          type: integer
+          format: int32
+        categoryId:
+          type: integer
+          format: int32
+      description: 생성할 메뉴의 정보
+    SignUpRequest:
+      type: object
+      properties:
+        id:
+          type: string
+        password:
+          type: string
+        email:
+          type: string
+      description: 회원가입 요청 정보
+    TokenRequest:
+      type: object
+      properties:
+        fcmToken:
+          type: string
+        id:
+          type: string
+    CategoryEntity:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          type: string
+    MenuEntity:
+      type: object
+      properties:
+        menuId:
+          type: integer
+          format: int32
+        name:
+          type: string
+        price:
+          type: integer
+          format: int32
+        category:
+          "$ref": "#/components/schemas/CategoryEntity"
+    SalesResponse:
+      type: object
+      properties:
+        totalSales:
+          type: integer
+          format: int32

@@ -1,0 +1,64 @@
+---
+openapi: 3.0.1
+info:
+  title: API - 이룸오더
+  description: API Description
+  version: v1.0.0
+servers:
+  - url: http://localhost:8080
+    description: Generated server url
+paths:
+  "/orderMgmt/orderStatus":
+    post:
+      tags:
+        - order-mgmt-controller
+      operationId: updateOrderStatus
+      parameters:
+        - name: orderId
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
+        - name: status
+          in: query
+          required: true
+          schema:
+            type: string
+            enum:
+              - NEW_ORDER
+              - WAITING
+              - ACCEPTED_ORDER
+              - READY_FOR_PICKUP
+              - COMPLETED
+              - ACCEPTED
+              - COOKING_START
+              - COOKING_END
+              - PICKUP_END
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: object
+  "/orderMgmt/checkOrder":
+    post:
+      tags:
+        - order-mgmt-controller
+      operationId: checkOrder
+      parameters:
+        - name: orderId
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: object
+components: {}

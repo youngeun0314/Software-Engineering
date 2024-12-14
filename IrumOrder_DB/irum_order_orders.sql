@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.40, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: irum_order
+-- Host: 127.0.0.1    Database: order_db
 -- ------------------------------------------------------
 -- Server version	8.0.40
 
@@ -24,16 +24,14 @@ DROP TABLE IF EXISTS `orders`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `orders` (
   `order_id` int NOT NULL AUTO_INCREMENT,
-  `user_id` int NOT NULL,
+  `user_id` int DEFAULT NULL,
   `total_price` int DEFAULT NULL,
-  `order_status` enum('ACCEPTED','ACCEPTED_ORDER','COMPLETED','COOKING_END','COOKING_START','NEW_ORDER','PICKUP_END','READY_FOR_PICKUP','WAITING') NOT NULL,
-  `pick_up` time DEFAULT NULL,
-  `payment` datetime(6) DEFAULT NULL,
-  `tid` varchar(255) DEFAULT NULL,
+  `order_status` varchar(20) DEFAULT '예약대기',
+  `pickUp` time DEFAULT NULL,
   PRIMARY KEY (`order_id`),
-  KEY `orders_ibfk_1` (`user_id`),
-  CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,7 +40,6 @@ CREATE TABLE `orders` (
 
 LOCK TABLES `orders` WRITE;
 /*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-INSERT INTO `orders` VALUES (1,1,3200,'READY_FOR_PICKUP','01:20:00','2024-12-03 16:42:34.000000','T74eb52728c5050835d2'),(2,2,2000,'READY_FOR_PICKUP','01:20:00',NULL,NULL);
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -55,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-12-08  2:04:15
+-- Dump completed on 2024-11-05  1:12:33

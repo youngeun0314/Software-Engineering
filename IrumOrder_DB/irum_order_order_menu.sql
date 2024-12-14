@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.40, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: irum_order
+-- Host: 127.0.0.1    Database: order_db
 -- ------------------------------------------------------
 -- Server version	8.0.40
 
@@ -25,14 +25,14 @@ DROP TABLE IF EXISTS `order_menu`;
 CREATE TABLE `order_menu` (
   `order_id` int NOT NULL,
   `menu_id` int NOT NULL,
-  `menu_detail_id` int NOT NULL,
+  `menuDetail_id` int DEFAULT NULL,
   `quantity` int DEFAULT '1',
-  PRIMARY KEY (`order_id`,`menu_id`,`menu_detail_id`),
-  KEY `menu_detail_id` (`menu_detail_id`),
+  PRIMARY KEY (`order_id`,`menu_id`),
   KEY `menu_id` (`menu_id`),
-  CONSTRAINT `order_menu_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`) ON DELETE CASCADE,
+  KEY `menuDetail_id` (`menuDetail_id`),
+  CONSTRAINT `order_menu_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`),
   CONSTRAINT `order_menu_ibfk_2` FOREIGN KEY (`menu_id`) REFERENCES `menu` (`menu_id`),
-  CONSTRAINT `order_menu_ibfk_3` FOREIGN KEY (`menu_detail_id`) REFERENCES `menudetails` (`menu_detail_id`)
+  CONSTRAINT `order_menu_ibfk_3` FOREIGN KEY (`menuDetail_id`) REFERENCES `menudetails` (`menuDetail_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -42,7 +42,6 @@ CREATE TABLE `order_menu` (
 
 LOCK TABLES `order_menu` WRITE;
 /*!40000 ALTER TABLE `order_menu` DISABLE KEYS */;
-INSERT INTO `order_menu` VALUES (1,1,1,2),(2,1,2,2);
 /*!40000 ALTER TABLE `order_menu` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -55,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-12-08  2:04:14
+-- Dump completed on 2024-11-05  1:12:33

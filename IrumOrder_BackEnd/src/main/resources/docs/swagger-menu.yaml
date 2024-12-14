@@ -1,0 +1,157 @@
+---
+openapi: 3.0.1
+info:
+  title: API - 이룸오더
+  description: API Description
+  version: v1.0.0
+servers:
+  - url: http://localhost:8080
+    description: Generated server url
+paths:
+  "/menu/createMenu":
+    post:
+      tags:
+        - menu-controller
+      operationId: addMenu
+      parameters:
+        - name: menuRequest
+          in: query
+          required: true
+          schema:
+            "$ref": "#/components/schemas/MenuRequest"
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: string
+  "/category/createCategory":
+    post:
+      tags:
+        - category-controller
+      operationId: createCategory
+      parameters:
+        - name: category
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: string
+  "/menu/getMenu":
+    get:
+      tags:
+        - menu-controller
+      operationId: getMenu
+      parameters:
+        - name: categoryId
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: string
+  "/category/getCategory":
+    get:
+      tags:
+        - category-controller
+      operationId: getCategory
+      parameters:
+        - name: category
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: string
+  "/category/getAllCategory":
+    get:
+      tags:
+        - category-controller
+      operationId: getAllCategory
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: string
+  "/menu/deleteMenu":
+    delete:
+      tags:
+        - menu-controller
+      operationId: deleteMenu
+      parameters:
+        - name: menuId
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: string
+  "/category/deleteCategory":
+    delete:
+      tags:
+        - category-controller
+      operationId: deleteCategory
+      parameters:
+        - name: categoryId
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                type: string
+components:
+  schemas:
+    MenuRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        price:
+          type: integer
+          format: int64
+        categoryId:
+          type: integer
+          format: int64
+        useCup:
+          type: string
+        addShot:
+          type: boolean
+        addVanilla:
+          type: boolean
+        addHazelnut:
+          type: boolean
+        light:
+          type: boolean

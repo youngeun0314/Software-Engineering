@@ -1,0 +1,118 @@
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+header h1 {
+  margin: 0;
+}
+
+header p {
+  cursor: pointer;
+  font-size: 20px;
+  margin: 0;
+  align-self: flex-start;
+}
+
+.routine-list {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+}
+
+.routine-list h1 {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+.routine-items {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.routine-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #ffe3ac;
+}
+
+.routine-items-time {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.routine-item-others {
+  text-align: right;
+  font-size: 14px;
+  color: #555;
+}
+
+.routine-item-delete {
+  cursor: pointer;
+  align-self: flex-start;
+}
+
+.routine-item p {
+  margin: 0;
+}
+
+.item-add-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 10px;
+  font-size: 30px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  margin-top: 20px;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.routine-items .routine-item p {
+  font-size: 14px;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.routine-info h2 {
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.routine-info p {
+  font-size: 0.9rem;
+  color: gray;
+}
+
+.routine-controls button {
+  background: #ff7a00;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  margin-left: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.add-button {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #ff7a00;
+  color: white;
+  font-size: 1.5rem;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+}

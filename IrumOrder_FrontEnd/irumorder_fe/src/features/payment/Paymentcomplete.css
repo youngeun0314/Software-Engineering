@@ -1,0 +1,67 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.complete-container {
+  font-family: Inter;
+  margin: 0 auto;
+  margin-top: 10px;
+  background-color: #ffffff;
+}
+
+.complete-text{
+  display: center;
+  margin-top:100px;
+}
+
+.text1{
+  text-align: center;
+  font-weight: bold;
+}
+
+.text2{
+  text-align: center;
+  font-weight: bold;
+}
+
+.check-image-container{
+  text-align: center;
+  margin-top: 40px;
+}
+
+.check-image {
+  width: 50%; /* 필요한 크기에 맞게 변경 */
+  max-width: 100px; /* 최대 크기 제한 */
+}
+
+.character-image-container{
+  text-align: center;
+  margin-top: 50px;
+}
+
+.character-image{
+  width: 100%; /* 필요한 크기에 맞게 변경 */
+  max-width: 300px; /* 최대 크기 제한 */
+}
+
+.complete-button-container{
+  text-align: center;
+  margin-top: 50px;
+}
+
+.complete-button {
+  margin-right: 10px;
+  font-size: 20px;
+  outline: none; /* 포커스 시 나타나는 외곽선 제거 */
+  box-shadow: none;
+  border: 0;
+  background-color: transparent;
+}
+
+.complete-image {
+  width: 100%; /* 필요한 크기에 맞게 변경 */
+  max-width: 400px; /* 최대 크기 제한 */
+  cursor: pointer;
+}
+
