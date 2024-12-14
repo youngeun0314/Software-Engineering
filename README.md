@@ -188,15 +188,15 @@ npm start
 ## Project Deliverables
 (링크 업데이트 예정)
 ### 요구사항 분석 명세서
-- [Final Version](#)
+- [Final Version](artifacts/srs-template-v2.5 wirrten by 이룸오더.docx)
 
 ### Architecture & Design Documentation
-- [Software Architecture](https://linktodocumentation)
-- [Software Design](https://www.figma.com/design/x51yUm7qlKHmJsBmILMI7w/Irum-order?node-id=0-1&node-type=canvas&t=b9dXi4WOvpVvjXLQ-0)
-- [UI Design](https://www.figma.com/design/x51yUm7qlKHmJsBmILMI7w/Irum-order?node-id=0-1&node-type=canvas&t=b9dXi4WOvpVvjXLQ-0)
+- [Software Architecture](artifacts/이룸오더 high-level Architecture UML Diagram.docx)
+- [Software Design](artifacts/Architecture_diagram)
+- [UI Design](artifacts/이룸오더 UI 디자인 문서 v1.2.docx)
 
 ### Coding Standard
-- [Coding Standard](./artifacts/Coding%20Standard,%20Repository%20Management%20and%20Review%20Process%20-%20이룸핑.docx)
+- [Coding Standard](artifacts/Coding Standard, Repository Management and Review Process.pdf)
 
 ---
 
