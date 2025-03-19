@@ -525,7 +525,7 @@ API 프록시 설정 파일. 클라이언트와 서버 간의 원활한 통신�
 - **김은지** ([@ej9374](https://www.github.com/ej9374)) - **Backend**
 - **최진영** ([@glebungle](https://www.github.com/glebungle)) - **Frontend, Design**
 - **이희진** ([@22huijin](https://www.github.com/22huijin)) - **Frontend, 기획**
-- **주영은** ([@ye0314](https://www.github.com/ye0314)) - **Backend**
+- **주영은** ([@ye0314](https://www.github.com/youngeun0314)) - **Backend**
 
 
 ### Notes
