@@ -1,10 +1,6 @@
-# Project Title
+<img width="1132" height="730" alt="Image" src="https://github.com/user-attachments/assets/4f08976d-c13c-42ce-87bd-05c4067b3c18" />
 
-**IrumOrder**
-
----
-
-## Project Scope
+# IrumOrder
 
 서울시립대학교 컴퓨터과학부 2024년 소프트웨어공학 프로젝트로, Software Development Life-Cycle을 기반으로 객체지향 소프트웨어공학 방법론을 적용하여 교내 카페 모바일 주문을 도와주는 모바일 앱 개발.
 
