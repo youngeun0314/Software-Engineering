@@ -18,12 +18,17 @@
 
 ## Project Values/Motivations
 
-수업 전후, 점심시간 등 교내 카페에 인원이 많이 몰릴 때 효율적인 시간 관리를 위한 비대면 오더를 목표로 함.
+이룸오더는 교내 카페에서 발생하는 대기 시간 문제를 해결하기 위해 기획되었습니다. 등교 시간과 쉬는 시간처럼 이용자가 몰리는 시간대에는 줄이 길어 수업 시간 전에 음료를 받기 어려웠고 모바일 주문 기능이 없어 비대면 예약이 불가능했습니다. 또한 대학의 특성상 같은 요일과 시간에 카페를 이용하는 경우가 많아 반복적인 주문이 이루어지는 환경이었습니다.
 
-### 주요 기능:
-- **자유로운 픽업 시간**: 원하는 시간대를 선택하여 교내 카페의 붐비는 시간에도 픽업 예약 가능.
-- **루틴 설정 기능**: 매일 같은 메뉴를 설정하고 알림을 받을 수 있는 맞춤형 주문 기능.
+- 수업 전·후 혼잡 시간대에 **모바일 사전 주문 및 픽업 예약 지원**
+- 반복 주문 편의를 위한 **루틴 기반 주문 알림 기능 제공**
+- 주문 상태에 따른 **실시간 푸시 알림**으로 픽업 타이밍 안내
+  
+이러한 기능을 통해 사용자가 긴 대기 시간 없이 원하는 시간에 음료를 수령하고, 매주 반복되는 주문을 더욱 편리하게 관리할 수 있는 환경을 제공하고자 했습니다.
 
+- 진행 기간: 2024.09. ~ 2024.12.(4개월)
+- 팀 구성 및 담당 역할: 총 6명 (프론트엔드 3, **백엔드 3**)
+  
 ---
 
 ## Highlighted Features
@@ -34,18 +39,12 @@
 
 ---
 
-## Constraints
+## 나의 역할 및 구현 내용
 
-- 전농관 및 학관 카페와 앱을 직접 연결할 수 없어 임의로 DB를 제작하여 연동.
-- 사업자 등록이 되어있지 않아 카카오페이 API를 이용한 실제 결제를 모의 결제로 대체.
-- 시간 상의 문제로 figma ui 디자인의 회원 모드만 구현했고, 직원 모드와 관리자 모드는 구현하지 못하였다.
-- 기존 figma 디자인과 다르게 signup에서 아이디, 비밀번호, 이메일 인증을 한 페이지에서 처리한다.
-- Signup 완료 페이지를 생략하였다.
-- 루틴 목록에서 각 루틴 알림을 끄고 켤 수 있는 토글 버튼 기능을 구현하지 못하였다.
-- 기존 figma 디자인의 루틴 추가 및 수정 ui를 동일하게 구현하지 못하였다. (단, 구현된 기능은 동일하다.)
-- 예약 페이지에서 현재 시간으로 반영하여 30분 이내의 시간대는 예약을 하지 못하도록 막는 기능을 구현하지 못하였다.
-- 로그인 페이지의 '일치하는 회원 정보가 존재하지 않습니다', 결제 페이지의 '결제 과정에서 오류가 발생했습니다.' 등 오류 알림은 figma 디자인과 동일하지 않은 alert 창으로 구현하였다.
-
+- 사용자 주문 생성 및 저장 API 구현
+- 주문 상태 기반 조회 기능 구현
+- 사용자가 설정한 요일,시간에 따른 루틴 알림 기능 구현 (Scheduler를 통해 루틴 검사 후 알림 이벤트 발생)
+- 주문 상태 변경시 실시간 푸시 알림 전송
 
 ---
 
@@ -143,9 +142,9 @@ npm start
     - `IrumOrder_DB` 폴더의 SQL 스크립트를 실행해 데이터베이스 초기화.
 3. **프로퍼티 파일 수정**
     - `application.properties` 파일에서 다음 항목 수정:
-        - `spring.datasource.username`: MySQL 사용자 이름
-        - `spring.datasource.password`: MySQL 비밀번호
-        - `spring.datasource.url`: MySQL 데이터베이스 URL
+    - `spring.datasource.username`: MySQL 사용자 이름
+    - `spring.datasource.password`: MySQL 비밀번호
+    - `spring.datasource.url`: MySQL 데이터베이스 URL
 4. **IntelliJ와 데이터베이스 연결**
     - IntelliJ에서 MySQL 데이터베이스 연결 설정 완료.
 ---
@@ -154,27 +153,27 @@ npm start
 
     {
 
-   "type": "service_account",
-
-   "project_id": "irumorder",
-
-   "private_key_id": ,
-
-   "private_key": ,
-
-   "client_email": ,
-
-   "client_id": ,
-
-   "auth_uri": ,
-
-   "token_uri": ,
-
-   "auth_provider_x509_cert_url": ,
-
-   "client_x509_cert_url": ",
-
-   "universe_domain": "googleapis.com"
+       "type": "service_account",
+    
+       "project_id": "irumorder",
+    
+       "private_key_id": ,
+    
+       "private_key": ,
+    
+       "client_email": ,
+    
+       "client_id": ,
+    
+       "auth_uri": ,
+    
+       "token_uri": ,
+    
+       "auth_provider_x509_cert_url": ,
+    
+       "client_x509_cert_url": ",
+    
+       "universe_domain": "googleapis.com"
 
    }
 
