@@ -1,4 +1,4 @@
-<img width="1132" height="730" alt="Image" src="https://github.com/user-attachments/assets/4f08976d-c13c-42ce-87bd-05c4067b3c18" />
+<img width="650" height="400" alt="Image" src="https://github.com/user-attachments/assets/4f08976d-c13c-42ce-87bd-05c4067b3c18" />
 
 # IrumOrder
 
