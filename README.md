@@ -171,7 +171,7 @@ npm start
     
        "auth_provider_x509_cert_url": ,
     
-       "client_x509_cert_url": ",
+       "client_x509_cert_url": ,
     
        "universe_domain": "googleapis.com"
 
