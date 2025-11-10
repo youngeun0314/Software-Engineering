@@ -74,6 +74,7 @@ public class OrderService {
      * @param orderMenuDto 주문 메뉴 DTO
      * @return 생성된 OrderMenuEntity
      */
+    @Transactional
     private OrderMenuEntity createOrderMenuEntity(OrderEntity order, OrderMenuDto orderMenuDto) {
         OrderMenuEntity orderMenuEntity = new OrderMenuEntity();
         orderMenuEntity.setOrder(order);  // OrderEntity와 매핑
@@ -115,7 +116,7 @@ public class OrderService {
      * @param orderEntity 변환할 OrderEntity
      * @return 변환된 OrderResponseDto
      */
-    public OrderResponseDto convertToResponseDto(OrderEntity orderEntity) {
+    private OrderResponseDto convertToResponseDto(OrderEntity orderEntity) {
         OrderResponseDto responseDto = new OrderResponseDto();
         responseDto.setOrderId(orderEntity.getOrderId());
         responseDto.setUserId(orderEntity.getUserId());
@@ -198,3 +199,4 @@ public class OrderService {
         }).collect(Collectors.toList());
     }
 }
+

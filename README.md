@@ -1,10 +1,6 @@
-# Project Title
+<img width="650" height="400" alt="Image" src="https://github.com/user-attachments/assets/4f08976d-c13c-42ce-87bd-05c4067b3c18" />
 
-**IrumOrder**
-
----
-
-## Project Scope
+# ☕️ IrumOrder
 
 서울시립대학교 컴퓨터과학부 2024년 소프트웨어공학 프로젝트로, Software Development Life-Cycle을 기반으로 객체지향 소프트웨어공학 방법론을 적용하여 교내 카페 모바일 주문을 도와주는 모바일 앱 개발.
 
@@ -18,12 +14,16 @@
 
 ## Project Values/Motivations
 
-수업 전후, 점심시간 등 교내 카페에 인원이 많이 몰릴 때 효율적인 시간 관리를 위한 비대면 오더를 목표로 함.
+대학교 교내 카페에서 학생들과 교직원이 비대면으로 빠르고 편리하게 주문 및 결제할 수 있도록 지원하는 것을 목표로 합니다. 이를 통해 대기 시간을 줄이고 카페 운영의 효율성을 높이며, 사용자 맞춤형 픽업 시간 예약 기능으로 사용자 편의성을 극대화하고자 합니다. 특히 수업 시간 전, 점심시간 등 붐비는 시간에 주문과 픽업이 원활하게 이루어지도록 하여 학생들이 수업 사이 10분 간의 짧은 쉬는 시간을 보다 효율적으로 활용할 수 있도록 설계되었습니다.
 
-### 주요 기능:
-- **자유로운 픽업 시간**: 원하는 시간대를 선택하여 교내 카페의 붐비는 시간에도 픽업 예약 가능.
-- **루틴 설정 기능**: 매일 같은 메뉴를 설정하고 알림을 받을 수 있는 맞춤형 주문 기능.
+ - 원하는 시간대를 선택하여 교내 카페의 붐비는 시간에 맞춰 픽업 예약 기능
+ - 같은 메뉴를 설정하고 원하는 시간대에 비대면 오더를 할 수 있도록 알림을 받을 수 있는 맞춤형 루틴 설정 기능
 
+이러한 목표로 학생들의 카페 주문 편리성을 높은 웹앱을 개발하였습니다.
+
+- 진행 기간: 2024.09. ~ 2024.12.(4개월)
+- 팀 구성 및 담당 역할: 총 6명 (프론트엔드 3, **백엔드 3**)
+  
 ---
 
 ## Highlighted Features
@@ -34,18 +34,18 @@
 
 ---
 
-## Constraints
+## 나의 역할 및 구현 내용
 
-- 전농관 및 학관 카페와 앱을 직접 연결할 수 없어 임의로 DB를 제작하여 연동.
-- 사업자 등록이 되어있지 않아 카카오페이 API를 이용한 실제 결제를 모의 결제로 대체.
-- 시간 상의 문제로 figma ui 디자인의 회원 모드만 구현했고, 직원 모드와 관리자 모드는 구현하지 못하였다.
-- 기존 figma 디자인과 다르게 signup에서 아이디, 비밀번호, 이메일 인증을 한 페이지에서 처리한다.
-- Signup 완료 페이지를 생략하였다.
-- 루틴 목록에서 각 루틴 알림을 끄고 켤 수 있는 토글 버튼 기능을 구현하지 못하였다.
-- 기존 figma 디자인의 루틴 추가 및 수정 ui를 동일하게 구현하지 못하였다. (단, 구현된 기능은 동일하다.)
-- 예약 페이지에서 현재 시간으로 반영하여 30분 이내의 시간대는 예약을 하지 못하도록 막는 기능을 구현하지 못하였다.
-- 로그인 페이지의 '일치하는 회원 정보가 존재하지 않습니다', 결제 페이지의 '결제 과정에서 오류가 발생했습니다.' 등 오류 알림은 figma 디자인과 동일하지 않은 alert 창으로 구현하였다.
-
+- **유저의 주문 저장 및 조회**
+    - 유저가 선택한 메뉴 및 옵션을 기반으로 주문 정보 생성하고 DB에 저장
+    - 유저별, 상태별 주문 내역 필터링하여 조회 가능 (e.g. 조리완료/ 픽업완료 등)
+- **루틴 기반 알림 기능(Scheduler + Event 기반)**
+    - 사용자가 설정한 루틴(요일, 시간, 메뉴)을 기반으로 알림 스케줄 설정
+    - Spring Scheduler가 매초마다 DB의 루틴 정보 검사 후 일치하는 루틴 감지되면 알림 이벤트 발생
+    - ApplicationEventPublisher와 Firebase Cloud Messaging API를 통해 유저에게 실시간 푸시 알림 전송
+- **주문 상태 변경에 따른 실시간 푸시 알람**
+    - 직원이 주문 상태 변경시, 서버에서 FCM API 호출
+    - 상태 변경 내용이 사용자에게 실시간으로 푸시 알림으로 전달
 
 ---
 
@@ -143,40 +143,42 @@ npm start
     - `IrumOrder_DB` 폴더의 SQL 스크립트를 실행해 데이터베이스 초기화.
 3. **프로퍼티 파일 수정**
     - `application.properties` 파일에서 다음 항목 수정:
-        - `spring.datasource.username`: MySQL 사용자 이름
-        - `spring.datasource.password`: MySQL 비밀번호
-        - `spring.datasource.url`: MySQL 데이터베이스 URL
+    - `spring.datasource.username`: MySQL 사용자 이름
+    - `spring.datasource.password`: MySQL 비밀번호
+    - `spring.datasource.url`: MySQL 데이터베이스 URL
 4. **IntelliJ와 데이터베이스 연결**
     - IntelliJ에서 MySQL 데이터베이스 연결 설정 완료.
 ---
 ### Alarm기능 사용 시
 1. **/IrumOrder_Backend/src/main/resources/firebase에 serviceAccount.json 파일을 만든 후, 아래와 같은 형식으로 json 파일 저장**
 
+```json
     {
 
-   "type": "service_account",
-
-   "project_id": "irumorder",
-
-   "private_key_id": ,
-
-   "private_key": ,
-
-   "client_email": ,
-
-   "client_id": ,
-
-   "auth_uri": ,
-
-   "token_uri": ,
-
-   "auth_provider_x509_cert_url": ,
-
-   "client_x509_cert_url": ",
-
-   "universe_domain": "googleapis.com"
+       "type": "service_account",
+    
+       "project_id": "irumorder",
+    
+       "private_key_id": ,
+    
+       "private_key": ,
+    
+       "client_email": ,
+    
+       "client_id": ,
+    
+       "auth_uri": ,
+    
+       "token_uri": ,
+    
+       "auth_provider_x509_cert_url": ,
+    
+       "client_x509_cert_url": ,
+    
+       "universe_domain": "googleapis.com"
 
    }
+```
 
 2. **chrome에서 알림 기능을 킨 후 실행**
 3. **개발자모드의 콘솔창에서 "FCM Token: " 뒤의 전체 string을 복사해서 TokenEntity 데이터베이스에 저장(혹은 swagger.io에서 FcmController를 이용하여 데이터베이스에 저장)**
